@@ -13,3 +13,7 @@ Repo con npx create-react-app
 Trabajas los componentes de las paginas por separado
 
 Prittier : archivo .prettierrc
+
+"react-router-dom": "^5.2.0", -> Esta version se labura con el Switch 
+
+"react-select": "^5.7.0", -> esta libreria de react esta muy buena para los selects (ver docu!!)
