@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link as ReachLink } from 'react-router-dom';
 import {
   Box,
-  Link,
   Flex,
   Image,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
+  Link,
 } from '@chakra-ui/react';
 
 const Navbar = () => {
@@ -18,13 +19,13 @@ const Navbar = () => {
           <Image src="/images/verdevolverimage.png" />
         </Box>
         <Box fontWeight={'700'} fontSize="1.5em">
-          <Link to="/map" color="green" mr={5}>
+          <Link as={ReachLink} to="/map" color="green" mr={5}>
             Mapa
           </Link>
-          <Link to="/login" color="green" mr={5}>
+          <Link as={ReachLink} to="/login" color="green" mr={5}>
             SerVdV
           </Link>
-          <Link to="/entities" color="green" mr={5}>
+          <Link as={ReachLink} to="/entities" color="green" mr={5}>
             VdVs
           </Link>
           <Menu>
@@ -32,11 +33,16 @@ const Navbar = () => {
               Contactanos
             </MenuButton>
             <MenuList>
-              <MenuItem as={Link} to="/about" fontWeight={'700'} color="green">
+              <MenuItem
+                as={ReachLink}
+                to="/about"
+                fontWeight={'700'}
+                color="green"
+              >
                 Quienes somos
               </MenuItem>
               <MenuItem
-                as={Link}
+                as={ReachLink}
                 to="/contact"
                 fontWeight={'700'}
                 color="green"
