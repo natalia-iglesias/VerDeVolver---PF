@@ -1,3 +1,4 @@
+const express = require('express')
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
@@ -28,8 +29,6 @@ server.use((req, res, next) => {
 });
 
 // middlewares para las rutas
-server.use(); // ingresar path + variable con la ruta importada
-server.use(); // ingresar path + variable con la rita importada
 
 // Error catching endware.
 server.use((err, req, res, next) => {

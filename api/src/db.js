@@ -6,7 +6,7 @@ require("dotenv").config();
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/countries`,
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/verdevolver`,
   {
     logging: false, // establecer en console.log para ver las consultas SQL sin procesar
     native: false, // permite que Sequelize sepa que podemos usar pg-native para ~30% más de velocidad
@@ -44,7 +44,10 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un (destructuring)
 
-const {} = sequelize.models;
+const {Donations, Feedback, Materials, Roles, Service, Users, VdV} = sequelize.models;
+console.log(sequelize.models)
+
+
 
 // Aca vendrian las relaciones : EJEMPLO
 // Country.belongsToMany(Activity, { through: 'Activities_Countries' });
