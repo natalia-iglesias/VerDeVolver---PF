@@ -11,10 +11,12 @@ import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Navbar from './Components/NavBar';
 
 const App = () => {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/home" element={<Home />} />
