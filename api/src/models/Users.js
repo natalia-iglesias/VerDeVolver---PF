@@ -3,30 +3,32 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('User', {
-    id :{
-       type: DataTypes.UUID,
-       allowNull: false,
-       unique: true,
-       defaultValue: DataTypes.UUIDV4,
-       primaryKey: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    mail:{
+  sequelize.define(
+    'User',
+    {
+      id: {
+        // MAIL
+        type: DataTypes.STRING, // buscra regex
+        allowNull: false,
+        unique: true,
+        primaryKey: true,
+      },
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
-
+      },
+      last_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [8, 20],
+        },
+      },
     },
-    password:{
-        type: DataTypes.STRING, // jkbgqowbgq    ---> cliente --> "2kk@@@"
-        allowNull:false,
-        unique: true
-    }
-   
-  });
+    { timestamp: false }
+  );
 };

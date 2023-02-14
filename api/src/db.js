@@ -1,8 +1,8 @@
-const { Sequelize } = require("sequelize");
-const fs = require("fs");
-const path = require("path");
+const { Sequelize } = require('sequelize');
+const fs = require('fs');
+const path = require('path');
 
-require("dotenv").config();
+require('dotenv').config();
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(
@@ -18,13 +18,13 @@ const basename = path.basename(__filename);
 const modelDefiners = [];
 
 // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
-fs.readdirSync(path.join(__dirname, "/models"))
+fs.readdirSync(path.join(__dirname, '/models'))
   .filter(
     (file) =>
-      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
+      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
   )
   .forEach((file) => {
-    modelDefiners.push(require(path.join(__dirname, "/models", file)));
+    modelDefiners.push(require(path.join(__dirname, '/models', file)));
   });
 
 // Injectamos la conexion (sequelize) a todos los modelos
@@ -44,14 +44,38 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un (destructuring)
 
-const {Donations, Feedback, Materials, Roles, Service, Users, VdV} = sequelize.models;
-console.log(sequelize.models)
+console.log('models:', sequelize.models);
 
+const { Donation, Feedback, Material, Role, Service, User, VdV } =
+  sequelize.models;
 
+/*
+ */
+
+User.belongsToMany(VdV, { through: Donation }); // valroes : id (autoincremental) y monto --> Id usuario y el id de la entidad
+VdV.belongsToMany(User, { through: Donation });
+
+User.belongsToMany(VdV, { through: Feedback }); // Valores :
+VdV.belongsToMany(User, { through: Feedback });
+
+User.belongsToMany(VdV, { through: Service });
+VdV.belongsToMany(User, { through: Service });
+
+// Usuario a roll -> no se crea una tabal intermedia
+User.belongsTo(Role); // 1 User pertenece a un roll
+Role.hasMany(User); // 1 roll puede tener muchos usuarios
+
+// Vdv con materiales -> Tabala intermedia
+Material.belongsToMany(VdV, { through: 'Material_VdV' });
+VdV.belongsToMany(Material, { through: 'Material_VdV' });
+
+// hasmany / hasone
 
 // Aca vendrian las relaciones : EJEMPLO
 // Country.belongsToMany(Activity, { through: 'Activities_Countries' });
 // Activity.belongsToMany(Country, { through: 'Activities_Countries' });
+
+//
 
 // hasMany : tiene muchos
 // belongs to : pertenece a
