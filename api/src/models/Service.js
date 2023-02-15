@@ -6,16 +6,16 @@ module.exports = (sequelize) => {
   sequelize.define('Service', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
+      autoIncrement: true,
     },
     amount: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    },
-    addres: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: 1500,
     },
   });
 };
+
+// Ver como acceder a la address y al idUser del user por el localStorage
+// EL id de VDV , ponemos el valor de id de la vdv en el select

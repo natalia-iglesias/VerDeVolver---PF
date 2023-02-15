@@ -58,7 +58,7 @@ VdV.belongsToMany(User, { through: Donation });
 User.belongsToMany(VdV, { through: Feedback }); // Valores :
 VdV.belongsToMany(User, { through: Feedback });
 
-User.belongsToMany(VdV, { through: Service });
+User.belongsToMany(VdV, { through: Service }); // id la contratacion del seervicio // IdEnt . IdUser
 VdV.belongsToMany(User, { through: Service });
 
 // Usuario a roll -> no se crea una tabal intermedia

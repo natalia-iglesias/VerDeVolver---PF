@@ -6,13 +6,14 @@ module.exports = (sequelize) => {
   sequelize.define('Feedback', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
+      autoIncrement: true,
     },
-    Comment: {
-      type: DataTypes.STRING,
+    comment: {
+      type: DataTypes.TEXT, // se recibe mas caracteres y le poemos poner por parentesis el numero que queriamos
     },
     rating: {
+      // puntuacion
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -23,3 +24,6 @@ module.exports = (sequelize) => {
     },
   });
 };
+
+// como obtener el id del usuario registrado -> LocalStorage -> redux
+// como pbtener el id de la entidad -> podriamos obtenerlo por paramans (path /detalle/:id)

@@ -1,18 +1,18 @@
 const { Router } = require('express');
-const { User } = require('../db.js');
+const { User } = require('../../db.js');
 
 const router = Router();
-console.log('hola');
 
-router.post('/User', async (req, res) => {
+router.post('/', async (req, res) => {
   const data = req.body;
-  console.log(body);
+  console.log(data);
   try {
     const newUser = await User.create({
-      id: data.mail,
       name: data.name,
       last_name: data.last_name,
+      mail: data.mail,
       password: data.password,
+      address: data.address,
     });
     res.status(200).send(newUser);
   } catch (error) {

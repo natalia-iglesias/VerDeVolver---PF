@@ -7,11 +7,9 @@ module.exports = (sequelize) => {
     'User',
     {
       id: {
-        // MAIL
-        type: DataTypes.STRING, // buscra regex
-        allowNull: false,
-        unique: true,
+        type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
       },
       name: {
         type: DataTypes.STRING,
@@ -21,12 +19,25 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      mail: {
+        type: DataTypes.STRING, // buscra regex
+        allowNull: false,
+        unique: true,
+      },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          len: [8, 20],
-        },
+        // validate: {
+        //   len: [8, 20],
+        // },
+      },
+      address: {
+        type: DataTypes.STRING, // buscra regex
+        allowNull: false,
+      },
+      role: {
+        type: DataTypes.ENUM('User', 'Owner', 'Admin'),
+        defaultValue: 'User',
       },
     },
     { timestamp: false }

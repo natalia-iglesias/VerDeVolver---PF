@@ -1,9 +1,9 @@
 const { Router } = require('express');
-const { Donation } = require('../db.js');
+const { Donation } = require('../../db.js');
 
 const router = Router();
 
-router.post('/Donation', async (req, res) => {
+router.post('/', async (req, res) => {
   const data = req.body;
   try {
     const newDonation = await Donation.create({
