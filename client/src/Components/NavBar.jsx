@@ -13,12 +13,12 @@ import {
 
 const Navbar = () => {
   return (
-    <Box bg="white" p={8}>
-      <Flex justifyContent="space-between">
-        <Box boxSize="10em">
-          <Image src="/images/verdevolverimage.png" />
+    <Box bg="#F5F2EB" p={3}>
+      <Flex justifyContent={'center'} mb={'3rem'}>
+        <Box boxSize="8em" position={'absolute'} top="-10" left={0}>
+          <Image boxSize="190px" objectFit="cover" src="/images/logo.png" />
         </Box>
-        <Box fontWeight={'700'} fontSize="1.5em">
+        <Box fontWeight={'700'} fontSize="1.5em" mt={'2%'}>
           <Link as={ReachLink} to="/map" color="green" mr={5}>
             Mapa
           </Link>
@@ -52,7 +52,7 @@ const Navbar = () => {
             </MenuList>
           </Menu>
         </Box>
-        <Box boxSize="150px">
+        <Box boxSize="120px" position={'absolute'} top="1" right={0}>
           <Image borderRadius="full" src="/images/mundoverde.png" />
         </Box>
       </Flex>
