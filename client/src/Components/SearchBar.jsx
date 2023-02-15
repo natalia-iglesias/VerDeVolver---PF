@@ -35,31 +35,36 @@ const SearchBar = () => {
   return (
     <InputGroup m={'4'}>
       <Input
-        placeholder="Escribe el nombre de la entidad VdV"
+        placeholder="Entidad VdV"
         type="text"
         value={entityName}
         onChange={handleInputChange}
+        width="800"
       />
 
       <Select
         placeholder="Selecciona un material"
+        width="-moz-fit-content"
         onChange={handleMaterialChange}
       >
         {materials.map((element, i) => (
           <option key={i}>{element}</option>
         ))}
       </Select>
-      <Select placeholder="Puntuación" onChange={handleRankingChange}>
+      <Select
+        placeholder="Puntuación"
+        onChange={handleRankingChange}
+        width="-moz-fit-content"
+      >
         <option>Ascendente</option>
         <option>Descendente</option>
       </Select>
-      <InputRightElement>
-        <IconButton
-          colorScheme={'green'}
-          icon={<SearchIcon />}
-          onClick={onClickHandler}
-        />
-      </InputRightElement>
+
+      <IconButton
+        colorScheme={'green'}
+        icon={<SearchIcon />}
+        onClick={onClickHandler}
+      />
     </InputGroup>
   );
 };
