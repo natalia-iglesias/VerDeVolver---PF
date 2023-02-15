@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import Map from './pages/Map';
 import Service from './pages/Service';
 import Entities from './pages/Entities';
-import EntitieDetail from './pages/EntitieDetail';
+import EntitieDetail from '../src/pages/EntitieDetail';
 import SingUpEntitie from './pages/SingUpEntitie';
 import LogIn from './pages/LogIn';
 import Profile from './pages/Profile';
