@@ -23,6 +23,7 @@ const router = Router();
 
 //ESTE ES EL BULKCREATE NO LO BORREN
 router.post('/chargeDb', async (req, res) => {
+  // /donations/chargeDb
   try {
     const chargeDonationsDb = await chargeDbDonation();
     res.status(200).send(chargeDonationsDb);
@@ -32,6 +33,7 @@ router.post('/chargeDb', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
+  // /donations
   try {
     const allDonations = await Donation.findAll();
     res.status(200).send(allDonations);
@@ -39,6 +41,5 @@ router.get('/', async (req, res) => {
     res.status(404).send(error.message);
   }
 });
-
 
 module.exports = router;
