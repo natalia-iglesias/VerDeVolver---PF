@@ -1,8 +1,7 @@
 import { materials } from '../db.json';
 import { fetchEntities } from '../redux/actions/entitiesActions';
 import { useDispatch } from 'react-redux';
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { IconButton, Input, InputGroup, Select } from '@chakra-ui/react';
 
@@ -12,6 +11,9 @@ const SearchBar = () => {
   const [rankingSort, setRankingSort] = useState('-1');
 
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchEntities(entityName, materialFilter, rankingSort));
+  }, [dispatch]);
 
   const handleInputChange = (ev) => {
     setEntityName(ev.target.value);
