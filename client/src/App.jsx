@@ -12,6 +12,7 @@ import Dashboard from './pages/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Navbar from './Components/NavBar';
+import SingUp from './pages/SingUp';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/entitie/:id" element={<EntitieDetail />} />
         <Route path="/beVdV" element={<SingUpEntitie />} />
         <Route path="/login" element={<LogIn />} />
+        <Route path="/singup" element={<SingUp />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
