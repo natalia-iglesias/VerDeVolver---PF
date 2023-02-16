@@ -13,10 +13,10 @@ import {
 
 const Navbar = () => {
   return (
-    <Box bg="#F5F2EB" p={3}>
+    <Box bg="#F5F2EB">
       <Flex justifyContent={'center'} mb={'3rem'}>
-        <Box boxSize="8em" position={'absolute'} top="-10" left={0}>
-          <Image boxSize="190px" objectFit="cover" src="/images/logo.png" />
+        <Box boxSize="10em" position={'absolute'} top="-10" left={0}>
+          <Image boxSize="170px" objectFit="cover" src="/images/logo.png" />
         </Box>
         <Box fontWeight={'700'} fontSize="1.5em" mt={'2%'}>
           <Link as={ReachLink} to="/map" color="green" mr={5}>
@@ -52,8 +52,31 @@ const Navbar = () => {
             </MenuList>
           </Menu>
         </Box>
-        <Box boxSize="120px" position={'absolute'} top="1" right={0}>
-          <Image borderRadius="full" src="/images/mundoverde.png" />
+        <Box boxSize="50px" position={'absolute'} top="2" right={2}>
+          <Menu>
+            <MenuButton>
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/1361/1361728.png"
+                alt="Perfil"
+              />
+            </MenuButton>
+            <MenuList>
+              <MenuItem
+                as={ReachLink}
+                to="/profileentitie"
+                fontWeight={'700'}
+                color="green"
+              >
+                Mi perfil
+              </MenuItem>
+              <MenuItem as={ReachLink} to="/" fontWeight={'700'} color="green">
+                Configuracion
+              </MenuItem>
+              <MenuItem as={ReachLink} to="/" fontWeight={'700'} color="green">
+                Cerrar Seción
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </Box>
       </Flex>
     </Box>

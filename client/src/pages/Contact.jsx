@@ -17,8 +17,17 @@ const Contact = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Aca podemos hacer algo con los valores ingresados, como enviarlos a un servidor
-    console.log(nombre, email, descripcion);
+    if (!nombre) {
+      alert('Por favor ingresa tu nombre.');
+    } else if (!email) {
+      alert('Por favor ingresa tu correo electrónico.');
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      alert('Por favor ingresa un correo electrónico válido.');
+    } else if (descripcion.length < 20) {
+      alert('La descripción debe tener al menos 20 caracteres.');
+    } else {
+      console.log(nombre, email, descripcion);
+    }
   };
 
   return (
@@ -29,9 +38,10 @@ const Contact = () => {
         </Box>
         <Flex w="100%" justifyContent="space-between">
           <FormControl
+            isRequired
             pb={'2%'}
             mr={'5%'}
-            border={'2px'}
+            border={'4px'}
             borderRadius={'6px'}
             borderColor="green"
             pr={'5%'}
@@ -52,8 +62,9 @@ const Contact = () => {
             />
           </FormControl>
           <FormControl
+            isRequired
             ml={'5%'}
-            border={'2px'}
+            border={'4px'}
             borderRadius={'6px'}
             borderColor="green"
             pr={'5%'}
@@ -77,10 +88,11 @@ const Contact = () => {
           </FormControl>
         </Flex>
         <FormControl
+          isRequired
           pb={'2%'}
           pr={'5%'}
           pl={'5%'}
-          border={'2px'}
+          border={'4px'}
           borderRadius={'6px'}
           borderColor="green"
           id="descripcion"
