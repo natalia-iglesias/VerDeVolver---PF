@@ -5,6 +5,7 @@ const router = Router();
 
 router.post('/', async (req, res) => {
   const data = req.body;
+  const { materials } = req.body;
   try {
     const newVdV = await VdV.create({
       name: data.name,
@@ -15,6 +16,8 @@ router.post('/', async (req, res) => {
       description: data.description,
       CBU: data.CBU,
     });
+
+    await newVdV.addMaterials(materials);
     res.status(200).send(newVdV);
   } catch (error) {
     res.status(400).send(error.message);

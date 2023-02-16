@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { Donation } = require('../../db.js');
+const { Service } = require('../../db.js');
 
 const router = Router();
 
@@ -8,13 +8,13 @@ router.post('/', async (req, res) => {
   console.log('userId', UserId, typeof UserId);
   console.log('vdvId', VdVId, typeof VdVId);
   try {
-    const newDonation = await Donation.create({
+    const newFeedback = await Service.create({
       amount,
       UserId,
       VdVId,
     });
 
-    res.status(200).send(newDonation);
+    res.status(200).send(newFeedback);
   } catch (error) {
     res.status(404).send(error.message);
   }

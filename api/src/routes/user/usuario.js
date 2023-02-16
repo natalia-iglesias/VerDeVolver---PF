@@ -1,11 +1,13 @@
 const { Router } = require('express');
-const { User } = require('../../db.js');
+const { User, Role } = require('../../db.js');
 
 const router = Router();
 
 router.post('/', async (req, res) => {
+  const role = await Role.findByPk(1);
+  console.log('role:', role);
   const data = req.body;
-  console.log(data);
+  console.log('data', data);
   try {
     const newUser = await User.create({
       name: data.name,
@@ -13,6 +15,7 @@ router.post('/', async (req, res) => {
       mail: data.mail,
       password: data.password,
       address: data.address,
+      RoleId: role.id,
     });
     res.status(200).send(newUser);
   } catch (error) {

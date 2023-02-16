@@ -54,6 +54,6 @@ module.exports = (sequelize) => {
         defaultValue: 'Active', // 'Pending' // Admin lo rechaza se elimina el registro
       },
     },
-    { timestamp: false }
+    { timestamps: false }
   );
 };
