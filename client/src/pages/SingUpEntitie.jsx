@@ -1,3 +1,5 @@
+import { materials } from '../db.json';
+
 import {
   FormControl,
   FormLabel,
@@ -7,11 +9,26 @@ import {
   Radio,
   HStack,
   FormHelperText,
+  Textarea,
+  Button,
+  GridItem,
+  Grid,
 } from '@chakra-ui/react';
 
 const SingUpEntitie = () => {
+  // const [form, setForm] = useState({
+  //   name: '',
+  //   email: '',
+  //   adress: '',
+  //   image: '',
+  //   cbu: '',
+  //   alias: '',
+  //   material: [],
+  //   description: '',
+  // });
+
   return (
-    <FormControl>
+    <FormControl isRequired>
       <FormLabel>Nombre</FormLabel>
       <Input type="name" />
       <FormLabel>Email</FormLabel>
@@ -20,28 +37,35 @@ const SingUpEntitie = () => {
       <Input type="adress" />
       <FormLabel>Imagen</FormLabel>
       <Input type="image" />
-      <FormLabel>CBU</FormLabel>
+      <FormLabel requiredIndicator>CBU</FormLabel>
       <Input type="cbu" />
       <FormHelperText>
         Completa este campo si estás de acuerdo en recibir donaciones.
       </FormHelperText>
-      <FormLabel>Alias</FormLabel>
+      <FormLabel requiredIndicator>Alias</FormLabel>
       <Input type="alias" />
-      <FormHelperText>
-        Completa este campo si estás de acuerdo en recibir donaciones.
-      </FormHelperText>
-      <FormLabel as="legend">Materiales Reciclables</FormLabel>
-      <RadioGroup defaultValue="Itachi">
-        <HStack spacing="24px">
-          <Radio value="Sasuke">Sasuke</Radio>
-          <Radio value="Nagato">Nagato</Radio>
-          <Radio value="Itachi">Itachi</Radio>
-          <Radio value="Sage of the six Paths">Sage of the six Paths</Radio>
+      <FormLabel>Materiales Reciclables</FormLabel>
+      <RadioGroup defaultValue="Paper">
+        <HStack>
+          <Grid templateColumns="repeat(4, 7fr)" gap={6}>
+            {materials?.map((m, i) => (
+              <GridItem key={i} w="100%" h="10" width={'auto'}>
+                <Radio key={i} colorScheme="green">
+                  {m}
+                </Radio>
+              </GridItem>
+            ))}
+          </Grid>
         </HStack>
       </RadioGroup>
       <FormHelperText>
-        Selecciona únicamente los materiales que puedes recibir.
+        Selecciona únicamente los materiales que recibirás.
       </FormHelperText>
+      <FormLabel>Descripción</FormLabel>
+      <Textarea placeholder="Ingresa una descripción..." />
+      <Button colorScheme="green" type="submit">
+        Enviar
+      </Button>
     </FormControl>
   );
 };
