@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const express = require('express');
+// const express = require('express');
 
 const router = Router();
 
@@ -9,7 +9,7 @@ const donationMiddle = require('./donation/donations.js');
 const feedbackMiddle = require('./feedback/feedback.js');
 const serviceMiddle = require('./service/service.js');
 
-router.use(express.json());
+// router.use(express.json());
 
 router.use('/user', userMiddle);
 router.use('/vdv', vdvMiddle);
