@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex, Heading } from '@chakra-ui/react';
 import TabListPosts from '../Components/TabListPosts';
-import DashboardScroll from '../Components/DashboardScroll';
+import OverflowScroll from '../Components/OverflowScroll';
 import DashboardRequest from '../Components/DashboardRequest';
 
 const Dashboard = () => {
@@ -11,7 +11,7 @@ const Dashboard = () => {
         <Heading align="center" m="3vh">
           Reseñas
         </Heading>
-        <DashboardScroll type="comment" />
+        <OverflowScroll type="comment" />
         <Heading align="center" m="3vh">
           Posts
         </Heading>
@@ -25,11 +25,11 @@ const Dashboard = () => {
         <Heading align="center" m="3vh">
           Donaciones
         </Heading>
-        <DashboardScroll type="donation" />
+        <OverflowScroll type="donation" />
         <Heading align="center" m="3vh">
           Servicios
         </Heading>
-        <DashboardScroll type="services" />
+        <OverflowScroll type="services" />
       </Flex>
     </Flex>
   );
