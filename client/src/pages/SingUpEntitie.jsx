@@ -5,7 +5,7 @@ import {
   FormControl,
   FormLabel,
   Input,
-  // FormErrorMessage,
+  FormErrorMessage,
   RadioGroup,
   Radio,
   HStack,
@@ -26,10 +26,8 @@ const SingUpEntitie = () => {
     materials: [],
     description: '',
   });
-  // const [materials, setMaterials] =useState([])
 
   const handlerChange = (e) => {
-    console.log('e::', e);
     let keyValue;
     if (typeof e === 'string') {
       keyValue = { ['materials']: [...form.materials, e] };
@@ -40,19 +38,33 @@ const SingUpEntitie = () => {
 
     setForm({ ...form, ...keyValue });
   };
-  console.log(form);
+  const isError = form.email === '';
 
   const handlerSubmit = (event) => {
     event.preventDefault();
-    console.log('submit');
   };
 
   return (
-    <FormControl margin="3%" isRequired onSubmit={handlerSubmit}>
+    <FormControl
+      margin="3%"
+      isRequired
+      onSubmit={handlerSubmit}
+      isInvalid={isError}
+    >
       <FormLabel>Nombre</FormLabel>
       <Input name="name" onChange={handlerChange} type="text" />
       <FormLabel>Email</FormLabel>
-      <Input name="email" onChange={handlerChange} type="email" />
+      <Input
+        name="email"
+        onChange={handlerChange}
+        type="email"
+        value={form.email}
+      />
+      {!isError ? (
+        <FormHelperText>Ingresa tu email.</FormHelperText>
+      ) : (
+        <FormErrorMessage>El email es requerido.</FormErrorMessage>
+      )}
       <FormLabel>Dirección</FormLabel>
       <Input name="adress" onChange={handlerChange} type="text" />
       <FormLabel>Imagen</FormLabel>
