@@ -23,7 +23,6 @@ const SingUpEntitie = () => {
     adress: '',
     imageCloud: '',
     cbu: '',
-    alias: '',
     materials: [],
     description: '',
   });
@@ -60,8 +59,6 @@ const SingUpEntitie = () => {
       <Input name="image" onChange={handlerChange} type="text" />
       <FormLabel requiredIndicator>CBU</FormLabel>
       <Input name="cbu" onChange={handlerChange} type="number" />
-      <FormLabel requiredIndicator>Alias</FormLabel>
-      <Input name="alias" onChange={handlerChange} type="text" />
       <FormLabel>Materiales Reciclables</FormLabel>
       <RadioGroup name="materials" onChange={handlerChange}>
         <HStack>
