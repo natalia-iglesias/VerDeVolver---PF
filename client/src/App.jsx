@@ -12,9 +12,18 @@ import Dashboard from './pages/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Navbar from './Components/NavBar';
+import SingUp from './pages/SingUp';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchEntities } from './redux/actions/entitiesActions';
 import SingUp from './Components/SingUp';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchEntities());
+  }, []);
   return (
     <BrowserRouter>
       <Navbar />
