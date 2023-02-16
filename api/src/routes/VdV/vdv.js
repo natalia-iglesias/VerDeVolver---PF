@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { chargeDbVdVs} = require('./controllers.js');
 const { VdV } = require('../../db.js');
 
 const router = Router();
@@ -21,6 +22,25 @@ router.post('/', async (req, res) => {
     res.status(200).send(newVdV);
   } catch (error) {
     res.status(400).send(error.message);
+  }
+});
+
+//NO BORREN. ESTE ES EL BULKCREATE PARA CARGAR LA BASE DE DATOS
+router.post('/chargeDb', async (req, res) => {
+  try {
+    const chargeVdvsDb = await chargeDbVdVs();
+    res.status(200).send(chargeVdvsDb);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+router.get('/', async (req, res) => {
+  try {
+    const allVdvs = await VdV.findAll();
+    res.status(200).send(allVdvs);
+  } catch (error) {
+    res.status(404).send(error.message);
   }
 });
 
