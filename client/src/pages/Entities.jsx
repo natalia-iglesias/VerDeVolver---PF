@@ -6,7 +6,7 @@ import PropagateLoader from 'react-spinners/PropagateLoader';
 import AsideFilters from '../components/AsideFilters';
 
 const Entities = () => {
-  const entities = useSelector((state) => state.entitiesReducer.entities);
+  const { entities } = useSelector((state) => state.entitiesReducer);
 
   return (
     <VStack>
