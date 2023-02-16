@@ -1,5 +1,6 @@
 const { Role, User } = require('../../db.js');
 
+//ESTE ES EL BULKCREATE NO LO BORREN
 async function chargeDbUsers() {
   const role = await Role.findByPk(1);
   console.log('role.id:', role.id);

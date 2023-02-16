@@ -1,7 +1,29 @@
 const { Router } = require('express');
-const { createService, getByUserId, getByVdVId } = require('./controllers.js');
+const { Service } = require('../../db.js');
+const { createService, getByUserId, getByVdVId, chargeDbServices } = require('./controllers.js');
 
 const router = Router();
+
+
+//ESTE ES EL BULKCREATE NO LO BORREN
+router.post('/chargeDb', async (req, res) => {
+  try {
+    const chargeServicesDb = await chargeDbServices();
+    res.status(200).send(chargeServicesDb);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+router.get('/', async (req, res) => {
+  try {
+    const allServices = await Service.findAll();
+    res.status(200).send(allServices);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
 
 router.post('/', async (req, res) => {
   try {

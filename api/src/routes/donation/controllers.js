@@ -1,5 +1,6 @@
 const { Donation } = require('../../db.js');
 
+//ESTE ES EL BULKCREATE NO LO BORREN
 async function chargeDbDonation() {
 
   const bulkCreateDonations = await Donation.bulkCreate([
