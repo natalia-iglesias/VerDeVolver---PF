@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       address: {
-        // Ver que necesita maps para que almacenemos aca // Logitud y latitud: Cordenadas Maps
+        // Esto va a ser "Longitud" y "Latitud"
         type: DataTypes.STRING,
         allowNull: false,
       },

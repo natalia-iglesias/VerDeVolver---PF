@@ -50,7 +50,7 @@ const { Donation, Feedback, Material, Role, Service, User, VdV } =
   sequelize.models;
 
 // Relacion Usuario -> Feedback -> VdV
-User.hasMany(Feedback);
+User.hasMany(Feedback); // comentario y puntuacion
 Feedback.belongsTo(User);
 
 VdV.hasMany(Feedback);
@@ -79,6 +79,14 @@ Material.belongsToMany(VdV, { through: 'Material_VdV' });
 VdV.belongsToMany(Material, { through: 'Material_VdV' });
 
 // RELACION DE MUCHOS A MUCHOS -> ANALZAR POR QUE NO ME DEJABA REPETIR EL REGISTRO
+/*
+Material.belongsToMany(VdV, { through: Donation });
+VdV.belongsToMany(Material, { through: Donation });
+Material.belongsToMany(VdV, { through: Feedback });
+VdV.belongsToMany(Material, { through: Feedback });
+Material.belongsToMany(VdV, { through: Service });
+VdV.belongsToMany(Material, { through: Service });
+*/
 
 module.exports = {
   ...sequelize.models,

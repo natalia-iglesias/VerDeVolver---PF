@@ -12,7 +12,6 @@ module.exports = (sequelize) => {
     amount: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      unique: false,
     },
     status: {
       type: DataTypes.ENUM('Delivered', 'Pending'),
