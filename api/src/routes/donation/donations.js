@@ -22,25 +22,6 @@ const router = Router();
 }); */
 
 //ESTE ES EL BULKCREATE NO LO BORREN
-router.post('/', async (req, res) => {
-  const { amount, UserId, VdVId } = req.body;
-  console.log('userId', UserId, typeof UserId);
-  console.log('vdvId', VdVId, typeof VdVId);
-  try {
-    const chargeDb = await Donation.bulkCreate([
-        {
-        amount: "",
-        UserId: "",
-        VdVId: "",
-        }
-    ]);
-
-    res.status(200).send(chargeDb);
-  } catch (error) {
-    res.status(404).send(error.message);
-  }
-});
-
 router.post('/chargeDb', async (req, res) => {
   try {
     const chargeDonationsDb = await chargeDbDonation();
