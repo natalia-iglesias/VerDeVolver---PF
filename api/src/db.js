@@ -49,17 +49,26 @@ console.log('models:', sequelize.models);
 const { Donation, Feedback, Material, Role, Service, User, VdV } =
   sequelize.models;
 
-/*
- */
+// Relacion Usuario -> Feedback -> VdV
+User.hasMany(Feedback); // comentario y puntuacion
+Feedback.belongsTo(User);
 
-User.belongsToMany(VdV, { through: Donation }); // valroes : id (autoincremental) y monto --> Id usuario y el id de la entidad
-VdV.belongsToMany(User, { through: Donation });
+VdV.hasMany(Feedback);
+Feedback.belongsTo(VdV);
 
-User.belongsToMany(VdV, { through: Feedback }); // Valores :
-VdV.belongsToMany(User, { through: Feedback });
+// Relacion Usuario -> Donacion -> VdV
+User.hasMany(Donation);
+Donation.belongsTo(User);
 
-User.belongsToMany(VdV, { through: Service }); // id la contratacion del seervicio // IdEnt . IdUser
-VdV.belongsToMany(User, { through: Service });
+VdV.hasMany(Donation);
+Donation.belongsTo(VdV);
+
+// Relacion Usuario -> Servicio -> VdV
+User.hasMany(Service);
+Service.belongsTo(User);
+
+VdV.hasMany(Service);
+Service.belongsTo(VdV);
 
 // Usuario a roll -> no se crea una tabal intermedia
 User.belongsTo(Role); // 1 User pertenece a un roll
@@ -69,18 +78,17 @@ Role.hasMany(User); // 1 roll puede tener muchos usuarios
 Material.belongsToMany(VdV, { through: 'Material_VdV' });
 VdV.belongsToMany(Material, { through: 'Material_VdV' });
 
-// hasmany / hasone
-
-// Aca vendrian las relaciones : EJEMPLO
-// Country.belongsToMany(Activity, { through: 'Activities_Countries' });
-// Activity.belongsToMany(Country, { through: 'Activities_Countries' });
-
-//
-
-// hasMany : tiene muchos
-// belongs to : pertenece a
+// RELACION DE MUCHOS A MUCHOS -> ANALZAR POR QUE NO ME DEJABA REPETIR EL REGISTRO
+/*
+Material.belongsToMany(VdV, { through: Donation });
+VdV.belongsToMany(Material, { through: Donation });
+Material.belongsToMany(VdV, { through: Feedback });
+VdV.belongsToMany(Material, { through: Feedback });
+Material.belongsToMany(VdV, { through: Service });
+VdV.belongsToMany(Material, { through: Service });
+*/
 
 module.exports = {
-  ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
-  conn: sequelize, // para importart la conexión { conn } = require('./db.js');
+  ...sequelize.models,
+  conn: sequelize,
 };

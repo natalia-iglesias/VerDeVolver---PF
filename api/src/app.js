@@ -32,59 +32,6 @@ server.use((req, res, next) => {
 // middlewares para las rutas
 server.use('/', routes);
 
-// server.get('/', (req, res) => {
-//   try {
-//     res.status(200).send('funciona');
-//   } catch (error) {
-//     res.status(404).send(error);
-//   }
-// });
-
-// server.post('/user', async (req, res) => {
-//   const data = req.body;
-//   try {
-//     const newUser = await User.create({
-//       id: data.mail,
-//       name: data.name,
-//       last_name: data.last_name,
-//       password: data.password,
-//     });
-//     res.status(200).send(newUser);
-//   } catch (error) {
-//     res.status(400).send(error.message);
-//   }
-// });
-
-// server.post('/vdv', async (req, res) => {
-//   const data = req.body;
-//   try {
-//     const newVdV = await VdV.create({
-//       id: data.mail,
-//       name: data.name,
-//       password: data.password,
-//       CBU: data.CBU,
-//       addres: data.addres,
-//       img: data.img,
-//       description: data.description,
-//     });
-//     res.status(200).send(newVdV);
-//   } catch (error) {
-//     res.status(400).send(error.message);
-//   }
-// });
-
-// server.post('/donation', async (req, res) => {
-//   const data = req.body;
-//   try {
-//     const newDonation = await Donation.create({
-//       amount: data.amount,
-//     });
-//     res.status(200).send(newDonation);
-//   } catch (error) {
-//     res.status(404).send(error.message);
-//   }
-// });
-
 // Error catching endware.
 server.use((err, req, res, next) => {
   // eslint-disable-line no-unused-vars
