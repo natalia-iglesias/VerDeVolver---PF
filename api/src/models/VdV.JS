@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       address: {
-        // Ver que necesita maps para que almacenemos aca // Logitud y latitud: Cordenadas Maps
+        // Esto va a ser "Longitud" y "Latitud"
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -54,6 +54,6 @@ module.exports = (sequelize) => {
         defaultValue: 'Active', // 'Pending' // Admin lo rechaza se elimina el registro
       },
     },
-    { timestamp: false }
+    { timestamps: false }
   );
 };

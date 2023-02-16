@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
       autoIncrement: true,
     },
     comment: {
-      type: DataTypes.TEXT, // se recibe mas caracteres y le poemos poner por parentesis el numero que queriamos
+      type: DataTypes.STRING, // se recibe mas caracteres y le poemos poner por parentesis el numero que queriamos
     },
     rating: {
       // puntuacion

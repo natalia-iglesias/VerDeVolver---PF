@@ -17,8 +17,8 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM('Delivered', 'Pending'),
       defaultValue: 'Pending',
     },
-
-    // como obtener el id del usuario registrado -> LocalStorage -> redux
-    // como pbtener el id de la entidad -> podriamos obtenerlo por paramans (path /detalle/:id)
   });
 };
+
+// como obtener el id del usuario registrado -> LocalStorage -> redux
+// como pbtener el id de la entidad -> podriamos obtenerlo por paramans (path /detalle/:id)

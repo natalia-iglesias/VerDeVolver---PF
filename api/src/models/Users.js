@@ -31,15 +31,12 @@ module.exports = (sequelize) => {
         //   len: [8, 20],
         // },
       },
+      // Esto va a ser "Longitud" y "Latitud" -> GMaps || address -> ver Front
       address: {
         type: DataTypes.STRING, // buscra regex
         allowNull: false,
       },
-      role: {
-        type: DataTypes.ENUM('User', 'Owner', 'Admin'),
-        defaultValue: 'User',
-      },
     },
-    { timestamp: false }
+    { timestamps: false }
   );
 };

@@ -17,5 +17,6 @@ module.exports = (sequelize) => {
   });
 };
 
+// FRONT
 // Ver como acceder a la address y al idUser del user por el localStorage
 // EL id de VDV , ponemos el valor de id de la vdv en el select
