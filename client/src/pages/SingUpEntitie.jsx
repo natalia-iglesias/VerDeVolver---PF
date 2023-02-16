@@ -27,6 +27,8 @@ const SingUpEntitie = () => {
     description: '',
   });
 
+  const isError = form.email === '';
+
   const handlerChange = (e) => {
     let keyValue;
     if (typeof e === 'string') {
@@ -35,10 +37,8 @@ const SingUpEntitie = () => {
       const { name, value } = e.target;
       keyValue = { [name]: value };
     }
-
     setForm({ ...form, ...keyValue });
   };
-  const isError = form.email === '';
 
   const handlerSubmit = (event) => {
     event.preventDefault();
@@ -52,7 +52,12 @@ const SingUpEntitie = () => {
       isInvalid={isError}
     >
       <FormLabel>Nombre</FormLabel>
-      <Input name="name" onChange={handlerChange} type="text" />
+      <Input
+        name="name"
+        onChange={handlerChange}
+        type="text"
+        value={form.name}
+      />
       <FormLabel>Email</FormLabel>
       <Input
         name="email"
@@ -63,14 +68,29 @@ const SingUpEntitie = () => {
       {!isError ? (
         <FormHelperText>Ingresa tu email.</FormHelperText>
       ) : (
-        <FormErrorMessage>El email es requerido.</FormErrorMessage>
+        <FormErrorMessage>Requerido.</FormErrorMessage>
       )}
       <FormLabel>Dirección</FormLabel>
-      <Input name="adress" onChange={handlerChange} type="text" />
+      <Input
+        name="adress"
+        onChange={handlerChange}
+        type="text"
+        value={form.adress}
+      />
       <FormLabel>Imagen</FormLabel>
-      <Input name="image" onChange={handlerChange} type="text" />
+      <Input
+        name="image"
+        onChange={handlerChange}
+        type="text"
+        value={form.imageCloud}
+      />
       <FormLabel requiredIndicator>CBU</FormLabel>
-      <Input name="cbu" onChange={handlerChange} type="number" />
+      <Input
+        name="cbu"
+        onChange={handlerChange}
+        type="number"
+        value={form.cbu}
+      />
       <FormLabel>Materiales Reciclables</FormLabel>
       <RadioGroup name="materials" onChange={handlerChange}>
         <HStack>
@@ -95,6 +115,7 @@ const SingUpEntitie = () => {
         onChange={handlerChange}
         name="description"
         placeholder="Ingresa una descripción..."
+        value={form.description}
       />
       <Button colorScheme="green" type="submit">
         Enviar
