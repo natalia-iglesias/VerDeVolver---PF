@@ -1,42 +1,29 @@
-import { users, materials } from '../db.json';
+import { materials } from '../db.json';
 import { fetchEntities } from '../redux/actions/entitiesActions';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { useState } from 'react';
 import { SearchIcon } from '@chakra-ui/icons';
-import {
-  IconButton,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Select,
-} from '@chakra-ui/react';
+import { IconButton, Input, InputGroup, Select } from '@chakra-ui/react';
 
 const SearchBar = () => {
   const [entityName, setEntityName] = useState('');
   const [materialFilter, setMaterialFilter] = useState('');
   const [rankingSort, setRankingSort] = useState('-1');
-  const entities = useSelector((state) => state.entities);
 
   const dispatch = useDispatch();
 
   const handleInputChange = (ev) => {
     setEntityName(ev.target.value);
-    console.log(
-      'users::',
-      users.filter((user) => user.role === 'entity')
-    );
   };
 
   const onClickHandler = () => {
     dispatch(fetchEntities(entityName, materialFilter, rankingSort));
   };
   const handleMaterialChange = (ev) => {
-    console.log('handleMaterialChange::', ev.target.value);
     setMaterialFilter(ev.target.value);
   };
   const handleRankingChange = (ev) => {
-    console.log('handleRankingChange::', ev.target.value);
     setRankingSort(ev.target.value);
   };
   return (
