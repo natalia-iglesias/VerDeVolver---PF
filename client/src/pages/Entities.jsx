@@ -1,35 +1,24 @@
-import {
-  // Checkbox,
-  Grid,
-  GridItem,
-  // IconButton,
-  // Input,
-  // InputGroup,
-  // InputRightElement,
-  VStack,
-} from '@chakra-ui/react';
+import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import SearchBar from '../Components/SearchBar';
 import { useSelector } from 'react-redux';
 import EntityCard from '../components/EntityCard';
-// import { SearchIcon } from '@chakra-ui/icons';
 
 const Entities = () => {
   const entities = useSelector((state) => state.entitiesReducer.entities);
 
   return (
     <VStack>
-      <Grid>
-        <GridItem>
-          {/* <VStack>
+      <SearchBar />
+      {/* <GridItem textAlign={'center'}> */}
+      {/* <VStack>
             {materials?.map((m) => (
               <Checkbox key={m} colorScheme="green">
-                {m}
+              {m}
               </Checkbox>
-            ))}
-          </VStack> */}
-          <SearchBar />
-        </GridItem>
-
+              ))}
+            </VStack> */}
+      {/* </GridItem> */}
+      <Grid>
         <GridItem>
           {/* <InputGroup m={'2'}>
             <Input placeholder="Type the entity name" type="text" />
