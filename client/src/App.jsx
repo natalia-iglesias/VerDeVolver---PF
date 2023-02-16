@@ -6,8 +6,8 @@ import Service from './pages/Service';
 import Entities from './pages/Entities';
 import EntitieDetail from '../src/pages/EntitieDetail';
 import SingUpEntitie from './pages/SingUpEntitie';
-import LogIn from './pages/LogIn';
-import Profile from './pages/Profile';
+import Login from './Components/Login';
+import UserProfile from './pages/UserProfile';
 import Dashboard from './pages/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -16,6 +16,7 @@ import SingUp from './pages/SingUp';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchEntities } from './redux/actions/entitiesActions';
+import SingUp from './Components/SingUp';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -34,9 +35,9 @@ const App = () => {
         <Route path="/entities" element={<Entities />} />
         <Route path="/entitie/:id" element={<EntitieDetail />} />
         <Route path="/beVdV" element={<SingUpEntitie />} />
-        <Route path="/login" element={<LogIn />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/singup" element={<SingUp />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/userprofile" element={<UserProfile />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

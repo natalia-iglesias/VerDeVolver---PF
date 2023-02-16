@@ -1,4 +1,19 @@
-const { Service, VdV } = require('../../db.js');
+const { Service} = require('../../db.js');
+
+//ESTE ES EL BULKCREATE NO LO BORREN
+async function chargeDbServices() {
+
+  const bulkCreateServices = await Service.bulkCreate([
+    {  amount: "5000", UserId: "1", VdVId: "1"},
+    {  amount: "5000", UserId: "1", VdVId: "1"},
+    {  amount: "5000", UserId: "1", VdVId: "1"},
+    {  amount: "5000", UserId: "2", VdVId: "1" },
+    {  amount: "5000", UserId: "3", VdVId: "3" },
+    {  amount: "5000", UserId: "4", VdVId: "4" },
+  ]);
+
+  return bulkCreateServices;
+}
 
 async function createService(body) {
   //   console.log('body', body);
@@ -34,4 +49,5 @@ module.exports = {
   createService,
   getByUserId,
   getByVdVId,
+  chargeDbServices
 };
