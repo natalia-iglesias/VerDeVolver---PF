@@ -14,79 +14,9 @@ async function chargeDbVdVs() {
 
 }
 
-const vdvCreate = async (req, res) => {
-  const {name,img, description, mail, password, address, CBU, Materials} = req.body
-  const {id} = req.body
-  try {
-    const vdvCreate = await VdV.create({
-      name,
-      img,
-      mail,
-      password,
-      address,
-      description,
-      CBU,
-     
-    });
-
-    const materialsDb = await Material.findOne(id);
-    await vdvCreate.addMaterials(materialsDb)
-   
-   /*  let materialsDb = await Material.findOne(id)
-          
-  await vdvCreate.addMaterials(materialsDb); 
-   */
-     
-    res.status(200).send(vdvCreate);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-}
-
-
-/* const createdVdV = async (req, res) => {
-  const {name,img, description, mail, password, address, CBU, materials} = body
-  
-  const vdvCreate = await VdV.create({
-    name,
-    img,
-    mail,
-    password,
-    address,
-    description,
-    CBU,
-   
-  });
-  
-  let materialsDb = await Material.findAll()
-  await vdvCreate.addMaterials(materialsDb); 
-   return vdvCreate 
-} */ 
-/* router.get('/', async (req, res) => {
-  try {
-    const Vdvs = await getVdV()
-    res.status(200).send(Vdvs);
-  } catch (error) {
-    res.status(404).send(error.message);
-  }
-}); */
-/* const allVdvs = await VdV.findAll({
-  include: [
-   { 
-    model: Material,
-    attributes: ["id"],
-
-    through: {
-      attributes: [],
-    }
-  }
-  ]
-    
-  });
-  return allVdvs */
-
-
 const getVdV = async (req, res) => {
+  const name = req.query.name;
+
   try {
     const allVdV = await VdV.findAll({
       include: [
@@ -99,19 +29,68 @@ const getVdV = async (req, res) => {
          }
        }
        ]
-    })
+    }) 
+    if(name){
+      const founds = allVdV.filter((el) =>
+      el.name.toLowerCase().includes(name.toLowerCase())
+      );
+      return founds.length 
+       ? res.status(200).json(founds)
+        : res.status(404).send('No matches found ');
+    }
 
-    res.status(200).json(allVdV)
-    console.log(allVdV)
+   return res.status(200).json(allVdV)
+    
 } catch (error) {
-    res.status(400).send(error.message)
+   return  res.status(400).send(error.message)
 }
 }
+
+const vdvCreate = async (req, res) => {
+  const {name,img, description, mail, password, address, CBU, Materials} = req.body
+ 
+  try {
+    const vdvCreate = await VdV.create({
+      name,
+      img,
+      mail,
+      password,
+      address,
+      description,
+      CBU,
+     
+    });
+     Materials.forEach(async (el) => {
+      const materialsDb = await Material.findByPk(el); 
+      await vdvCreate.setMaterials(materialsDb) 
+     })
+ 
+     
+    res.status(200).send(vdvCreate);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+}
+
+
+
+
 
  const getByIdVdV = async (req, res) => {
     const {id} = req.params
     try {
-        const VdVFound = await VdV.findByPk(id);
+        const VdVFound = await VdV.findByPk(id,{
+          include: [
+            { 
+             model: Material,
+             attributes: ["id"],
+         
+             through: {
+               attributes: [],
+             }
+           }
+           ]
+        });
         res.status(200).json(VdVFound)
         
     } catch (error) {
@@ -156,6 +135,7 @@ module.exports = {
   getVdV,
   getByIdVdV,
   upDateVdV,
-  deleteVdV
+  deleteVdV,
+  
 };
 
