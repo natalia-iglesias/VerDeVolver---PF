@@ -62,15 +62,9 @@ const vdvCreate = async (req, res) => {
     });
      Materials.forEach(async (el) => {
       const materialsDb = await Material.findByPk(el); 
-      await vdvCreate.setMaterials(materialsDb)
+      await vdvCreate.setMaterials(materialsDb) 
      })
-   // const materialsDb = await Material.findByPk(Materials[0]);
-    
-   
-   /*  let materialsDb = await Material.findOne(id)
-          
-  await vdvCreate.addMaterials(materialsDb); 
-   */
+ 
      
     res.status(200).send(vdvCreate);
   } catch (error) {
