@@ -41,7 +41,6 @@ const createFeedback = async (body) => {
       });
 
     return newFeedback;
-
   } catch (error) {
     throw Error ('An error ocurred. Could not create feedback');
   }
