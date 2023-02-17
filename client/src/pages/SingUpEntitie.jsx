@@ -28,25 +28,27 @@ const SingUpEntitie = () => {
   });
 
   const [errors, setErrors] = useState({
-    name: false,
+    name: { isError: false, errorMsg: '' },
     email: { isError: false, errorMsg: '' },
-    address: false,
-    imageCloud: false,
-    cbu: false,
-    materials: false,
-    description: false,
+    address: { isError: false, errorMsg: '' },
+    imageCloud: { isError: false, errorMsg: '' },
+    cbu: { isError: false, errorMsg: '' },
+    materials: { isError: false, errorMsg: '' },
+    description: { isError: false, errorMsg: '' },
   });
-  console.log(errors.email.isError);
+
   const handlerBlur = (ev) => {
     const errOjb = validate(form, ev.target.name);
-
     setErrors({ ...errors, [ev.target.name]: errOjb });
   };
 
   const validate = (form, name) => {
-    let isError = {};
+    let isError = {
+      isError: false,
+      errorMsg: '',
+    };
 
-    if (form[name].length === 0) {
+    if (form[name].length === 0 && name !== 'cbu') {
       isError = {
         isError: true,
         errorMsg: 'Requerido',
@@ -63,7 +65,7 @@ const SingUpEntitie = () => {
     }
     if (name === 'cbu') {
       isError = {
-        isError: form.cbu.length !== 22,
+        isError: form.cbu.length !== 22 && form.cbu.length !== 0,
         errorMsg: 'El cbu debe ser de 22 digitos.',
       };
     }
@@ -85,7 +87,7 @@ const SingUpEntitie = () => {
   };
   return (
     <FormControl margin="3%" onSubmit={handlerSubmit}>
-      <FormControl isRequired isInvalid={errors.name}>
+      <FormControl isRequired isInvalid={errors.name.isError}>
         <FormLabel>Nombre</FormLabel>
         <Input
           name="name"
@@ -94,10 +96,10 @@ const SingUpEntitie = () => {
           type="text"
           value={form.name}
         />
-        {!errors.name ? (
-          <FormHelperText>Ingresa el nombre.</FormHelperText>
+        {!errors.name.isError && form.name.length === 0 ? (
+          <FormHelperText>Ingresa el nombre de tu proyecto.</FormHelperText>
         ) : (
-          <FormErrorMessage>Requerido.</FormErrorMessage>
+          <FormErrorMessage>{errors.name.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
       <FormControl isRequired isInvalid={errors.email.isError}>
@@ -115,7 +117,7 @@ const SingUpEntitie = () => {
           <FormErrorMessage>{errors.email.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
-      <FormControl isRequired isInvalid={errors.address}>
+      <FormControl isRequired isInvalid={errors.address.isError}>
         <FormLabel>Dirección</FormLabel>
         <Input
           name="address"
@@ -124,13 +126,13 @@ const SingUpEntitie = () => {
           type="text"
           value={form.address}
         />
-        {!errors.address ? (
+        {!errors.address.isError && form.address.length === 0 ? (
           <FormHelperText>Indica la dirección.</FormHelperText>
         ) : (
-          <FormErrorMessage>Requerido.</FormErrorMessage>
+          <FormErrorMessage>{errors.address.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
-      <FormControl isRequired isInvalid={errors.imageCloud}>
+      <FormControl isRequired isInvalid={errors.imageCloud.isError}>
         <FormLabel>Imagen</FormLabel>
         <Input
           name="imageCloud"
@@ -139,15 +141,15 @@ const SingUpEntitie = () => {
           onBlur={handlerBlur}
           value={form.imageCloud}
         />
-        {!errors.imageCloud ? (
+        {!errors.imageCloud.isError && form.imageCloud.length === 0 ? (
           <FormHelperText>
             Arrastra aquí la imagen de tu entidad.
           </FormHelperText>
         ) : (
-          <FormErrorMessage>Requerido.</FormErrorMessage>
+          <FormErrorMessage>{errors.address.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
-      <FormControl isInvalid={errors.cbu}>
+      <FormControl isInvalid={errors.cbu.isError}>
         <FormLabel>CBU</FormLabel>
         <Input
           name="cbu"
@@ -156,8 +158,15 @@ const SingUpEntitie = () => {
           type="number"
           value={form.cbu}
         />
+        {!errors.cbu.isError ? (
+          <FormHelperText>
+            Puedes ingresar tu CBU para recibir donaciones.
+          </FormHelperText>
+        ) : (
+          <FormErrorMessage>{errors.cbu.errorMsg}</FormErrorMessage>
+        )}
       </FormControl>
-      <FormControl isRequired isInvalid={errors.materials}>
+      <FormControl isRequired isInvalid={errors.materials.isError}>
         <FormLabel>Materiales Reciclables</FormLabel>
         <RadioGroup
           name="materials"
@@ -175,17 +184,17 @@ const SingUpEntitie = () => {
               ))}
             </Grid>
           </HStack>
-          {!errors.materials ? (
+          {!errors.materials.isError && form.materials.length === 0 ? (
             <FormHelperText>
               Selecciona únicamente los materiales que recibirás.
             </FormHelperText>
           ) : (
-            <FormErrorMessage>Requerido.</FormErrorMessage>
+            <FormErrorMessage>{errors.materials.errorMsg}</FormErrorMessage>
           )}
         </RadioGroup>
       </FormControl>
       <br />
-      <FormControl isRequired isInvalid={errors.description}>
+      <FormControl isRequired isInvalid={errors.description.isError}>
         <FormLabel>Descripción</FormLabel>
         <Textarea
           onChange={handlerChange}
@@ -194,10 +203,10 @@ const SingUpEntitie = () => {
           placeholder="Ingresa una descripción..."
           value={form.description}
         />
-        {!errors.description ? (
+        {!errors.description.isError && form.description.length === 0 ? (
           <FormHelperText>Escribe una descripción.</FormHelperText>
         ) : (
-          <FormErrorMessage>Requerido.</FormErrorMessage>
+          <FormErrorMessage>{errors.description.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
       <Button colorScheme="green" type="submit">
