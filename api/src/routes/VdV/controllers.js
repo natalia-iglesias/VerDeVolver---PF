@@ -79,7 +79,18 @@ const vdvCreate = async (req, res) => {
  const getByIdVdV = async (req, res) => {
     const {id} = req.params
     try {
-        const VdVFound = await VdV.findByPk(id);
+        const VdVFound = await VdV.findByPk(id,{
+          include: [
+            { 
+             model: Material,
+             attributes: ["id"],
+         
+             through: {
+               attributes: [],
+             }
+           }
+           ]
+        });
         res.status(200).json(VdVFound)
         
     } catch (error) {
