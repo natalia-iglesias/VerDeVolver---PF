@@ -1,4 +1,5 @@
 const { Feedback, User, VdV } = require('../../db.js');
+const { Op } = require("sequelize");
 
 //ESTE ES EL BULKCREATE NO LO BORREN
 const chargeDbFeedback = async () => {
@@ -23,6 +24,15 @@ const createFeedback = async (body) => {
   try {
     const { comment, rating, UserId, VdVId } = body;
 
+    const checkUsers = await User.findAll({
+      where: {id: UserId}
+    });
+    const checkVdvs = await VdV.findAll({
+      where: {id: VdVId}
+    });
+
+    if (!checkUsers || !checkVdvs) throw Error ('Could not create feedback. User or VdV does not exist');
+
     const newFeedback = await Feedback.create({  
       comment, 
       rating, 
@@ -31,7 +41,6 @@ const createFeedback = async (body) => {
       });
 
     return newFeedback;
-
   } catch (error) {
     throw Error ('An error ocurred. Could not create feedback');
   }
@@ -39,8 +48,16 @@ const createFeedback = async (body) => {
 
 const getFeedbacks = async () => {
   try {
-    const feedbacks = await Feedback.findAll();
-    return feedbacks;
+    const feedbacksWUsersVdvData = await Feedback.findAll({
+      include: [{
+        model: User
+      }, {
+        model: VdV
+      }]
+    });
+
+    return feedbacksWUsersVdvData; 
+    
   } catch (error) {
     throw Error ('An error ocurred. Could not get feedbacks');
   }
@@ -50,10 +67,18 @@ const getFeedbacksById = async (id) => {
   try {
     if (!id ) throw Error("Missing data");
 
-    const feedback = await Feedback.findAll({ where: { id: id } });
-    if (!feedback) throw Error ('Feedback does not exist'); 
+    const feedback = Feedback.findByPk(id, {
+      include: [{
+        model: User
+      }, {
+        model: VdV
+      }]
+    });
+
+    if (!feedback) throw Error ('Feedback does not exist');
 
     return feedback;
+
   } catch (error) {
     throw Error ('An error ocurred. Could not get feedback');
   }
@@ -66,10 +91,21 @@ const getFeedbacksByUserId = async (id) => {
     const checkuser = await User.findAll( { where: {id: id} } );
     if (!checkuser) throw Error ('User does not exist');
 
-    const feedback = await Feedback.findAll({ where: { UserId: id } });
-    if (!feedback) throw Error (`An error ocurred. Could not get feedbacks with the UserId ${id}`); 
+    const feedbackWUsersVdvData = await Feedback.findAll({
+      where: {
+        UserId: {
+          [Op.eq]: id
+        }
+      }, include: [{
+        model: User
+      }, {
+        model: VdV
+      }]
+    });
+    if (!feedbackWUsersVdvData) throw Error (`An error ocurred. Could not get feedbacks with the UserId ${id}`);
 
-    return feedback;
+    return feedbackWUsersVdvData;
+
   } catch (error) {
     throw Error (error.message);
   }
@@ -82,10 +118,21 @@ const getFeedbacksByVdVId = async (id) => {
     const checkVdV = await VdV.findAll( { where: {id: id} } );
     if (!checkVdV) throw Error ('VdV does not exist');
 
-    const feedback = await Feedback.findAll({ where: { VdVId: id } });
-    if (!feedback) throw Error (`An error ocurred. Could not get feedbacks with the VdVId ${id}`); 
+    const feedbackWUsersVdvData = await Feedback.findAll({
+      where: {
+        VdVId: {
+          [Op.eq]: id
+        }
+      }, include: [{
+        model: User
+      }, {
+        model: VdV
+      }]
+    });
+    if (!feedbackWUsersVdvData) throw Error (`An error ocurred. Could not get feedbacks with the VdVId ${id}`);
 
-    return feedback;
+    return feedbackWUsersVdvData;
+
   } catch (error) {
     throw Error (error.message);
   }
@@ -105,9 +152,10 @@ const updateFeedback = async (id, comment, rating) => {
         { where: { id: id } 
     });
 
-    const updatedFeedback = await Feedback.findAll({ where: { id: id } });
+    const updatedFeedback = await getFeedbacksById(id);
 
     return updatedFeedback;
+
   } catch (error) {
     throw Error ({error: error.message}); 
   }
@@ -123,6 +171,7 @@ const deleteFeedback = async (id) => {
     const deleting = await Feedback.destroy({ where: { id: id } });
 
     return deleting;
+
   } catch (error) {
     throw Error ({error: error.message}); 
   }
