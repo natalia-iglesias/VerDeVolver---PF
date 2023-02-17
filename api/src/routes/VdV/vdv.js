@@ -39,7 +39,7 @@ router.post('/', vdvCreate)
 router.get('/:id',getByIdVdV)
 
 router.get('/',getVdV)
- console.log('holiss')
+ 
 router.put('/:id',upDateVdV)
 
 router.delete('/:id', deleteVdV)

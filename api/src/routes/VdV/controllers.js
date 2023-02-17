@@ -16,7 +16,7 @@ async function chargeDbVdVs() {
 
 const vdvCreate = async (req, res) => {
   const {name,img, description, mail, password, address, CBU, Materials} = req.body
-  const {id} = req.body
+ 
   try {
     const vdvCreate = await VdV.create({
       name,
@@ -29,7 +29,7 @@ const vdvCreate = async (req, res) => {
      
     });
 
-    const materialsDb = await Material.findOne(id);
+    const materialsDb = await Material.findByPk(id);
     await vdvCreate.addMaterials(materialsDb)
    
    /*  let materialsDb = await Material.findOne(id)
@@ -44,49 +44,39 @@ const vdvCreate = async (req, res) => {
 }
 
 
-/* const createdVdV = async (req, res) => {
-  const {name,img, description, mail, password, address, CBU, materials} = body
-  
-  const vdvCreate = await VdV.create({
-    name,
-    img,
-    mail,
-    password,
-    address,
-    description,
-    CBU,
-   
-  });
-  
-  let materialsDb = await Material.findAll()
-  await vdvCreate.addMaterials(materialsDb); 
-   return vdvCreate 
-} */ 
-/* router.get('/', async (req, res) => {
-  try {
-    const Vdvs = await getVdV()
-    res.status(200).send(Vdvs);
-  } catch (error) {
-    res.status(404).send(error.message);
-  }
-}); */
-/* const allVdvs = await VdV.findAll({
-  include: [
-   { 
-    model: Material,
-    attributes: ["id"],
-
-    through: {
-      attributes: [],
-    }
-  }
-  ]
-    
-  });
-  return allVdvs */
-
-
 const getVdV = async (req, res) => {
+  const name = req.query.name;
+
+  try {
+    const allVdV = await VdV.findAll({
+      include: [
+        { 
+         model: Material,
+         attributes: ["id"],
+     
+         through: {
+           attributes: [],
+         }
+       }
+       ]
+    }) 
+    if(name){
+      const founds = allVdV.filter((el) =>
+      el.name.toLowerCase().includes(name.toLowerCase())
+      );
+      return founds.length 
+       ? res.status(200).json(founds)
+        : res.status(404).send('No matches found ');
+    }
+
+   return res.status(200).json(allVdV)
+    
+} catch (error) {
+   return  res.status(400).send(error.message)
+}
+}
+/* const getVdVName = async (req, res) => {
+  const {name} = req.query
   try {
     const allVdV = await VdV.findAll({
       include: [
@@ -100,13 +90,21 @@ const getVdV = async (req, res) => {
        }
        ]
     })
+    if (name) {
+      const founds = allVdV.filter((VdVname) =>
+      VdVname.name.toLowerCase().includes(VdVname.toLowerCase())
+      );
+      founds.length
+        ? res.status(200).json(founds)
+        : res.status(404).send('No matches found ');
+    }
 
     res.status(200).json(allVdV)
     console.log(allVdV)
 } catch (error) {
     res.status(400).send(error.message)
 }
-}
+} */
 
  const getByIdVdV = async (req, res) => {
     const {id} = req.params
@@ -156,6 +154,7 @@ module.exports = {
   getVdV,
   getByIdVdV,
   upDateVdV,
-  deleteVdV
+  deleteVdV,
+  
 };
 
