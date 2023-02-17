@@ -25,7 +25,8 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       address: {
-        // Esto va a ser "Longitud" y "Latitud"
+        // Esto va a ser "Longitud" y "Latitud" -> Numbers(integer)
+        // type: DataTypes.ARRAY(DataTypes.INTEGER), --> vamos a usar
         type: DataTypes.STRING,
         allowNull: false,
       },

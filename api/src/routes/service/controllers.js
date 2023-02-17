@@ -1,15 +1,14 @@
-const { Service} = require('../../db.js');
+const { Service } = require('../../db.js');
 
 //ESTE ES EL BULKCREATE NO LO BORREN
 async function chargeDbServices() {
-
   const bulkCreateServices = await Service.bulkCreate([
-    {  amount: "5000", UserId: "1", VdVId: "1"},
-    {  amount: "5000", UserId: "1", VdVId: "1"},
-    {  amount: "5000", UserId: "1", VdVId: "1"},
-    {  amount: "5000", UserId: "2", VdVId: "1" },
-    {  amount: "5000", UserId: "3", VdVId: "3" },
-    {  amount: "5000", UserId: "4", VdVId: "4" },
+    { amount: '5000', UserId: '1', VdVId: '1' },
+    { amount: '5000', UserId: '1', VdVId: '1' },
+    { amount: '5000', UserId: '1', VdVId: '1' },
+    { amount: '5000', UserId: '2', VdVId: '1' },
+    { amount: '5000', UserId: '3', VdVId: '3' },
+    { amount: '5000', UserId: '4', VdVId: '4' },
   ]);
 
   return bulkCreateServices;
@@ -26,7 +25,7 @@ async function createService(body) {
 
   return newService;
 }
-
+// Ver como podria utilizar un objeto que sea where el cual modifico dependiendo la peticion
 const getByUserId = async (id) => {
   const serviceByUser = await Service.findAll({
     where: {
@@ -45,9 +44,15 @@ const getByVdVId = async (id) => {
   return serviceForVdV;
 };
 
+const getAll = async () => {
+  const allService = await Service.findAll();
+  return allService;
+};
+
 module.exports = {
   createService,
   getByUserId,
   getByVdVId,
-  chargeDbServices
+  chargeDbServices,
+  getAll,
 };
