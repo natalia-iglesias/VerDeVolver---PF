@@ -26,8 +26,7 @@ const SingUpEntitie = () => {
     materials: [],
     description: '',
   });
-  //const [errors, setErrors] = useState([]);
-  //const isError = errors.length !== 0;
+
   const [errors, setErrors] = useState({
     name: false,
     email: false,
@@ -37,18 +36,11 @@ const SingUpEntitie = () => {
     materials: false,
     description: false,
   });
-  // const isErrorName = form.name === '';
-  // const isErrorEmail = form.email === '';
-  // const isErroraddress = form.address === '';
-  // const isErrorImageCloud = form.imageCloud === '';
-  // const isErrorMaterials = form.materials === [];
-  // const isErrorDescription = form.description === '';
+
   const handlerBlur = (ev) => {
-    console.log('blur', ev);
-    const isError =
-      ev.target.name === 'materials'
-        ? form[ev.target.name].length > 0
-        : form[ev.target.name] === '';
+    // const isError = form[ev.target.name].length === 0;
+    const isError = validate(form, ev.target.name);
+
     setErrors({ ...errors, [ev.target.name]: isError });
   };
   const handlerChange = (e) => {
@@ -58,20 +50,27 @@ const SingUpEntitie = () => {
     } else {
       const { name, value } = e.target;
       keyValue = { [name]: value };
-      //handleErrors(name, value);
     }
     setForm({ ...form, ...keyValue });
   };
-  // const handleErrors = (name, value) => {
-  //   console.log(value);
-  //   if (value.length === 0) {
-  //     setErrors(name);
-  //   }
-  // };
+
   const handlerSubmit = (event) => {
     event.preventDefault();
   };
-
+  const validate = (form, name) => {
+    let isError = false;
+    if (form[name].length === 0) {
+      isError = true;
+      return isError;
+    }
+    if (name === 'email') {
+      isError = form.email;
+    }
+    if (name === 'cbu') {
+      isError = typeof form.cbu !== 'number' || form.cbu.length !== 22;
+    }
+    return isError;
+  };
   return (
     <FormControl margin="3%" onSubmit={handlerSubmit}>
       <FormControl isRequired isInvalid={errors.name}>
