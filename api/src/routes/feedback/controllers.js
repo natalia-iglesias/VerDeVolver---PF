@@ -75,6 +75,7 @@ const getFeedbacksById = async (id) => {
         model: VdV
       }]
     });
+
     if (!feedback) throw Error ('Feedback does not exist');
 
     return feedback;
