@@ -73,8 +73,8 @@ const SingUpEntitie = () => {
   };
 
   return (
-    <FormControl margin="3%" isRequired onSubmit={handlerSubmit}>
-      <FormControl isInvalid={errors.name}>
+    <FormControl margin="3%" onSubmit={handlerSubmit}>
+      <FormControl isRequired isInvalid={errors.name}>
         <FormLabel>Nombre</FormLabel>
         <Input
           name="name"
@@ -89,7 +89,7 @@ const SingUpEntitie = () => {
           <FormErrorMessage>Requerido.</FormErrorMessage>
         )}
       </FormControl>
-      <FormControl isInvalid={errors.email}>
+      <FormControl isRequired isInvalid={errors.email}>
         <FormLabel>Email</FormLabel>
         <Input
           name="email"
@@ -104,7 +104,7 @@ const SingUpEntitie = () => {
           <FormErrorMessage>Requerido.</FormErrorMessage>
         )}
       </FormControl>
-      <FormControl isInvalid={errors.address}>
+      <FormControl isRequired isInvalid={errors.address}>
         <FormLabel>Dirección</FormLabel>
         <Input
           name="address"
@@ -119,7 +119,7 @@ const SingUpEntitie = () => {
           <FormErrorMessage>Requerido.</FormErrorMessage>
         )}
       </FormControl>
-      <FormControl isInvalid={errors.imageCloud}>
+      <FormControl isRequired isInvalid={errors.imageCloud}>
         <FormLabel>Imagen</FormLabel>
         <Input
           name="imageCloud"
@@ -136,14 +136,14 @@ const SingUpEntitie = () => {
           <FormErrorMessage>Requerido.</FormErrorMessage>
         )}
       </FormControl>
-      <FormLabel requiredIndicator>CBU</FormLabel>
+      <FormLabel>CBU</FormLabel>
       <Input
         name="cbu"
         onChange={handlerChange}
         type="number"
         value={form.cbu}
       />
-      <FormControl isInvalid={errors.materials}>
+      <FormControl isRequired isInvalid={errors.materials}>
         <FormLabel>Materiales Reciclables</FormLabel>
         <RadioGroup
           name="materials"
@@ -171,7 +171,7 @@ const SingUpEntitie = () => {
         </RadioGroup>
       </FormControl>
       <br />
-      <FormControl isInvalid={errors.description}>
+      <FormControl isRequired isInvalid={errors.description}>
         <FormLabel>Descripción</FormLabel>
         <Textarea
           onChange={handlerChange}
