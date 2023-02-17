@@ -1,3 +1,4 @@
+import { Link as ReachLink } from 'react-router-dom';
 import {
   Button,
   Card,
@@ -11,6 +12,7 @@ import {
   InputRightElement,
   Text,
   VStack,
+  Link,
 } from '@chakra-ui/react';
 
 const EntityCard = ({ entity }) => {
@@ -18,10 +20,11 @@ const EntityCard = ({ entity }) => {
     <Card>
       <CardBody display="flex" flexDir="row" gap="1rem">
         <Image src="https://picsum.photos/300" />
+
         <VStack>
           <Heading>{entity.name}</Heading>
           <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
+            Porem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
             molestie posuere consectetur. Curabitur vitae libero libero. Integer
             sit amet efficitur ex. Duis ut ligula ante. Proin aliquam cursus
             erat, eu condimentum felis pharetra sit amet. Orci varius natoque
@@ -30,6 +33,9 @@ const EntityCard = ({ entity }) => {
             aliquet vestibulum eros et dapibus.
           </Text>
         </VStack>
+        <Link as={ReachLink} to="/entitieid">
+          <Button>Detail</Button>
+        </Link>
       </CardBody>
 
       <CardFooter>
