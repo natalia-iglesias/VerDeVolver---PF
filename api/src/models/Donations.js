@@ -3,21 +3,29 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('Donation', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true, // allownull: false , unique: true
-      autoIncrement: true,
+  sequelize.define(
+    'Donation',
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true, // allownull: false , unique: true
+        autoIncrement: true,
+      },
+      amount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      status: {
+        type: DataTypes.ENUM('Delivered', 'Pending'),
+        defaultValue: 'Pending',
+      },
+      date: {
+        type: DataTypes.DATEONLY,
+        defaultValue: DataTypes.NOW,
+      },
     },
-    amount: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    status: {
-      type: DataTypes.ENUM('Delivered', 'Pending'),
-      defaultValue: 'Pending',
-    },
-  });
+    { timestamps: false }
+  );
 };
 
 // como obtener el id del usuario registrado -> LocalStorage -> redux
