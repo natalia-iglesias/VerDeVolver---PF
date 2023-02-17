@@ -1,6 +1,5 @@
 const { Router } = require('express');
-const { Feedback } = require('../../db.js');
-const { chargeDbFeedback } = require('./controllers.js');
+const { chargeDbFeedback, getFeedbacks, updateFeedback, getFeedbacksById, deleteFeedback, createFeedback, getFeedbacksByUserId, getFeedbacksByVdVId } = require('./controllers.js');
 
 const router = Router();
 
@@ -15,12 +14,80 @@ router.post('/chargeDb', async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
+router.post('/create', async (req, res) => {
   try {
-    const allFeedbacks = await Feedback.findAll();
-    res.status(200).send(allFeedbacks);
+    const newFeedback = await createFeedback(req.body);
+    res.status(200).send(newFeedback);
   } catch (error) {
     res.status(404).send(error.message);
+  }
+});
+
+router.get('/', async (req, res) => {
+  try {
+    const feedbacks = await getFeedbacks();
+
+    res.status(200).send(feedbacks);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const feedback = await getFeedbacksById(id);
+    res.status(200).send(feedback);
+    
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+router.get('/user/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const feedback = await getFeedbacksByUserId(id);
+    res.status(200).send(feedback);
+    
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+router.get('/vdv/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const feedback = await getFeedbacksByVdVId(id);
+    res.status(200).send(feedback);
+  
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+router.put("/update", async (req, res) => {
+  const { id, comment, rating } = req.body;
+
+  try {
+    const updatedFeedback =  await updateFeedback(id, comment, rating);
+    res.status(200).send(updatedFeedback);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+router.delete("/:id/delete", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deleted = await deleteFeedback(id);
+    res.sendStatus(200).send(deleted);
+    /* alert('Feedback eliminado'); */
+  } catch (error) {
+    res.sendStatus(400).send(error.message);
   }
 });
 
