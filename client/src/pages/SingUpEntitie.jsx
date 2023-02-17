@@ -20,7 +20,7 @@ const SingUpEntitie = () => {
   const [form, setForm] = useState({
     name: '',
     email: '',
-    adress: '',
+    address: '',
     imageCloud: '',
     cbu: '',
     materials: [],
@@ -28,13 +28,29 @@ const SingUpEntitie = () => {
   });
   //const [errors, setErrors] = useState([]);
   //const isError = errors.length !== 0;
-  const isErrorName = form.name === '';
-  const isErrorEmail = form.email === '';
-  const isErrorAdress = form.adress === '';
-  const isErrorImageCloud = form.imageCloud === '';
-  const isErrorMaterials = form.materials === [];
-  const isErrorDescription = form.description === '';
-
+  const [errors, setErrors] = useState({
+    name: false,
+    email: false,
+    address: false,
+    imageCloud: false,
+    cbu: false,
+    materials: false,
+    description: false,
+  });
+  // const isErrorName = form.name === '';
+  // const isErrorEmail = form.email === '';
+  // const isErroraddress = form.address === '';
+  // const isErrorImageCloud = form.imageCloud === '';
+  // const isErrorMaterials = form.materials === [];
+  // const isErrorDescription = form.description === '';
+  const handlerBlur = (ev) => {
+    console.log('blur', ev);
+    const isError =
+      ev.target.name === 'materials'
+        ? form[ev.target.name].length > 0
+        : form[ev.target.name] === '';
+    setErrors({ ...errors, [ev.target.name]: isError });
+  };
   const handlerChange = (e) => {
     let keyValue;
     if (typeof e === 'string') {
@@ -58,57 +74,61 @@ const SingUpEntitie = () => {
 
   return (
     <FormControl margin="3%" isRequired onSubmit={handlerSubmit}>
-      <FormControl isInvalid={{ isErrorName }}>
+      <FormControl isInvalid={errors.name}>
         <FormLabel>Nombre</FormLabel>
         <Input
           name="name"
           onChange={handlerChange}
+          onBlur={handlerBlur}
           type="text"
           value={form.name}
         />
-        {!isErrorName ? (
+        {!errors.name ? (
           <FormHelperText>Ingresa el nombre.</FormHelperText>
         ) : (
           <FormErrorMessage>Requerido.</FormErrorMessage>
         )}
       </FormControl>
-      <FormControl isInvalid={{ isErrorEmail }}>
+      <FormControl isInvalid={errors.email}>
         <FormLabel>Email</FormLabel>
         <Input
           name="email"
           onChange={handlerChange}
+          onBlur={handlerBlur}
           type="email"
           value={form.email}
         />
-        {!isErrorEmail ? (
+        {!errors.email ? (
           <FormHelperText>Ingresa tu email.</FormHelperText>
         ) : (
           <FormErrorMessage>Requerido.</FormErrorMessage>
         )}
       </FormControl>
-      <FormControl isInvalid={{ isErrorAdress }}>
+      <FormControl isInvalid={errors.address}>
         <FormLabel>Dirección</FormLabel>
         <Input
-          name="adress"
+          name="address"
           onChange={handlerChange}
+          onBlur={handlerBlur}
           type="text"
-          value={form.adress}
+          value={form.address}
         />
-        {!isErrorAdress ? (
+        {!errors.address ? (
           <FormHelperText>Indica la dirección.</FormHelperText>
         ) : (
           <FormErrorMessage>Requerido.</FormErrorMessage>
         )}
       </FormControl>
-      <FormControl isInvalid={{ isErrorImageCloud }}>
+      <FormControl isInvalid={errors.imageCloud}>
         <FormLabel>Imagen</FormLabel>
         <Input
-          name="image"
-          onChange={handlerChange}
+          name="imageCloud"
           type="text"
+          onChange={handlerChange}
+          onBlur={handlerBlur}
           value={form.imageCloud}
         />
-        {!isErrorImageCloud ? (
+        {!errors.imageCloud ? (
           <FormHelperText>
             Arrastra aquí la imagen de tu entidad.
           </FormHelperText>
@@ -123,9 +143,13 @@ const SingUpEntitie = () => {
         type="number"
         value={form.cbu}
       />
-      <FormControl isInvalid={{ isErrorMaterials }}>
+      <FormControl isInvalid={errors.materials}>
         <FormLabel>Materiales Reciclables</FormLabel>
-        <RadioGroup name="materials" onChange={handlerChange}>
+        <RadioGroup
+          name="materials"
+          onChange={handlerChange}
+          onBlur={handlerBlur}
+        >
           <HStack>
             <Grid templateColumns="repeat(4, 7fr)" gap={6}>
               {materials?.map((m, i) => (
@@ -137,7 +161,7 @@ const SingUpEntitie = () => {
               ))}
             </Grid>
           </HStack>
-          {!isErrorMaterials ? (
+          {!errors.materials ? (
             <FormHelperText>
               Selecciona únicamente los materiales que recibirás.
             </FormHelperText>
@@ -147,15 +171,16 @@ const SingUpEntitie = () => {
         </RadioGroup>
       </FormControl>
       <br />
-      <FormControl isInvalid={{ isErrorDescription }}>
+      <FormControl isInvalid={errors.description}>
         <FormLabel>Descripción</FormLabel>
         <Textarea
           onChange={handlerChange}
+          onBlur={handlerBlur}
           name="description"
           placeholder="Ingresa una descripción..."
           value={form.description}
         />
-        {!isErrorDescription ? (
+        {!errors.description ? (
           <FormHelperText>Escribe una descripción.</FormHelperText>
         ) : (
           <FormErrorMessage>Requerido.</FormErrorMessage>
