@@ -122,9 +122,6 @@ const deleteFeedback = async (id) => {
 
     const deleting = await Feedback.destroy({ where: { id: id } });
 
-    console.log(feedbackToDelete);
-    console.log(deleting);
-
     return deleting;
   } catch (error) {
     throw Error ({error: error.message}); 

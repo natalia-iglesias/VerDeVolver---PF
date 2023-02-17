@@ -39,7 +39,7 @@ router.get('/:id', async (req, res) => {
 
     const feedback = await getFeedbacksById(id);
     res.status(200).send(feedback);
-    console.log(feedback)
+    
   } catch (error) {
     res.status(404).send(error.message);
   }
@@ -51,7 +51,7 @@ router.get('/user/:id', async (req, res) => {
 
     const feedback = await getFeedbacksByUserId(id);
     res.status(200).send(feedback);
-    console.log(feedback)
+    
   } catch (error) {
     res.status(404).send(error.message);
   }
@@ -63,7 +63,7 @@ router.get('/vdv/:id', async (req, res) => {
 
     const feedback = await getFeedbacksByVdVId(id);
     res.status(200).send(feedback);
-    console.log(feedback)
+  
   } catch (error) {
     res.status(404).send(error.message);
   }
