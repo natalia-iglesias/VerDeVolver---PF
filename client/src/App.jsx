@@ -8,6 +8,7 @@ import EntitieDetail from '../src/pages/EntitieDetail';
 import SingUpEntitie from './pages/SingUpEntitie';
 import Login from './Components/Login';
 import UserProfile from './pages/UserProfile';
+import EntityProfile from './pages/EntityProfile';
 import Dashboard from './pages/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/singup" element={<SingUp />} />
         <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/entityprofile" element={<EntityProfile />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

@@ -22,14 +22,14 @@ function DashboardScroll({ type }) {
   return (
     <Box w="40vw" h="40vh" overflow="auto">
       <Flex overflowX="scroll" px={4} py={2} flexDirection="column">
-        {newArray.map((item) => {
+        {newArray.map((item, i) => {
           let arreglo;
           if (item.rating) {
             arreglo = new Array(item.rating).fill(<StarIcon />);
           }
 
           return (
-            <>
+            <div key={i}>
               <Flex direction="row">
                 <Card w="90vw">
                   <CardBody>
@@ -52,7 +52,7 @@ function DashboardScroll({ type }) {
                 </Button>
               </Flex>
               <Divider />
-            </>
+            </div>
           );
         })}
       </Flex>
