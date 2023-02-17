@@ -1,9 +1,13 @@
 const { Router } = require('express');
-const { Service } = require('../../db.js');
-const { createService, getByUserId, getByVdVId, chargeDbServices } = require('./controllers.js');
+const {
+  createService,
+  getByUserId,
+  getByVdVId,
+  chargeDbServices,
+  getAll,
+} = require('./controllers.js');
 
 const router = Router();
-
 
 //ESTE ES EL BULKCREATE NO LO BORREN
 router.post('/chargeDb', async (req, res) => {
@@ -15,20 +19,25 @@ router.post('/chargeDb', async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const allServices = await Service.findAll();
-    res.status(200).send(allServices);
+    const newFeedback = await createService(req.body);
+    console.log('newFeedback', newFeedback, typeof newFeedback);
+    console.log(
+      'newFeedbackQueTieneDentro',
+      typeof newFeedback.dataValues.date
+    );
+    // newFeedback.createdAt = newFeedback.createdAt.slice(0, 10);
+    res.status(200).send(newFeedback);
   } catch (error) {
     res.status(404).send(error.message);
   }
 });
 
-
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const newFeedback = await createService(req.body);
-    res.status(200).send(newFeedback);
+    const allServices = await getAll();
+    res.status(200).send(allServices);
   } catch (error) {
     res.status(404).send(error.message);
   }

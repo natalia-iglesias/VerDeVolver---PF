@@ -20,21 +20,42 @@ const Navbar = () => {
   return (
     <Box bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}>
       <Flex justifyContent={'center'} mb={'3rem'}>
-        <Box boxSize="10em" position={'absolute'} top="-10" left={0}>
-          <Image boxSize="170px" objectFit="cover" src="/images/logo.png" />
-        </Box>
+        <Link as={ReachLink} to="/home">
+          <Box boxSize="10em" position={'absolute'} top="-10" left={0}>
+            <Image boxSize="170px" objectFit="cover" src="/images/logo.png" />
+          </Box>
+        </Link>
         <Box fontWeight={'700'} fontSize="1.5em" mt={'2%'}>
-          <Link as={ReachLink} to="/map" color="green" mr={5}>
+          <Link
+            as={ReachLink}
+            to="/map"
+            color={colorMode === 'light' ? 'green' : '#68D391'}
+            mr={5}
+          >
             Mapa
           </Link>
-          <Link as={ReachLink} to="/login" color="green" mr={5}>
+          <Link as={ReachLink} to="/beVdV" color="green" mr={5}>
+          <Link
+            as={ReachLink}
+            to="/login"
+            color={colorMode === 'light' ? 'green' : '#68D391'}
+            mr={5}
+          >
             SerVdV
           </Link>
-          <Link as={ReachLink} to="/entities" color="green" mr={5}>
+          <Link
+            as={ReachLink}
+            to="/entities"
+            color={colorMode === 'light' ? 'green' : '#68D391'}
+            mr={5}
+          >
             VdVs
           </Link>
           <Menu>
-            <MenuButton fontWeight={'700'} color="green">
+            <MenuButton
+              fontWeight={'700'}
+              color={colorMode === 'light' ? 'green' : '#68D391'}
+            >
               Contactanos
             </MenuButton>
             <MenuList>
@@ -42,7 +63,7 @@ const Navbar = () => {
                 as={ReachLink}
                 to="/about"
                 fontWeight={'700'}
-                color="green"
+                color={colorMode === 'light' ? 'green' : '#68D391'}
               >
                 Quienes somos
               </MenuItem>
@@ -50,7 +71,7 @@ const Navbar = () => {
                 as={ReachLink}
                 to="/contact"
                 fontWeight={'700'}
-                color="green"
+                color={colorMode === 'light' ? 'green' : '#68D391'}
               >
                 Contacto
               </MenuItem>
@@ -68,17 +89,19 @@ const Navbar = () => {
             <MenuList>
               <MenuItem
                 as={ReachLink}
-                to="/profileentitie"
+                to="/userprofile"
                 fontWeight={'700'}
-                color="green"
+                color={colorMode === 'light' ? 'green' : '#68D391'}
               >
                 Mi perfil
               </MenuItem>
-              <MenuItem as={ReachLink} to="/" fontWeight={'700'} color="green">
-                Configuracion
-              </MenuItem>
-              <MenuItem as={ReachLink} to="/" fontWeight={'700'} color="green">
-                Cerrar Seción
+              <MenuItem
+                as={ReachLink}
+                to="/"
+                fontWeight={'700'}
+                color={colorMode === 'light' ? 'green' : '#68D391'}
+              >
+                Cerrar Sesión
               </MenuItem>
             </MenuList>
           </Menu>

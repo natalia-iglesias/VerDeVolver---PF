@@ -44,10 +44,10 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un (destructuring)
 
-console.log('models:', sequelize.models);
-
-const { Donation, Feedback, Material, Role, Service, User, VdV } =
+const { Donation, Feedback, Material, Role, Service, User, VdV, PostHome } =
   sequelize.models;
+
+console.log(sequelize.models);
 
 // Relacion Usuario -> Feedback -> VdV
 User.hasMany(Feedback); // comentario y puntuacion

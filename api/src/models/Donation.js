@@ -4,17 +4,20 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    'Service',
+    'Donation',
     {
       id: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
+        primaryKey: true, // allownull: false , unique: true
         autoIncrement: true,
       },
       amount: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        // defaultValue: 1500,
+      },
+      status: {
+        type: DataTypes.ENUM('Delivered', 'Pending'),
+        defaultValue: 'Pending',
       },
       date: {
         type: DataTypes.DATEONLY,
@@ -25,6 +28,5 @@ module.exports = (sequelize) => {
   );
 };
 
-// FRONT
-// Ver como acceder a la address y al idUser del user por el localStorage
-// EL id de VDV , ponemos el valor de id de la vdv en el select
+// como obtener el id del usuario registrado -> LocalStorage -> redux
+// como pbtener el id de la entidad -> podriamos obtenerlo por paramans (path /detalle/:id)
