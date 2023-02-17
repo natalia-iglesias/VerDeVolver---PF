@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Flex, Card, CardBody, Text, Button, Input } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 
-function InfoCardInput({ name, mail, password, setInput }) {
+function InfoCardInput({ name, mail, password, adress, cbu, setInput }) {
   const [textOrInput, setTextOrInput] = useState('text');
   let data;
   let inputName;
@@ -17,6 +17,14 @@ function InfoCardInput({ name, mail, password, setInput }) {
   if (password) {
     data = password;
     inputName = 'password';
+  }
+  if (adress) {
+    data = adress;
+    inputName = 'adress';
+  }
+  if (cbu) {
+    data = cbu;
+    inputName = 'cbu';
   }
 
   const onChange = (e) => {
