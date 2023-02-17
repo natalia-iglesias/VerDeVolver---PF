@@ -1,6 +1,12 @@
+const { json } = require('body-parser');
 const { Router } = require('express');
 const { Donation } = require('../../db.js');
-const { chargeDbDonation, updateDonatios } = require('./controllers.js');
+const {
+  chargeDbDonation,
+  findDonationByUser,
+  findDonationByVdV,
+  updateDonatios,
+} = require('./controllers.js');
 
 const router = Router();
 
@@ -25,9 +31,9 @@ router.get('/', async (req, res) => {
   // /donations
   try {
     const allDonations = await Donation.findAll();
-    res.status(200).send(allDonations);
+    return res.status(200).send(allDonations);
   } catch (error) {
-    res.status(404).send(error.message);
+    return res.status(404).send(error.message);
   }
 });
 
@@ -54,4 +60,36 @@ router.post('/chargeDb', async (req, res) => {
   }
 });
 
+// cris
+// const { UserId, VdVId } = req.query;
+// console.log('ruta: ', typeof UserId);
+
+// if (UserId) {
+
+// }
+// if (VdVId) {
+
+// }
+
+router.get('/user/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const findByUser = await findDonationByUser(id);
+    return res.status(200).json(findByUser);
+  } catch (error) {
+    return res.status(404).send(error.message);
+  }
+});
+
+router.get('/vdv/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const findByVdV = await findDonationByVdV(id);
+    return res.status(200).json(findByVdV);
+  } catch (error) {
+    return res.status(404).send(error.message);
+  }
+});
 module.exports = router;

@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Donation } = require('../../db.js');
 
 //ESTE ES EL BULKCREATE NO LO BORREN
@@ -25,8 +26,52 @@ const updateDonatios = async (id) => {
   );
   return updateDon;
 };
+const findDonationByUser = async (UserId) => {
+  try {
+    //console.log(UserId);
+    const comeStr = UserId.toString();
+    const comeNum = Number(comeStr);
+    // console.log('funcion: ', typeof comeStr);
+    console.log(comeStr);
+    const findId = await Donation.findAll({
+      where: {
+        UserId: {
+          [Op.eq]: comeNum,
+        },
+      },
+    });
+
+    console.log(findId);
+
+    if (!findId.length) throw Error(`El id ${idUser} no fue encontrado`);
+
+    return findId;
+  } catch (error) {
+    throw Error({ error: error.message });
+  }
+};
+
+const findDonationByVdV = async (idVdV) => {
+  try {
+    const findId = await Donation.findAll({
+      where: {
+        VdVId: {
+          [Op.eq]: idVdV,
+        },
+      },
+    });
+
+    if (!findId.length) throw Error(`El id ${idVdV} no fue encontrado`);
+
+    return findId;
+  } catch (error) {
+    throw Error({ error: error.message });
+  }
+};
 
 module.exports = {
   chargeDbDonation,
   updateDonatios,
+  findDonationByUser,
+  findDonationByVdV,
 };
