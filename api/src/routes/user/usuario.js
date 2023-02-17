@@ -7,7 +7,6 @@ const {
   findId,
   updateUser,
   deleteUser,
-  findMail,
 } = require('./controllers.js');
 const { User, Role } = require('../../db.js');
 
@@ -93,19 +92,24 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
-  try {
-    const { mail } = req.query;
+// router.get('/', async (req, res) => {
+//   try {
+//     const { mail } = req.query;
 
-    const byMail = await findMail(mail);
+//     const byMail = await findMail(mail);
 
-    !byMail
-      ? res.status(400).send(`El email ${mail}, no fue encontrado`)
-      : res.status(200).send(byMail[0]);
-  } catch (error) {
-    return res.status(404).send(error.message);
-  }
-});
+//     if (!mail) {
+//       const allUsers = await getAllUser();
+//       res.status(200).send(allUsers);
+//     }
+
+//     !byMail
+//       ? res.status(400).send(`El email ${mail}, no fue encontrado`)
+//       : res.status(200).send(byMail[0]);
+//   } catch (error) {
+//     return res.status(404).send(error.message);
+//   }
+// });
 
 router.get('/:id', async (req, res) => {
   try {
@@ -120,21 +124,5 @@ router.get('/:id', async (req, res) => {
     return res.status(404).send(error.message);
   }
 });
-
-// router.get('/:mail', async (req, res) => {
-//   try {
-//     const { mail } = req.params;
-
-//     const findByMail = await User.findAll({
-//       where: { mail },
-//     });
-
-//     !findByMail.length
-//       ? res.status(400).send(`El email ${mail}, no fue encontrado`)
-//       : res.status(200).send(findByMail[0]);
-//   } catch (error) {
-//     res.status(404).send(error.message);
-//   }
-// });
 
 module.exports = router;

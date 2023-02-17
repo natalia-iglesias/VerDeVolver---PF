@@ -144,22 +144,22 @@ const deleteUser = async (id) => {
   }
 };
 
-const findMail = async (mail) => {
-  const byMail = await User.findAll({
-    where: {
-      mail: {
-        [Op.iLike]: mail,
-      },
-    },
-    include: [
-      {
-        model: Role,
-      },
-    ],
-  });
+// const findMail = async (mail) => {
+//   const byMail = await User.findAll({
+//     where: {
+//       mail: {
+//         [Op.iLike]: mail,
+//       },
+//     },
+//     include: [
+//       {
+//         model: Role,
+//       },
+//     ],
+//   });
 
-  return byMail;
-};
+//   return byMail;
+// };
 
 module.exports = {
   chargeDbUsers,
@@ -169,5 +169,4 @@ module.exports = {
   findId,
   updateUser,
   deleteUser,
-  findMail,
 };
