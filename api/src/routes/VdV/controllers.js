@@ -14,36 +14,6 @@ async function chargeDbVdVs() {
 
 }
 
-const vdvCreate = async (req, res) => {
-  const {name,img, description, mail, password, address, CBU, Materials} = req.body
- 
-  try {
-    const vdvCreate = await VdV.create({
-      name,
-      img,
-      mail,
-      password,
-      address,
-      description,
-      CBU,
-     
-    });
-
-    const materialsDb = await Material.findByPk(id);
-    await vdvCreate.addMaterials(materialsDb)
-   
-   /*  let materialsDb = await Material.findOne(id)
-          
-  await vdvCreate.addMaterials(materialsDb); 
-   */
-     
-    res.status(200).send(vdvCreate);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-}
-
-
 const getVdV = async (req, res) => {
   const name = req.query.name;
 
@@ -75,36 +45,42 @@ const getVdV = async (req, res) => {
    return  res.status(400).send(error.message)
 }
 }
-/* const getVdVName = async (req, res) => {
-  const {name} = req.query
-  try {
-    const allVdV = await VdV.findAll({
-      include: [
-        { 
-         model: Material,
-         attributes: ["id"],
-     
-         through: {
-           attributes: [],
-         }
-       }
-       ]
-    })
-    if (name) {
-      const founds = allVdV.filter((VdVname) =>
-      VdVname.name.toLowerCase().includes(VdVname.toLowerCase())
-      );
-      founds.length
-        ? res.status(200).json(founds)
-        : res.status(404).send('No matches found ');
-    }
 
-    res.status(200).json(allVdV)
-    console.log(allVdV)
-} catch (error) {
-    res.status(400).send(error.message)
+const vdvCreate = async (req, res) => {
+  const {name,img, description, mail, password, address, CBU, Materials} = req.body
+ 
+  try {
+    const vdvCreate = await VdV.create({
+      name,
+      img,
+      mail,
+      password,
+      address,
+      description,
+      CBU,
+     
+    });
+     Materials.forEach(async (el) => {
+      const materialsDb = await Material.findByPk(el); 
+      await vdvCreate.setMaterials(materialsDb)
+     })
+   // const materialsDb = await Material.findByPk(Materials[0]);
+    
+   
+   /*  let materialsDb = await Material.findOne(id)
+          
+  await vdvCreate.addMaterials(materialsDb); 
+   */
+     
+    res.status(200).send(vdvCreate);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 }
-} */
+
+
+
+
 
  const getByIdVdV = async (req, res) => {
     const {id} = req.params
