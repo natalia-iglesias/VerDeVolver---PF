@@ -1,19 +1,15 @@
-import { materials } from '../db.json';
+import { materials } from '../../db.json';
 import { useState } from 'react';
-
+import validate from './validate';
 import {
   FormControl,
   FormLabel,
   Input,
   FormErrorMessage,
-  RadioGroup,
-  Radio,
-  HStack,
+  Select,
   FormHelperText,
   Textarea,
   Button,
-  GridItem,
-  Grid,
 } from '@chakra-ui/react';
 
 const SingUpEntitie = () => {
@@ -42,48 +38,29 @@ const SingUpEntitie = () => {
     setErrors({ ...errors, [ev.target.name]: errOjb });
   };
 
-  const validate = (form, name) => {
-    let isError = {
-      isError: false,
-      errorMsg: '',
-    };
-
-    if (form[name].length === 0 && name !== 'cbu') {
-      isError = {
-        isError: true,
-        errorMsg: 'Requerido',
-      };
-      return isError;
-    }
-    if (name === 'email') {
-      const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
-      isError = {
-        isError: !regex.test(form.email),
-        errorMsg: 'Por favor ingresa un email válido.',
-      };
-    }
-    if (name === 'cbu') {
-      isError = {
-        isError: form.cbu.length !== 22 && form.cbu.length !== 0,
-        errorMsg: 'El cbu debe ser de 22 digitos.',
-      };
-    }
-    return isError;
-  };
   const handlerChange = (e) => {
-    let keyValue;
-    if (typeof e === 'string') {
-      keyValue = { ['materials']: [...form.materials, e] };
-    } else {
-      const { name, value } = e.target;
-      keyValue = { [name]: value };
-    }
-    setForm({ ...form, ...keyValue });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
   };
 
   const handlerSubmit = (event) => {
     event.preventDefault();
+    Object.keys(form).forEach((name) => {
+      const errOjb = validate(form, name);
+
+      setErrors({ ...errors, [name]: errOjb });
+    });
+  };
+  const deleteMaterial = (mat) => {
+    const newMaterials = form.materials.filter((eachMat) => eachMat !== mat);
+    setForm({ ...form, materials: newMaterials });
+  };
+
+  const addMaterial = (e) => {
+    let newMaterials = [...form.materials];
+    newMaterials.push(e.target.value);
+    const uniqueMaterials = [...new Set([...newMaterials])];
+    setForm({ ...form, materials: uniqueMaterials });
   };
   return (
     <FormControl margin="3%" onSubmit={handlerSubmit}>
@@ -102,6 +79,7 @@ const SingUpEntitie = () => {
           <FormErrorMessage>{errors.name.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
+      <br />
       <FormControl isRequired isInvalid={errors.email.isError}>
         <FormLabel>Email</FormLabel>
         <Input
@@ -117,6 +95,7 @@ const SingUpEntitie = () => {
           <FormErrorMessage>{errors.email.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
+      <br />
       <FormControl isRequired isInvalid={errors.address.isError}>
         <FormLabel>Dirección</FormLabel>
         <Input
@@ -132,6 +111,7 @@ const SingUpEntitie = () => {
           <FormErrorMessage>{errors.address.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
+      <br />
       <FormControl isRequired isInvalid={errors.imageCloud.isError}>
         <FormLabel>Imagen</FormLabel>
         <Input
@@ -149,12 +129,12 @@ const SingUpEntitie = () => {
           <FormErrorMessage>{errors.address.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
+      <br />
       <FormControl isInvalid={errors.cbu.isError}>
         <FormLabel>CBU</FormLabel>
         <Input
           name="cbu"
           onChange={handlerChange}
-          onBlur={handlerBlur}
           type="number"
           value={form.cbu}
         />
@@ -166,32 +146,40 @@ const SingUpEntitie = () => {
           <FormErrorMessage>{errors.cbu.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
+      <br />
       <FormControl isRequired isInvalid={errors.materials.isError}>
         <FormLabel>Materiales Reciclables</FormLabel>
-        <RadioGroup
+        <Select
+          placeholder="Elegir material"
+          w="18vw"
           name="materials"
-          onChange={handlerChange}
+          onChange={(e) => addMaterial(e)}
           onBlur={handlerBlur}
         >
-          <HStack>
-            <Grid templateColumns="repeat(4, 7fr)" gap={6}>
-              {materials?.map((m, i) => (
-                <GridItem key={i} w="100%" h="10" width={'auto'}>
-                  <Radio key={i} colorScheme="green" value={m}>
-                    {m}
-                  </Radio>
-                </GridItem>
-              ))}
-            </Grid>
-          </HStack>
-          {!errors.materials.isError && form.materials.length === 0 ? (
-            <FormHelperText>
-              Selecciona únicamente los materiales que recibirás.
-            </FormHelperText>
-          ) : (
-            <FormErrorMessage>{errors.materials.errorMsg}</FormErrorMessage>
-          )}
-        </RadioGroup>
+          {materials.map((mat, i) => {
+            return (
+              <option key={i} value={mat}>
+                {mat}
+              </option>
+            );
+          })}
+        </Select>
+        <br />
+        {form.materials.map((mat, i) => {
+          return (
+            <Button key={i} onClick={() => deleteMaterial(mat)}>
+              {mat}
+            </Button>
+          );
+        })}
+
+        {!errors.materials.isError && form.materials.length === 0 ? (
+          <FormHelperText>
+            Selecciona únicamente los materiales que recibirás.
+          </FormHelperText>
+        ) : (
+          <FormErrorMessage>{errors.materials.errorMsg}</FormErrorMessage>
+        )}
       </FormControl>
       <br />
       <FormControl isRequired isInvalid={errors.description.isError}>
@@ -204,14 +192,18 @@ const SingUpEntitie = () => {
           value={form.description}
         />
         {!errors.description.isError && form.description.length === 0 ? (
-          <FormHelperText>Escribe una descripción.</FormHelperText>
+          <FormHelperText>
+            Cuéntanos brevemente sobre tu proyecto.
+          </FormHelperText>
         ) : (
           <FormErrorMessage>{errors.description.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
-      <Button colorScheme="green" type="submit">
+      <br />
+      <Button colorScheme="green" type="submit" onClick={handlerSubmit}>
         Enviar
       </Button>
+      <br />
     </FormControl>
   );
 };
