@@ -29,19 +29,45 @@ const SingUpEntitie = () => {
 
   const [errors, setErrors] = useState({
     name: false,
-    email: false,
+    email: { isError: false, errorMsg: '' },
     address: false,
     imageCloud: false,
     cbu: false,
     materials: false,
     description: false,
   });
-
+  console.log(errors.email.isError);
   const handlerBlur = (ev) => {
-    // const isError = form[ev.target.name].length === 0;
-    const isError = validate(form, ev.target.name);
+    const errOjb = validate(form, ev.target.name);
 
-    setErrors({ ...errors, [ev.target.name]: isError });
+    setErrors({ ...errors, [ev.target.name]: errOjb });
+  };
+
+  const validate = (form, name) => {
+    let isError = {};
+
+    if (form[name].length === 0) {
+      isError = {
+        isError: true,
+        errorMsg: 'Requerido',
+      };
+      return isError;
+    }
+    if (name === 'email') {
+      const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+      isError = {
+        isError: !regex.test(form.email),
+        errorMsg: 'Por favor ingresa un email válido.',
+      };
+    }
+    if (name === 'cbu') {
+      isError = {
+        isError: form.cbu.length !== 22,
+        errorMsg: 'El cbu debe ser de 22 digitos.',
+      };
+    }
+    return isError;
   };
   const handlerChange = (e) => {
     let keyValue;
@@ -56,20 +82,6 @@ const SingUpEntitie = () => {
 
   const handlerSubmit = (event) => {
     event.preventDefault();
-  };
-  const validate = (form, name) => {
-    let isError = false;
-    if (form[name].length === 0) {
-      isError = true;
-      return isError;
-    }
-    if (name === 'email') {
-      isError = form.email;
-    }
-    if (name === 'cbu') {
-      isError = typeof form.cbu !== 'number' || form.cbu.length !== 22;
-    }
-    return isError;
   };
   return (
     <FormControl margin="3%" onSubmit={handlerSubmit}>
@@ -88,7 +100,7 @@ const SingUpEntitie = () => {
           <FormErrorMessage>Requerido.</FormErrorMessage>
         )}
       </FormControl>
-      <FormControl isRequired isInvalid={errors.email}>
+      <FormControl isRequired isInvalid={errors.email.isError}>
         <FormLabel>Email</FormLabel>
         <Input
           name="email"
@@ -97,10 +109,10 @@ const SingUpEntitie = () => {
           type="email"
           value={form.email}
         />
-        {!errors.email ? (
+        {!errors.email.isError && form.email.length === 0 ? (
           <FormHelperText>Ingresa tu email.</FormHelperText>
         ) : (
-          <FormErrorMessage>Requerido.</FormErrorMessage>
+          <FormErrorMessage>{errors.email.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
       <FormControl isRequired isInvalid={errors.address}>
@@ -135,13 +147,16 @@ const SingUpEntitie = () => {
           <FormErrorMessage>Requerido.</FormErrorMessage>
         )}
       </FormControl>
-      <FormLabel>CBU</FormLabel>
-      <Input
-        name="cbu"
-        onChange={handlerChange}
-        type="number"
-        value={form.cbu}
-      />
+      <FormControl isInvalid={errors.cbu}>
+        <FormLabel>CBU</FormLabel>
+        <Input
+          name="cbu"
+          onChange={handlerChange}
+          onBlur={handlerBlur}
+          type="number"
+          value={form.cbu}
+        />
+      </FormControl>
       <FormControl isRequired isInvalid={errors.materials}>
         <FormLabel>Materiales Reciclables</FormLabel>
         <RadioGroup
