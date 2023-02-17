@@ -110,9 +110,21 @@ const updateUser = async (userToUD, id) => {
 };
 
 const deleteUser = async (id) => {
-  await User.destroy({
-    where: { id },
-  });
+  try {
+    if (!id) throw Error('No se ha suministrado ningun id');
+
+    const findById = await User.findAll({
+      where: { id },
+    });
+
+    if (!findById) throw Error(`El id ${id} no fue encontrado`);
+
+    await User.destroy({
+      where: { id },
+    });
+  } catch (error) {
+    throw Error({ error: error.message });
+  }
 };
 
 const findMail = async (mail) => {
