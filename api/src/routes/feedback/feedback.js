@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { chargeDbFeedback, getFeedbacks, updateFeedback, getFeedbacksById, deleteFeedback, createFeedback } = require('./controllers.js');
+const { chargeDbFeedback, getFeedbacks, updateFeedback, getFeedbacksById, deleteFeedback, createFeedback, getFeedbacksByUserId, getFeedbacksByVdVId } = require('./controllers.js');
 
 const router = Router();
 
@@ -38,6 +38,30 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
     const feedback = await getFeedbacksById(id);
+    res.status(200).send(feedback);
+    console.log(feedback)
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+router.get('/user/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const feedback = await getFeedbacksByUserId(id);
+    res.status(200).send(feedback);
+    console.log(feedback)
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+router.get('/vdv/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const feedback = await getFeedbacksByVdVId(id);
     res.status(200).send(feedback);
     console.log(feedback)
   } catch (error) {

@@ -1,4 +1,4 @@
-const { Feedback, User } = require('../../db.js');
+const { Feedback, User, VdV } = require('../../db.js');
 
 //ESTE ES EL BULKCREATE NO LO BORREN
 const chargeDbFeedback = async () => {
@@ -59,6 +59,38 @@ const getFeedbacksById = async (id) => {
   }
 };
 
+const getFeedbacksByUserId = async (id) => {
+  try {
+    if (!id ) throw Error("Missing data");
+    
+    const checkuser = await User.findAll( { where: {id: id} } );
+    if (!checkuser) throw Error ('User does not exist');
+
+    const feedback = await Feedback.findAll({ where: { UserId: id } });
+    if (!feedback) throw Error (`An error ocurred. Could not get feedbacks with the UserId ${id}`); 
+
+    return feedback;
+  } catch (error) {
+    throw Error (error.message);
+  }
+};
+
+const getFeedbacksByVdVId = async (id) => {
+  try {
+    if (!id ) throw Error("Missing data");
+    
+    const checkVdV = await VdV.findAll( { where: {id: id} } );
+    if (!checkVdV) throw Error ('VdV does not exist');
+
+    const feedback = await Feedback.findAll({ where: { VdVId: id } });
+    if (!feedback) throw Error (`An error ocurred. Could not get feedbacks with the VdVId ${id}`); 
+
+    return feedback;
+  } catch (error) {
+    throw Error (error.message);
+  }
+};
+
 const updateFeedback = async (id, comment, rating) => {
   try {
     if (!comment || !rating || !id ) throw Error("Missing data");
@@ -104,6 +136,8 @@ module.exports = {
   createFeedback,
   getFeedbacks,
   getFeedbacksById,
+  getFeedbacksByUserId,
+  getFeedbacksByVdVId,
   updateFeedback,
   deleteFeedback,
 };
