@@ -17,7 +17,6 @@ import SingUp from './pages/SingUp';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchEntities } from './redux/actions/entitiesActions';
-import SingUp from './Components/SingUp';
 
 const App = () => {
   const dispatch = useDispatch();

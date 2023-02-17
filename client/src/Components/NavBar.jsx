@@ -9,11 +9,16 @@ import {
   MenuItem,
   MenuList,
   Link,
+  Button,
+  useColorMode,
 } from '@chakra-ui/react';
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 const Navbar = () => {
+  const { colorMode, toggleColorMode } = useColorMode(); // usael hook useColorMode
+
   return (
-    <Box bg="#F5F2EB">
+    <Box bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}>
       <Flex justifyContent={'center'} mb={'3rem'}>
         <Box boxSize="10em" position={'absolute'} top="-10" left={0}>
           <Image boxSize="170px" objectFit="cover" src="/images/logo.png" />
@@ -56,7 +61,7 @@ const Navbar = () => {
           <Menu>
             <MenuButton>
               <img
-                src="https://cdn-icons-png.flaticon.com/512/1361/1361728.png"
+                src="https://img.icons8.com/ios11/600/FFFFFF/user.png"
                 alt="Perfil"
               />
             </MenuButton>
@@ -78,6 +83,16 @@ const Navbar = () => {
             </MenuList>
           </Menu>
         </Box>
+        <Flex ml={'2%'}>
+          <Button
+            mt={'130%'}
+            colorScheme="green"
+            size={'xs'}
+            onClick={toggleColorMode}
+          >
+            {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+          </Button>
+        </Flex>
       </Flex>
     </Box>
   );
