@@ -5,7 +5,7 @@ import Map from './pages/Map';
 import Service from './pages/Service';
 import Entities from './pages/Entities';
 import EntitieDetail from '../src/pages/EntitieDetail';
-import SingUpEntitie from './pages/SingUpEntitie';
+import SingUpEntitie from './pages/SignUpEntities/SingUpEntitie';
 import Login from './Components/Login';
 import UserProfile from './pages/UserProfile';
 import EntityProfile from './pages/EntityProfile';
