@@ -14,6 +14,28 @@ async function chargeDbMaterial() {
   return bulkCreateMaterial;
 }
 
+const createMaterial = async (name) => {
+  const newMaterial = await Material.create({
+    name: name,
+  });
+  return newMaterial;
+};
+
+const getAllMaterials = async () => {
+  const allMaterials = await Material.findAll();
+  return allMaterials;
+};
+
+const deleteMaterial = async (name) => {
+  const material = await Material.destroy({
+    where: { name: name },
+  });
+  return material;
+};
+
 module.exports = {
   chargeDbMaterial,
+  createMaterial,
+  getAllMaterials,
+  deleteMaterial,
 };

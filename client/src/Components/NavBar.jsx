@@ -20,9 +20,11 @@ const Navbar = () => {
   return (
     <Box bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}>
       <Flex justifyContent={'center'} mb={'3rem'}>
-        <Box boxSize="10em" position={'absolute'} top="-10" left={0}>
-          <Image boxSize="170px" objectFit="cover" src="/images/logo.png" />
-        </Box>
+        <Link as={ReachLink} to="/home">
+          <Box boxSize="10em" position={'absolute'} top="-10" left={0}>
+            <Image boxSize="170px" objectFit="cover" src="/images/logo.png" />
+          </Box>
+        </Link>
         <Box fontWeight={'700'} fontSize="1.5em" mt={'2%'}>
           <Link as={ReachLink} to="/map" color="green" mr={5}>
             Mapa
@@ -68,17 +70,14 @@ const Navbar = () => {
             <MenuList>
               <MenuItem
                 as={ReachLink}
-                to="/profileentitie"
+                to="/userprofile"
                 fontWeight={'700'}
                 color="green"
               >
                 Mi perfil
               </MenuItem>
               <MenuItem as={ReachLink} to="/" fontWeight={'700'} color="green">
-                Configuracion
-              </MenuItem>
-              <MenuItem as={ReachLink} to="/" fontWeight={'700'} color="green">
-                Cerrar Seción
+                Cerrar Sesión
               </MenuItem>
             </MenuList>
           </Menu>
