@@ -79,7 +79,13 @@ const postUser = async (req, res, next) => {
 };
 
 const getAllUser = async (req, res, next) => {
-  const dbAll = await User.findAll();
+  const dbAll = await User.findAll({
+    include: [
+      {
+        model: Role,
+      },
+    ],
+  });
   return dbAll;
 };
 
@@ -92,13 +98,24 @@ const getByName = async (name) => {
         [Op.iLike]: name,
       },
     },
+    include: [
+      {
+        model: Role,
+      },
+    ],
   });
 
   return byName;
 };
 
 const findId = async (id) => {
-  const byPk = await User.findByPk(id);
+  const byPk = await User.findByPk(id, {
+    include: [
+      {
+        model: Role,
+      },
+    ],
+  });
 
   return byPk;
 };
@@ -128,11 +145,20 @@ const deleteUser = async (id) => {
 };
 
 const findMail = async (mail) => {
-  const findByEmail = await User.findAll({
-    where: { mail },
+  const byMail = await User.findAll({
+    where: {
+      mail: {
+        [Op.iLike]: mail,
+      },
+    },
+    include: [
+      {
+        model: Role,
+      },
+    ],
   });
 
-  return findByEmail;
+  return byMail;
 };
 
 module.exports = {

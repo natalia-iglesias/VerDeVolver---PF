@@ -51,13 +51,13 @@ router.get('/', async (req, res) => {
 
     if (!name) {
       const allUsers = await getAllUser();
-      res.status(200).json(allUsers);
+      res.status(200).send(allUsers);
     } else {
       const userbyName = await getByName(name);
 
       !userbyName.length
         ? res.status(400).send(`El nombre ${name}, no fue encontrado`)
-        : res.status(200).json(userbyName);
+        : res.status(200).send(userbyName);
     }
   } catch (error) {
     return res.status(404).send(error.message);
@@ -93,15 +93,29 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.get('/:mail', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const { mail } = req.params;
+    const { mail } = req.query;
 
     const byMail = await findMail(mail);
 
     !byMail
       ? res.status(400).send(`El email ${mail}, no fue encontrado`)
-      : res.status(200).json(byMail[0]);
+      : res.status(200).send(byMail[0]);
+  } catch (error) {
+    return res.status(404).send(error.message);
+  }
+});
+
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const byId = await findId(id);
+
+    !byId
+      ? res.status(400).send(`El id ${id}, no fue encontrado`)
+      : res.status(200).send(byId);
   } catch (error) {
     return res.status(404).send(error.message);
   }
@@ -117,7 +131,7 @@ router.get('/:mail', async (req, res) => {
 
 //     !findByMail.length
 //       ? res.status(400).send(`El email ${mail}, no fue encontrado`)
-//       : res.status(200).json(findByMail[0]);
+//       : res.status(200).send(findByMail[0]);
 //   } catch (error) {
 //     res.status(404).send(error.message);
 //   }
