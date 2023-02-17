@@ -27,7 +27,7 @@ const Navbar = () => {
           <Link as={ReachLink} to="/map" color="green" mr={5}>
             Mapa
           </Link>
-          <Link as={ReachLink} to="/login" color="green" mr={5}>
+          <Link as={ReachLink} to="/beVdV" color="green" mr={5}>
             SerVdV
           </Link>
           <Link as={ReachLink} to="/entities" color="green" mr={5}>
