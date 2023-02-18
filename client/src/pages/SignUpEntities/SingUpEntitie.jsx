@@ -45,11 +45,13 @@ const SingUpEntitie = () => {
 
   const handlerSubmit = (event) => {
     event.preventDefault();
+    let errorsObj = {};
     Object.keys(form).forEach((name) => {
-      const errOjb = validate(form, name);
-
-      setErrors({ ...errors, [name]: errOjb });
+      const errOjb = { [name]: validate(form, name) };
+      errorsObj = { ...errorsObj, ...errOjb };
+      console.log(errorsObj);
     });
+    setErrors({ ...errors, ...errorsObj });
   };
   const deleteMaterial = (mat) => {
     const newMaterials = form.materials.filter((eachMat) => eachMat !== mat);
@@ -63,7 +65,7 @@ const SingUpEntitie = () => {
     setForm({ ...form, materials: uniqueMaterials });
   };
   return (
-    <FormControl margin="3%" onSubmit={handlerSubmit}>
+    <FormControl width={500} margin="3%" onSubmit={handlerSubmit}>
       <FormControl isRequired isInvalid={errors.name.isError}>
         <FormLabel>Nombre</FormLabel>
         <Input

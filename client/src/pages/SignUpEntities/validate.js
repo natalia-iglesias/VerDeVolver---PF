@@ -4,6 +4,7 @@ export default function validate(form, name) {
     errorMsg: '',
   };
   if (form[name].length === 0 && name !== 'cbu') {
+    console.log('Req', name, form[name]);
     isError = {
       isError: true,
       errorMsg: 'Requerido',
