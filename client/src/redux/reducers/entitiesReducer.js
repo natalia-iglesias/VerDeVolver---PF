@@ -1,4 +1,8 @@
-import { FETCH_ENTITIES, SEARCH_ENTITIES } from '../actions/entitiesActions';
+import {
+  FETCH_ENTITIES,
+  SEARCH_ENTITIES,
+  CREATE_NEW_ENTITY,
+} from '../actions/entitiesActions';
 
 const initialState = {
   entities: [],
@@ -13,6 +17,8 @@ export const entitiesReducer = (state = initialState, { type, payload }) => {
         ...state,
         entities: payload,
       };
+    case CREATE_NEW_ENTITY:
+      return { ...state, message: action.payload };
     default:
       return { ...state };
   }

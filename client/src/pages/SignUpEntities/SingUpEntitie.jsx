@@ -1,4 +1,5 @@
 import { materials } from '../../db.json';
+// import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import validate from './validate';
 import {
@@ -43,27 +44,29 @@ const SingUpEntitie = () => {
     setForm({ ...form, [name]: value });
   };
 
+  // const history = useHistory();
   const handlerSubmit = (event) => {
     event.preventDefault();
     let errorsObj = {};
     Object.keys(form).forEach((name) => {
       const errOjb = { [name]: validate(form, name) };
       errorsObj = { ...errorsObj, ...errOjb };
-      console.log(errorsObj);
     });
     setErrors({ ...errors, ...errorsObj });
+    // history.push('/home');
   };
+
   const deleteMaterial = (mat) => {
     const newMaterials = form.materials.filter((eachMat) => eachMat !== mat);
     setForm({ ...form, materials: newMaterials });
   };
-
   const addMaterial = (e) => {
     let newMaterials = [...form.materials];
     newMaterials.push(e.target.value);
     const uniqueMaterials = [...new Set([...newMaterials])];
     setForm({ ...form, materials: uniqueMaterials });
   };
+
   return (
     <FormControl width={500} margin="3%" onSubmit={handlerSubmit}>
       <FormControl isRequired isInvalid={errors.name.isError}>
