@@ -1,30 +1,29 @@
 import { useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { IconButton, Input, InputGroup } from '@chakra-ui/react';
+import { searchEntities } from '../redux/actions/entitiesActions';
 
 const SearchBar = () => {
-  const dispatch = useDispatch();
-  const [entityName, setEntityName] = useState('');
+  const [search, setSearch] = useState('');
+  let dispatch = useDispatch();
 
-  useEffect(() => {
-    //entityName && dispatch(getEntityByName(entityName))
-  }, [entityName]);
+  function handleClick(e) {
+    e.preventDefault();
+    dispatch(searchEntities(search));
+  }
 
-  const handleChange = (ev) => {
-    setEntityName(ev.target.value);
-  };
-
-  const handleClick = () => {
-    //entityName && dispatch(getEntityByName(entityName))
-  };
+  function handleChange(e) {
+    e.preventDefault();
+    setSearch(e.target.value);
+  }
 
   return (
     <InputGroup>
       <Input
         placeholder="Entidad VdV"
         type="text"
-        value={entityName}
+        value={search}
         onChange={handleChange}
       />
 
