@@ -7,7 +7,6 @@ const {
   findId,
   updateUser,
   deleteUser,
-  findMail,
 } = require('./controllers.js');
 const { User, Role } = require('../../db.js');
 
@@ -51,13 +50,13 @@ router.get('/', async (req, res) => {
 
     if (!name) {
       const allUsers = await getAllUser();
-      res.status(200).json(allUsers);
+      res.status(200).send(allUsers);
     } else {
       const userbyName = await getByName(name);
 
       !userbyName.length
         ? res.status(400).send(`El nombre ${name}, no fue encontrado`)
-        : res.status(200).json(userbyName);
+        : res.status(200).send(userbyName);
     }
   } catch (error) {
     return res.status(404).send(error.message);
@@ -93,34 +92,37 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.get('/:mail', async (req, res) => {
+// router.get('/', async (req, res) => {
+//   try {
+//     const { mail } = req.query;
+
+//     const byMail = await findMail(mail);
+
+//     if (!mail) {
+//       const allUsers = await getAllUser();
+//       res.status(200).send(allUsers);
+//     }
+
+//     !byMail
+//       ? res.status(400).send(`El email ${mail}, no fue encontrado`)
+//       : res.status(200).send(byMail[0]);
+//   } catch (error) {
+//     return res.status(404).send(error.message);
+//   }
+// });
+
+router.get('/:id', async (req, res) => {
   try {
-    const { mail } = req.params;
+    const { id } = req.params;
 
-    const byMail = await findMail(mail);
+    const byId = await findId(id);
 
-    !byMail
-      ? res.status(400).send(`El email ${mail}, no fue encontrado`)
-      : res.status(200).json(byMail[0]);
+    !byId
+      ? res.status(400).send(`El id ${id}, no fue encontrado`)
+      : res.status(200).send(byId);
   } catch (error) {
     return res.status(404).send(error.message);
   }
 });
-
-// router.get('/:mail', async (req, res) => {
-//   try {
-//     const { mail } = req.params;
-
-//     const findByMail = await User.findAll({
-//       where: { mail },
-//     });
-
-//     !findByMail.length
-//       ? res.status(400).send(`El email ${mail}, no fue encontrado`)
-//       : res.status(200).json(findByMail[0]);
-//   } catch (error) {
-//     res.status(404).send(error.message);
-//   }
-// });
 
 module.exports = router;

@@ -22,7 +22,12 @@ module.exports = (sequelize) => {
         max: 5,
       },
     },
-  });
+    date: {
+      type: DataTypes.DATEONLY,
+      defaultValue: DataTypes.NOW, 
+    },
+  }, { timestamps: false }
+  );
 };
 
 // como obtener el id del usuario registrado -> LocalStorage -> redux

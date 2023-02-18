@@ -5,9 +5,9 @@ import Map from './pages/Map';
 import Service from './pages/Service';
 import Entities from './pages/Entities';
 import EntitieDetail from '../src/pages/EntitieDetail';
-import SingUpEntitie from './pages/SingUpEntitie';
+import SingUpEntitie from './pages/SignUpEntities/SingUpEntitie';
 import Login from './Components/Login';
-import UserProfile from './pages/UserProfile';
+import UserProfile from './pages/user profile/UserProfile';
 import EntityProfile from './pages/EntityProfile';
 import Dashboard from './pages/Dashboard';
 import About from './pages/About';
@@ -17,6 +17,7 @@ import SingUp from './pages/SingUp';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchEntities } from './redux/actions/entitiesActions';
+import ColorModeSwitcher from './components/ColorModeSwitcher';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <ColorModeSwitcher />
     </BrowserRouter>
   );
 };
