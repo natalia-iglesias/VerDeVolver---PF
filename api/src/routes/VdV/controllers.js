@@ -1,133 +1,116 @@
+const { VdV, Material } = require('../../db.js');
 
-const { VdV, Material} = require('../../db.js');
-
-async function chargeDbVdVs() {
-
-  const bulkCreateVdvs = await VdV.bulkCreate([
-    {  name: "Reciclar Ayuda", img: "www.imagen.com", mail:"ra@mail.com", password:"12345", address:"calle 1", description:"Somos una ONG sin fines de lucro", CBU:"34567898777", materials :[1, 5,7]},
-    {  name: "Juntos X el Cambio", img: "www.imagen.com", mail:"jxec@mail.com", password:"12345", address:"calle 2", description:"Somos una ONG sin fines de lucro", CBU:"23456788777", materials :[2,3, 5,]},
-    {  name: "Te Amo Mundo", img: "www.imagen.com", mail:"tam@mail.com", password:"12345", address:"calle 3", description:"Somos una ONG sin fines de lucro", CBU:"0987698777",  materials :[2,3, 4,6]},
-    {  name: "Salvando el Planeta", img: "www.imagen.com", mail:"sep@mail.com", password:"12345", address:"calle 4", description:"Somos una ONG sin fines de lucro", CBU:"8976557898777", materials :[1,2,3, 5,6]},
-  ]);
-
-  return bulkCreateVdvs;
-
-}
-
-const getVdV = async (req, res) => {
-  const name = req.query.name;
-
-  try {
-    const allVdV = await VdV.findAll({
-      include: [
-        { 
-         model: Material,
-         attributes: ["id"],
-     
-         through: {
-           attributes: [],
-         }
-       }
-       ]
-    }) 
-    if(name){
-      const founds = allVdV.filter((el) =>
-      el.name.toLowerCase().includes(name.toLowerCase())
+async function chargeDbVdVs(vdvs) {
+  // console.log(vdvs);
+  const result = await Promise.all(
+    vdvs.map(async (vdv) => {
+      console.log(vdv);
+      const {
+        name,
+        img,
+        description,
+        mail,
+        password,
+        address,
+        CBU,
+        materials,
+      } = vdv;
+      const createVdV = await VdV.create(
+        name,
+        img,
+        description,
+        mail,
+        password,
+        address,
+        CBU
       );
-      return founds.length 
-       ? res.status(200).json(founds)
-        : res.status(404).send('No matches found ');
-    }
-
-   return res.status(200).json(allVdV)
-    
-} catch (error) {
-   return  res.status(400).send(error.message)
-}
+      await createVdV.addMaterials(materials);
+      result.push(createVdV);
+    })
+  );
+  // const bulkCreateVdvs = await VdV.bulkCreate();
+  // console.log(result);
+  return result;
 }
 
-const vdvCreate = async (req, res) => {
-  const {name,img, description, mail, password, address, CBU, Materials} = req.body
- 
-  try {
-    const vdvCreate = await VdV.create({
-      name,
-      img,
-      mail,
-      password,
-      address,
-      description,
-      CBU,
-     
-    });
-     Materials.forEach(async (el) => {
-      const materialsDb = await Material.findByPk(el); 
-      await vdvCreate.setMaterials(materialsDb) 
-     })
- 
-     
-    res.status(200).send(vdvCreate);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-}
+//---------------------***--------------------------//
 
+const vdvCreate = async (body) => {
+  const { name, img, description, mail, password, address, CBU, materials } =
+    body;
 
+  const vdvCreate = await VdV.create({
+    name,
+    img,
+    mail,
+    password,
+    address,
+    description,
+    CBU,
+  });
 
+  await vdvCreate.addMaterials(materials);
 
+  return vdvCreate;
+};
 
- const getByIdVdV = async (req, res) => {
-    const {id} = req.params
-    try {
-        const VdVFound = await VdV.findByPk(id,{
-          include: [
-            { 
-             model: Material,
-             attributes: ["id"],
-         
-             through: {
-               attributes: [],
-             }
-           }
-           ]
-        });
-        res.status(200).json(VdVFound)
-        
-    } catch (error) {
-      res.status(400).send(error.message)
-    }
-  }
-  //INTENTAR MODULARIZAR COMO LO QUIEREN LOS CHICOS
+const getVdV = async (obj) => {
+  // console.log('obj', obj);
+  const allVdV = await VdV.findAll({
+    // where: {
+    //   obj,
+    include: [
+      {
+        model: Material,
+        attributes: ['name'],
 
-  const upDateVdV = (req, res ) => {
-    const {id} = req.params
-    const body = req.body
-    try {
-      const VdVupDate = VdV.update(body, {
-        where: {id}
+        through: {
+          attributes: [],
+        },
+      },
+    ],
+  });
+  return allVdV;
+};
 
-      })
-      res.status(200).json(VdVupDate)
-      
-    } catch (error) {
-      res.status(500).send('Problemas')
-      
-    }
-  }
+const getByIdVdV = async (id) => {
+  const VdVFind = await VdV.findByPk(id, {
+    include: [
+      {
+        model: Material,
+        attributes: ['name'],
 
-  const deleteVdV = (req, res) => {
-    const {id} = req.params
-    try {
-      const VdVdelete = VdV.destroy({
-        where: {
-          id
-        }
-      })
-      res.status(200).json(VdVdelete)
-    } catch (error) {
-      res.status(500).send('Problemas')
-    }
-  }
+        through: {
+          attributes: [],
+        },
+      },
+    ],
+  });
+  return VdVFind;
+};
+
+const upDateVdV = async (id, body) => {
+  const VdVupDate = await VdV.update(body, {
+    where: { id },
+  });
+  // getbyid -> id guardo en constante y retorno
+  return VdVupDate;
+};
+
+const deleteVdV = (id) => {
+  const VdVdelete = VdV.destroy({
+    where: {
+      id,
+    },
+  });
+  return VdVdelete;
+};
+
+// Implamentar creacion de password
+const changeStatus = async (id) => {
+  const result = VdV.update({ status: 'Pending' }, { where: { id } }); // Hay que invertir los valores cuando ya este el Admin funcionando
+  return result;
+};
 
 module.exports = {
   chargeDbVdVs,
@@ -136,6 +119,5 @@ module.exports = {
   getByIdVdV,
   upDateVdV,
   deleteVdV,
-  
+  changeStatus,
 };
-

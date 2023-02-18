@@ -1,4 +1,3 @@
-const { json } = require('body-parser');
 const { Router } = require('express');
 const {
   chargeDbDonation,
@@ -11,6 +10,7 @@ const {
 } = require('./controllers.js');
 
 const router = Router();
+//agregar a post const { body } = req;
 
 router.post('/', async (req, res) => {
   try {
@@ -22,6 +22,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// obtener todos
 router.get('/', async (req, res) => {
   try {
     const allDonations = await getDonations();
@@ -32,6 +33,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// modificacion de Pending a Delivered (status)
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -78,11 +80,12 @@ router.get('/user/:id', async (req, res) => {
   }
 });
 
+// obtener las donaciones a la VdVId
 router.get('/vdv/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
-    const findByVdV = await findDonationByVdV(id);
+    const findByVdV = await getByVdVId(id);
     return res.status(200).json(findByVdV);
 
   } catch (error) {

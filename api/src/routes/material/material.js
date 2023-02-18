@@ -9,16 +9,6 @@ const {
 
 const router = Router();
 
-router.post('/', async (req, res) => {
-  const { name } = req.body;
-  try {
-    const material = await createMaterial(name);
-    res.status(200).send(material);
-  } catch (error) {
-    res.status(404).send(error.message);
-  }
-});
-
 router.post('/chargeDb', async (req, res) => {
   // /material/chargeDb
   try {
@@ -29,6 +19,18 @@ router.post('/chargeDb', async (req, res) => {
   }
 });
 
+// crear material
+router.post('/', async (req, res) => {
+  const { name } = req.body;
+  try {
+    const material = await createMaterial(name);
+    res.status(200).send(material);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+// obtener todos los materiales
 router.get('/', async (req, res) => {
   try {
     const allMaterials = await getAllMaterials();
@@ -38,6 +40,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// eliminar un material
 router.delete('/', async (req, res) => {
   const { name } = req.body;
   try {

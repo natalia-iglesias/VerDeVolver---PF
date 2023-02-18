@@ -67,7 +67,8 @@ const updateDonations = async (id) => {
       },
     }
   );
-  return updateDon;
+  const result = await Donation.findByPk(id);
+  return result;
 };
 
 const getDonationsById = async (id) => {

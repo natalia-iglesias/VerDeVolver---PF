@@ -40,3 +40,8 @@ module.exports = (sequelize) => {
     { timestamps: false }
   );
 };
+
+/*
+
+[ "MAdera" , "Vidrio" ] 
+*/

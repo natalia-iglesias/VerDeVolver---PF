@@ -23,7 +23,8 @@ const createMaterial = async (name) => {
 
 const getAllMaterials = async () => {
   const allMaterials = await Material.findAll();
-  return allMaterials;
+  const allMaterialsReturn = allMaterials.map((elem) => elem.name);
+  return allMaterialsReturn;
 };
 
 const deleteMaterial = async (name) => {
