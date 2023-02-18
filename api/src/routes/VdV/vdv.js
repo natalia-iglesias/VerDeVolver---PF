@@ -55,7 +55,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// upDateVdV
+// upDateVdV  // Devolver el objeto con los cambios realizados
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const { body } = req;

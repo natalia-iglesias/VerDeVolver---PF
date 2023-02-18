@@ -4,6 +4,16 @@ const { chargeDbRoles, createRole, deleteRole } = require('./controllers.js');
 
 const router = Router();
 
+router.post('/chargeDb', async (req, res) => {
+  try {
+    const chargeRolesDb = await chargeDbRoles();
+    res.status(200).send(chargeRolesDb);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+// crear rol
 router.post('/', async (req, res) => {
   const { name } = req.body;
   try {
@@ -14,6 +24,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// eliminar rol
 router.delete('/', async (req, res) => {
   const { name } = req.body;
   try {
@@ -21,16 +32,6 @@ router.delete('/', async (req, res) => {
     role > 0
       ? res.status(200).send(` Roll ${name} eliminado`)
       : res.status(404).send('No existe Roll');
-  } catch (error) {
-    res.status(404).send(error.message);
-  }
-});
-
-router.post('/chargeDb', async (req, res) => {
-  // /material/chargeDb
-  try {
-    const chargeRolesDb = await chargeDbRoles();
-    res.status(200).send(chargeRolesDb);
   } catch (error) {
     res.status(404).send(error.message);
   }

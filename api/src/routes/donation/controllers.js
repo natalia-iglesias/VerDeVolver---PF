@@ -15,6 +15,21 @@ async function chargeDbDonation() {
   return bulkCreateDonations;
 }
 
+const createDonation = async (body) => {
+  const { amount, UserId, VdVId } = body;
+  const result = await Donation.create({
+    amount,
+    UserId,
+    VdVId,
+  });
+  return result;
+};
+
+const getAll = async () => {
+  const result = Donation.findAll();
+  return result;
+};
+
 const updateDonatios = async (id) => {
   const updateDon = await Donation.update(
     { status: 'Delivered' },
@@ -24,54 +39,33 @@ const updateDonatios = async (id) => {
       },
     }
   );
-  return updateDon;
-};
-const findDonationByUser = async (UserId) => {
-  try {
-    //console.log(UserId);
-    const comeStr = UserId.toString();
-    const comeNum = Number(comeStr);
-    // console.log('funcion: ', typeof comeStr);
-    console.log(comeStr);
-    const findId = await Donation.findAll({
-      where: {
-        UserId: {
-          [Op.eq]: comeNum,
-        },
-      },
-    });
-
-    console.log(findId);
-
-    if (!findId.length) throw Error(`El id ${idUser} no fue encontrado`);
-
-    return findId;
-  } catch (error) {
-    throw Error({ error: error.message });
-  }
+  const result = await Donation.findByPk(id);
+  return result;
 };
 
-const findDonationByVdV = async (idVdV) => {
-  try {
-    const findId = await Donation.findAll({
-      where: {
-        VdVId: {
-          [Op.eq]: idVdV,
-        },
-      },
-    });
+const getByUserId = async (id) => {
+  const result = await Donation.findAll({
+    where: {
+      UserId: id,
+    },
+  });
+  return result;
+};
 
-    if (!findId.length) throw Error(`El id ${idVdV} no fue encontrado`);
-
-    return findId;
-  } catch (error) {
-    throw Error({ error: error.message });
-  }
+const getByVdVId = async (id) => {
+  const result = await Donation.findAll({
+    where: {
+      VdVId: id,
+    },
+  });
+  return result;
 };
 
 module.exports = {
   chargeDbDonation,
   updateDonatios,
-  findDonationByUser,
-  findDonationByVdV,
+  getByUserId,
+  getByVdVId,
+  createDonation,
+  getAll,
 };

@@ -19,6 +19,7 @@ router.post('/chargeDb', async (req, res) => {
   }
 });
 
+// crear compra de service
 router.post('/', async (req, res) => {
   try {
     const newFeedback = await createService(req.body);
@@ -34,6 +35,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// obtener todas
 router.get('/', async (req, res) => {
   try {
     const allServices = await getAll();
@@ -43,6 +45,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// obtener por id user
 router.get('/user/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -53,6 +56,7 @@ router.get('/user/:id', async (req, res) => {
   }
 });
 
+// obtener por id vdv
 router.get('/vdv/:id', async (req, res) => {
   try {
     const { id } = req.params;
