@@ -47,8 +47,6 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Donation, Feedback, Material, Role, Service, User, VdV, PostHome } =
   sequelize.models;
 
-console.log(sequelize.models);
-
 // Relacion Usuario -> Feedback -> VdV
 User.hasMany(Feedback); // comentario y puntuacion
 Feedback.belongsTo(User);

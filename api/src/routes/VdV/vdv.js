@@ -1,47 +1,93 @@
 const { Router } = require('express');
-const { chargeDbVdVs, vdvCreate, getVdV,getByIdVdV, upDateVdV, deleteVdV} = require('./controllers.js');
-const { VdV, Material } = require('../../db.js');
+const {
+  chargeDbVdVs,
+  vdvCreate,
+  getVdV,
+  getByIdVdV,
+  upDateVdV,
+  deleteVdV,
+  changeStatus,
+} = require('./controllers.js');
 
 const router = Router();
-/* 
-router.post('/', async (req, res) => {
-   
-  try {
-
-    const newVdV = await createdVdV(req.body)
-    res.status(200).send(newVdV);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-}); */
+const { vdvs } = require('./array.js');
 
 //NO BORREN. ESTE ES EL BULKCREATE PARA CARGAR LA BASE DE DATOS
 router.post('/chargeDb', async (req, res) => {
   try {
-    const chargeVdvsDb = await chargeDbVdVs();
+    const chargeVdvsDb = await chargeDbVdVs(vdvs);
     res.status(200).send(chargeVdvsDb);
   } catch (error) {
     res.status(404).send(error.message);
   }
 });
 
-/* router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const Vdvs = await getVdV()
-    res.status(200).send(Vdvs);
+    const result = await vdvCreate(req.body);
+    res.status(200).send(result);
   } catch (error) {
     res.status(404).send(error.message);
   }
-}); */
+});
 
-router.post('/', vdvCreate)
+//** HACER RUTAS PARA TRAERNOS LAS VDV QUE ESTEN ACTIVAS O PENDIENTES -> admin "Pending" y listado entidades "Active"
+//** vER COMO PODEMOS IMPLEMENTAR EL FILTRADO COMBINADO EN EL BACK, LOS CHICOS DEL FRONT NO TIENEN DRAMA EN ENCARGRSE ELLOS -> FILTROS(MATERIALES) + ORDENAMIENTO(RATING/PUNTUACION)
+//** QUERY SEARCHBAR -> BUSQUEDA POR LO INGRESADO EN EL SEARCHBAR (NOMBRE/STRING DE LA VDV -> QIE TRAIGA TODAS LAS VDV CORRESPONDIENTES AL VALOR INGRESADO)
+//**  VER DE DEVOVLERLES UN ARRAY CON LOS NOMBRES DE LOS MATERIALES -> ["Madera", "Vidrio", etc]
+router.get('/', async (req, res) => {
+  try {
+    const result = await getVdV();
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
 
-router.get('/:id',getByIdVdV)
+// getByIdVdV
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await getByIdVdV(id);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+// upDateVdV
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { body } = req;
+  try {
+    await upDateVdV(id, body);
+    res.status(200).send('Actualizacion de datos exitosa');
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
 
-router.get('/',getVdV)
- console.log('holiss')
-router.put('/:id',upDateVdV)
+// deleteVdV
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await deleteVdV(id);
+    res.status(200).send(`Solictud ${id} eliminada`);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
 
-router.delete('/:id', deleteVdV)
+// Cambiar de pendinf a active (por ahora lo hacemos al reves)
+router.put('/status/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await changeStatus(id);
+    res.status(200).send('Solicitud aprovada');
+  } catch (error) {
+    res.status(404).send(error - message);
+  }
+});
+
+// CBU -> modificacion de CBU
 
 module.exports = router;
