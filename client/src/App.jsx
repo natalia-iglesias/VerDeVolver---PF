@@ -17,6 +17,7 @@ import SingUp from './pages/SingUp';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchEntities } from './redux/actions/entitiesActions';
+import ColorModeSwitcher from './components/ColorModeSwitcher';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <ColorModeSwitcher />
     </BrowserRouter>
   );
 };

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-// import { ItemsCarousel } from 'react-items-carousel';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { IconButton } from '@chakra-ui/react';
 import IgPost from './Post';
+import ItemsCarousel from 'react-items-carousel';
 
 const PostsCarousel = () => {
   const posts = [
@@ -17,7 +17,7 @@ const PostsCarousel = () => {
   const chevronWidth = 40;
   return (
     <div style={{ padding: `0 ${chevronWidth}px` }}>
-      {/* <ItemsCarousel
+      <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}
         numberOfCards={3}
@@ -30,7 +30,7 @@ const PostsCarousel = () => {
         {posts?.map(({ user, url }, index) => (
           <IgPost user={user} url={url} key={index} />
         ))}
-      </ItemsCarousel> */}
+      </ItemsCarousel>
     </div>
   );
 };
