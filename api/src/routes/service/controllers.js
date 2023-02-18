@@ -1,4 +1,4 @@
-const { Service } = require('../../db.js');
+const { Service, User, VdV } = require('../../db.js');
 
 //ESTE ES EL BULKCREATE NO LO BORREN
 async function chargeDbServices() {
@@ -12,10 +12,9 @@ async function chargeDbServices() {
   ]);
 
   return bulkCreateServices;
-}
+};
 
 async function createService(body) {
-  //   console.log('body', body);
   const { amount, UserId, VdVId } = body;
   const newService = await Service.create({
     amount,
@@ -24,30 +23,77 @@ async function createService(body) {
   });
 
   return newService;
-}
+};
+
+const getServiceById = async (id) => {
+  try {
+    if (!id ) throw Error('Debes ingresar un id');
+
+    const service = Service.findByPk(id, {
+      include: [{
+        model: User
+      }, {
+        model: VdV
+      }]
+    });
+
+    if (!service) throw Error ('El servicio no existe');
+
+    return service;
+
+  } catch (error) {
+    throw Error ('Ocurrio un error. No se encuentra el servicio');
+  }
+};
+
 // Ver como podria utilizar un objeto que sea where el cual modifico dependiendo la peticion
 const getByUserId = async (id) => {
+    if (!id ) throw Error('Debes ingresar un id');
+    
+    const checkuser = await User.findAll( { where: {id: id} } );
+    if (!checkuser) throw Error ('El usuario no existe');
+
   const serviceByUser = await Service.findAll({
     where: {
       UserId: id,
-    },
+    }, include: [{
+      model: User
+    }, {
+      model: VdV
+    }]
   });
   return serviceByUser;
 };
 
 const getByVdVId = async (id) => {
+  if (!id ) throw Error('Debes ingresar un id');
+    
+  const checkvdv = await VdV.findAll( { where: {id: id} } );
+  if (!checkvdv) throw Error ('La VdV no existe');
+
   const serviceForVdV = await Service.findAll({
     where: {
       VdVId: id,
-    },
+    }, include: [{
+      model: User
+    }, {
+      model: VdV
+    }]
   });
   return serviceForVdV;
 };
 
 const getAll = async () => {
-  const allService = await Service.findAll();
+  const allService = await Service.findAll({
+    include: [{
+      model: User
+    }, {
+      model: VdV
+    }]
+  });
   return allService;
 };
+
 
 module.exports = {
   createService,
@@ -55,4 +101,5 @@ module.exports = {
   getByVdVId,
   chargeDbServices,
   getAll,
+  getServiceById,  
 };

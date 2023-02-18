@@ -5,6 +5,7 @@ const {
   getByVdVId,
   chargeDbServices,
   getAll,
+  getServiceById,
 } = require('./controllers.js');
 
 const router = Router();
@@ -27,7 +28,7 @@ router.post('/', async (req, res) => {
       'newFeedbackQueTieneDentro',
       typeof newFeedback.dataValues.date
     );
-    // newFeedback.createdAt = newFeedback.createdAt.slice(0, 10);
+ 
     res.status(200).send(newFeedback);
   } catch (error) {
     res.status(404).send(error.message);
@@ -58,6 +59,18 @@ router.get('/vdv/:id', async (req, res) => {
     const { id } = req.params;
     const serviceForVdV = await getByVdVId(id);
     res.status(200).send(serviceForVdV);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const service = await getServiceById(id);
+    res.status(200).send(service);
+    
   } catch (error) {
     res.status(404).send(error.message);
   }
