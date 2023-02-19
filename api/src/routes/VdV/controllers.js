@@ -1,133 +1,159 @@
+const { VdV, Material } = require('../../db.js');
+const { Op } = require('sequelize');
 
-const { VdV, Material} = require('../../db.js');
+//FUNCIONA. No agrega la relacion aun!!
+const chargeDbVdVs = (array) => {
+  const result = array.map(async (element) => {
+    return await vdvCreate(element);
+  });
+  return Promise.all(result);
+};
 
-async function chargeDbVdVs() {
+//La password queda en null
+const vdvCreate = async (body) => {
+  const { name, img, description, mail, address, cbu, materials } = body;
 
-  const bulkCreateVdvs = await VdV.bulkCreate([
-    {  name: "Reciclar Ayuda", img: "www.imagen.com", mail:"ra@mail.com", password:"12345", address:"calle 1", description:"Somos una ONG sin fines de lucro", CBU:"34567898777", materials :[1, 5,7]},
-    {  name: "Juntos X el Cambio", img: "www.imagen.com", mail:"jxec@mail.com", password:"12345", address:"calle 2", description:"Somos una ONG sin fines de lucro", CBU:"23456788777", materials :[2,3, 5,]},
-    {  name: "Te Amo Mundo", img: "www.imagen.com", mail:"tam@mail.com", password:"12345", address:"calle 3", description:"Somos una ONG sin fines de lucro", CBU:"0987698777",  materials :[2,3, 4,6]},
-    {  name: "Salvando el Planeta", img: "www.imagen.com", mail:"sep@mail.com", password:"12345", address:"calle 4", description:"Somos una ONG sin fines de lucro", CBU:"8976557898777", materials :[1,2,3, 5,6]},
-  ]);
+  if (!name || !img || !description || !mail || !address)
+    throw Error('Debes completar todos los campos obligatorios');
+  const vdvCreate = await VdV.create({
+    name,
+    img,
+    mail,
+    address,
+    description,
+    cbu,
+  });
 
-  return bulkCreateVdvs;
+  await vdvCreate.addMaterials(materials); // Unir VdV con materiales
+  return vdvCreate;
+};
 
-}
-
-const getVdV = async (req, res) => {
-  const name = req.query.name;
-
-  try {
-    const allVdV = await VdV.findAll({
-      include: [
-        { 
-         model: Material,
-         attributes: ["id"],
-     
-         through: {
-           attributes: [],
-         }
-       }
-       ]
-    }) 
-    if(name){
-      const founds = allVdV.filter((el) =>
-      el.name.toLowerCase().includes(name.toLowerCase())
-      );
-      return founds.length 
-       ? res.status(200).json(founds)
-        : res.status(404).send('No matches found ');
-    }
-
-   return res.status(200).json(allVdV)
-    
-} catch (error) {
-   return  res.status(400).send(error.message)
-}
-}
-
-const vdvCreate = async (req, res) => {
-  const {name,img, description, mail, password, address, CBU, Materials} = req.body
- 
-  try {
-    const vdvCreate = await VdV.create({
-      name,
-      img,
-      mail,
-      password,
-      address,
-      description,
-      CBU,
-     
+//FUNCIONA. TRAE LAS ENTIDADES CON SUS MATERIALES ASOCIADOS
+// Hay que hacerla como se debe
+const getVdV = async (name) => {
+  if (name) {
+    const allVdVquey = await VdV.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${name}%`,
+        },
+      },
+      include: {
+        model: Material,
+        attributes: ['name'],
+        through: {
+          attributes: [],
+        },
+      },
     });
-     Materials.forEach(async (el) => {
-      const materialsDb = await Material.findByPk(el); 
-      await vdvCreate.setMaterials(materialsDb) 
-     })
- 
-     
-    res.status(200).send(vdvCreate);
-  } catch (error) {
-    res.status(400).send(error.message);
+    return allVdVquey;
+  } else {
+    const allVdV = await VdV.findAll({
+      include: {
+        model: Material,
+        attributes: ['name'],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+
+    return allVdV;
   }
-}
+};
 
+const getPending = async () => {
+  const allVdV = await VdV.findAll({
+    where: { status: 'Pending' },
+    include: {
+      model: Material,
+      attributes: ['name'],
+      through: {
+        attributes: [],
+      },
+    },
+  });
 
+  return allVdV;
+};
 
+const getActive = async () => {
+  const allVdV = await VdV.findAll({
+    where: { status: 'Active' },
+    include: {
+      model: Material,
+      attributes: ['name'],
+      through: {
+        attributes: [],
+      },
+    },
+  });
 
+  return allVdV;
+};
 
- const getByIdVdV = async (req, res) => {
-    const {id} = req.params
-    try {
-        const VdVFound = await VdV.findByPk(id,{
-          include: [
-            { 
-             model: Material,
-             attributes: ["id"],
-         
-             through: {
-               attributes: [],
-             }
-           }
-           ]
-        });
-        res.status(200).json(VdVFound)
-        
-    } catch (error) {
-      res.status(400).send(error.message)
-    }
-  }
-  //INTENTAR MODULARIZAR COMO LO QUIEREN LOS CHICOS
+// SEGUIR BUSCNADO LA SOLUCION PARA QUE ME TRAIGA LOS MATERIALES EN LAS VDV EN UN SOLO ARRAY SIN OBJETOS, DIRECTAMNETE LS NOMBRES DE LOS AMTERIALES
 
-  const upDateVdV = (req, res ) => {
-    const {id} = req.params
-    const body = req.body
-    try {
-      const VdVupDate = VdV.update(body, {
-        where: {id}
+// const result = allVdV.map((elem) => {
+//   const array = [];
+//   elem.dataValues.materials.map((ele) => {
+//     array.push(ele.dataValues.name);
+//   });
+//   return [...elem, (elem.dataValues.materials = array)];
+// });
+// return result;
 
-      })
-      res.status(200).json(VdVupDate)
-      
-    } catch (error) {
-      res.status(500).send('Problemas')
-      
-    }
-  }
+//FUNCIONA
+const getByIdVdV = async (id) => {
+  const VdVFind = await VdV.findByPk(id, {
+    include: {
+      model: Material,
+      attributes: ['name'],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+  return VdVFind;
+};
 
-  const deleteVdV = (req, res) => {
-    const {id} = req.params
-    try {
-      const VdVdelete = VdV.destroy({
-        where: {
-          id
-        }
-      })
-      res.status(200).json(VdVdelete)
-    } catch (error) {
-      res.status(500).send('Problemas')
-    }
-  }
+//FUNCIONA. RETORNA LOS CAMBIOS HECHOS
+const upDateVdV = async (id, body) => {
+  await VdV.update(body, {
+    where: { id },
+  });
+  const result = await getByIdVdV(id);
+  return result;
+};
+
+//FUNCIONA
+const deleteVdV = (id) => {
+  const VdVdelete = VdV.destroy({
+    where: {
+      id,
+    },
+  });
+  return VdVdelete;
+};
+
+// FUNCIONA. Implemente creacion de contrasena provisoria. Fijense si les parece bien
+// No se como se pueden generar contrasenas seguras aleatorias, de momento lo estableci con un string fijo
+const functionRandom = () => {
+  return (random = Math.random() * 55.2);
+};
+
+const changeStatus = async (id) => {
+  // Hay que invertir los valores cuando ya este el Admin funcionando
+  const randomPassword = functionRandom();
+
+  await VdV.update(
+    { status: 'Active', password: `!dfg${randomPassword}` },
+    { where: { id } }
+  );
+
+  const result = await getByIdVdV(id);
+  return result;
+};
 
 module.exports = {
   chargeDbVdVs,
@@ -136,6 +162,7 @@ module.exports = {
   getByIdVdV,
   upDateVdV,
   deleteVdV,
-  
+  changeStatus,
+  getPending,
+  getActive,
 };
-
