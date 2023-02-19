@@ -3,6 +3,7 @@ import axios from 'axios';
 export const FETCH_ENTITIES = 'FETCH_ENTITIES';
 export const SEARCH_ENTITIES = 'SEARCH_ENTITIES';
 export const CREATE_NEW_ENTITY = 'CREATE_NEW_ENTITY';
+export const GET_MATERIALS = 'GET_MATERIALS';
 
 export const fetchEntities = () => {
   return async (dispatch) => {
@@ -37,6 +38,20 @@ export const createNewEntity = (entity) => {
     } catch (error) {
       alert('No pudimos crear el formulario.');
       dispatch({ type: CREATE_NEW_ENTITY, payload: error.message });
+    }
+  };
+};
+
+export const getMaterials = () => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get('http://localhost:3001/material');
+
+      const materials = response.data;
+
+      dispatch({ type: GET_MATERIALS, payload: materials });
+    } catch (error) {
+      alert(error.message);
     }
   };
 };

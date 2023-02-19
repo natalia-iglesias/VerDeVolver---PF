@@ -1,8 +1,10 @@
-import { materials } from '../../db.json';
 // import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createNewEntity } from '../../redux/actions/entitiesActions';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  createNewEntity,
+  getMaterials,
+} from '../../redux/actions/entitiesActions';
 import validate from './validate';
 import {
   FormControl,
@@ -17,6 +19,13 @@ import {
 
 const SingUpEntitie = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMaterials());
+  }, [dispatch]);
+  const materials = useSelector((state) => {
+    return state.entitiesReducer.materials;
+  });
 
   const [form, setForm] = useState({
     name: '',
@@ -167,7 +176,7 @@ const SingUpEntitie = () => {
           onChange={(e) => addMaterial(e)}
           onBlur={handlerBlur}
         >
-          {materials.map((mat, i) => {
+          {materials?.map((mat, i) => {
             return (
               <option key={i} value={mat}>
                 {mat}
