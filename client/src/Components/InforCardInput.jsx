@@ -2,7 +2,15 @@ import React, { useState } from 'react';
 import { Flex, Card, CardBody, Text, Button, Input } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 
-function InfoCardInput({ name, mail, password, adress, cbu, setInput }) {
+function InfoCardInput({
+  name,
+  mail,
+  password,
+  adress,
+  cbu,
+  setInput,
+  setSaveButton,
+}) {
   const [textOrInput, setTextOrInput] = useState('text');
   let data;
   let inputName;
@@ -31,6 +39,7 @@ function InfoCardInput({ name, mail, password, adress, cbu, setInput }) {
     setInput((prevObj) => {
       return { ...prevObj, [e.target.name]: e.target.value };
     });
+    setSaveButton(true);
   };
 
   const modifyText = () => {

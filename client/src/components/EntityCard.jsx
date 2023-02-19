@@ -21,8 +21,10 @@ const EntityCard = ({ entity }) => {
       <CardBody display="flex" flexDir="row" gap="1rem">
         <Image src="https://picsum.photos/300" />
 
-        <VStack>
-          <Heading>{entity.name}</Heading>
+        <VStack alignItems="flex-start">
+          <Link as={ReachLink} to={`/entitie/${entity.uuid}`}>
+            <Heading>{entity.name}</Heading>
+          </Link>
           <Text>
             Porem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
             molestie posuere consectetur. Curabitur vitae libero libero. Integer
@@ -33,9 +35,6 @@ const EntityCard = ({ entity }) => {
             aliquet vestibulum eros et dapibus.
           </Text>
         </VStack>
-        <Link as={ReachLink} to="/entitieid">
-          <Button>Detail</Button>
-        </Link>
       </CardBody>
 
       <CardFooter>
