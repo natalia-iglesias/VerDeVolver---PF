@@ -14,17 +14,17 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Navbar from './Components/NavBar';
 import SingUp from './pages/SingUp';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchEntities } from './redux/actions/entitiesActions';
+// import { useDispatch } from 'react-redux';
+// import { useEffect } from 'react';
+// import { getEntities } from './redux/actions/entitiesActions';
 import ColorModeSwitcher from './components/ColorModeSwitcher';
 
 const App = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchEntities());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getEntities());
+  // }, []);
   return (
     <BrowserRouter>
       <Navbar />
@@ -38,7 +38,7 @@ const App = () => {
         <Route path="/beVdV" element={<SingUpEntitie />} />
         <Route path="/login" element={<Login />} />
         <Route path="/singup" element={<SingUp />} />
-        <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/userprofile/:id" element={<UserProfile />} />
         <Route path="/entityprofile" element={<EntityProfile />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<About />} />

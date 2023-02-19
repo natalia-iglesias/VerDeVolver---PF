@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
   Flex,
   Box,
@@ -12,17 +13,26 @@ import {
 import { StarIcon, DeleteIcon } from '@chakra-ui/icons';
 import { Link as ReachLink } from 'react-router-dom';
 
-function DashboardScroll({ type }) {
-  let newArray;
+function DashboardScroll({ type, id }) {
+  const [arrayToRender, setArrayToRender] = useState();
+  useEffect(() => {
+    if (type == 'userDonation') {
+      axios.get(`http://localhost:3001/donation/user/${id}`).then((res) => {
+        setArrayToRender(res.data);
+      });
+    }
+    if (type == 'userService') {
+      axios.get(`http://localhost:3001/service/user/${id}`).then((res) => {
+        setArrayToRender(res.data);
+      });
+    }
+    if (type == 'comment') setArrayToRender(commentArray);
+  }, []);
 
-  //En esta seccion deberia ir el fetch para pedir los datos y asignarlos a newArray
-  if (type == 'donation') newArray = donationArray;
-  if (type == 'services') newArray = servicesArray;
-  if (type == 'comment') newArray = commentArray;
   return (
     <Box w="40vw" h="40vh" overflow="auto">
       <Flex overflowX="scroll" px={4} py={2} flexDirection="column">
-        {newArray.map((item, i) => {
+        {arrayToRender?.map((item, i) => {
           let arreglo;
           if (item.rating) {
             arreglo = new Array(item.rating).fill(<StarIcon />);
@@ -35,10 +45,12 @@ function DashboardScroll({ type }) {
                   <CardBody>
                     <Text>
                       {item.name && `${item.name} /`}
+                      {item.amount && `$${item.amount} /`}
+
                       {item.date && `${item.date} /`}
-                      {item.entity && (
-                        <Link as={ReachLink} to="/entitie/1">
-                          {item.entity}
+                      {item.VdVId && (
+                        <Link as={ReachLink} to={`/entitie/${item.VdVId}`}>
+                          {item.VdVId}
                         </Link>
                       )}
                       {item.serviceType && `${item.serviceType} /`}
