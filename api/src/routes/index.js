@@ -9,6 +9,7 @@ const feedbackMiddle = require('./feedback/feedback.js');
 const serviceMiddle = require('./service/service.js');
 const materialMiddle = require('./material/material.js');
 const roleMiddle = require('./role/role.js');
+const chargeDbMiddle = require('./chargeDb/chargeDb.js');
 
 router.use('/user', userMiddle);
 router.use('/vdv', vdvMiddle);
@@ -17,5 +18,6 @@ router.use('/feedback', feedbackMiddle);
 router.use('/service', serviceMiddle);
 router.use('/material', materialMiddle);
 router.use('/role', roleMiddle);
+router.use('/chargedb', chargeDbMiddle); 
 
 module.exports = router;

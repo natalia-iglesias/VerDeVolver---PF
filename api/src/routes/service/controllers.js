@@ -30,12 +30,11 @@ const getServiceById = async (id) => {
     if (!id ) throw Error('Debes ingresar un id');
 
     const service = Service.findByPk(id, {
-      include: [{
-        model: User
-      }, {
-        model: VdV
-      }]
-    });
+      include: [
+          { model: User, attributes: ['name', 'last_name'] },
+          { model: VdV, attributes: ['name'] },
+      ]
+  });
 
     if (!service) throw Error ('El servicio no existe');
 
@@ -56,11 +55,11 @@ const getByUserId = async (id) => {
   const serviceByUser = await Service.findAll({
     where: {
       UserId: id,
-    }, include: [{
-      model: User
-    }, {
-      model: VdV
-    }]
+    }, 
+    include: [
+      { model: User, attributes: ['name', 'last_name'] },
+      { model: VdV, attributes: ['name'] },
+    ]
   });
   return serviceByUser;
 };
@@ -74,22 +73,21 @@ const getByVdVId = async (id) => {
   const serviceForVdV = await Service.findAll({
     where: {
       VdVId: id,
-    }, include: [{
-      model: User
-    }, {
-      model: VdV
-    }]
+    }, 
+    include: [
+      { model: User, attributes: ['name', 'last_name'] },
+      { model: VdV, attributes: ['name'] },
+    ]
   });
   return serviceForVdV;
 };
 
 const getAll = async () => {
   const allService = await Service.findAll({
-    include: [{
-      model: User
-    }, {
-      model: VdV
-    }]
+    include: [
+      { model: User, attributes: ['name', 'last_name'] },
+      { model: VdV, attributes: ['name'] },
+    ]
   });
   return allService;
 };

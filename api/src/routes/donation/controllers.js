@@ -1,4 +1,3 @@
-const { Op } = require('sequelize');
 const { Donation, User, VdV } = require('../../db.js');
 
 //ESTE ES EL BULKCREATE NO LO BORREN
@@ -41,47 +40,52 @@ const createDonation = async (body) => {
   }
 };
 
-const getDonations = async () => {
+const getAll = async () => {
   try {
-    const donationsWUsersVdvData = await Donation.findAll({
-      include: [{
-        model: User
-      }, {
-        model: VdV
-      }]
-    });
+    const result = Donation.findAll(
+      {
+        include: [
+            { model: User, attributes: ['name', 'last_name'] },
+            { model: VdV, attributes: ['name'] },
+        ]
+    }
+  );
+  return result;
 
-    return donationsWUsersVdvData; 
-    
   } catch (error) {
     throw Error ('Un error ocurrio. No se pueden traer las donaciones');
   }
 };
 
+//el nombre de la funcion estaba mal escrito, lo corregi
 const updateDonations = async (id) => {
-  const updateDon = await Donation.update(
-    { status: 'Delivered' },
-    {
-      where: {
-        id: id,
-      },
-    }
+  await Donation.update(
+        {
+          status: 'Delivered',
+        },
+        { 
+          where: { id: id }, 
+          include: [
+            { model: User, attributes: ['name', 'last_name'] },
+            { model: VdV, attributes: ['name'] },
+          ] 
+        }
   );
   const result = await Donation.findByPk(id);
   return result;
 };
 
+//este no lo tiene rodri 
 const getDonationsById = async (id) => {
   try {
     if (!id ) throw Error('Debes ingresar un id');
 
     const donation = Donation.findByPk(id, {
-      include: [{
-        model: User
-      }, {
-        model: VdV
-      }]
-    });
+      include: [
+          { model: User, attributes: ['name', 'last_name'] },
+          { model: VdV, attributes: ['name'] },
+      ]
+  });
 
     if (!donation) throw Error ('La donacion no existe');
 
@@ -92,69 +96,62 @@ const getDonationsById = async (id) => {
   }
 };
 
-const findDonationByUser = async (UserId) => {
+const getByUserId = async (id) => {
   try {
-    if (!UserId ) throw Error('Debes ingresar un id');
+    if (!id ) throw Error('Debes ingresar un id');
 
-    const checkuser = await User.findAll( { where: {id: UserId} } );
+    const checkuser = await User.findAll( { where: {id: id} } );
     if (!checkuser) throw Error ('El usuario no existe');
 
-    const findId = await Donation.findAll({
+    const result = await Donation.findAll({
       where: {
-        UserId: {
-          [Op.eq]: UserId,
-        },
-      }, include: [{
-        model: User
-      }, {
-        model: VdV
-      }]
+        UserId: id,
+      }, 
+      include: [
+        { model: User, attributes: ['name', 'last_name'] },
+        { model: VdV, attributes: ['name'] },
+    ]
     });
+    if (!result) throw Error(`La donacion con id ${id} no fue encontrada`);
 
-    if (!findId) throw Error(`El id ${UserId} no fue encontrado`);
-
-    return findId;
+    return result;
 
   } catch (error) {
     throw Error({ error: error.message });
   }
 };
 
-const findDonationByVdV = async (idVdV) => {
+const getByVdVId = async (id) => {
   try {
-    if (!idVdV ) throw Error('Debes ingresar un id');
-    
-    const checkVdV = await VdV.findAll( { where: {id: idVdV} } );
+    if (!id) throw Error('Debes ingresar un id');
+
+    const checkVdV = await VdV.findAll( { where: {id: id} } );
     if (!checkVdV) throw Error ('La VdV no existe');
 
-    const findId = await Donation.findAll({
+    const result = await Donation.findAll({
       where: {
-        VdVId: {
-          [Op.eq]: idVdV,
-        },
-      }, include: [{
-        model: User
-      }, {
-        model: VdV
-      }]
-    });
+        VdVId: id,
+      }, 
+      include: [
+        { model: User, attributes: ['name', 'last_name'] },
+        { model: VdV, attributes: ['name'] },
+    ]
+    }); 
+    if (!result) throw Error(`La entidad con id ${id} no fue encontrada`);
 
-    if (!findId) throw Error(`El id ${idVdV} no fue encontrado`);
-
-    return findId;
+    return result;
 
   } catch (error) {
     throw Error({ error: error.message });
   }
 };
 
-
 module.exports = {
-  createDonation,
   chargeDbDonation,
   updateDonations,
-  findDonationByUser,
-  findDonationByVdV,
-  getDonations,
-  getDonationsById,
+  getByUserId,
+  getByVdVId,
+  createDonation,
+  getAll,
+  getDonationsById, 
 };

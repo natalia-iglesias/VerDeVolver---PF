@@ -1,7 +1,5 @@
-//aca rutas
 const { Router } = require('express');
 const {
-  chargeDbMaterial,
   createMaterial,
   getAllMaterials,
   deleteMaterial,
@@ -9,28 +7,17 @@ const {
 
 const router = Router();
 
-router.post('/chargeDb', async (req, res) => {
-  // /material/chargeDb
-  try {
-    const chargeMaterialDb = await chargeDbMaterial();
-    res.status(200).send(chargeMaterialDb);
-  } catch (error) {
-    res.status(404).send(error.message);
-  }
-});
-
-// crear material
+//FUNCIONA. crear material
 router.post('/', async (req, res) => {
-  const { name } = req.body;
   try {
-    const material = await createMaterial(name);
+    const material = await createMaterial(req.body);
     res.status(200).send(material);
   } catch (error) {
     res.status(404).send(error.message);
   }
 });
 
-// obtener todos los materiales
+//FUNCIONA. obtener todos los materiales
 router.get('/', async (req, res) => {
   try {
     const allMaterials = await getAllMaterials();
@@ -40,7 +27,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// eliminar un material
+//NO LO PROBE, NO SE SI FUNCIONA. eliminar un material
 router.delete('/', async (req, res) => {
   const { name } = req.body;
   try {
@@ -52,5 +39,16 @@ router.delete('/', async (req, res) => {
     res.status(404).send(error.message);
   }
 });
+
+//NO FUNCIONA BULKCREATE DE MATERIALES
+/* router.post('/chargeDb', async (req, res) => {
+  // /material/chargeDb
+  try {
+    const chargeMaterialDb = await chargeDbMaterial();
+    res.status(200).send(chargeMaterialDb);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+}); */
 
 module.exports = router;

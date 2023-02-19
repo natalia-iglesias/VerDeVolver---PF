@@ -1,50 +1,15 @@
 const { Router } = require('express');
 const {
   chargeDbDonation,
-  findDonationByUser,
-  findDonationByVdV,
+  getByUserId,
+  getByVdVId,
   updateDonations,
   createDonation,
-  getDonations,
+  getAll,
   getDonationsById,
 } = require('./controllers.js');
 
 const router = Router();
-//agregar a post const { body } = req;
-
-router.post('/', async (req, res) => {
-  try {
-    const newDonation = await createDonation(req.body);
-    res.status(200).send(newDonation);
-
-  } catch (error) {
-    res.status(404).send(error.message);
-  }
-});
-
-// obtener todos
-router.get('/', async (req, res) => {
-  try {
-    const allDonations = await getDonations();
-    return res.status(200).send(allDonations);
-
-  } catch (error) {
-    return res.status(404).send(error.message);
-  }
-});
-
-// modificacion de Pending a Delivered (status)
-router.put('/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const updateDon = await updateDonations(id);
-    updateDon > 0
-      ? res.status(200).send(`Donacion ID ${id}, status actualizado `)
-      : res.status(404).send('No se encontro donacion con ese ID');
-  } catch (error) {
-    res.status(404).send(error.message);
-  }
-});
 
 //ESTE ES EL BULKCREATE NO LO BORREN
 router.post('/chargeDb', async (req, res) => {
@@ -56,23 +21,49 @@ router.post('/chargeDb', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+// creacion de donacion
+router.post('/', async (req, res) => {
+  const { body } = req;
   try {
-    const { id } = req.params;
+    const newDonation = await createDonation(body);
+    res.status(200).send(newDonation);
 
-    const donation = await getDonationsById(id);
-    res.status(200).send(donation);
-    
   } catch (error) {
     res.status(404).send(error.message);
   }
 });
 
-router.get('/user/:id', async (req, res) => {
+// obtener todos
+router.get('/', async (req, res) => {
   try {
-    const { id } = req.params;
+    const allDonations = await getAll();
+    return res.status(200).send(allDonations);
 
-    const findByUser = await findDonationByUser(id);
+  } catch (error) {
+    return res.status(404).send(error.message);
+  }
+});
+
+// update- modificacion de Pending a Delivered (status)
+// la modifique porque se rompia despues de hacer una donacion. Se ejecutaba igual el if del status 404, 
+// entonces lo saque
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updateDon = await updateDonations(id);
+    if(updateDon) res.status(200).send(`Donacion ID ${id}, status actualizado `);
+ 
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+// obtener las donaciones del usuarioId
+router.get('/user/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const findByUser = await getByUserId(id);
     return res.status(200).json(findByUser);
 
   } catch (error) {
@@ -90,6 +81,20 @@ router.get('/vdv/:id', async (req, res) => {
 
   } catch (error) {
     return res.status(404).send(error.message);
+  }
+});
+
+//este no lo tiene rodri
+//obtener donaciones por el id especifico de la donacion
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const donation = await getDonationsById(id);
+    res.status(200).send(donation);
+    
+  } catch (error) {
+    res.status(404).send(error.message);
   }
 });
 

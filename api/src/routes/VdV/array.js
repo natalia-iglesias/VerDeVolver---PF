@@ -1,4 +1,5 @@
-const vdvs = [
+//NO LO USE ESTO 
+const vdvsarr = [
   {
     name: 'Reciclar Ayuda',
     img: 'www.imagen.com',
@@ -41,4 +42,4 @@ const vdvs = [
   },
 ];
 
-module.exports = { vdvs: vdvs };
+module.exports = { vdvsarr: vdvsarr };

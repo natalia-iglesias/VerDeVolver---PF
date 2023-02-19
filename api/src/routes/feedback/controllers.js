@@ -16,7 +16,7 @@ const chargeDbFeedback = async () => {
     return bulkCreateFeedbacks;
 
   } catch (error) {
-    throw Error ('An error ocurred. Database was not charged');
+    throw Error ('Ocurrio un error. No se pudo cargar la base de datos');
   }
 };
 
@@ -31,7 +31,7 @@ const createFeedback = async (body) => {
       where: {id: VdVId}
     });
 
-    if (!checkUsers || !checkVdvs) throw Error ('Could not create feedback. User or VdV does not exist');
+    if (!checkUsers || !checkVdvs) throw Error ('No se pudo crear el feedback. Usuario o Entidad no existen');
 
     const newFeedback = await Feedback.create({  
       comment, 
@@ -42,67 +42,66 @@ const createFeedback = async (body) => {
 
     return newFeedback;
   } catch (error) {
-    throw Error ('An error ocurred. Could not create feedback');
+    throw Error ('Ocurrio un error. No se pudo crear el feedback');
   }
 };
 
 const getFeedbacks = async () => {
   try {
     const feedbacksWUsersVdvData = await Feedback.findAll({
-      include: [{
-        model: User
-      }, {
-        model: VdV
-      }]
-    });
+      include: [
+          { model: User, attributes: ['name', 'last_name'] },
+          { model: VdV, attributes: ['name'] },
+      ]
+  });
 
     return feedbacksWUsersVdvData; 
     
   } catch (error) {
-    throw Error ('An error ocurred. Could not get feedbacks');
+    throw Error ('Ocurrio un error. No se pudo traer los feedbacks');
   }
 };
 
 const getFeedbacksById = async (id) => {
   try {
-    if (!id ) throw Error("Missing data");
+    if (!id ) throw Error('Debes ingresar un id');
 
     const feedback = Feedback.findByPk(id, {
-      include: [{
-        model: User
-      }, {
-        model: VdV
-      }]
-    });
+      include: [
+          { model: User, attributes: ['name', 'last_name'] },
+          { model: VdV, attributes: ['name'] },
+      ]
+  });
 
-    if (!feedback) throw Error ('Feedback does not exist');
+    if (!feedback) throw Error ('El feedback no existe');
 
     return feedback;
 
   } catch (error) {
-    throw Error ('An error ocurred. Could not get feedback');
+    throw Error ('Ocurrio un error. No se pudo traer el feedback');
   }
 };
 
 const getFeedbacksByUserId = async (id) => {
   try {
-    if (!id ) throw Error("Missing data");
+    if (!id ) throw Error('Debes ingresar un id');
     
     const checkuser = await User.findAll( { where: {id: id} } );
-    if (!checkuser) throw Error ('User does not exist');
+    if (!checkuser) throw Error ('El usuario no existe');
 
     const feedbackWUsersVdvData = await Feedback.findAll({
       where: {
         UserId: {
           [Op.eq]: id
         }
-      }, include: [{
-        model: User
-      }, {
-        model: VdV
-      }]
+      }, include: [
+        { model: User, attributes: ['name', 'last_name'] },
+        { model: VdV, attributes: ['name'] },
+    ]
     });
-    if (!feedbackWUsersVdvData) throw Error (`An error ocurred. Could not get feedbacks with the UserId ${id}`);
+    if (!feedbackWUsersVdvData) throw Error (
+      `Ocurrio un error. No se encontraron feedbacks del usuario de id ${id}`
+      );
 
     return feedbackWUsersVdvData;
 
@@ -113,23 +112,24 @@ const getFeedbacksByUserId = async (id) => {
 
 const getFeedbacksByVdVId = async (id) => {
   try {
-    if (!id ) throw Error("Missing data");
+    if (!id ) throw Error('Debes ingresar un id');
     
     const checkVdV = await VdV.findAll( { where: {id: id} } );
-    if (!checkVdV) throw Error ('VdV does not exist');
+    if (!checkVdV) throw Error ('La entidad no existe');
 
     const feedbackWUsersVdvData = await Feedback.findAll({
       where: {
         VdVId: {
           [Op.eq]: id
         }
-      }, include: [{
-        model: User
-      }, {
-        model: VdV
-      }]
+      }, include: [
+        { model: User, attributes: ['name', 'last_name'] },
+        { model: VdV, attributes: ['name'] },
+    ]
     });
-    if (!feedbackWUsersVdvData) throw Error (`An error ocurred. Could not get feedbacks with the VdVId ${id}`);
+    if (!feedbackWUsersVdvData) throw Error (
+      `Ocurrio un error. No se encontraron feedbacks para la entidad de id ${id}`
+      );
 
     return feedbackWUsersVdvData;
 
@@ -140,10 +140,10 @@ const getFeedbacksByVdVId = async (id) => {
 
 const updateFeedback = async (id, comment, rating) => {
   try {
-    if (!comment || !rating || !id ) throw Error("Missing data");
+    if (!comment || !rating || !id ) throw Error('Faltan datos');
 
     const feedbackToUpdate = await Feedback.findAll({ where: { id: id } });
-    if (!feedbackToUpdate) throw Error("Feedback does not exist");
+    if (!feedbackToUpdate) throw Error('No existe un feedback con ese id');
 
     await Feedback.update({
             comment: comment,
@@ -163,10 +163,10 @@ const updateFeedback = async (id, comment, rating) => {
 
 const deleteFeedback = async (id) => {
   try {
-    if (!id ) throw Error("Missing data");
+    if (!id ) throw Error('Debes ingresar un id');
 
     const feedbackToDelete = await Feedback.findAll({ where: { id: id } });
-    if (!feedbackToDelete) throw Error("Feedback does not exist");
+    if (!feedbackToDelete) throw Error('El feedback no existe');
 
     const deleting = await Feedback.destroy({ where: { id: id } });
 
