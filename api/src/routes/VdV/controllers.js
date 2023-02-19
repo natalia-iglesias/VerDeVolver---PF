@@ -1,45 +1,53 @@
 const { VdV, Material } = require('../../db.js');
+const { Op } = require('sequelize');
 
-//FUNCIONA. ESTE ES EL BULKCREATE 
-async function chargeDbVdVs() {
-  const bulkCreateVdvs = await VdV.bulkCreate([
-    {  name: "Reciclar Ayuda", img: "www.imagen.com", mail:"ra@mail.com", /* password:"12345", */ address:"calle 1", description:"Somos una ONG sin fines de lucro", CBU:"34567898777"},
-    {  name: "Juntos X el Cambio", img: "www.imagen.com", mail:"jxec@mail.com", /* password:"12345", */ address:"calle 2", description:"Somos una ONG sin fines de lucro", CBU:"23456788777"},
-    {  name: "Te Amo Mundo", img: "www.imagen.com", mail:"tam@mail.com", /* password:"12345", */ address:"calle 3", description:"Somos una ONG sin fines de lucro", CBU:"0987698777"},
-    {  name: "Salvando el Planeta", img: "www.imagen.com", mail:"sep@mail.com", /* password:"12345", */ address:"calle 4", description:"Somos una ONG sin fines de lucro", CBU:"8976557898777"},
-  ]);
+//FUNCIONA. No agrega la relacion aun!!
+const chargeDbVdVs = (array) => {
+  const result = array.map(async (element) => {
+    return await vdvCreate(element);
+  });
+  return Promise.all(result);
+};
 
-  return bulkCreateVdvs;
-}; 
-
-//FUNCIONA. No agrega la password porque dijeron pa ponerlo en ruta de cambio de status de vdv
 //La password queda en null
 const vdvCreate = async (body) => {
-  const { name, img, description, mail, /* password, */ address, CBU } = body;
-  try {
-    if (!name || !img || !description || !mail || !address) throw Error(
-      'Debes completar todos los campos obligatorios'
-      );
-    const vdvCreate = await VdV.create({
-      name,
-      img,
-      mail,
-     /*  password, */
-      address,
-      description,
-      CBU,
-    });
+  const { name, img, description, mail, address, cbu, materials } = body;
 
-    return vdvCreate;
+  if (!name || !img || !description || !mail || !address)
+    throw Error('Debes completar todos los campos obligatorios');
+  const vdvCreate = await VdV.create({
+    name,
+    img,
+    mail,
+    address,
+    description,
+    cbu,
+  });
 
-  } catch (error) {
-    throw Error ('Ocurrio un error. No se pudo crear la entidad');
-  }
+  await vdvCreate.addMaterials(materials); // Unir VdV con materiales
+  return vdvCreate;
 };
 
 //FUNCIONA. TRAE LAS ENTIDADES CON SUS MATERIALES ASOCIADOS
-const getVdV = async () => {
-  try {
+// Hay que hacerla como se debe
+const getVdV = async (name) => {
+  if (name) {
+    const allVdVquey = await VdV.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${name}%`,
+        },
+      },
+      include: {
+        model: Material,
+        attributes: ['name'],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+    return allVdVquey;
+  } else {
     const allVdV = await VdV.findAll({
       include: {
         model: Material,
@@ -49,12 +57,51 @@ const getVdV = async () => {
         },
       },
     });
-     return allVdV;
 
-  } catch (error) {
-    throw Error('Ocurrio un error al momento de cargar tu peticion de entidades');
+    return allVdV;
   }
 };
+
+const getPending = async () => {
+  const allVdV = await VdV.findAll({
+    where: { status: 'Pending' },
+    include: {
+      model: Material,
+      attributes: ['name'],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+
+  return allVdV;
+};
+
+const getActive = async () => {
+  const allVdV = await VdV.findAll({
+    where: { status: 'Active' },
+    include: {
+      model: Material,
+      attributes: ['name'],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+
+  return allVdV;
+};
+
+// SEGUIR BUSCNADO LA SOLUCION PARA QUE ME TRAIGA LOS MATERIALES EN LAS VDV EN UN SOLO ARRAY SIN OBJETOS, DIRECTAMNETE LS NOMBRES DE LOS AMTERIALES
+
+// const result = allVdV.map((elem) => {
+//   const array = [];
+//   elem.dataValues.materials.map((ele) => {
+//     array.push(ele.dataValues.name);
+//   });
+//   return [...elem, (elem.dataValues.materials = array)];
+// });
+// return result;
 
 //FUNCIONA
 const getByIdVdV = async (id) => {
@@ -89,16 +136,23 @@ const deleteVdV = (id) => {
   return VdVdelete;
 };
 
-// FUNCIONA. Implemente creacion de contrasena provisoria. Fijense si les parece bien 
+// FUNCIONA. Implemente creacion de contrasena provisoria. Fijense si les parece bien
 // No se como se pueden generar contrasenas seguras aleatorias, de momento lo estableci con un string fijo
+const functionRandom = () => {
+  return (random = Math.random() * 55.2);
+};
+
 const changeStatus = async (id) => {
   // Hay que invertir los valores cuando ya este el Admin funcionando
-    await VdV.update(
-      { status: 'Pending', password:'!dfg863234'}, 
-      { where: { id } }); 
+  const randomPassword = functionRandom();
 
-    const result = await getByIdVdV(id);
-    return result;
+  await VdV.update(
+    { status: 'Active', password: `!dfg${randomPassword}` },
+    { where: { id } }
+  );
+
+  const result = await getByIdVdV(id);
+  return result;
 };
 
 module.exports = {
@@ -109,4 +163,6 @@ module.exports = {
   upDateVdV,
   deleteVdV,
   changeStatus,
+  getPending,
+  getActive,
 };

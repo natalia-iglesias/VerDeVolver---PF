@@ -18,6 +18,6 @@ router.use('/feedback', feedbackMiddle);
 router.use('/service', serviceMiddle);
 router.use('/material', materialMiddle);
 router.use('/role', roleMiddle);
-router.use('/chargedb', chargeDbMiddle); 
+router.use('/chargedb', chargeDbMiddle);
 
 module.exports = router;

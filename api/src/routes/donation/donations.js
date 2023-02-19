@@ -27,7 +27,6 @@ router.post('/', async (req, res) => {
   try {
     const newDonation = await createDonation(body);
     res.status(200).send(newDonation);
-
   } catch (error) {
     res.status(404).send(error.message);
   }
@@ -38,21 +37,20 @@ router.get('/', async (req, res) => {
   try {
     const allDonations = await getAll();
     return res.status(200).send(allDonations);
-
   } catch (error) {
     return res.status(404).send(error.message);
   }
 });
 
 // update- modificacion de Pending a Delivered (status)
-// la modifique porque se rompia despues de hacer una donacion. Se ejecutaba igual el if del status 404, 
+// la modifique porque se rompia despues de hacer una donacion. Se ejecutaba igual el if del status 404,
 // entonces lo saque
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const updateDon = await updateDonations(id);
-    if(updateDon) res.status(200).send(`Donacion ID ${id}, status actualizado `);
- 
+    if (updateDon)
+      res.status(200).send(`Donacion ID ${id}, status actualizado `);
   } catch (error) {
     res.status(404).send(error.message);
   }
@@ -65,7 +63,6 @@ router.get('/user/:id', async (req, res) => {
   try {
     const findByUser = await getByUserId(id);
     return res.status(200).json(findByUser);
-
   } catch (error) {
     return res.status(404).send(error.message);
   }
@@ -78,7 +75,6 @@ router.get('/vdv/:id', async (req, res) => {
 
     const findByVdV = await getByVdVId(id);
     return res.status(200).json(findByVdV);
-
   } catch (error) {
     return res.status(404).send(error.message);
   }
@@ -92,7 +88,6 @@ router.get('/:id', async (req, res) => {
 
     const donation = await getDonationsById(id);
     res.status(200).send(donation);
-    
   } catch (error) {
     res.status(404).send(error.message);
   }

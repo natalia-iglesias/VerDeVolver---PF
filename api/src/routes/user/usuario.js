@@ -54,6 +54,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// usuario por id
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {

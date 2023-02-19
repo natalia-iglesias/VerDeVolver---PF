@@ -24,8 +24,15 @@ const deleteRole = async (name) => {
   return roleDelete;
 };
 
+const getAll = async () => {
+  const result = await Role.findAll();
+  const roles = result.map((r) => r.name);
+  return roles;
+};
+
 module.exports = {
   chargeDbRoles,
   createRole,
   deleteRole,
+  getAll,
 };

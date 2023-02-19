@@ -24,12 +24,7 @@ router.post('/chargeDb', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const newFeedback = await createService(req.body);
-    console.log('newFeedback', newFeedback, typeof newFeedback);
-    console.log(
-      'newFeedbackQueTieneDentro',
-      typeof newFeedback.dataValues.date
-    );
- 
+
     res.status(200).send(newFeedback);
   } catch (error) {
     res.status(404).send(error.message);
@@ -74,7 +69,6 @@ router.get('/:id', async (req, res) => {
 
     const service = await getServiceById(id);
     res.status(200).send(service);
-    
   } catch (error) {
     res.status(404).send(error.message);
   }

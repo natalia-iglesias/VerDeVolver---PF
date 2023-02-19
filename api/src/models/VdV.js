@@ -30,12 +30,9 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      CBU: {
+      cbu: {
         type: DataTypes.STRING,
         unique: true,
-        // validate: {
-        //   len: [22, 22], // buscar regex (22 caracteres)
-        // },
       },
       mail: {
         type: DataTypes.STRING,
@@ -52,7 +49,7 @@ module.exports = (sequelize) => {
       },
       status: {
         type: DataTypes.ENUM('Pending', 'Active', 'Disabled'), // Active de ser aprobado.
-        defaultValue: 'Active', // 'Pending' // Admin lo rechaza se elimina el registro
+        defaultValue: 'Pending', // 'Pending' // Admin lo rechaza se elimina el registro
       },
     },
     { timestamps: false }
