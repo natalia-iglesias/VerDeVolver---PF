@@ -18,7 +18,8 @@ export const entitiesReducer = (state = initialState, { type, payload }) => {
         entities: payload,
       };
     case CREATE_NEW_ENTITY:
-      return { ...state, message: action.payload };
+      return { ...state, message: payload };
+
     default:
       return { ...state };
   }

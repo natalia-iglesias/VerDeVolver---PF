@@ -11,11 +11,11 @@ export default function validate(form, name) {
     };
     return isError;
   }
-  if (name === 'email') {
+  if (name === 'mail') {
     const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
     isError = {
-      isError: !regex.test(form.email),
+      isError: !regex.test(form.mail),
       errorMsg: 'Por favor ingresa un email válido.',
     };
   }
@@ -25,7 +25,7 @@ export default function validate(form, name) {
       errorMsg: 'El cbu debe ser de 22 digitos.',
     };
   }
-  console.log(name);
+
   if (name === 'description') {
     isError = {
       isError: form.description.length < 100 || form.description.length > 450,
