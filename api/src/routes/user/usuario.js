@@ -67,7 +67,6 @@ router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const userSent = req.body;
-
     const upgradedId = await findId(id);
 
     if (!upgradedId) res.status(404).send(`El id ${id} no fue encontrado`);
