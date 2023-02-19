@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Button, Flex, Heading, Image } from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+  Heading,
+  Image,
+  Card,
+  CardBody,
+  Text,
+} from '@chakra-ui/react';
 import OverflowScroll from '../../Components/OverflowScroll';
 import InfoCardInput from '../../Components/InforCardInput';
+import { deleteUser, updateUser } from './userProfileFunctions';
 
 function UserProfile() {
   const { id } = useParams();
@@ -13,6 +22,9 @@ function UserProfile() {
     mail: '',
     password: '',
   });
+  const navigate = useNavigate();
+  const [saveButton, setSaveButton] = useState(false);
+
   useEffect(() => {
     axios.get(`http://localhost:3001/user/${id}`).then((res) => {
       setInput({
@@ -29,12 +41,27 @@ function UserProfile() {
         <Heading size="lg" align="center" m="3vh">
           Nombre
         </Heading>
-        <InfoCardInput name={input.name} setInput={setInput} />
+        <InfoCardInput
+          name={input.name}
+          setInput={setInput}
+          setSaveButton={setSaveButton}
+        />
         <Heading size="lg" align="center" m="3vh">
           Mail
         </Heading>
         <InfoCardInput mail={input.mail} setInput={setInput} />
-        <Button mt="10vh">Guardar Cambios</Button>
+        {saveButton && (
+          <Button m="10vh auto" w="12vw" onClick={() => updateUser(id, input)}>
+            Guardar Cambios
+          </Button>
+        )}
+        {!saveButton && (
+          <Card w="12vw" h="7vh" m="10vh auto" pb="10vh">
+            <CardBody w="12vw" m="auto">
+              <Text m="auto">Guardar cambios</Text>
+            </CardBody>
+          </Card>
+        )}
       </Flex>
       <Flex direction="column" align="center">
         <Image src={input.image} borderRadius="full" boxSize="140px" />
@@ -42,7 +69,9 @@ function UserProfile() {
           Contraseña
         </Heading>
         <InfoCardInput password={input.password} setInput={setInput} />
-        <Button mt="10vh">Eliminar Perfil</Button>
+        <Button mt="10vh" onClick={() => deleteUser(id, navigate)}>
+          Eliminar Perfil
+        </Button>
       </Flex>
       <Flex direction="column">
         <Heading align="center" m="3vh">
