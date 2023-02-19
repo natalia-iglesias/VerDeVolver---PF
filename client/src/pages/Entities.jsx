@@ -9,7 +9,7 @@ const Entities = () => {
   const { entities } = useSelector((state) => state.entitiesReducer);
 
   return (
-    <VStack>
+    <VStack mx="1rem">
       <SearchBar />
 
       <Grid templateColumns="1fr 4fr">
