@@ -38,7 +38,7 @@ const App = () => {
         <Route path="/beVdV" element={<SingUpEntitie />} />
         <Route path="/login" element={<Login />} />
         <Route path="/singup" element={<SingUp />} />
-        <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/userprofile/:id" element={<UserProfile />} />
         <Route path="/entityprofile" element={<EntityProfile />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
