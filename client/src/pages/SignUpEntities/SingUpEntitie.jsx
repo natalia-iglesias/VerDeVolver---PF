@@ -1,5 +1,10 @@
-import { materials } from '../../db.json';
-import { useState } from 'react';
+// import { useHistory } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  createNewEntity,
+  getMaterials,
+} from '../../redux/actions/entitiesActions';
 import validate from './validate';
 import {
   FormControl,
@@ -13,11 +18,20 @@ import {
 } from '@chakra-ui/react';
 
 const SingUpEntitie = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMaterials());
+  }, [dispatch]);
+  const materials = useSelector((state) => {
+    return state.entitiesReducer.materials;
+  });
+
   const [form, setForm] = useState({
     name: '',
-    email: '',
+    mail: '',
     address: '',
-    imageCloud: '',
+    img: '',
     cbu: '',
     materials: [],
     description: '',
@@ -25,9 +39,9 @@ const SingUpEntitie = () => {
 
   const [errors, setErrors] = useState({
     name: { isError: false, errorMsg: '' },
-    email: { isError: false, errorMsg: '' },
+    mail: { isError: false, errorMsg: '' },
     address: { isError: false, errorMsg: '' },
-    imageCloud: { isError: false, errorMsg: '' },
+    img: { isError: false, errorMsg: '' },
     cbu: { isError: false, errorMsg: '' },
     materials: { isError: false, errorMsg: '' },
     description: { isError: false, errorMsg: '' },
@@ -43,27 +57,31 @@ const SingUpEntitie = () => {
     setForm({ ...form, [name]: value });
   };
 
+  // const history = useHistory();
   const handlerSubmit = (event) => {
     event.preventDefault();
     let errorsObj = {};
     Object.keys(form).forEach((name) => {
       const errOjb = { [name]: validate(form, name) };
       errorsObj = { ...errorsObj, ...errOjb };
-      console.log(errorsObj);
     });
     setErrors({ ...errors, ...errorsObj });
+    dispatch(createNewEntity(form));
+
+    // history.push('/home');
   };
+
   const deleteMaterial = (mat) => {
     const newMaterials = form.materials.filter((eachMat) => eachMat !== mat);
     setForm({ ...form, materials: newMaterials });
   };
-
   const addMaterial = (e) => {
     let newMaterials = [...form.materials];
     newMaterials.push(e.target.value);
     const uniqueMaterials = [...new Set([...newMaterials])];
     setForm({ ...form, materials: uniqueMaterials });
   };
+
   return (
     <FormControl width={500} margin="3%" onSubmit={handlerSubmit}>
       <FormControl isRequired isInvalid={errors.name.isError}>
@@ -82,19 +100,19 @@ const SingUpEntitie = () => {
         )}
       </FormControl>
       <br />
-      <FormControl isRequired isInvalid={errors.email.isError}>
+      <FormControl isRequired isInvalid={errors.mail.isError}>
         <FormLabel>Email</FormLabel>
         <Input
-          name="email"
+          name="mail"
           onChange={handlerChange}
           onBlur={handlerBlur}
           type="email"
-          value={form.email}
+          value={form.mail}
         />
-        {!errors.email.isError && form.email.length === 0 ? (
+        {!errors.mail.isError && form.mail.length === 0 ? (
           <FormHelperText>Ingresa tu email.</FormHelperText>
         ) : (
-          <FormErrorMessage>{errors.email.errorMsg}</FormErrorMessage>
+          <FormErrorMessage>{errors.mail.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
       <br />
@@ -114,16 +132,16 @@ const SingUpEntitie = () => {
         )}
       </FormControl>
       <br />
-      <FormControl isRequired isInvalid={errors.imageCloud.isError}>
+      <FormControl isRequired isInvalid={errors.img.isError}>
         <FormLabel>Imagen</FormLabel>
         <Input
-          name="imageCloud"
+          name="img"
           type="text"
           onChange={handlerChange}
           onBlur={handlerBlur}
-          value={form.imageCloud}
+          value={form.img}
         />
-        {!errors.imageCloud.isError && form.imageCloud.length === 0 ? (
+        {!errors.img.isError && form.img.length === 0 ? (
           <FormHelperText>
             Arrastra aquí la imagen de tu entidad.
           </FormHelperText>
@@ -158,7 +176,7 @@ const SingUpEntitie = () => {
           onChange={(e) => addMaterial(e)}
           onBlur={handlerBlur}
         >
-          {materials.map((mat, i) => {
+          {materials?.map((mat, i) => {
             return (
               <option key={i} value={mat}>
                 {mat}
