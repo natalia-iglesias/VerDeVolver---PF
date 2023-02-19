@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import { Button, Flex, Heading, Image } from '@chakra-ui/react';
 import OverflowScroll from '../../Components/OverflowScroll';
 import InfoCardInput from '../../Components/InforCardInput';
 
 function UserProfile() {
+  const { id } = useParams();
   const [input, setInput] = useState({
-    name: 'Rodrigo Jorge Figari',
-    image:
-      'http://2.bp.blogspot.com/_pmMRm3e0SI0/TERW8TI2SfI/AAAAAAAAB60/vEtccLWaB6g/s280/princeencantador.jpg',
-    mail: 'rodrifigari@gmail.com',
-    password: 'ceowncowencwo',
+    name: '',
+    image: '',
+    mail: '',
+    password: '',
   });
+  useEffect(() => {
+    axios.get(`http://localhost:3001/user/${id}`).then((res) => {
+      setInput({
+        ...res.data,
+        image:
+          'https://media.lacapital.com.ar/p/c2a33864011f924c825debbc800fdc33/adjuntos/204/imagenes/028/327/0028327548/1200x675/smart/leo-mattiolijpg.jpg',
+      });
+    });
+  }, []);
+
   return (
     <Flex direction="row">
       <Flex direction="column">
@@ -36,11 +48,11 @@ function UserProfile() {
         <Heading align="center" m="3vh">
           Donaciones
         </Heading>
-        <OverflowScroll type="donation" />
+        <OverflowScroll type="userDonation" id={id} />
         <Heading align="center" m="3vh">
           Servicios
         </Heading>
-        <OverflowScroll type="services" />
+        <OverflowScroll type="userService" id={id} />
       </Flex>
     </Flex>
   );

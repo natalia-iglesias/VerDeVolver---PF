@@ -16,6 +16,8 @@ import { AiOutlineUser } from 'react-icons/ai';
 
 const Navbar = () => {
   const { colorMode } = useColorMode();
+  //Este user id deberia sacarse del local storage o de donde sea que se guarde el id del usuario
+  const userId = 1231;
 
   return (
     <Box bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}>
@@ -86,7 +88,7 @@ const Navbar = () => {
             <MenuList>
               <MenuItem
                 as={ReachLink}
-                to="/userprofile"
+                to={`/userprofile/${userId}`}
                 fontWeight={'700'}
                 color={colorMode === 'light' ? 'green' : '#68D391'}
               >
