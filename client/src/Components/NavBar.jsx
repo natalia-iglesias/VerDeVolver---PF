@@ -101,7 +101,10 @@ const Navbar = () => {
         <Box boxSize="50px" position={'absolute'} top="2" right={2}>
           <Menu>
             <MenuButton>
-              <Avatar name="User" icon={<AiOutlineUser />} />
+              <Image
+                src="https://img.icons8.com/ios11/600/FFFFFF/user.png"
+                alt="Perfil logo"
+              ></Image>
             </MenuButton>
             <MenuList>
               <MenuItem

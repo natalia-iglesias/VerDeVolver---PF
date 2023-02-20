@@ -13,6 +13,12 @@ const SearchBar = () => {
     dispatch(searchEntities(search));
   }
 
+  function handleKeyDown(e) {
+    if (e.keyCode === 13) {
+      handleClick(e);
+    }
+  }
+
   function handleChange(e) {
     e.preventDefault();
     setSearch(e.target.value);
@@ -25,6 +31,7 @@ const SearchBar = () => {
         type="text"
         value={search}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
       />
 
       <IconButton
