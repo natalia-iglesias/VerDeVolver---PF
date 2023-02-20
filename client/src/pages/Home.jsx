@@ -1,5 +1,7 @@
-import { useSelector } from 'react-redux';
-// import { fetchEntities } from '../redux/actions/entitiesActions';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+
+import { fetchEntities } from '../redux/actions/entitiesActions';
 import {
   Button,
   Input,
@@ -15,22 +17,25 @@ import PostsCarousel from '../components/PostsCarousel';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 
 const Home = () => {
-  const entities = useSelector((state) => state.entitiesReducer.entities);
-  console.log('entities::', entities);
+  const { entities } = useSelector((state) => state.entitiesReducer);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchEntities());
+  }, [dispatch]);
 
   return (
-    <Box>
+    <Box justify="center" align="center">
       <Heading
         as="h1"
         size="l"
-        display="flex"
-        align="center"
-        justify="center"
-        bg="#68D391"
-        w="auto"
+        bg="#2F855A"
+        w="70%"
         h="100px"
         color="white"
         padding="2%"
+        borderRadius="md"
       >
         Te brindamos información sobre los distintos lugares dedicados al
         reciclaje en todo el país. Encontrá los más cercanos y hacé que tu
@@ -40,10 +45,9 @@ const Home = () => {
       <Stack p={'4'}>
         <HStack>
           <Select placeholder="Colabora con el punto de reciclaje que te haya ayudado..">
-            {entities?.map(({ uuid, name }) => (
-              <option key={uuid}>{name}</option>
+            {entities?.map(({ id, name }) => (
+              <option key={id}>{name}</option>
             ))}
-            console.log('entities map::', entities );
           </Select>
           <InputGroup>
             <InputLeftElement children={<MdOutlineAttachMoney />} />
