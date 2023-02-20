@@ -30,7 +30,7 @@ function UserProfile() {
       setInput({
         ...res.data,
         image:
-          'https://media.lacapital.com.ar/p/c2a33864011f924c825debbc800fdc33/adjuntos/204/imagenes/028/327/0028327548/1200x675/smart/leo-mattiolijpg.jpg',
+          'https://www.anahuac.mx/mexico/sites/default/files/styles/webp/public/noticias/El-plastico-reciclado-eficiente-como-material-de-construccion.jpg.webp?itok=rEmpK8uY',
       });
     });
   }, []);
@@ -54,21 +54,6 @@ function UserProfile() {
           setInput={setInput}
           setSaveButton={setSaveButton}
         />
-        {saveButton && (
-          <Button m="10vh auto" w="12vw" onClick={() => updateUser(id, input)}>
-            Guardar Cambios
-          </Button>
-        )}
-        {!saveButton && (
-          <Card w="12vw" h="7vh" m="10vh auto" pb="10vh">
-            <CardBody w="12vw" m="auto">
-              <Text m="auto">Guardar cambios</Text>
-            </CardBody>
-          </Card>
-        )}
-      </Flex>
-      <Flex direction="column" align="center" justify="space-evenly" w="40vw">
-        <Image src={input.image} borderRadius="full" boxSize="140px" />
         <Heading size="lg" align="center" m="3vh">
           Contraseña
         </Heading>
@@ -77,7 +62,41 @@ function UserProfile() {
           setInput={setInput}
           setSaveButton={setSaveButton}
         />
-        <Button mt="10vh" onClick={() => deleteUser(id, navigate)}>
+      </Flex>
+      <Flex direction="column" align="center" w="40vw">
+        <Image
+          src={input.image}
+          borderRadius="2vh"
+          boxSize="200px"
+          m="10vh auto"
+        />
+        {saveButton && (
+          <Button
+            m="10vh auto"
+            w="20vw"
+            h="10vh"
+            border="solid green 2px"
+            onClick={() => updateUser(id, input)}
+          >
+            Guardar Cambios
+          </Button>
+        )}
+        {!saveButton && (
+          <Card w="20vw" h="7vh" m="10vh auto" pb="10vh">
+            <CardBody w="20vw" m="auto">
+              <Text m="auto" align="center">
+                Guardar cambios
+              </Text>
+            </CardBody>
+          </Card>
+        )}
+        <Button
+          mt="0vh"
+          w="20vw"
+          h="10vh"
+          border="solid red 2px"
+          onClick={() => deleteUser(id, navigate)}
+        >
           Eliminar Perfil
         </Button>
       </Flex>

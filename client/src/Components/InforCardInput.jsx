@@ -51,24 +51,23 @@ function InfoCardInput({
     setTextOrInput('input');
   };
   return (
-    <Flex direction="row" maxW="40vw" m="0px auto" mb="10vh" h="15vh">
-      <Card w="25vw" p="1vh">
+    <Flex direction="row" maxW="40vw" m="0px auto" mb="10vh" h="10vh">
+      <Card w="20vw">
         <CardBody>
           {textOrInput === 'text' && <Text m="auto">{data}</Text>}
           {textOrInput === 'input' && (
             <Input
-              m="0px"
-              p="0px"
+              mt="-10px"
               name={inputName}
               value={data}
               onChange={(e) => onChange(e)}
             />
           )}
         </CardBody>
+        <Button onClick={modifyText} mt="2vh">
+          <EditIcon />
+        </Button>
       </Card>
-      <Button onClick={modifyText} mt="2vh">
-        <EditIcon />
-      </Button>
     </Flex>
   );
 }
