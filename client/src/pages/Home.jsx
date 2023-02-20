@@ -30,7 +30,7 @@ const Home = () => {
       <Heading
         as="h1"
         size="l"
-        bg="#68D391"
+        bg="#2F855A"
         w="70%"
         h="100px"
         color="white"
