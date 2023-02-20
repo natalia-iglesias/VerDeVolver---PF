@@ -36,22 +36,40 @@ const Navbar = () => {
           >
             Mapa
           </Link>
-          <Link as={ReachLink} to="/beVdV" color="green" mr={5}></Link>
+          <Menu>
+            <MenuButton
+              mr={5}
+              fontWeight={'700'}
+              color={colorMode === 'light' ? 'green' : '#68D391'}
+            >
+              Puntos de Reciclaje
+            </MenuButton>
+            <MenuList>
+              <MenuItem
+                as={ReachLink}
+                to="/entities"
+                fontWeight={'700'}
+                color={colorMode === 'light' ? 'green' : '#68D391'}
+              >
+                Ver todos
+              </MenuItem>
+              <MenuItem
+                as={ReachLink}
+                to="/beVdV"
+                fontWeight={'700'}
+                color={colorMode === 'light' ? 'green' : '#68D391'}
+              >
+                Publica tu Punto de Reciclaje
+              </MenuItem>
+            </MenuList>
+          </Menu>
           <Link
             as={ReachLink}
             to="/login"
             color={colorMode === 'light' ? 'green' : '#68D391'}
             mr={5}
           >
-            SerVdV
-          </Link>
-          <Link
-            as={ReachLink}
-            to="/entities"
-            color={colorMode === 'light' ? 'green' : '#68D391'}
-            mr={5}
-          >
-            VdVs
+            Ingresar
           </Link>
           <Menu>
             <MenuButton
