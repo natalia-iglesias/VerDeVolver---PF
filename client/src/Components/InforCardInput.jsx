@@ -8,6 +8,7 @@ function InfoCardInput({
   password,
   adress,
   cbu,
+  description,
   setInput,
   setSaveButton,
 }) {
@@ -34,6 +35,10 @@ function InfoCardInput({
     data = cbu;
     inputName = 'cbu';
   }
+  if (description) {
+    data = description;
+    inputName = 'description';
+  }
 
   const onChange = (e) => {
     setInput((prevObj) => {
@@ -46,12 +51,14 @@ function InfoCardInput({
     setTextOrInput('input');
   };
   return (
-    <Flex direction="row">
-      <Card w="20vw">
+    <Flex direction="row" maxW="40vw" m="0px auto" mb="10vh" h="15vh">
+      <Card w="25vw" p="1vh">
         <CardBody>
-          {textOrInput === 'text' && <Text>{data}</Text>}{' '}
+          {textOrInput === 'text' && <Text m="auto">{data}</Text>}
           {textOrInput === 'input' && (
             <Input
+              m="0px"
+              p="0px"
               name={inputName}
               value={data}
               onChange={(e) => onChange(e)}

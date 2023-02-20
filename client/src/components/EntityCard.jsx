@@ -43,7 +43,7 @@ const EntityCard = ({ entity }) => {
           <Input pr="4.5rem" type="number" placeholder="Amout" />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" m="0.5rem" size="sm" colorScheme={'green'}>
-              Donate
+              Donar
             </Button>
           </InputRightElement>
         </InputGroup>

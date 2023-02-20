@@ -3,9 +3,7 @@ import axios from 'axios';
 const deleteUser = (id, navigate) => {
   axios.delete(`http://localhost:3001/user/${id}`).then(() => {
     window.alert('El usuario a sido borrado');
-    setTimeout(() => {
-      navigate('/home');
-    }, 3000);
+    navigate('/home');
   });
 };
 
