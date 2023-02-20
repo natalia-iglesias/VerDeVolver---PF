@@ -91,7 +91,7 @@ const SingUpEntitie = () => {
   };
 
   return (
-    <FormControl width={500} margin="3%" onSubmit={handlerSubmit}>
+    <FormControl padding="5%" width={500} margin="3%" onSubmit={handlerSubmit}>
       <FormControl isRequired isInvalid={errors.name.isError}>
         <FormLabel>Nombre</FormLabel>
         <Input
