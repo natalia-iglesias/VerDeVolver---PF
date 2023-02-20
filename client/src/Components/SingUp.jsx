@@ -16,14 +16,45 @@ import { useState } from 'react';
 import { AiFillGoogleCircle } from 'react-icons/ai';
 import { BsFacebook, BsGithub } from 'react-icons/bs';
 
+const validate = (singUpData) => {
+  const errors = {};
+
+  if (!singUpData.user) {
+    errors.user = 'Email or username is required';
+  } else if (
+    !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(singUpData.user)
+  ) {
+    errors.user = 'Invalid email format';
+  }
+
+  if (!singUpData.password) {
+    errors.password = 'Password is required';
+  }
+
+  return errors;
+};
+
 const SingUp = () => {
   const [singUpData, setSingUpData] = useState({ user: '', password: '' });
   const [show, setShow] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSingUpData({ ...singUpData, [name]: value });
+    setErrors({ ...errors, [name]: '' });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const errors = validate(singUpData);
+    setErrors(errors);
+    if (Object.keys(errors).length === 0) {
+      //hacer el axios
+    }
+  };
+
+  console.log(singUpData.user, singUpData.password);
 
   return (
     <Box
@@ -43,7 +74,7 @@ const SingUp = () => {
           placeholder="Type your email or user name"
         />
       </InputGroup>
-
+      {errors.user && <Text color="red.500">{errors.user}</Text>}
       <InputGroup>
         <InputLeftElement pointerEvents="none" children={<LockIcon />} />
         <Input
@@ -60,8 +91,8 @@ const SingUp = () => {
           />
         </InputRightElement>
       </InputGroup>
-
-      <Button>SING UP</Button>
+      {errors.password && <Text color="red.500">{errors.password}</Text>}
+      <Button onSubmit={handleSubmit}>SIGN UP</Button>
 
       <Divider />
 
