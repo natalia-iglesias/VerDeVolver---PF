@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+// import { fetchEntities } from '../redux/actions/entitiesActions';
 import {
   Button,
   Input,
@@ -14,7 +15,8 @@ import PostsCarousel from '../components/PostsCarousel';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 
 const Home = () => {
-  const { entities } = useSelector((state) => state.entitiesReducer);
+  const entities = useSelector((state) => state.entitiesReducer.entities);
+  console.log('entities::', entities);
 
   return (
     <Box>
@@ -35,13 +37,13 @@ const Home = () => {
         experiencia de gestión de residuos sea mucho más fácil. ¡Gracias por
         cuidar el planeta junto a nosotrxs!
       </Heading>
-
       <Stack p={'4'}>
         <HStack>
-          <Select placeholder="Colabora con el punto de reciclaje que te haya ayudado ">
+          <Select placeholder="Colabora con el punto de reciclaje que te haya ayudado..">
             {entities?.map(({ uuid, name }) => (
               <option key={uuid}>{name}</option>
             ))}
+            console.log('entities map::', entities );
           </Select>
           <InputGroup>
             <InputLeftElement children={<MdOutlineAttachMoney />} />
