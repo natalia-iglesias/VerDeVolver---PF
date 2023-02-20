@@ -3,7 +3,7 @@ import SearchBar from '../Components/SearchBar';
 import { useSelector, useDispatch } from 'react-redux';
 import EntityCard from '../components/EntityCard';
 import PropagateLoader from 'react-spinners/PropagateLoader';
-import AsideFilters from '../components/AsideFilters';
+import AsideFilters from '../Components/AsideFilters';
 import { useEffect } from 'react';
 import { fetchEntities } from '../redux/actions/entitiesActions';
 import { Button } from '@chakra-ui/react';
