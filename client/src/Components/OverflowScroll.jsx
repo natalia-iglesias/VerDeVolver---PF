@@ -26,6 +26,12 @@ function DashboardScroll({ type, id }) {
         setArrayToRender(res.data);
       });
     }
+    if (type == 'entityDonation') {
+      axios.get(`http://localhost:3001/donation/vdv/${id}`).then((res) => {
+        res.data.forEach((obj) => (obj.VdV = false));
+        setArrayToRender(res.data);
+      });
+    }
     if (type == 'comment') setArrayToRender(commentArray);
   }, []);
 
@@ -46,13 +52,14 @@ function DashboardScroll({ type, id }) {
                     <Text>
                       {item.name && `${item.name} /`}
                       {item.amount && `$${item.amount} /`}
-
+                      {item.User && `${item.User.name} ${item.User.last_name}/`}
                       {item.date && `${item.date} /`}
-                      {item.VdVId && (
+                      {item.VdV && (
                         <Link as={ReachLink} to={`/entitie/${item.VdVId}`}>
-                          {item.VdVId}
+                          {item.VdV.name}
                         </Link>
                       )}
+
                       {item.serviceType && `${item.serviceType} /`}
                       {item.content && item.content}
                     </Text>
