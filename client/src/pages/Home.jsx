@@ -13,8 +13,10 @@ import {
   HStack,
   Heading,
 } from '@chakra-ui/react';
-import PostsCarousel from '../components/PostsCarousel';
+/* import PostsCarousel from '../components/PostsCarousel'; */
 import { MdOutlineAttachMoney } from 'react-icons/md';
+
+import { InstagramEmbed } from 'react-social-media-embed';
 
 const Home = () => {
   const { entities } = useSelector((state) => state.entitiesReducer);
@@ -59,7 +61,37 @@ const Home = () => {
         </Button>
       </Stack>
 
-      <PostsCarousel />
+      {/* <PostsCarousel /> */}
+      
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            rowGap: '1rem',
+            gap: '2rem',
+            padding:'2%',
+          }}
+        >
+              <InstagramEmbed
+                url="https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link"
+                width={328}
+                height={608}
+              />
+              <InstagramEmbed
+                url="https://www.instagram.com/p/CIT3Hz2jDqh/?utm_source=ig_web_copy_link"
+                width={328}
+              />
+              <InstagramEmbed
+                url="https://www.instagram.com/p/CIBswgBs1Ps/?utm_source=ig_web_copy_link"
+                width={328}
+              />
+              <InstagramEmbed
+                url="https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link"
+                width={328}
+              />
+        </div>
+
     </Box>
   );
 };
