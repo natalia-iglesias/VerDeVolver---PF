@@ -202,7 +202,7 @@ async function chargeDbServices() {
 
   return bulkCreateServices;
 }
-
+// function autoinvocalbe
 router.post('/', async (req, res) => {
   try {
     const first = await chargeDbRoles();
