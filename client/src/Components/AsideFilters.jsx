@@ -1,29 +1,44 @@
-import { materials } from '../db.json';
-import { useEffect, useState } from 'react';
+//import { materials } from '../db.json';
+//import { useEffect, useState } from 'react';
 import { VStack, Select } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { filterByMaterials } from '../redux/actions/entitiesActions.js';
 
 const AsideFilters = () => {
   const dispatch = useDispatch();
-  const [materialFilter, setMaterialFilter] = useState('');
-  const [rankingSort, setRankingSort] = useState('');
+  //const [materialFilter, setMaterialFilter] = useState('');
+  //const [rankingSort, setRankingSort] = useState('');
+  const getEntities = useSelector((state) => state.entitiesReducer.entities);
+  const { materials } = useSelector((state) => state.entitiesReducer);
+  // console.log(materials);
+  console.log(getEntities);
 
-  const handleMaterialChange = (ev) => {
-    setMaterialFilter(ev.target.value);
-    //dispatch(filterEntitiesByMaterials(ev.target.value));
+  // const handleMaterialChange = (ev) => {
+  //   setMaterialFilter(ev.target.value);
+  //   //dispatch(filterEntitiesByMaterials(ev.target.value));
+  // };
+
+  const handleClikMaterials = (e) => {
+    console.log(e.target.value);
+    //console.log(getEntities[0].Materials[0].name);
+
+    const filterByMaterial = getEntities.filter((objeto) => {
+      // Filtramos los objetos cuya propiedad Materials contenga un objeto con name igual a e.target.value
+      return objeto.Materials.some(
+        (material) => material.name === e.target.value
+      );
+    });
+    dispatch(filterByMaterials(filterByMaterial));
   };
 
-  const handleRankingChange = (ev) => {
-    setRankingSort(ev.target.value);
-    //dispatch(sortEntitiesByRanking(ev.target.value));
-  };
+  const handleRanking = (e) => {};
 
   return (
     <VStack>
       <Select
         placeholder="Selecciona un material"
         width="-moz-fit-content"
-        onChange={handleMaterialChange}
+        onClick={(e) => handleClikMaterials(e)}
       >
         {materials.map((m, i) => (
           <option key={i} value={m}>
@@ -33,7 +48,7 @@ const AsideFilters = () => {
       </Select>
       <Select
         placeholder="Puntuación"
-        onChange={handleRankingChange}
+        onClick={(e) => handleRanking(e)}
         width="-moz-fit-content"
       >
         <option value="Ascendente">Ascendente</option>
