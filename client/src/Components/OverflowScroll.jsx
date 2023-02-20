@@ -18,11 +18,13 @@ function DashboardScroll({ type, id }) {
   useEffect(() => {
     if (type == 'userDonation') {
       axios.get(`http://localhost:3001/donation/user/${id}`).then((res) => {
+        res.data.forEach((obj) => (obj.User = false));
         setArrayToRender(res.data);
       });
     }
     if (type == 'userService') {
       axios.get(`http://localhost:3001/service/user/${id}`).then((res) => {
+        res.data.forEach((obj) => (obj.User = false));
         setArrayToRender(res.data);
       });
     }
@@ -66,9 +68,6 @@ function DashboardScroll({ type, id }) {
                     {item.rating && arreglo}
                   </CardBody>
                 </Card>
-                <Button mt="2vh">
-                  <DeleteIcon />
-                </Button>
               </Flex>
               <Divider />
             </div>
