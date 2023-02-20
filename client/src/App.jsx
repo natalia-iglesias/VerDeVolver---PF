@@ -30,6 +30,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/map" element={<Map />} />
         <Route path="/services" element={<Service />} />
