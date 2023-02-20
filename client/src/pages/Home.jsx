@@ -26,18 +26,16 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <Box>
+    <Box justify="center" align="center">
       <Heading
         as="h1"
         size="l"
-        display="flex"
-        align="center"
-        justify="center"
         bg="#68D391"
-        w="auto"
+        w="70%"
         h="100px"
         color="white"
         padding="2%"
+        borderRadius="md"
       >
         Te brindamos información sobre los distintos lugares dedicados al
         reciclaje en todo el país. Encontrá los más cercanos y hacé que tu
