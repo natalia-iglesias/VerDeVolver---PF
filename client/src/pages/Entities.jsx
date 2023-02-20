@@ -6,7 +6,6 @@ import PropagateLoader from 'react-spinners/PropagateLoader';
 import AsideFilters from '../Components/AsideFilters';
 import { useEffect } from 'react';
 import { fetchEntities, getMaterials } from '../redux/actions/entitiesActions';
-import { fetchEntities } from '../redux/actions/entitiesActions';
 import { Button } from '@chakra-ui/react';
 
 const Entities = () => {
