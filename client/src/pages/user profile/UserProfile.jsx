@@ -37,7 +37,7 @@ function UserProfile() {
 
   return (
     <Flex direction="row">
-      <Flex direction="column">
+      <Flex direction="column" w="40vw">
         <Heading size="lg" align="center" m="3vh">
           Nombre
         </Heading>
@@ -49,7 +49,11 @@ function UserProfile() {
         <Heading size="lg" align="center" m="3vh">
           Mail
         </Heading>
-        <InfoCardInput mail={input.mail} setInput={setInput} />
+        <InfoCardInput
+          mail={input.mail}
+          setInput={setInput}
+          setSaveButton={setSaveButton}
+        />
         {saveButton && (
           <Button m="10vh auto" w="12vw" onClick={() => updateUser(id, input)}>
             Guardar Cambios
@@ -63,12 +67,16 @@ function UserProfile() {
           </Card>
         )}
       </Flex>
-      <Flex direction="column" align="center">
+      <Flex direction="column" align="center" justify="space-evenly" w="40vw">
         <Image src={input.image} borderRadius="full" boxSize="140px" />
         <Heading size="lg" align="center" m="3vh">
           Contraseña
         </Heading>
-        <InfoCardInput password={input.password} setInput={setInput} />
+        <InfoCardInput
+          password={input.password}
+          setInput={setInput}
+          setSaveButton={setSaveButton}
+        />
         <Button mt="10vh" onClick={() => deleteUser(id, navigate)}>
           Eliminar Perfil
         </Button>

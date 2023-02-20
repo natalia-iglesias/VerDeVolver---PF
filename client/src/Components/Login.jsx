@@ -91,7 +91,7 @@ const Login = () => {
       </HStack>
 
       <Text textAlign={'center'}>
-        Need an account? <Link to="/singup">SING UP</Link>
+        Need an account? <Link to="/singup">SIGN UP</Link>
       </Text>
     </Box>
   );

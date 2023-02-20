@@ -22,7 +22,7 @@ const EntityCard = ({ entity }) => {
         <Image src="https://picsum.photos/300" />
 
         <VStack alignItems="flex-start">
-          <Link as={ReachLink} to={`/entitie/${entity.uuid}`}>
+          <Link as={ReachLink} to={`/entitie/${entity.id}`}>
             <Heading>{entity.name}</Heading>
           </Link>
           <Text>
@@ -43,7 +43,7 @@ const EntityCard = ({ entity }) => {
           <Input pr="4.5rem" type="number" placeholder="Amout" />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" m="0.5rem" size="sm" colorScheme={'green'}>
-              Donate
+              Donar
             </Button>
           </InputRightElement>
         </InputGroup>
