@@ -58,7 +58,7 @@ const SingUpEntitie = () => {
   };
 
   // const history = useHistory();
-  const handlerSubmit = (event) => {
+  const handlerSubmit = async (event) => {
     event.preventDefault();
     let errorsObj = {};
     Object.keys(form).forEach((name) => {
@@ -66,8 +66,15 @@ const SingUpEntitie = () => {
       errorsObj = { ...errorsObj, ...errOjb };
     });
     setErrors({ ...errors, ...errorsObj });
-    dispatch(createNewEntity(form));
 
+    const isError = Object.keys(errors).find(
+      (error) => errorsObj[error].isError
+    );
+
+    if (isError) {
+      return;
+    }
+    dispatch(createNewEntity(form));
     // history.push('/home');
   };
 
@@ -77,13 +84,14 @@ const SingUpEntitie = () => {
   };
   const addMaterial = (e) => {
     let newMaterials = [...form.materials];
+
     newMaterials.push(e.target.value);
     const uniqueMaterials = [...new Set([...newMaterials])];
     setForm({ ...form, materials: uniqueMaterials });
   };
 
   return (
-    <FormControl width={500} margin="3%" onSubmit={handlerSubmit}>
+    <FormControl padding="5%" width={500} margin="3%" onSubmit={handlerSubmit}>
       <FormControl isRequired isInvalid={errors.name.isError}>
         <FormLabel>Nombre</FormLabel>
         <Input
@@ -155,6 +163,7 @@ const SingUpEntitie = () => {
         <Input
           name="cbu"
           onChange={handlerChange}
+          onBlur={handlerBlur}
           type="number"
           value={form.cbu}
         />
@@ -178,8 +187,8 @@ const SingUpEntitie = () => {
         >
           {materials?.map((mat, i) => {
             return (
-              <option key={i} value={mat}>
-                {mat}
+              <option key={i} value={mat.id}>
+                {mat.name}
               </option>
             );
           })}
@@ -188,7 +197,11 @@ const SingUpEntitie = () => {
         {form.materials.map((mat, i) => {
           return (
             <Button key={i} onClick={() => deleteMaterial(mat)}>
-              {mat}
+              {
+                materials.find((material) => {
+                  return material.id == mat;
+                })?.name
+              }
             </Button>
           );
         })}

@@ -35,8 +35,8 @@ const crearMaterialFinal = async (body) => {
 // Treaemos los nombres de los materiales -> SIN VDV
 const getAllMaterials = async () => {
   const allMaterials = await Material.findAll();
-  const allMaterialsReturn = allMaterials.map((elem) => elem.name);
-  return allMaterialsReturn;
+  // const allMaterialsReturn = allMaterials.map((elem) => elem.name);
+  return allMaterials;
 };
 
 // elimina material
