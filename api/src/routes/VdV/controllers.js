@@ -119,11 +119,21 @@ const getByIdVdV = async (id) => {
 
 //FUNCIONA. RETORNA LOS CAMBIOS HECHOS
 const upDateVdV = async (id, body) => {
-  await VdV.update(body, {
-    where: { id },
-  });
-  const result = await getByIdVdV(id);
-  return result;
+  if (body.materials) {
+    await VdV.update(body, {
+      where: { id },
+    });
+    const result = await getByIdVdV(id);
+    await result.setMaterials(body.materials);
+    const resultFinal = await getByIdVdV(id);
+    return resultFinal;
+  } else {
+    await VdV.update(body, {
+      where: { id },
+    });
+    const result = await getByIdVdV(id);
+    return result;
+  }
 };
 
 //FUNCIONA
