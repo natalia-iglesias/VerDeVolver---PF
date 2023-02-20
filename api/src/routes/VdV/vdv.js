@@ -159,6 +159,12 @@ router.put('/status/:id', async (req, res) => {
   }
 });
 
+router.get('/rating', async (req, res) => {
+  // valor del rating que quieran
+  // ñas entidades de 5 estrellas -> 5 -> vdv que tengan rating 5
+  const result = await id;
+});
+
 // Agregar ruta CBU -> modificacion de CBU
 
 module.exports = router;

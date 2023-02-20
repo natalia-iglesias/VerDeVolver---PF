@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { fetchEntities } from '../redux/actions/entitiesActions';
 import {
@@ -21,11 +21,27 @@ import { InstagramEmbed } from 'react-social-media-embed';
 const Home = () => {
   const { entities } = useSelector((state) => state.entitiesReducer);
 
+  const [inputVdv, setInputVdV] = useState();
+  const [inputMonto, setInputMonto] = useState();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchEntities());
   }, [dispatch]);
+
+  const handleInputs = (event) => {
+    const { name, value } = event.target;
+    name === 'Monto' ? setInputMonto(value) : setInputVdV(value);
+  };
+
+  const handleButton = (event) => {
+    if (inputMonto && inputVdv) {
+      alert(`Gracias por donar ${inputMonto} a ${inputVdv}`);
+    } else {
+      alert('Seleccione entidad o monto faltante');
+    }
+  };
 
   return (
     <Box justify="center" align="center">
@@ -52,46 +68,53 @@ const Home = () => {
             ))}
           </Select>
           <InputGroup>
-            <InputLeftElement children={<MdOutlineAttachMoney />} />
-            <Input placeholder="Monto" type="number" />
+            <InputLeftElement
+              children={<MdOutlineAttachMoney />}
+              onChange={handleInputs}
+            />
+            <Input
+              name="Monto"
+              placeholder="Monto"
+              type="number"
+              onChange={handleInputs}
+            />
           </InputGroup>
         </HStack>
-        <Button color={'vdv.main'} colorScheme="green">
+        <Button color={'vdv.main'} colorScheme="green" onClick={handleButton}>
           Donar
         </Button>
       </Stack>
 
       {/* <PostsCarousel /> */}
-      
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            rowGap: '1rem',
-            gap: '2rem',
-            padding:'2%',
-          }}
-        >
-              <InstagramEmbed
-                url="https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link"
-                width={328}
-                height={608}
-              />
-              <InstagramEmbed
-                url="https://www.instagram.com/p/CIT3Hz2jDqh/?utm_source=ig_web_copy_link"
-                width={328}
-              />
-              <InstagramEmbed
-                url="https://www.instagram.com/p/CIBswgBs1Ps/?utm_source=ig_web_copy_link"
-                width={328}
-              />
-              <InstagramEmbed
-                url="https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link"
-                width={328}
-              />
-        </div>
 
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          rowGap: '1rem',
+          gap: '2rem',
+          padding: '2%',
+        }}
+      >
+        <InstagramEmbed
+          url="https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link"
+          width={328}
+          height={608}
+        />
+        <InstagramEmbed
+          url="https://www.instagram.com/p/CIT3Hz2jDqh/?utm_source=ig_web_copy_link"
+          width={328}
+        />
+        <InstagramEmbed
+          url="https://www.instagram.com/p/CIBswgBs1Ps/?utm_source=ig_web_copy_link"
+          width={328}
+        />
+        <InstagramEmbed
+          url="https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link"
+          width={328}
+        />
+      </div>
     </Box>
   );
 };
