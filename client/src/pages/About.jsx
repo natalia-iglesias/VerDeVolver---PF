@@ -83,7 +83,7 @@ const About = () => {
   return (
     <Flex flexDirection="column" align="center">
       <Heading>Proyecto final Henry</Heading>
-      <Text>
+      <Text align="center" width="90vw">
     VerDeVolver es un sitio web sin fines de lucro, que busca promover e informar sobre el
     reciclaje y gestión de residuos a nivel nacional en Argentina, a través de una interfaz de
     usuario intuitiva y amigable.
