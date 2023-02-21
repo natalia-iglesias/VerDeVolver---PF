@@ -56,7 +56,7 @@ const getAll = async () => {
   }
 };
 
-//el nombre de la funcion estaba mal escrito, lo corregi
+//el nombre de la funcion estaba mal escrito.
 const updateDonations = async (id) => {
   await Donation.update(
     {

@@ -20,6 +20,7 @@ import {
   updateVdV,
   deleteVdV,
 } from './entityProfileFunctions';
+import { useSelector } from 'react-redux';
 
 const EntityProfile = () => {
   const { id } = useParams();
@@ -39,7 +40,7 @@ const EntityProfile = () => {
       setInput({
         ...res.data,
         image:
-          'https://media.lacapital.com.ar/p/c2a33864011f924c825debbc800fdc33/adjuntos/204/imagenes/028/327/0028327548/1200x675/smart/leo-mattiolijpg.jpg',
+          'https://www.anahuac.mx/mexico/sites/default/files/styles/webp/public/noticias/El-plastico-reciclado-eficiente-como-material-de-construccion.jpg.webp?itok=rEmpK8uY',
       });
     });
   }, []);
@@ -52,7 +53,7 @@ const EntityProfile = () => {
   };
 
   return (
-    <Flex direction="row">
+    <Flex direction="row" justify="space-evenly">
       <Flex direction="column">
         <Heading size="lg" align="center" m="3vh">
           Nombre
@@ -81,7 +82,13 @@ const EntityProfile = () => {
         <Image src="https://i.blogs.es/0f9387/coche/450_1000.jpg" w="20vw" />
       </Flex>
       <Flex direction="column" align="center">
-        <Image src={input.image} borderRadius="full" boxSize="140px" />
+        <Image
+          src={input.image}
+          borderRadius="full"
+          boxSize="140px"
+          m="5vh auto"
+          mb="5vh"
+        />
         <Heading size="lg" align="center" m="3vh">
           Contraseña
         </Heading>
@@ -106,7 +113,12 @@ const EntityProfile = () => {
             <Button
               key={i}
               onClick={() =>
-                deleteMaterial(mat.name, input.Materials, setInput)
+                deleteMaterial(
+                  mat.name,
+                  input.Materials,
+                  setInput,
+                  setSaveButton
+                )
               }
             >
               {mat.name}
@@ -116,7 +128,9 @@ const EntityProfile = () => {
         <Select
           placeholder="Agregar material"
           w="13vw"
-          onChange={(e) => addMaterial(e, input.Materials, setInput)}
+          onChange={(e) =>
+            addMaterial(e, input.Materials, setInput, setSaveButton)
+          }
         >
           {materialsArray.map((mat, i) => {
             return (
@@ -132,27 +146,41 @@ const EntityProfile = () => {
           Donaciones
         </Heading>
         <OverflowScroll type="entityDonation" id={id} mb="0vh" />
-        <Heading align="center" m="0vh">
+        <Heading align="center" m="10vh auto" mb="5vh">
           Descripcion
         </Heading>
         <Textarea
           value={input.description}
           name="description"
+          mb="7vh"
           onChange={(e) => handleOnChange(e)}
         />
         {saveButton && (
-          <Button m="10vh auto" w="12vw" onClick={() => updateVdV(id, input)}>
+          <Button
+            m="10vh auto"
+            w="20vw"
+            h="10vh"
+            border="solid green 2px"
+            onClick={() => updateVdV(id, input)}
+          >
             Guardar Cambios
           </Button>
         )}
         {!saveButton && (
-          <Card w="12vw" h="7vh" m="10vh auto" pb="10vh">
+          <Card w="20vw" h="7vh" m="10vh auto" pb="10vh">
             <CardBody w="12vw" m="auto">
               <Text m="auto">Guardar cambios</Text>
             </CardBody>
           </Card>
         )}
-        <Button mt="10vh" onClick={() => deleteVdV(id, navigate)}>
+        <Button
+          m="auto"
+          mt="0vh"
+          w="20vw"
+          h="7vh"
+          border="solid red 2px"
+          onClick={() => deleteVdV(id, navigate)}
+        >
           Eliminar Perfil
         </Button>
       </Flex>

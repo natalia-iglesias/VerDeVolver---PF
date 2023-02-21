@@ -1,4 +1,4 @@
-// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -19,6 +19,7 @@ import {
 
 const SingUpEntitie = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getMaterials());
@@ -47,6 +48,7 @@ const SingUpEntitie = () => {
     description: { isError: false, errorMsg: '' },
   });
 
+  const [msg, setMsg] = useState('');
   const handlerBlur = (ev) => {
     const errOjb = validate(form, ev.target.name);
     setErrors({ ...errors, [ev.target.name]: errOjb });
@@ -54,10 +56,20 @@ const SingUpEntitie = () => {
 
   const handlerChange = (e) => {
     const { name, value } = e.target;
+
+    setErrors({ ...errors, [name]: { isError: false, errorMsg: '' } });
+
+    if (name === 'cbu' || name === 'description') {
+      setMsg(value.length);
+      if (name === 'cbu' && value.length === 22) {
+        console.log('salgo', value.length);
+        return;
+      }
+    }
     setForm({ ...form, [name]: value });
   };
+  console.log('averga errors', errors);
 
-  // const history = useHistory();
   const handlerSubmit = async (event) => {
     event.preventDefault();
     let errorsObj = {};
@@ -75,7 +87,7 @@ const SingUpEntitie = () => {
       return;
     }
     dispatch(createNewEntity(form));
-    // history.push('/home');
+    navigate('/home');
   };
 
   const deleteMaterial = (mat) => {
@@ -167,7 +179,12 @@ const SingUpEntitie = () => {
           type="number"
           value={form.cbu}
         />
-        {!errors.cbu.isError ? (
+        {form.cbu.length !== 0 && !errors.cbu.isError ? (
+          <FormHelperText>Debes ingresar 22 números y vas {msg}</FormHelperText>
+        ) : (
+          ''
+        )}
+        {!errors.cbu.isError && form.cbu.length === 0 ? (
           <FormHelperText>
             Puedes ingresar tu CBU para recibir donaciones.
           </FormHelperText>
@@ -224,6 +241,11 @@ const SingUpEntitie = () => {
           placeholder="Ingresa una descripción..."
           value={form.description}
         />
+        {form.description.length !== 0 && !errors.description.isError ? (
+          <FormHelperText>Caracteres {msg} de 100 hasta 450</FormHelperText>
+        ) : (
+          ''
+        )}
         {!errors.description.isError && form.description.length === 0 ? (
           <FormHelperText>
             Cuéntanos brevemente sobre tu proyecto.

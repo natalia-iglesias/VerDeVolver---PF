@@ -5,11 +5,13 @@ import EntityCard from '../components/EntityCard';
 import PropagateLoader from 'react-spinners/PropagateLoader';
 import AsideFilters from '../Components/AsideFilters';
 import { useEffect } from 'react';
-import { fetchEntities } from '../redux/actions/entitiesActions';
+import { fetchEntities, getMaterials } from '../redux/actions/entitiesActions';
 import { Button } from '@chakra-ui/react';
 
 const Entities = () => {
-  const { entities, isLoading } = useSelector((state) => state.entitiesReducer);
+  const { entities, isLoading, filterbymaterial } = useSelector(
+    (state) => state.entitiesReducer
+  );
   const dispatch = useDispatch();
 
   console.log(entities);
@@ -21,7 +23,12 @@ const Entities = () => {
 
   useEffect(() => {
     dispatch(fetchEntities());
+    dispatch(getMaterials());
   }, [dispatch]);
+
+  let filters = filterbymaterial;
+
+  if (filters.length === 0) filters = entities;
 
   return (
     <VStack mx="1rem">
@@ -44,7 +51,7 @@ const Entities = () => {
             {isLoading ? (
               <PropagateLoader color="#1c5738" />
             ) : (
-              entities.map((e) => <EntityCard key={e.id} entity={e} />)
+              filters.map((e) => <EntityCard key={e.id} entity={e} />)
             )}
           </VStack>
         </GridItem>
