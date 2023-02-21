@@ -3,15 +3,16 @@
 import { VStack, Select } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterByMaterials } from '../redux/actions/entitiesActions.js';
+import axios from 'axios';
 
-const AsideFilters = () => {
+const AsideFilters = ({ filters, setUpdate }) => {
   const dispatch = useDispatch();
   //const [materialFilter, setMaterialFilter] = useState('');
   //const [rankingSort, setRankingSort] = useState('');
   const getEntities = useSelector((state) => state.entitiesReducer.entities);
-  const { materials } = useSelector((state) => state.entitiesReducer);
-  // console.log(materials);
-  console.log(getEntities);
+  const { materials, filterbymaterial } = useSelector(
+    (state) => state.entitiesReducer
+  );
 
   // const handleMaterialChange = (ev) => {
   //   setMaterialFilter(ev.target.value);
@@ -19,19 +20,23 @@ const AsideFilters = () => {
   // };
 
   const handleClikMaterials = (e) => {
-    console.log(e.target.value);
-    //console.log(getEntities[0].Materials[0].name);
+    let filterByMat;
+    if (!filterbymaterial.length) {
+      filterByMat = getEntities.filter((objeto) => {
+        return objeto.Materials.some(
+          (material) => material.name === e.target.value
+        );
+      });
+    } else {
+      filterByMat = filterbymaterial.filter((objeto) => {
+        return objeto.Materials.some(
+          (material) => material.name === e.target.value
+        );
+      });
+    }
 
-    const filterByMaterial = getEntities.filter((objeto) => {
-      // Filtramos los objetos cuya propiedad Materials contenga un objeto con name igual a e.target.value
-      return objeto.Materials.some(
-        (material) => material.name === e.target.value
-      );
-    });
-    dispatch(filterByMaterials(filterByMaterial));
+    dispatch(filterByMaterials(filterByMat));
   };
-
-  const handleRanking = (e) => {};
 
   return (
     <VStack>
