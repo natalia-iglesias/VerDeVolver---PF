@@ -4,7 +4,9 @@ export const FETCH_ENTITIES = 'FETCH_ENTITIES';
 export const SEARCH_ENTITIES = 'SEARCH_ENTITIES';
 export const CREATE_NEW_ENTITY = 'CREATE_NEW_ENTITY';
 export const GET_MATERIALS = 'GET_MATERIALS';
-export const FILTER_BY_MATERIALS = 'FILTER_BY_MATERIALS';
+// export const FILTER_BY_MATERIALS = 'FILTER_BY_MATERIALS';
+export const FILTER_ENTITIES_BY_MATERIAL = 'FILTER_ENTITIES_BY_MATERIAL';
+export const SORT_ENTITIES_BY_RANKING = 'SORT_ENTITIES_BY_RANKING';
 
 export const fetchEntities = () => {
   return async (dispatch) => {
@@ -57,10 +59,14 @@ export const getMaterials = () => {
   };
 };
 
-export const filterByMaterials = (array) => {
-  console.log(array);
-  return {
-    type: FILTER_BY_MATERIALS,
-    payload: array,
+export const filterEntitiesByMaterial = (material) => {
+  return async function (dispatch) {
+    dispatch({ type: FILTER_ENTITIES_BY_MATERIAL, payload: material });
+  };
+};
+
+export const sortEntitiesByRanking = (order) => {
+  return async function (dispatch) {
+    dispatch({ type: SORT_ENTITIES_BY_RANKING, payload: order });
   };
 };

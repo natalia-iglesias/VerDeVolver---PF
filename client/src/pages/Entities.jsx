@@ -4,24 +4,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import EntityCard from '../components/EntityCard';
 import PropagateLoader from 'react-spinners/PropagateLoader';
 import AsideFilters from '../Components/AsideFilters';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   fetchEntities,
   getMaterials,
-  filterByMaterials,
+  // filterByMaterials,
 } from '../redux/actions/entitiesActions';
 import { Button } from '@chakra-ui/react';
 
 const Entities = () => {
-  const [update, setUpdate] = useState(0);
-  const { entities, isLoading, filterbymaterial } = useSelector(
+  // const [update, setUpdate] = useState(0);
+  const { filteredEntities, isLoading } = useSelector(
     (state) => state.entitiesReducer
   );
   const dispatch = useDispatch();
-
+  console.log(filteredEntities);
   function handleClick(e) {
     e.preventDefault();
-    dispatch(filterByMaterials(entities));
+    dispatch(fetchEntities());
   }
 
   useEffect(() => {
@@ -29,8 +29,8 @@ const Entities = () => {
     dispatch(getMaterials());
   }, []);
 
-  let filters = filterbymaterial;
-  if (filters.length === 0) filters = entities;
+  // let filters = filterbymaterial;
+  // if (filters.length === 0) filters = entities;
 
   return (
     <VStack mx="1rem">
@@ -46,14 +46,14 @@ const Entities = () => {
       </Button>
       <Grid templateColumns="1fr 4fr">
         <GridItem>
-          <AsideFilters filters={filters} setUpdate={setUpdate} />
+          <AsideFilters />
         </GridItem>
         <GridItem>
           <VStack spacing="4">
             {isLoading ? (
               <PropagateLoader color="#1c5738" />
             ) : (
-              filters?.map((e) => {
+              filteredEntities?.map((e) => {
                 return <EntityCard key={e.id} entity={e} />;
               })
             )}
