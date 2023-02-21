@@ -33,8 +33,8 @@ const EntityDetail = () => {
     axios.get(`http://localhost:3001/vdv/${id}`).then((res) => {
       setInput({
         ...res.data,
-        image:
-          'https://media.lacapital.com.ar/p/c2a33864011f924c825debbc800fdc33/adjuntos/204/imagenes/028/327/0028327548/1200x675/smart/leo-mattiolijpg.jpg',
+        /* image:
+          'https://i.pinimg.com/564x/0e/60/c7/0e60c7fcd2d898873fc7d1a5060cc232.jpg', */
       });
     });
     axios.get(`http://localhost:3001/feedback/vdv/${id}`).then((res) => {
@@ -48,12 +48,21 @@ const EntityDetail = () => {
   return (
     <Grid templateColumns="repeat(2, 1fr)" gap={'1rem'}>
       <GridItem>
-        <Image src={input.image} />
+      <VStack
+        ml="1rem"
+      >
+        <Image 
+          src={input.img} 
+          maxHeight="35%"
+          maxWidth="50%"
+        />
         <InputGroup>
           <InputLeftElement children={<MdOutlineAttachMoney />} />
           <Input placeholder="Monto" type={'number'} />
           <Button>Donar</Button>
         </InputGroup>
+      </VStack>
+
       </GridItem>
       <GridItem>
         <Heading>{input.name}</Heading>
