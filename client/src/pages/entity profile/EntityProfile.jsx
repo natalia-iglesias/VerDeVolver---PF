@@ -59,7 +59,8 @@ const EntityProfile = () => {
           Nombre
         </Heading>
         <InfoCardInput
-          name={input.name}
+          type="name"
+          data={input.name}
           setInput={setInput}
           setSaveButton={setSaveButton}
         />
@@ -67,7 +68,8 @@ const EntityProfile = () => {
           Mail
         </Heading>
         <InfoCardInput
-          mail={input.mail}
+          type="mail"
+          data={input.mail}
           setInput={setInput}
           setSaveButton={setSaveButton}
         />
@@ -75,7 +77,8 @@ const EntityProfile = () => {
           Dirección
         </Heading>
         <InfoCardInput
-          adress={input.address}
+          type="address"
+          data={input.address}
           setInput={setInput}
           setSaveButton={setSaveButton}
         />
@@ -93,7 +96,8 @@ const EntityProfile = () => {
           Contraseña
         </Heading>
         <InfoCardInput
-          password={input.password}
+          type="password"
+          data={input.password}
           setInput={setInput}
           setSaveButton={setSaveButton}
         />
@@ -101,7 +105,8 @@ const EntityProfile = () => {
           CBU
         </Heading>
         <InfoCardInput
-          cbu={input.cbu}
+          type="cbu"
+          data={input.cbu}
           setInput={setInput}
           setSaveButton={setSaveButton}
         />
