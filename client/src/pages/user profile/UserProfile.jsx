@@ -42,15 +42,18 @@ function UserProfile() {
           Nombre
         </Heading>
         <InfoCardInput
-          name={input.name}
+          type="name"
+          data={input.name}
           setInput={setInput}
           setSaveButton={setSaveButton}
+          input={input}
         />
         <Heading size="lg" align="center" m="3vh">
           Mail
         </Heading>
         <InfoCardInput
-          mail={input.mail}
+          type="mail"
+          data={input.mail}
           setInput={setInput}
           setSaveButton={setSaveButton}
         />
@@ -58,7 +61,8 @@ function UserProfile() {
           Contraseña
         </Heading>
         <InfoCardInput
-          password={input.password}
+          type="password"
+          data={input.password}
           setInput={setInput}
           setSaveButton={setSaveButton}
         />
