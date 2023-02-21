@@ -38,6 +38,8 @@ const AsideFilters = ({ filters, setUpdate }) => {
     dispatch(filterByMaterials(filterByMat));
   };
 
+  const handleRanking = (e) => {};
+
   return (
     <VStack>
       <Select

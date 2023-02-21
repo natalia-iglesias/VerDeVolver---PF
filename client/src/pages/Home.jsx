@@ -21,8 +21,8 @@ import { InstagramEmbed } from 'react-social-media-embed';
 const Home = () => {
   const { entities } = useSelector((state) => state.entitiesReducer);
 
-  const [inputVdv, setInputVdV] = useState();
-  const [inputMonto, setInputMonto] = useState();
+  // const [inputVdv, setInputVdV] = useState();
+  // const [inputMonto, setInputMonto] = useState();
 
   const dispatch = useDispatch();
 
@@ -30,18 +30,18 @@ const Home = () => {
     dispatch(fetchEntities());
   }, [dispatch]);
 
-  const handleInputs = (event) => {
-    const { name, value } = event.target;
-    name === 'Monto' ? setInputMonto(value) : setInputVdV(value);
-  };
+  // const handleInputs = (event) => {
+  //   const { name, value } = event.target;
+  //   name === 'Monto' ? setInputMonto(value) : setInputVdV(value);
+  // };
 
-  const handleButton = (event) => {
-    if (inputMonto && inputVdv) {
-      alert(`Gracias por donar ${inputMonto} a ${inputVdv}`);
-    } else {
-      alert('Seleccione entidad o monto faltante');
-    }
-  };
+  // const handleButton = (event) => {
+  //   if (inputMonto && inputVdv) {
+  //     alert(`Gracias por donar ${inputMonto} a ${inputVdv}`);
+  //   } else {
+  //     alert('Seleccione entidad o monto faltante');
+  //   }
+  // };
 
   return (
     <Box justify="center" align="center">
@@ -70,17 +70,20 @@ const Home = () => {
           <InputGroup>
             <InputLeftElement
               children={<MdOutlineAttachMoney />}
-              onChange={handleInputs}
+              // onChange={handleInputs}
             />
             <Input
               name="Monto"
               placeholder="Monto"
               type="number"
-              onChange={handleInputs}
+              // onChange={handleInputs}
             />
           </InputGroup>
         </HStack>
-        <Button color={'vdv.main'} colorScheme="green" onClick={handleButton}>
+        <Button
+          color={'vdv.main'}
+          colorScheme="green" /*onClick={handleButton}*/
+        >
           Donar
         </Button>
       </Stack>
