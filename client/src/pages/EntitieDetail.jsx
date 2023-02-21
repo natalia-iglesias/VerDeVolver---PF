@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import PropagateLoader from 'react-spinners/PropagateLoader';
 import {
   Avatar,
@@ -19,62 +20,51 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import RankingStars from '../Components/RankingStars';
-import axios from 'axios';
+import {
+  getEntityById,
+  getEntityFeedbacks,
+} from '../redux/actions/entitiesActions';
 
 const EntityDetail = () => {
   const { id } = useParams();
-  const [input, setInput] = useState(false);
-  const [feedBacks, setFeedBacks] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/vdv/${id}`).then((res) => {
-      setInput({
-        ...res.data,
-        /* image:
-          'https://i.pinimg.com/564x/0e/60/c7/0e60c7fcd2d898873fc7d1a5060cc232.jpg', */
-      });
-    });
-    axios.get(`http://localhost:3001/feedback/vdv/${id}`).then((res) => {
-      setFeedBacks(res.data);
-    });
+    dispatch(getEntityById(id));
+    dispatch(getEntityFeedbacks(id));
   }, [id]);
 
-  if (!input) return <PropagateLoader color="#1c5738" />;
-  if (!feedBacks) return <PropagateLoader color="#1c5738" />;
+  const { entity, feedbacks } = useSelector((state) => state.entitiesReducer);
+
+  if (!entity) return <PropagateLoader color="#1c5738" />;
+  if (!feedbacks) return <PropagateLoader color="#1c5738" />;
 
   return (
     <Grid templateColumns="repeat(2, 1fr)" gap={'1rem'}>
       <GridItem>
-      <VStack
-        ml="1rem"
-      >
-        <Image 
-          src={input.img} 
-          maxHeight="35%"
-          maxWidth="50%"
-        />
-        <InputGroup>
-          <InputLeftElement children={<MdOutlineAttachMoney />} />
-          <Input placeholder="Monto" type={'number'} />
-          <Button>Donar</Button>
-        </InputGroup>
-      </VStack>
-
+        <VStack ml="1rem">
+          <Image src={entity.img} maxHeight="35%" maxWidth="50%" />
+          <InputGroup>
+            <InputLeftElement children={<MdOutlineAttachMoney />} />
+            <Input placeholder="Monto" type={'number'} />
+            <Button>Donar</Button>
+          </InputGroup>
+        </VStack>
       </GridItem>
       <GridItem>
-        <Heading>{input.name}</Heading>
+        <Heading>{entity.name}</Heading>
         <HStack my="1rem">
-          {input.Materials.map((m, i) => (
+          {entity.Materials?.map(({ name }, i) => (
             <Badge key={i} variant="solid" colorScheme="green">
-              {m.name}
+              {name}
             </Badge>
           ))}
         </HStack>
         <Text fontSize={'lg'} lineHeight="8">
-          {input.description}
+          {entity.description}
         </Text>
 
         <Stack mt="1rem">
@@ -86,7 +76,7 @@ const EntityDetail = () => {
             maxH="25vh"
             divider={<StackDivider />}
           >
-            {feedBacks?.map(({ User, rating, comment }, i) => (
+            {feedbacks?.map(({ User, rating, comment }, i) => (
               <Box key={i}>
                 <HStack>
                   <Avatar name={User.name} size="sm" />
