@@ -191,6 +191,83 @@ const deleteFeedback = async (id) => {
   }
 };
 
+// sort rating
+
+// Traigo los ids de las entidades
+const getAllVdV = async () => {
+  const checkVdvs = await VdV.findAll();
+  return checkVdvs.map((ele) => ele.dataValues.id); //[1,2,3,4]
+};
+
+// obtengo un array que dentro tiene un array por entidad que dentro tiene objetos que son cada reseña hecha a la entidad
+const mapeoDeIds = (array) => {
+  const result = array.map(async (ele) => {
+    return await getFeedbacksByVdVId(ele); //[[{reseña} {reseña}]]
+  });
+  return Promise.all(result);
+};
+
+// Obtengo el array de las entidades con las reseñas
+const getFeedbacksForVdV = async () => {
+  const result = mapeoDeIds(await getAllVdV());
+  return result;
+};
+
+const upDateVdV = async (id, body) => {
+  if (body.materials) {
+    await VdV.update(body, {
+      where: { id },
+    });
+    const result = await getByIdVdV(id);
+    await result.setMaterials(body.materials);
+    const resultFinal = await getByIdVdV(id);
+    return resultFinal;
+  } else {
+    await VdV.update(body, {
+      where: { id },
+    });
+    const result = await getByIdVdV(id);
+    return result;
+  }
+};
+
+// Obtengo un array con objetos -> cada objeto es el nombde de la entidad con su promedio de rating [{"Entidad_A : 5","Entidad_B : 2",etc }]
+const getRatings = async () => {
+  const obj = await getFeedbacksForVdV();
+  obj.forEach(async (ele) => {
+    let contador = 0;
+    let rating = 0;
+    ele.forEach((element) => {
+      rating += element.rating;
+      contador++;
+    });
+    await VdV.update(
+      { rating: Math.floor(rating / contador) },
+      {
+        where: { name: ele[0].VdV.name },
+      }
+    );
+    // CON ESTO DEVOLVIA [{"Entidad_A : 5","Entidad_B : 2",etc }
+    // return {
+    //   [ele[0].VdV.name]: Math.floor(rating / contador),
+    // };
+  });
+  // const ratingVdV = await VdV.findAll();
+  return await VdV.findAll();
+};
+
+// Obtengo un array con los nombres de las entidades en orden ASC o DES ["Entidad-con-menor-raiting", "Entidad-con-mayor-rating"] ><
+const ratingSort = async (order) => {
+  const result = await getRatings();
+  console.log('result', result);
+  order === 'Ascendente'
+    ? result.sort((a, b) => a.dataValues.rating - b.dataValues.rating)
+    : result.sort((a, b) => b.dataValues.rating - a.dataValues.rating);
+  // Hasta aca devuelve [{entidadA: 2}, {entidadB: 5}]
+  // const result = result.map((objeto) => Object.keys(objeto)[0]); // Aca devuelve un array con los string en orden
+  return result;
+};
+
 module.exports = {
   chargeDbFeedback,
   createFeedback,
@@ -200,4 +277,6 @@ module.exports = {
   getFeedbacksByVdVId,
   updateFeedback,
   deleteFeedback,
+  getRatings,
+  ratingSort,
 };

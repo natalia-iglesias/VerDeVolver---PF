@@ -51,6 +51,9 @@ module.exports = (sequelize) => {
         type: DataTypes.ENUM('Pending', 'Active', 'Disabled'), // Active de ser aprobado.
         defaultValue: 'Pending', // 'Pending' // Admin lo rechaza se elimina el registro
       },
+      rating: {
+        type: DataTypes.INTEGER,
+      },
     },
     { timestamps: false }
   );
