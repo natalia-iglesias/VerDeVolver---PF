@@ -19,20 +19,27 @@ const EntityCard = ({ entity }) => {
   return (
     <Card display="flex" justifyContent="center">
       <CardBody display="flex" flexDir="row" gap="1.5rem" width="80vw">
-        <Image 
-          src={entity.img} 
-          maxHeight="30vh"
-          maxWidth="40vw"
-        />
+        <Image src={entity.img} maxHeight="30vh" maxWidth="40vw" />
 
         <VStack alignItems="flex-start">
           <Link as={ReachLink} to={`/entitie/${entity.id}`}>
             <Heading>{entity.name}</Heading>
           </Link>
-          <Text fontSize='xl'>
-          {entity.description}
-          </Text>
+          <Text fontSize="xl">{entity.description}</Text>
         </VStack>
+        {entity.Materials.map((mat, i) => (
+          <Text
+            key={i}
+            bg="green"
+            borderRadius="1vh"
+            h="5vh"
+            color="white"
+            p="1vh"
+            fontSize="12px"
+          >
+            {mat.name}
+          </Text>
+        ))}
       </CardBody>
 
       <CardFooter>
