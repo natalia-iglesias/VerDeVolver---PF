@@ -20,6 +20,7 @@ import {
   updateVdV,
   deleteVdV,
 } from './entityProfileFunctions';
+import { useSelector } from 'react-redux';
 
 const EntityProfile = () => {
   const { id } = useParams();
@@ -112,7 +113,12 @@ const EntityProfile = () => {
             <Button
               key={i}
               onClick={() =>
-                deleteMaterial(mat.name, input.Materials, setInput)
+                deleteMaterial(
+                  mat.name,
+                  input.Materials,
+                  setInput,
+                  setSaveButton
+                )
               }
             >
               {mat.name}
@@ -122,7 +128,9 @@ const EntityProfile = () => {
         <Select
           placeholder="Agregar material"
           w="13vw"
-          onChange={(e) => addMaterial(e, input.Materials, setInput)}
+          onChange={(e) =>
+            addMaterial(e, input.Materials, setInput, setSaveButton)
+          }
         >
           {materialsArray.map((mat, i) => {
             return (

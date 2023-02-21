@@ -1,35 +1,36 @@
 export default function validate(form, name) {
-  let isError = {
+  let isErrorObj = {
     isError: false,
     errorMsg: '',
   };
   if (form[name].length === 0 && name !== 'cbu') {
-    isError = {
+    isErrorObj = {
       isError: true,
       errorMsg: 'Requerido',
     };
-    return isError;
+    return isErrorObj;
   }
   if (name === 'mail') {
     const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-    isError = {
+    isErrorObj = {
       isError: !regex.test(form.mail),
       errorMsg: 'Por favor ingresa un email válido.',
     };
   }
   if (name === 'cbu') {
-    isError = {
-      isError: form.cbu.length !== 22 && form.cbu.length !== 0,
+    console.log('cbu', form.cbu.length);
+    isErrorObj = {
+      isError: form.cbu.length < 21 && form.cbu.length !== 0,
       errorMsg: 'El cbu debe ser de 22 digitos.',
     };
   }
 
   if (name === 'description') {
-    isError = {
+    isErrorObj = {
       isError: form.description.length < 100 || form.description.length > 450,
       errorMsg: 'La descripción debe contener entre 100 y 450 caracteres.',
     };
   }
-  return isError;
+  return isErrorObj;
 }
