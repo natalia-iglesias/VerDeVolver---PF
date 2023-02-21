@@ -28,8 +28,8 @@ export default function validate(form, name) {
 
   if (name === 'description') {
     isErrorObj = {
-      isError: form.description.length < 100 || form.description.length > 450,
-      errorMsg: 'La descripción debe contener entre 100 y 450 caracteres.',
+      isError: form.description.length < 70 || form.description.length > 450,
+      errorMsg: 'La descripción debe contener entre 70 y 450 caracteres.',
     };
   }
   return isErrorObj;
