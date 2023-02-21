@@ -4,7 +4,6 @@ const { Role, User } = require('../../db.js');
 //ESTE ES EL BULKCREATE NO LO BORREN
 async function chargeDbUsers() {
   const role = await Role.findByPk(1);
-  //console.log('role.id:', role.);
 
   const bulkCreateUsers = await User.bulkCreate([
     {
@@ -44,45 +43,37 @@ async function chargeDbUsers() {
   return bulkCreateUsers;
 }
 
-const postUser = async (req, res, next) => {
-  try {
-    const data = req.body;
-    const role = await Role.findByPk(1);
-
-    const existUser = await User.findOne({
-      where: {
-        mail: {
-          [Op.like]: data.mail,
-        },
+const postUser = async (body) => {
+  console.log(body);
+  const role = await Role.findByPk(1);
+  const existUser = await User.findOne({
+    // mail unique:true en modelo, no hace falta validar
+    where: {
+      mail: {
+        [Op.like]: body.mail,
       },
+    },
+  });
+
+  if (!existUser) {
+    const newUser = await User.create({
+      name: body.name,
+      last_name: body.last_name,
+      mail: body.mail,
+      password: body.password,
+      address: body.address,
+      RoleId: role.id,
     });
-
-    if (!existUser) {
-      const newUser = await User.create({
-        name: data.name,
-        last_name: data.last_name,
-        mail: data.mail,
-        password: data.password,
-        address: data.address,
-        RoleId: role.id,
-      });
-
-      return res.status(200).send(newUser);
-    } else {
-      return res
-        .status(404)
-        .send(`El usuario con mail ${data.mail}, ya habia sido creado`);
-    }
-  } catch (error) {
-    next(error);
+    return newUser;
   }
 };
 
-const getAllUser = async (req, res, next) => {
+const getAllUser = async () => {
   const dbAll = await User.findAll({
     include: [
       {
         model: Role,
+        attributes: ['name'],
       },
     ],
   });
@@ -90,8 +81,6 @@ const getAllUser = async (req, res, next) => {
 };
 
 const getByName = async (name) => {
-  //const minusName = name.toLowerCase;
-
   const byName = await User.findAll({
     where: {
       name: {
@@ -101,6 +90,7 @@ const getByName = async (name) => {
     include: [
       {
         model: Role,
+        attributes: ['name'],
       },
     ],
   });
@@ -113,6 +103,7 @@ const findId = async (id) => {
     include: [
       {
         model: Role,
+        attributes: ['name'],
       },
     ],
   });
@@ -143,23 +134,6 @@ const deleteUser = async (id) => {
     throw Error({ error: error.message });
   }
 };
-
-// const findMail = async (mail) => {
-//   const byMail = await User.findAll({
-//     where: {
-//       mail: {
-//         [Op.iLike]: mail,
-//       },
-//     },
-//     include: [
-//       {
-//         model: Role,
-//       },
-//     ],
-//   });
-
-//   return byMail;
-// };
 
 module.exports = {
   chargeDbUsers,

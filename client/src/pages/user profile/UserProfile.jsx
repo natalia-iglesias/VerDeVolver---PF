@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Button, Flex, Heading, Image } from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+  Heading,
+  Image,
+  Card,
+  CardBody,
+  Text,
+} from '@chakra-ui/react';
 import OverflowScroll from '../../Components/OverflowScroll';
 import InfoCardInput from '../../Components/InforCardInput';
+import { deleteUser, updateUser } from './userProfileFunctions';
 
 function UserProfile() {
   const { id } = useParams();
@@ -13,36 +22,87 @@ function UserProfile() {
     mail: '',
     password: '',
   });
+  const navigate = useNavigate();
+  const [saveButton, setSaveButton] = useState(false);
+
   useEffect(() => {
     axios.get(`http://localhost:3001/user/${id}`).then((res) => {
       setInput({
         ...res.data,
         image:
-          'https://media.lacapital.com.ar/p/c2a33864011f924c825debbc800fdc33/adjuntos/204/imagenes/028/327/0028327548/1200x675/smart/leo-mattiolijpg.jpg',
+          'https://www.anahuac.mx/mexico/sites/default/files/styles/webp/public/noticias/El-plastico-reciclado-eficiente-como-material-de-construccion.jpg.webp?itok=rEmpK8uY',
       });
     });
   }, []);
 
   return (
     <Flex direction="row">
-      <Flex direction="column">
+      <Flex direction="column" w="40vw">
         <Heading size="lg" align="center" m="3vh">
           Nombre
         </Heading>
-        <InfoCardInput name={input.name} setInput={setInput} />
+        <InfoCardInput
+          type="name"
+          data={input.name}
+          setInput={setInput}
+          setSaveButton={setSaveButton}
+          input={input}
+        />
         <Heading size="lg" align="center" m="3vh">
           Mail
         </Heading>
-        <InfoCardInput mail={input.mail} setInput={setInput} />
-        <Button mt="10vh">Guardar Cambios</Button>
-      </Flex>
-      <Flex direction="column" align="center">
-        <Image src={input.image} borderRadius="full" boxSize="140px" />
+        <InfoCardInput
+          type="mail"
+          data={input.mail}
+          setInput={setInput}
+          setSaveButton={setSaveButton}
+        />
         <Heading size="lg" align="center" m="3vh">
           Contraseña
         </Heading>
-        <InfoCardInput password={input.password} setInput={setInput} />
-        <Button mt="10vh">Eliminar Perfil</Button>
+        <InfoCardInput
+          type="password"
+          data={input.password}
+          setInput={setInput}
+          setSaveButton={setSaveButton}
+        />
+      </Flex>
+      <Flex direction="column" align="center" w="40vw">
+        <Image
+          src={input.image}
+          borderRadius="2vh"
+          boxSize="200px"
+          m="10vh auto"
+        />
+        {saveButton && (
+          <Button
+            m="10vh auto"
+            w="20vw"
+            h="10vh"
+            border="solid green 2px"
+            onClick={() => updateUser(id, input)}
+          >
+            Guardar Cambios
+          </Button>
+        )}
+        {!saveButton && (
+          <Card w="20vw" h="7vh" m="10vh auto" pb="10vh">
+            <CardBody w="20vw" m="auto">
+              <Text m="auto" align="center">
+                Guardar cambios
+              </Text>
+            </CardBody>
+          </Card>
+        )}
+        <Button
+          mt="0vh"
+          w="20vw"
+          h="10vh"
+          border="solid red 2px"
+          onClick={() => deleteUser(id, navigate)}
+        >
+          Eliminar Perfil
+        </Button>
       </Flex>
       <Flex direction="column">
         <Heading align="center" m="3vh">

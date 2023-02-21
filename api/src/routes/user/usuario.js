@@ -8,29 +8,8 @@ const {
   updateUser,
   deleteUser,
 } = require('./controllers.js');
-const { User, Role } = require('../../db.js');
 
 const router = Router();
-
-//  router.post('/', async (req, res) => {
-//   const role = await Role.findByPk(1);
-//   console.log('role:', role);
-//   const data = req.body;
-//   console.log('data', data);
-//   try {
-//     const newUser = await User.create({
-//       name: data.name,
-//       last_name: data.last_name,
-//       mail: data.mail,
-//       password: data.password,
-//       address: data.address,
-//       RoleId: role.id,
-//     });
-//     res.status(200).send(newUser);
-//   } catch (error) {
-//     res.status(400).send(error.message);
-//   }
-// });
 
 //NO BORREN. ESTE ES EL BULKCREATE PARA CARGAR LA BASE DE DATOS
 router.post('/chargeDb', async (req, res) => {
@@ -42,12 +21,24 @@ router.post('/chargeDb', async (req, res) => {
   }
 });
 
-router.post('/', postUser);
-
-router.get('/', async (req, res) => {
+// crear usuarios
+router.post('/', async (req, res) => {
+  const { body } = req;
   try {
-    const { name } = req.query;
+    const result = await postUser(body);
+    res.status(200).send(result);
+  } catch (error) {
+    res
+      .status(404)
+      .send(`El usuario con mail ${body.mail}, ya habia sido creado`);
+  }
+});
 
+// get todos los usuarios || query por nombre
+router.get('/', async (req, res) => {
+  const { name } = req.query;
+
+  try {
     if (!name) {
       const allUsers = await getAllUser();
       res.status(200).send(allUsers);
@@ -55,7 +46,7 @@ router.get('/', async (req, res) => {
       const userbyName = await getByName(name);
 
       !userbyName.length
-        ? res.status(400).send(`El nombre ${name}, no fue encontrado`)
+        ? res.status(400).send(`No se encontro usuario con nombre ${name}`)
         : res.status(200).send(userbyName);
     }
   } catch (error) {
@@ -63,63 +54,47 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+// usuario por id
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
   try {
-    const { id } = req.params;
-    const userSent = req.body;
 
-    const upgradedId = await findId(id);
-
-    if (!upgradedId) res.status(404).send(`El id ${id} no fue encontrado`);
-
-    await updateUser(userSent, id);
-    return res.status(200).send('El usuario ha sido actualizado exitosamente');
+    const byId = await findId(id);
+    !byId
+      ? res.status(400).send(`El usuario con id ${id} no fue encontrado`)
+      : res.status(200).send(byId);
   } catch (error) {
     return res.status(404).send(error.message);
   }
 });
 
-router.delete('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
+// modificar datos de un User
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const userSent = req.body;
 
+
+  try {
+    const upgradedId = await findId(id);
+    if (!upgradedId)
+      res.status(404).send(`El usuario con id ${id} no fue encontrado`);
+
+    await updateUser(userSent, id);
+    const result = await findId(id);
+    return res.status(200).send(result);
+  } catch (error) {
+    return res.status(404).send(error.message);
+  }
+});
+
+// Eliminar User -> No usamos Borrado Logico
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
     await deleteUser(id);
     return res
       .status(200)
       .send(`El usuario con id ${id}, fue eliminado satisfactoriamente`);
-  } catch (error) {
-    return res.status(404).send(error.message);
-  }
-});
-
-// router.get('/', async (req, res) => {
-//   try {
-//     const { mail } = req.query;
-
-//     const byMail = await findMail(mail);
-
-//     if (!mail) {
-//       const allUsers = await getAllUser();
-//       res.status(200).send(allUsers);
-//     }
-
-//     !byMail
-//       ? res.status(400).send(`El email ${mail}, no fue encontrado`)
-//       : res.status(200).send(byMail[0]);
-//   } catch (error) {
-//     return res.status(404).send(error.message);
-//   }
-// });
-
-router.get('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const byId = await findId(id);
-
-    !byId
-      ? res.status(400).send(`El id ${id}, no fue encontrado`)
-      : res.status(200).send(byId);
   } catch (error) {
     return res.status(404).send(error.message);
   }

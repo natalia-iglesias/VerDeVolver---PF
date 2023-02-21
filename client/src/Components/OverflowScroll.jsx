@@ -18,11 +18,19 @@ function DashboardScroll({ type, id }) {
   useEffect(() => {
     if (type == 'userDonation') {
       axios.get(`http://localhost:3001/donation/user/${id}`).then((res) => {
+        res.data.forEach((obj) => (obj.User = false));
         setArrayToRender(res.data);
       });
     }
     if (type == 'userService') {
       axios.get(`http://localhost:3001/service/user/${id}`).then((res) => {
+        res.data.forEach((obj) => (obj.User = false));
+        setArrayToRender(res.data);
+      });
+    }
+    if (type == 'entityDonation') {
+      axios.get(`http://localhost:3001/donation/vdv/${id}`).then((res) => {
+        res.data.forEach((obj) => (obj.VdV = false));
         setArrayToRender(res.data);
       });
     }
@@ -46,22 +54,20 @@ function DashboardScroll({ type, id }) {
                     <Text>
                       {item.name && `${item.name} /`}
                       {item.amount && `$${item.amount} /`}
-
+                      {item.User && `${item.User.name} ${item.User.last_name}/`}
                       {item.date && `${item.date} /`}
-                      {item.VdVId && (
+                      {item.VdV && (
                         <Link as={ReachLink} to={`/entitie/${item.VdVId}`}>
-                          {item.VdVId}
+                          {item.VdV.name}
                         </Link>
                       )}
+
                       {item.serviceType && `${item.serviceType} /`}
                       {item.content && item.content}
                     </Text>
                     {item.rating && arreglo}
                   </CardBody>
                 </Card>
-                <Button mt="2vh">
-                  <DeleteIcon />
-                </Button>
               </Flex>
               <Divider />
             </div>

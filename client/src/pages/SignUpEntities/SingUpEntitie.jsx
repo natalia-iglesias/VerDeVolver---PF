@@ -1,5 +1,10 @@
-import { materials } from '../../db.json';
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  createNewEntity,
+  getMaterials,
+} from '../../redux/actions/entitiesActions';
 import validate from './validate';
 import {
   FormControl,
@@ -13,11 +18,21 @@ import {
 } from '@chakra-ui/react';
 
 const SingUpEntitie = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getMaterials());
+  }, [dispatch]);
+  const materials = useSelector((state) => {
+    return state.entitiesReducer.materials;
+  });
+
   const [form, setForm] = useState({
     name: '',
-    email: '',
+    mail: '',
     address: '',
-    imageCloud: '',
+    img: '',
     cbu: '',
     materials: [],
     description: '',
@@ -25,14 +40,15 @@ const SingUpEntitie = () => {
 
   const [errors, setErrors] = useState({
     name: { isError: false, errorMsg: '' },
-    email: { isError: false, errorMsg: '' },
+    mail: { isError: false, errorMsg: '' },
     address: { isError: false, errorMsg: '' },
-    imageCloud: { isError: false, errorMsg: '' },
+    img: { isError: false, errorMsg: '' },
     cbu: { isError: false, errorMsg: '' },
     materials: { isError: false, errorMsg: '' },
     description: { isError: false, errorMsg: '' },
   });
 
+  const [msg, setMsg] = useState('');
   const handlerBlur = (ev) => {
     const errOjb = validate(form, ev.target.name);
     setErrors({ ...errors, [ev.target.name]: errOjb });
@@ -40,32 +56,54 @@ const SingUpEntitie = () => {
 
   const handlerChange = (e) => {
     const { name, value } = e.target;
+
+    setErrors({ ...errors, [name]: { isError: false, errorMsg: '' } });
+
+    if (name === 'cbu' || name === 'description') {
+      setMsg(value.length);
+      if (name === 'cbu' && value.length === 22) {
+        console.log('salgo', value.length);
+        return;
+      }
+    }
     setForm({ ...form, [name]: value });
   };
+  console.log('averga errors', errors);
 
-  const handlerSubmit = (event) => {
+  const handlerSubmit = async (event) => {
     event.preventDefault();
     let errorsObj = {};
     Object.keys(form).forEach((name) => {
       const errOjb = { [name]: validate(form, name) };
       errorsObj = { ...errorsObj, ...errOjb };
-      console.log(errorsObj);
     });
     setErrors({ ...errors, ...errorsObj });
+
+    const isError = Object.keys(errors).find(
+      (error) => errorsObj[error].isError
+    );
+
+    if (isError) {
+      return;
+    }
+    dispatch(createNewEntity(form));
+    navigate('/home');
   };
+
   const deleteMaterial = (mat) => {
     const newMaterials = form.materials.filter((eachMat) => eachMat !== mat);
     setForm({ ...form, materials: newMaterials });
   };
-
   const addMaterial = (e) => {
     let newMaterials = [...form.materials];
+
     newMaterials.push(e.target.value);
     const uniqueMaterials = [...new Set([...newMaterials])];
     setForm({ ...form, materials: uniqueMaterials });
   };
+
   return (
-    <FormControl width={500} margin="3%" onSubmit={handlerSubmit}>
+    <FormControl padding="5%" width={500} margin="3%" onSubmit={handlerSubmit}>
       <FormControl isRequired isInvalid={errors.name.isError}>
         <FormLabel>Nombre</FormLabel>
         <Input
@@ -82,19 +120,19 @@ const SingUpEntitie = () => {
         )}
       </FormControl>
       <br />
-      <FormControl isRequired isInvalid={errors.email.isError}>
+      <FormControl isRequired isInvalid={errors.mail.isError}>
         <FormLabel>Email</FormLabel>
         <Input
-          name="email"
+          name="mail"
           onChange={handlerChange}
           onBlur={handlerBlur}
           type="email"
-          value={form.email}
+          value={form.mail}
         />
-        {!errors.email.isError && form.email.length === 0 ? (
+        {!errors.mail.isError && form.mail.length === 0 ? (
           <FormHelperText>Ingresa tu email.</FormHelperText>
         ) : (
-          <FormErrorMessage>{errors.email.errorMsg}</FormErrorMessage>
+          <FormErrorMessage>{errors.mail.errorMsg}</FormErrorMessage>
         )}
       </FormControl>
       <br />
@@ -114,16 +152,16 @@ const SingUpEntitie = () => {
         )}
       </FormControl>
       <br />
-      <FormControl isRequired isInvalid={errors.imageCloud.isError}>
+      <FormControl isRequired isInvalid={errors.img.isError}>
         <FormLabel>Imagen</FormLabel>
         <Input
-          name="imageCloud"
+          name="img"
           type="text"
           onChange={handlerChange}
           onBlur={handlerBlur}
-          value={form.imageCloud}
+          value={form.img}
         />
-        {!errors.imageCloud.isError && form.imageCloud.length === 0 ? (
+        {!errors.img.isError && form.img.length === 0 ? (
           <FormHelperText>
             Arrastra aquí la imagen de tu entidad.
           </FormHelperText>
@@ -137,10 +175,16 @@ const SingUpEntitie = () => {
         <Input
           name="cbu"
           onChange={handlerChange}
+          onBlur={handlerBlur}
           type="number"
           value={form.cbu}
         />
-        {!errors.cbu.isError ? (
+        {form.cbu.length !== 0 && !errors.cbu.isError ? (
+          <FormHelperText>Debes ingresar 22 números y vas {msg}</FormHelperText>
+        ) : (
+          ''
+        )}
+        {!errors.cbu.isError && form.cbu.length === 0 ? (
           <FormHelperText>
             Puedes ingresar tu CBU para recibir donaciones.
           </FormHelperText>
@@ -158,10 +202,10 @@ const SingUpEntitie = () => {
           onChange={(e) => addMaterial(e)}
           onBlur={handlerBlur}
         >
-          {materials.map((mat, i) => {
+          {materials?.map((mat, i) => {
             return (
-              <option key={i} value={mat}>
-                {mat}
+              <option key={i} value={mat.id}>
+                {mat.name}
               </option>
             );
           })}
@@ -170,7 +214,11 @@ const SingUpEntitie = () => {
         {form.materials.map((mat, i) => {
           return (
             <Button key={i} onClick={() => deleteMaterial(mat)}>
-              {mat}
+              {
+                materials.find((material) => {
+                  return material.id == mat;
+                })?.name
+              }
             </Button>
           );
         })}
@@ -193,6 +241,11 @@ const SingUpEntitie = () => {
           placeholder="Ingresa una descripción..."
           value={form.description}
         />
+        {form.description.length !== 0 && !errors.description.isError ? (
+          <FormHelperText>Caracteres {msg} de 100 hasta 450</FormHelperText>
+        ) : (
+          ''
+        )}
         {!errors.description.isError && form.description.length === 0 ? (
           <FormHelperText>
             Cuéntanos brevemente sobre tu proyecto.

@@ -8,7 +8,7 @@ import EntitieDetail from '../src/pages/EntitieDetail';
 import SingUpEntitie from './pages/SignUpEntities/SingUpEntitie';
 import Login from './Components/Login';
 import UserProfile from './pages/user profile/UserProfile';
-import EntityProfile from './pages/EntityProfile';
+import EntityProfile from './pages/entity profile/EntityProfile';
 import Dashboard from './pages/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -17,7 +17,7 @@ import SingUp from './pages/SingUp';
 // import { useDispatch } from 'react-redux';
 // import { useEffect } from 'react';
 // import { getEntities } from './redux/actions/entitiesActions';
-import ColorModeSwitcher from './components/ColorModeSwitcher';
+import ColorModeSwitcher from './Components/ColorModeSwitcher';
 
 const App = () => {
   // const dispatch = useDispatch();
@@ -30,6 +30,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/map" element={<Map />} />
         <Route path="/services" element={<Service />} />
@@ -39,7 +40,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/singup" element={<SingUp />} />
         <Route path="/userprofile/:id" element={<UserProfile />} />
-        <Route path="/entityprofile" element={<EntityProfile />} />
+        <Route path="/entityprofile/:id" element={<EntityProfile />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
