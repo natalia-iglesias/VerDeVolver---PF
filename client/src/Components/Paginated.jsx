@@ -37,10 +37,12 @@ const Paginated = ({ page, setPage, max }) => {
     setInput(e.target.value);
   };
 
+  console.log(page);
+
   return (
     <Box m={10} display="flex" alignItems="center" justifyContent="center">
       <Button
-        disabled={page === 1 || page < 1}
+        isDisabled={page === 1 || page < 1 ? true : false}
         onClick={previusPage}
         colorScheme={'green'}
         borderRadius="full"
@@ -64,7 +66,7 @@ const Paginated = ({ page, setPage, max }) => {
       />
       <Text marginRight={5}>de {max}</Text>
       <Button
-        disabled={page === max || page > max}
+        isDisabled={page === max || page >= max ? true : false}
         onClick={nextPage}
         colorScheme={'green'}
         borderRadius="full"
