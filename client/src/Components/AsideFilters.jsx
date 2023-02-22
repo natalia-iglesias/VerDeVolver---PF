@@ -1,55 +1,31 @@
-//import { materials } from '../db.json';
 //import { useEffect, useState } from 'react';
 import { VStack, Select } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterByMaterials } from '../redux/actions/entitiesActions.js';
-import axios from 'axios';
+import { filterEntitiesByMaterial } from '../redux/actions/entitiesActions.js';
 
-const AsideFilters = ({ filters, setUpdate }) => {
+const AsideFilters = () => {
   const dispatch = useDispatch();
-  //const [materialFilter, setMaterialFilter] = useState('');
-  //const [rankingSort, setRankingSort] = useState('');
-  const getEntities = useSelector((state) => state.entitiesReducer.entities);
-  const { materials, filterbymaterial } = useSelector(
-    (state) => state.entitiesReducer
-  );
 
-  // const handleMaterialChange = (ev) => {
-  //   setMaterialFilter(ev.target.value);
-  //   //dispatch(filterEntitiesByMaterials(ev.target.value));
-  // };
+  const { materials } = useSelector((state) => state.entitiesReducer);
 
   const handleClikMaterials = (e) => {
-    let filterByMat;
-    if (!filterbymaterial.length) {
-      filterByMat = getEntities.filter((objeto) => {
-        return objeto.Materials.some(
-          (material) => material.name === e.target.value
-        );
-      });
-    } else {
-      filterByMat = filterbymaterial.filter((objeto) => {
-        return objeto.Materials.some(
-          (material) => material.name === e.target.value
-        );
-      });
-    }
-
-    dispatch(filterByMaterials(filterByMat));
+    dispatch(filterEntitiesByMaterial(e.target.value));
   };
 
-  const handleRanking = (e) => {};
+  const handleRanking = (e) => {
+    console.log('handleRanking', e.target.value);
+  };
 
   return (
     <VStack>
       <Select
         placeholder="Selecciona un material"
         width="-moz-fit-content"
-        onClick={(e) => handleClikMaterials(e)}
+        onChange={(e) => handleClikMaterials(e)}
       >
         {materials.map((m, i) => (
-          <option key={i} value={m}>
-            {m}
+          <option key={i} value={m.name}>
+            {m.name}
           </option>
         ))}
       </Select>
@@ -58,8 +34,8 @@ const AsideFilters = ({ filters, setUpdate }) => {
         onClick={(e) => handleRanking(e)}
         width="-moz-fit-content"
       >
-        <option value="Ascendente">Ascendente</option>
-        <option value="Descendente">Descendente</option>
+        <option value="1">Ascendente</option>
+        <option value="-1">Descendente</option>
       </Select>
     </VStack>
   );

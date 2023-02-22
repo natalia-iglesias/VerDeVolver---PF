@@ -1,20 +1,12 @@
 import { useState } from 'react';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { IconButton } from '@chakra-ui/react';
-import IgPost from './Post';
 import ItemsCarousel from 'react-items-carousel';
+import { InstagramEmbed } from 'react-social-media-embed';
 
-const PostsCarousel = () => {
-  const posts = [
-    { user: 'hannahbronfman', url: 'https://picsum.photos/200' },
-    { user: 'jvn', url: 'https://picsum.photos/200' },
-    { user: 'chrisburkard', url: 'https://picsum.photos/200' },
-    { user: 'joansmalls', url: 'https://picsum.photos/200' },
-    { user: 'juliamichaels', url: 'https://picsum.photos/200' },
-  ];
-
+const PostsCarousel = ({ posts }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
-  const chevronWidth = 40;
+  const chevronWidth = 50;
   return (
     <div style={{ padding: `0 ${chevronWidth}px` }}>
       <ItemsCarousel
@@ -27,8 +19,12 @@ const PostsCarousel = () => {
         outsideChevron
         chevronWidth={chevronWidth}
       >
-        {posts?.map(({ user, url }, index) => (
-          <IgPost user={user} url={url} key={index} />
+        {posts?.map(({ url }, index) => (
+          <InstagramEmbed
+            url={url}
+            key={index}
+            style={{ maxHeight: '50vh', overflowY: 'scroll' }}
+          />
         ))}
       </ItemsCarousel>
     </div>
