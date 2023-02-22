@@ -1,4 +1,5 @@
 const { Router } = require('express');
+
 const {
   chargeDbDonation,
   getByUserId,
@@ -36,6 +37,7 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const allDonations = await getAll();
+
     return res.status(200).send(allDonations);
   } catch (error) {
     return res.status(404).send(error.message);
