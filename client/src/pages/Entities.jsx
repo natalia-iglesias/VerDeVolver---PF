@@ -11,10 +11,15 @@ import {
   // filterByMaterials,
 } from '../redux/actions/entitiesActions';
 import { Button } from '@chakra-ui/react';
+import Paginated from '../Components/Paginated';
 
 const Entities = () => {
+  const [page, setPage] = useState(1);
+  const byPage = 5;
   // const [update, setUpdate] = useState(0);
-  const { filteredEntities, isLoading } = useSelector(
+
+  const [update, setUpdate] = useState(0);
+  const { entities, isLoading, filterbymaterial } = useSelector(
     (state) => state.entitiesReducer
   );
   const dispatch = useDispatch();
@@ -27,10 +32,12 @@ const Entities = () => {
   useEffect(() => {
     dispatch(fetchEntities());
     dispatch(getMaterials());
-  }, []);
+  }, [dispatch]);
 
   // let filters = filterbymaterial;
   // if (filters.length === 0) filters = entities;
+
+  const max = Math.ceil(filters.length / byPage);
 
   return (
     <VStack mx="1rem">
@@ -53,11 +60,12 @@ const Entities = () => {
             {isLoading ? (
               <PropagateLoader color="#1c5738" />
             ) : (
-              filteredEntities?.map((e) => {
-                return <EntityCard key={e.id} entity={e} />;
-              })
+              filters
+                .slice((page - 1) * byPage, (page - 1) * byPage + byPage)
+                .map((e) => <EntityCard key={e.id} entity={e} />)
             )}
           </VStack>
+          <Paginated page={page} setPage={setPage} max={max} />
         </GridItem>
       </Grid>
     </VStack>
