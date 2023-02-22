@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
   sequelize.define('PostHome', {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true, // allownull: false , unique: true
+      primaryKey: true,
       autoIncrement: true,
     },
     URL: {
