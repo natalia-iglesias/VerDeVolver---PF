@@ -33,17 +33,18 @@ export const entitiesReducer = (state = initialState, { type, payload }) => {
     case GET_MATERIALS:
       return { ...state, materials: payload };
     case FILTER_ENTITIES_BY_MATERIAL:
-      if (!payload) {
-        return { ...state, filteredEntities: [...state.entities] };
-      }
-      const filteredEntities = state.entities.filter((entity) => {
-        return entity.Materials.find((material) => {
-          if (material.name === payload) {
-            return true;
-          }
-        });
-      });
-      return { ...state, filteredEntities: [...filteredEntities] };
+      return { ...state, filteredEntities: [...payload] };
+    // if (!payload) {
+    //   return { ...state, filteredEntities: [...state.entities] };
+    // }
+    // const filteredEntities = state.entities.filter((entity) => {
+    //   return entity.Materials.find((material) => {
+    //     if (material.name === payload) {
+    //       return true;
+    //     }
+    //   });
+    // });
+    // return { ...state, filteredEntities: [...filteredEntities] };
     case SORT_ENTITIES_BY_RANKING:
       const sortedEntities =
         action.payload === '1'

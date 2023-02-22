@@ -28,7 +28,7 @@ const EntityCard = ({ entity }) => {
             <Heading>{entity.name}</Heading>
           </Link>
           <HStack>
-            {entity.Materials.map(({ name }, i) => (
+            {entity.Materials?.map(({ name }, i) => (
               <Badge key={i} variant="solid" colorScheme="green">
                 {name}
               </Badge>

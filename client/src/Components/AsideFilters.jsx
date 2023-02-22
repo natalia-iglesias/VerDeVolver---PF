@@ -1,19 +1,52 @@
-//import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { VStack, Select } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterEntitiesByMaterial } from '../redux/actions/entitiesActions.js';
 
-const AsideFilters = () => {
+const AsideFilters = ({ filters }) => {
   const dispatch = useDispatch();
 
   const { materials } = useSelector((state) => state.entitiesReducer);
 
   const handleClikMaterials = (e) => {
-    dispatch(filterEntitiesByMaterial(e.target.value));
+    const newFilters = filters.filter((ent) => {
+      return ent.Materials.some((mat) => mat.name === e.target.value);
+    });
+    dispatch(filterEntitiesByMaterial(newFilters));
   };
 
   const handleRanking = (e) => {
-    console.log('handleRanking', e.target.value);
+    if (e.target.value === 'Ascendente') {
+      axios
+        .post('http://localhost:3001/feedback/rating', {
+          order: 'Ascendente',
+        })
+        .then((res) => {
+          let newFilters = [];
+          res.data.forEach((ent1) => {
+            filters.forEach((ent2) => {
+              if (ent1.name === ent2.name) newFilters.push(ent2);
+            });
+          });
+
+          dispatch(filterEntitiesByMaterial(newFilters));
+        });
+    } else {
+      axios
+        .post('http://localhost:3001/feedback/rating', {
+          order: 'Descendente',
+        })
+        .then((res) => {
+          let newFilters = [];
+          res.data.forEach((ent1) => {
+            filters.forEach((ent2) => {
+              if (ent1.name === ent2.name) newFilters.push(ent2);
+            });
+          });
+
+          dispatch(filterEntitiesByMaterial(newFilters));
+        });
+    }
   };
 
   return (
@@ -34,8 +67,8 @@ const AsideFilters = () => {
         onClick={(e) => handleRanking(e)}
         width="-moz-fit-content"
       >
-        <option value="1">Ascendente</option>
-        <option value="-1">Descendente</option>
+        <option value="Ascendente">Ascendente</option>
+        <option value="Descendente">Descendente</option>
       </Select>
     </VStack>
   );
