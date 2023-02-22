@@ -62,13 +62,11 @@ const SingUpEntitie = () => {
     if (name === 'cbu' || name === 'description') {
       setMsg(value.length);
       if (name === 'cbu' && value.length === 22) {
-        console.log('salgo', value.length);
         return;
       }
     }
     setForm({ ...form, [name]: value });
   };
-  console.log('averga errors', errors);
 
   const handlerSubmit = async (event) => {
     event.preventDefault();
@@ -242,7 +240,7 @@ const SingUpEntitie = () => {
           value={form.description}
         />
         {form.description.length !== 0 && !errors.description.isError ? (
-          <FormHelperText>Caracteres {msg} de 100 hasta 450</FormHelperText>
+          <FormHelperText>Caracteres {msg} de 70 hasta 450</FormHelperText>
         ) : (
           ''
         )}
