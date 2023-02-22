@@ -53,7 +53,7 @@ const Entities = () => {
       </Button>
       <Grid templateColumns="1fr 4fr">
         <GridItem>
-          <AsideFilters />
+          <AsideFilters filters={filters} />
         </GridItem>
         <GridItem>
           <VStack spacing="4">
@@ -61,7 +61,7 @@ const Entities = () => {
               <PropagateLoader color="#1c5738" />
             ) : (
               filters
-                .slice((page - 1) * byPage, (page - 1) * byPage + byPage)
+                ?.slice((page - 1) * byPage, (page - 1) * byPage + byPage)
                 .map((e) => <EntityCard key={e.id} entity={e} />)
             )}
           </VStack>
