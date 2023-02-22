@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import EntityCard from '../components/EntityCard';
 import PropagateLoader from 'react-spinners/PropagateLoader';
 import AsideFilters from '../Components/AsideFilters';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   fetchEntities,
   getMaterials,
@@ -19,11 +19,11 @@ const Entities = () => {
   // const [update, setUpdate] = useState(0);
 
   const [update, setUpdate] = useState(0);
-  const { entities, isLoading, filterbymaterial } = useSelector(
+  const { entities, isLoading, filteredEntities } = useSelector(
     (state) => state.entitiesReducer
   );
   const dispatch = useDispatch();
-  console.log(filteredEntities);
+
   function handleClick(e) {
     e.preventDefault();
     dispatch(fetchEntities());
@@ -34,8 +34,8 @@ const Entities = () => {
     dispatch(getMaterials());
   }, [dispatch]);
 
-  // let filters = filterbymaterial;
-  // if (filters.length === 0) filters = entities;
+  let filters = filteredEntities;
+  if (filters.length === 0) filters = entities;
 
   const max = Math.ceil(filters.length / byPage);
 
