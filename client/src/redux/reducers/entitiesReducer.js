@@ -5,10 +5,14 @@ import {
   GET_MATERIALS,
   FILTER_ENTITIES_BY_MATERIAL,
   SORT_ENTITIES_BY_RANKING,
+  GET_ENTITY_BY_ID,
+  GET_ENTITY_FEEDBACKS,
 } from '../actions/entitiesActions';
 
 const initialState = {
   entities: [],
+  entity: {},
+  feedbacks: [],
   message: '',
   materials: [],
   filteredEntities: [],
@@ -22,6 +26,8 @@ export const entitiesReducer = (state = initialState, { type, payload }) => {
         ...state,
         entities: payload,
       };
+    case GET_ENTITY_BY_ID:
+      return { ...state, entity: payload };
     case CREATE_NEW_ENTITY:
       return { ...state, message: payload };
     case GET_MATERIALS:
@@ -55,6 +61,8 @@ export const entitiesReducer = (state = initialState, { type, payload }) => {
         ...state,
         filteredEntities: [...sortedEntities],
       };
+    case GET_ENTITY_FEEDBACKS:
+      return { ...state, feedbacks: payload };
     default:
       return { ...state };
   }

@@ -13,6 +13,8 @@ import {
   Text,
   VStack,
   Link,
+  Badge,
+  HStack,
 } from '@chakra-ui/react';
 
 const EntityCard = ({ entity }) => {
@@ -25,21 +27,15 @@ const EntityCard = ({ entity }) => {
           <Link as={ReachLink} to={`/entitie/${entity.id}`}>
             <Heading>{entity.name}</Heading>
           </Link>
+          <HStack>
+            {entity.Materials.map(({ name }, i) => (
+              <Badge key={i} variant="solid" colorScheme="green">
+                {name}
+              </Badge>
+            ))}
+          </HStack>
           <Text fontSize="xl">{entity.description}</Text>
         </VStack>
-        {entity.Materials.map((mat, i) => (
-          <Text
-            key={i}
-            bg="green"
-            borderRadius="1vh"
-            h="5vh"
-            color="white"
-            p="1vh"
-            fontSize="12px"
-          >
-            {mat.name}
-          </Text>
-        ))}
       </CardBody>
 
       <CardFooter>
