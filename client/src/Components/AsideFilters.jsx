@@ -3,7 +3,8 @@ import { VStack, Select } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterEntitiesByMaterial } from '../redux/actions/entitiesActions.js';
 
-const AsideFilters = () => {
+const AsideFilters = ({ filters }) => {
+  // recibo entidades filtradas
   const dispatch = useDispatch();
 
   const { materials } = useSelector((state) => state.entitiesReducer);
@@ -14,6 +15,7 @@ const AsideFilters = () => {
 
   const handleRanking = (e) => {
     console.log('handleRanking', e.target.value);
+    //
   };
 
   return (

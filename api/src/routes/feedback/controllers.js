@@ -196,13 +196,13 @@ const deleteFeedback = async (id) => {
 // Traigo los ids de las entidades
 const getAllVdV = async () => {
   const checkVdvs = await VdV.findAll();
-  return checkVdvs.map((ele) => ele.dataValues.id); //[1,2,3,4]
+  return checkVdvs.map((ele) => ele.dataValues.id); //[1,2,3,4,10]
 };
 
 // obtengo un array que dentro tiene un array por entidad que dentro tiene objetos que son cada reseña hecha a la entidad
 const mapeoDeIds = (array) => {
   const result = array.map(async (ele) => {
-    return await getFeedbacksByVdVId(ele); //[[{reseña} {reseña}]]
+    return await getFeedbacksByVdVId(ele); //[[{reseña} {reseña}]] [ [[entidad {reseñas1, reseña2}]]
   });
   return Promise.all(result);
 };
@@ -213,31 +213,15 @@ const getFeedbacksForVdV = async () => {
   return result;
 };
 
-const upDateVdV = async (id, body) => {
-  if (body.materials) {
-    await VdV.update(body, {
-      where: { id },
-    });
-    const result = await getByIdVdV(id);
-    await result.setMaterials(body.materials);
-    const resultFinal = await getByIdVdV(id);
-    return resultFinal;
-  } else {
-    await VdV.update(body, {
-      where: { id },
-    });
-    const result = await getByIdVdV(id);
-    return result;
-  }
-};
-
 // Obtengo un array con objetos -> cada objeto es el nombde de la entidad con su promedio de rating [{"Entidad_A : 5","Entidad_B : 2",etc }]
 const getRatings = async () => {
   const obj = await getFeedbacksForVdV();
   obj.forEach(async (ele) => {
+    // por entidad
     let contador = 0;
     let rating = 0;
     ele.forEach((element) => {
+      // por reseña/puntuacion
       rating += element.rating;
       contador++;
     });

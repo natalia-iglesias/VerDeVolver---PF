@@ -53,7 +53,7 @@ const Entities = () => {
       </Button>
       <Grid templateColumns="1fr 4fr">
         <GridItem>
-          <AsideFilters />
+          <AsideFilters filters={filters} /> {/* Paso entidades filtradas*/}
         </GridItem>
         <GridItem>
           <VStack spacing="4">
