@@ -2,45 +2,37 @@ import React, { useState } from 'react';
 import { Flex, Card, CardBody, Text, Button, Input } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 
-function InfoCardInput({
-  name,
-  mail,
-  password,
-  adress,
-  cbu,
-  description,
-  setInput,
-  setSaveButton,
-}) {
+function InfoCardInput({ type, data, setInput, setSaveButton }) {
   const [textOrInput, setTextOrInput] = useState('text');
-  let data;
+  let data2;
   let inputName;
-  if (name) {
-    data = name;
+  if (type === 'name') {
+    data2 = data;
     inputName = 'name';
   }
-  if (mail) {
-    data = mail;
+  if (type === 'mail') {
+    data2 = data;
     inputName = 'mail';
   }
-  if (password) {
-    data = password;
+  if (type === 'password') {
+    data2 = data;
     inputName = 'password';
   }
-  if (adress) {
-    data = adress;
-    inputName = 'adress';
+  if (type === 'address') {
+    data2 = data;
+    inputName = 'address';
   }
-  if (cbu) {
-    data = cbu;
+  if (type === 'cbu') {
+    data2 = data;
     inputName = 'cbu';
   }
-  if (description) {
-    data = description;
+  if (type === 'description') {
+    data2 = data;
     inputName = 'description';
   }
 
   const onChange = (e) => {
+    console.log(e.target.name);
     setInput((prevObj) => {
       return { ...prevObj, [e.target.name]: e.target.value };
     });
@@ -59,7 +51,7 @@ function InfoCardInput({
             <Input
               mt="-10px"
               name={inputName}
-              value={data}
+              value={data2}
               onChange={(e) => onChange(e)}
             />
           )}
