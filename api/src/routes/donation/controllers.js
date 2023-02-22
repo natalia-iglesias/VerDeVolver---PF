@@ -1,4 +1,5 @@
 const { Donation, User, VdV } = require('../../db.js');
+const { sendMail } = require('../../services/nodemailer.js');
 
 //ESTE ES EL BULKCREATE NO LO BORREN
 async function chargeDbDonation() {
@@ -50,6 +51,7 @@ const getAll = async () => {
         { model: VdV, attributes: ['name'] },
       ],
     });
+    sendMail();
     return result;
   } catch (error) {
     throw Error('Un error ocurrio. No se pueden traer las donaciones');
