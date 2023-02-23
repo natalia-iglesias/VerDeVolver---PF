@@ -3,6 +3,7 @@ const { postComments, allComents } = require('./controller');
 const router = Router();
 
 router.post('/', async (req, res) => {
+  console.log(req.body);
   const { name, mail, description } = req.body;
   try {
     const emailSent = await postComments(name, mail, description);
@@ -10,6 +11,7 @@ router.post('/', async (req, res) => {
     res.status(200).send(emailSent);
   } catch (error) {
     res.status(400).send(error.message);
+    console.log(error);
   }
 });
 
