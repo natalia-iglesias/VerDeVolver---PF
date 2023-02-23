@@ -7,7 +7,7 @@ import {
   filterEntitiesByMaterial,
 } from '../redux/actions/entitiesActions';
 
-const SearchBar = ({ filters }) => {
+const SearchBar = ({ filters, setPage, setInput }) => {
   const [search, setSearch] = useState('');
   let dispatch = useDispatch();
 
@@ -17,6 +17,8 @@ const SearchBar = ({ filters }) => {
       ent.name.toUpperCase().includes(e.target.value.toUpperCase())
     );
     dispatch(filterEntitiesByMaterial(newFilters));
+    setInput(1);
+    setPage(1);
   }
 
   function handleKeyDown(e) {

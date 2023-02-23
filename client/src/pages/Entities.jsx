@@ -15,6 +15,7 @@ import Paginated from '../Components/Paginated';
 
 const Entities = () => {
   const [page, setPage] = useState(1);
+  const [input, setInput] = useState(1);
   const byPage = 5;
   const { entities, isLoading, filteredEntities } = useSelector(
     (state) => state.entitiesReducer
@@ -27,6 +28,8 @@ const Entities = () => {
     sel.value = '';
     dispatch(fetchEntities());
     dispatch(listOfMaterialsToFilter([]));
+    setInput(1);
+    setPage(1);
   }
 
   useEffect(() => {
@@ -41,7 +44,7 @@ const Entities = () => {
 
   return (
     <VStack mx="1rem">
-      <SearchBar filters={filters} />
+      <SearchBar filters={filters} setPage={setPage} setInput={setInput} />
       <Button
         colorScheme="green"
         size="sm"
@@ -53,7 +56,11 @@ const Entities = () => {
       </Button>
       <Grid templateColumns="1fr 4fr">
         <GridItem>
-          <AsideFilters filters={filters} />
+          <AsideFilters
+            filters={filters}
+            setPage={setPage}
+            setInput={setInput}
+          />
         </GridItem>
         <GridItem>
           <VStack spacing="4">
@@ -65,7 +72,13 @@ const Entities = () => {
                 .map((e) => <EntityCard key={e.id} entity={e} />)
             )}
           </VStack>
-          <Paginated page={page} setPage={setPage} max={max} />
+          <Paginated
+            page={page}
+            setPage={setPage}
+            max={max}
+            input={input}
+            setInput={setInput}
+          />
         </GridItem>
       </Grid>
     </VStack>
