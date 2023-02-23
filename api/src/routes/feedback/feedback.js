@@ -8,7 +8,6 @@ const {
   createFeedback,
   getFeedbacksByUserId,
   getFeedbacksByVdVId,
-  getRatings,
   ratingSort,
 } = require('./controllers.js');
 
