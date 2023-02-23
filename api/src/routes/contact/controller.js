@@ -42,6 +42,12 @@ const postComments = async (name, mail, description) => {
   return 'Se ha enviado el mensaje con exito';
 };
 
+const allComents = async () => {
+  const getAllComents = await Contact.findAll();
+  return getAllComents;
+};
+
 module.exports = {
   postComments,
+  allComents,
 };
