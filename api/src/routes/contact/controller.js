@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const { Contact } = require('../../db.js');
 
 const sendEmail = async (name, mail, description) => {
   const transporter = nodemailer.createTransport({
@@ -33,6 +34,14 @@ const sendEmail = async (name, mail, description) => {
   );
 };
 
+const postComments = async (name, mail, description) => {
+  await Contact.create({ name, mail, description });
+
+  await sendEmail(name, mail, description);
+
+  return 'Se ha enviado el mensaje con exito';
+};
+
 module.exports = {
-  sendEmail,
+  postComments,
 };

@@ -1,14 +1,23 @@
 const { Router } = require('express');
-const { sendEmail } = require('./controller');
+const { postComments } = require('./controller');
 const router = Router();
 
 router.post('/', async (req, res) => {
+  const { name, mail, description } = req.body;
   try {
-    const { name, mail, description } = req.body;
+    const emailSent = await postComments(name, mail, description);
 
-    await sendEmail(name, mail, description);
+    res.status(200).send(emailSent);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
 
-    res.status(200).send('The email has been sent');
+router.get('/', async (req, res) => {
+  try {
+    const allComentaries = await Contact.findAll();
+
+    res.status(200).send(allComentaries);
   } catch (error) {
     res.status(400).send(error.message);
   }
