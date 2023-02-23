@@ -6,7 +6,7 @@ import {
   listOfMaterialsToFilter,
 } from '../redux/actions/entitiesActions.js';
 
-const AsideFilters = ({ filters }) => {
+const AsideFilters = ({ filters, setPage, setInput }) => {
   const dispatch = useDispatch();
 
   const { materials, listOfMaterialsToFilterState } = useSelector(
@@ -14,7 +14,6 @@ const AsideFilters = ({ filters }) => {
   );
 
   const handleClikMaterials = (e) => {
-    console.log(listOfMaterialsToFilterState);
     const newFilters = filters.filter((ent) => {
       return ent.Materials.some((mat) => mat.name === e.target.value);
     });
@@ -22,6 +21,8 @@ const AsideFilters = ({ filters }) => {
     listOfMaterialsToFilterState.push(e.target.value);
     dispatch(filterEntitiesByMaterial(newFilters));
     dispatch(listOfMaterialsToFilter(listOfMaterialsToFilterState));
+    setPage(1);
+    setInput(1);
   };
 
   const handleRanking = (e) => {

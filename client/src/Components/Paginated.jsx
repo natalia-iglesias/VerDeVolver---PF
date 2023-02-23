@@ -3,9 +3,7 @@ import { Box, Input, Button, Image, Text } from '@chakra-ui/react';
 import previous from '../../images/previous.png';
 import forward from '../../images/forward.png';
 
-const Paginated = ({ page, setPage, max }) => {
-  const [input, setInput] = useState(1);
-
+const Paginated = ({ page, setPage, max, input, setInput }) => {
   const previusPage = () => {
     setInput(input - 1);
     setPage(page - 1);
