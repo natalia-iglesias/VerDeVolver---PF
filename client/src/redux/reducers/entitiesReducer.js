@@ -4,6 +4,7 @@ import {
   CREATE_NEW_ENTITY,
   GET_MATERIALS,
   FILTER_ENTITIES_BY_MATERIAL,
+  LIST_OF_MATERIALS_TO_FILTER,
   SORT_ENTITIES_BY_RANKING,
   GET_ENTITY_BY_ID,
   GET_ENTITY_FEEDBACKS,
@@ -16,6 +17,7 @@ const initialState = {
   message: '',
   materials: [],
   filteredEntities: [],
+  listOfMaterialsToFilterState: [],
 };
 export const entitiesReducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -34,17 +36,8 @@ export const entitiesReducer = (state = initialState, { type, payload }) => {
       return { ...state, materials: payload };
     case FILTER_ENTITIES_BY_MATERIAL:
       return { ...state, filteredEntities: [...payload] };
-    // if (!payload) {
-    //   return { ...state, filteredEntities: [...state.entities] };
-    // }
-    // const filteredEntities = state.entities.filter((entity) => {
-    //   return entity.Materials.find((material) => {
-    //     if (material.name === payload) {
-    //       return true;
-    //     }
-    //   });
-    // });
-    // return { ...state, filteredEntities: [...filteredEntities] };
+    case LIST_OF_MATERIALS_TO_FILTER:
+      return { ...state, listOfMaterialsToFilterState: [...payload] };
     case SORT_ENTITIES_BY_RANKING:
       const sortedEntities =
         action.payload === '1'

@@ -8,7 +8,6 @@ const {
   createFeedback,
   getFeedbacksByUserId,
   getFeedbacksByVdVId,
-  getRatings,
   ratingSort,
 } = require('./controllers.js');
 
@@ -44,7 +43,6 @@ router.post('/create', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  console.log('chau');
   try {
     const feedbacks = await getFeedbacks();
 

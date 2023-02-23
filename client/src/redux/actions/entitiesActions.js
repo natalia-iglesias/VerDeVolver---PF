@@ -8,6 +8,7 @@ export const CREATE_NEW_ENTITY = 'CREATE_NEW_ENTITY';
 export const GET_MATERIALS = 'GET_MATERIALS';
 // export const FILTER_BY_MATERIALS = 'FILTER_BY_MATERIALS';
 export const FILTER_ENTITIES_BY_MATERIAL = 'FILTER_ENTITIES_BY_MATERIAL';
+export const LIST_OF_MATERIALS_TO_FILTER = 'LIST_OF_MATERIALS_TO_FILTER';
 export const SORT_ENTITIES_BY_RANKING = 'SORT_ENTITIES_BY_RANKING';
 
 export const fetchEntities = () => {
@@ -60,7 +61,7 @@ export const createNewEntity = (entity) => {
       const message = res.data;
       dispatch({ type: CREATE_NEW_ENTITY, payload: message });
       alert(
-        'Muchas gracias por completar tus datos! Dentro de las próximas 48 horas recibirás un mail con los pasos a seguir.'
+        'Muchas gracias por completar tus datos! Nos pondremos en contacto vía email.'
       );
     } catch (error) {
       alert('No pudimos crear el formulario.');
@@ -86,6 +87,13 @@ export const getMaterials = () => {
 export const filterEntitiesByMaterial = (material) => {
   return async function (dispatch) {
     dispatch({ type: FILTER_ENTITIES_BY_MATERIAL, payload: material });
+  };
+};
+
+export const listOfMaterialsToFilter = (materials) => {
+  return {
+    type: LIST_OF_MATERIALS_TO_FILTER,
+    payload: materials,
   };
 };
 
