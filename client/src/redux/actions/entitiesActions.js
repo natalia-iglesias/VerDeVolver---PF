@@ -61,7 +61,7 @@ export const createNewEntity = (entity) => {
       const message = res.data;
       dispatch({ type: CREATE_NEW_ENTITY, payload: message });
       alert(
-        'Muchas gracias por completar tus datos! Dentro de las próximas 48 horas recibirás un mail con los pasos a seguir.'
+        'Muchas gracias por completar tus datos! Nos pondremos en contacto vía email.'
       );
     } catch (error) {
       alert('No pudimos crear el formulario.');

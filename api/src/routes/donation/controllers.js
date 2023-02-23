@@ -51,7 +51,7 @@ const getAll = async () => {
         { model: VdV, attributes: ['name'] },
       ],
     });
-    // sendMail();
+
     return result;
   } catch (error) {
     throw Error('Un error ocurrio. No se pueden traer las donaciones');

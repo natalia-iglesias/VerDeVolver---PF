@@ -1,31 +1,42 @@
-// const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 
-// async function sendMail() {
-//   //   let testAccount = await nodemailer.createTestAccount();
+const sendVdVFormEmail = async (name, mail) => {
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: 'verdevolver@gmail.com',
+      pass: 'hngpoqxjettmhpiv',
+    },
+  });
 
-//   //   let transporter = nodemailer.createTransport({
-//   //     host: 'smtp.gmail.com',
-//   //     port: 587,
-//   //     secure: false, // true for 465, false for other ports
-//   //     auth: {
-//   //       user: 'verdevolver@gmail.com', // generated ethereal user
-//   //       pass: 'verdevolver2023.', // generated ethereal password
-//   //     },
-//   //   });
+  await transporter.sendMail(
+    {
+      from: 'verdevolver@gmail.com',
+      to: `${mail}`,
+      subject: 'Recibimos tu formulario!',
+      text: 'Gracas por contactarte con nosotros',
+      html: `
+                    <h1>Hola ${name}, gracias por completar nuestro formulario.</h1>
+                    <p>Los administradores revisarán tu solicitud cuidadosamente.</p>
+                    <p>Recibirás una respuesta en los próximos días!</p>
+                    <p>Que tengas muy buen día,</p>
+                    <p>Equipo de Verde Volver</p>
 
-//   let info = await transporter.sendMail({
-//     from: '"Verde Volver" <verdevolver@gmail.com>', // sender address
-//     to: 'gomez.solanarocio@gmail.com', // list of receivers
-//     subject: 'Gracias por realizar una donación!', // Subject line
-//     text: 'Recibimos tu donación correctamente.', // plain text body
-//     html: '<b>Recibimos tu donación correctamente.</b>', // html body
-//   });
 
-//   console.log('Message sent: %s', info);
+                `,
+    },
+    (error, info) => {
+      if (error) {
+        throw Error('An error has ocurred');
+      } else {
+        console.log('Email sent: ', info.response);
+      }
+    }
+  );
+};
 
-//   console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-// }
-
-// sendMail().catch(console.error);
-
-// module.exports = { sendMail };
+module.exports = {
+  sendVdVFormEmail,
+};

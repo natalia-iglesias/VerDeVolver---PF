@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { sendVdVFormEmail } = require('../../services/nodemailer');
 const {
   chargeDbVdVs,
   vdvCreate,
@@ -62,7 +63,6 @@ const pepe = [
 //FUNCIONA. ESTE ES EL BULKCREATE PARA CARGAR LA BASE DE DATOS
 router.post('/chargeDb', async (req, res) => {
   try {
-    console.log('vdvs:::::::::::::::', pepe);
     const chargeVdvsDb = await chargeDbVdVs(pepe);
     res.status(200).send(chargeVdvsDb);
   } catch (error) {
@@ -75,6 +75,7 @@ router.post('/', async (req, res) => {
   try {
     const result = await vdvCreate(req.body);
     res.status(200).send(result);
+    sendVdVFormEmail(req.body.name, req.body.mail);
   } catch (error) {
     res.status(404).send('Ocurrio un error. No se pudo crear la entidad');
   }
