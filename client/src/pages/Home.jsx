@@ -13,7 +13,7 @@ import {
   HStack,
   Heading,
 } from '@chakra-ui/react';
-import PostsCarousel from '../components/PostsCarousel';
+// import PostsCarousel from '../components/PostsCarousel';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 
 const Home = () => {
@@ -86,7 +86,7 @@ const Home = () => {
         </Button>
       </Stack>
 
-      <PostsCarousel
+      {/* <PostsCarousel
         posts={[
           {
             url: 'https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link',
@@ -101,7 +101,7 @@ const Home = () => {
             url: 'https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link',
           },
         ]}
-      />
+      /> */}
     </Box>
   );
 };
