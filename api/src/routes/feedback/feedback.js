@@ -43,7 +43,6 @@ router.post('/create', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  // const {req} = erererere
   try {
     const feedbacks = await getFeedbacks();
 
