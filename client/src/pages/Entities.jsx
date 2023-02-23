@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import {
   fetchEntities,
   getMaterials,
-  // filterByMaterials,
+  listOfMaterialsToFilter,
 } from '../redux/actions/entitiesActions';
 import { Button } from '@chakra-ui/react';
 import Paginated from '../Components/Paginated';
@@ -16,9 +16,6 @@ import Paginated from '../Components/Paginated';
 const Entities = () => {
   const [page, setPage] = useState(1);
   const byPage = 5;
-  // const [update, setUpdate] = useState(0);
-
-  const [update, setUpdate] = useState(0);
   const { entities, isLoading, filteredEntities } = useSelector(
     (state) => state.entitiesReducer
   );
@@ -26,22 +23,25 @@ const Entities = () => {
 
   function handleClick(e) {
     e.preventDefault();
+    const sel = document.getElementById('select_materials');
+    sel.value = '';
     dispatch(fetchEntities());
+    dispatch(listOfMaterialsToFilter([]));
   }
 
   useEffect(() => {
     dispatch(fetchEntities());
     dispatch(getMaterials());
-  }, [dispatch]);
+    filters = entities;
+  }, []);
 
   let filters = filteredEntities;
-  if (filters.length === 0) filters = entities;
 
   const max = Math.ceil(filters.length / byPage);
 
   return (
     <VStack mx="1rem">
-      <SearchBar />
+      <SearchBar filters={filters} />
       <Button
         colorScheme="green"
         size="sm"

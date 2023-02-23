@@ -2,15 +2,21 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { IconButton, Input, InputGroup } from '@chakra-ui/react';
-import { searchEntities } from '../redux/actions/entitiesActions';
+import {
+  searchEntities,
+  filterEntitiesByMaterial,
+} from '../redux/actions/entitiesActions';
 
-const SearchBar = () => {
+const SearchBar = ({ filters }) => {
   const [search, setSearch] = useState('');
   let dispatch = useDispatch();
 
   function handleClick(e) {
     e.preventDefault();
-    dispatch(searchEntities(search));
+    const newFilters = filters.filter((ent) =>
+      ent.name.toUpperCase().includes(e.target.value.toUpperCase())
+    );
+    dispatch(filterEntitiesByMaterial(newFilters));
   }
 
   function handleKeyDown(e) {
