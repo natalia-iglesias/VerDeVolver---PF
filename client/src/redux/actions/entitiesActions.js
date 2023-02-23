@@ -12,7 +12,6 @@ export const fetchEntities = () => {
   return async (dispatch) => {
     try {
       const res = await axios.get('http://localhost:3001/vdv');
-
       const entities = res.data;
 
       dispatch({ type: FETCH_ENTITIES, payload: entities });
@@ -34,8 +33,6 @@ export const getEntityById = (id) => {
     const res = await axios.get(`http://localhost:3001/vdv/${id}`);
     const entity = res.data;
 
-    console.log(entity);
-
     dispatch({ type: GET_ENTITY_BY_ID, payload: entity });
   };
 };
@@ -44,8 +41,6 @@ export const getEntityFeedbacks = (id) => {
   return async (dispatch) => {
     const res = await axios.get(`http://localhost:3001/feedback/vdv/${id}`);
     const feedbacks = res.data;
-
-    console.log(feedbacks);
 
     dispatch({ type: GET_ENTITY_FEEDBACKS, payload: feedbacks });
   };
@@ -71,7 +66,6 @@ export const getMaterials = () => {
   return async function (dispatch) {
     try {
       const response = await axios.get('http://localhost:3001/material');
-      //console.log(response.data);
       const materials = response.data.map((m) => m.name);
 
       dispatch({ type: GET_MATERIALS, payload: materials });

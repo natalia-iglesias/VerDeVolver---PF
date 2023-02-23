@@ -8,21 +8,17 @@ const SearchBar = () => {
   const [search, setSearch] = useState('');
   let dispatch = useDispatch();
 
-  function handleClick(e) {
+  const handleClick = (e) => {
     e.preventDefault();
     dispatch(searchEntities(search));
-  }
+  };
 
-  function handleKeyDown(e) {
-    if (e.keyCode === 13) {
-      handleClick(e);
-    }
-  }
-
-  function handleChange(e) {
-    e.preventDefault();
+  const handleChange = (e) => {
     setSearch(e.target.value);
-  }
+    dispatch(searchEntities(search));
+  };
+
+  const handleKeyDown = (e) => e.keyCode === 13 && handleClick(e);
 
   return (
     <InputGroup>
