@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { postComments } = require('./controller');
+const { postComments, allComents } = require('./controller');
 const router = Router();
 
 router.post('/', async (req, res) => {
@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const allComentaries = await Contact.findAll();
+    const allComentaries = await allComents();
 
     res.status(200).send(allComentaries);
   } catch (error) {
