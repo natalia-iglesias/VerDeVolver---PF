@@ -3,7 +3,7 @@ export default function validate(form, name) {
     isError: false,
     errorMsg: '',
   };
-  if (form[name].length === 0 && name !== 'cbu') {
+  if (name !== 'cbu' && form[name].length === 0) {
     isErrorObj = {
       isError: true,
       errorMsg: 'Requerido',
@@ -19,11 +19,13 @@ export default function validate(form, name) {
     };
   }
   if (name === 'cbu') {
-    console.log('cbu', form.cbu.length);
-    isErrorObj = {
-      isError: form.cbu.length < 21 && form.cbu.length !== 0,
-      errorMsg: 'El cbu debe ser de 22 digitos.',
-    };
+    /* console.log('cbu', form.cbu.length); */
+    if (form.cbu !== undefined) {
+      isErrorObj = {
+        isError: form.cbu.length < 21 && form.cbu.length !== 0,
+        errorMsg: 'El cbu debe ser de 22 digitos.',
+      };
+    }
   }
 
   if (name === 'description') {
