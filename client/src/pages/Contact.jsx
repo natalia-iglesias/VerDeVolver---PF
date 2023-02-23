@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createNewContact } from '../redux/actions/usersActions';
 import {
@@ -17,6 +18,7 @@ const Contact = () => {
   const [mail, setMail] = useState('');
   const [description, setDescription] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,6 +35,7 @@ const Contact = () => {
     }
     const body = { name, mail, description };
     dispatch(createNewContact(body));
+    navigate('/home');
   };
 
   return (
