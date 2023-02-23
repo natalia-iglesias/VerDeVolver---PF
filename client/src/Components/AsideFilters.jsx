@@ -1,19 +1,28 @@
 import axios from 'axios';
-import { VStack, Select } from '@chakra-ui/react';
+import { VStack, Select, Badge } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterEntitiesByMaterial } from '../redux/actions/entitiesActions.js';
+import {
+  filterEntitiesByMaterial,
+  listOfMaterialsToFilter,
+} from '../redux/actions/entitiesActions.js';
 
-const AsideFilters = ({ filters }) => {
-  // recibo entidades filtradas
+const AsideFilters = ({ filters, setPage, setInput }) => {
   const dispatch = useDispatch();
 
-  const { materials } = useSelector((state) => state.entitiesReducer);
+  const { materials, listOfMaterialsToFilterState } = useSelector(
+    (state) => state.entitiesReducer
+  );
 
   const handleClikMaterials = (e) => {
     const newFilters = filters.filter((ent) => {
       return ent.Materials.some((mat) => mat.name === e.target.value);
     });
+    if (newFilters.length == 0) return window.alert('No hubo coincidencias');
+    listOfMaterialsToFilterState.push(e.target.value);
     dispatch(filterEntitiesByMaterial(newFilters));
+    dispatch(listOfMaterialsToFilter(listOfMaterialsToFilterState));
+    setPage(1);
+    setInput(1);
   };
 
   const handleRanking = (e) => {
@@ -53,6 +62,7 @@ const AsideFilters = ({ filters }) => {
   return (
     <VStack>
       <Select
+        id="select_materials"
         placeholder="Selecciona un material"
         width="-moz-fit-content"
         onChange={(e) => handleClikMaterials(e)}
@@ -63,6 +73,13 @@ const AsideFilters = ({ filters }) => {
           </option>
         ))}
       </Select>
+      {listOfMaterialsToFilterState?.map((mat, i) => {
+        return (
+          <Badge key={i} variant="solid" colorScheme="green">
+            {mat}
+          </Badge>
+        );
+      })}
       <Select
         placeholder="Puntuación"
         onClick={(e) => handleRanking(e)}

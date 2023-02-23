@@ -8,17 +8,15 @@ import { useEffect, useState } from 'react';
 import {
   fetchEntities,
   getMaterials,
-  // filterByMaterials,
+  listOfMaterialsToFilter,
 } from '../redux/actions/entitiesActions';
 import { Button } from '@chakra-ui/react';
 import Paginated from '../Components/Paginated';
 
 const Entities = () => {
   const [page, setPage] = useState(1);
+  const [input, setInput] = useState(1);
   const byPage = 5;
-  // const [update, setUpdate] = useState(0);
-
-  const [update, setUpdate] = useState(0);
   const { entities, isLoading, filteredEntities } = useSelector(
     (state) => state.entitiesReducer
   );
@@ -26,22 +24,27 @@ const Entities = () => {
 
   function handleClick(e) {
     e.preventDefault();
+    const sel = document.getElementById('select_materials');
+    sel.value = '';
     dispatch(fetchEntities());
+    dispatch(listOfMaterialsToFilter([]));
+    setInput(1);
+    setPage(1);
   }
 
   useEffect(() => {
     dispatch(fetchEntities());
     dispatch(getMaterials());
-  }, [dispatch]);
+    filters = entities;
+  }, []);
 
   let filters = filteredEntities;
-  if (filters.length === 0) filters = entities;
 
   const max = Math.ceil(filters.length / byPage);
 
   return (
     <VStack mx="1rem">
-      <SearchBar />
+      <SearchBar filters={filters} setPage={setPage} setInput={setInput} />
       <Button
         colorScheme="green"
         size="sm"
@@ -53,7 +56,11 @@ const Entities = () => {
       </Button>
       <Grid templateColumns="1fr 4fr">
         <GridItem>
-          <AsideFilters filters={filters} />
+          <AsideFilters
+            filters={filters}
+            setPage={setPage}
+            setInput={setInput}
+          />
         </GridItem>
         <GridItem>
           <VStack spacing="4">
@@ -65,7 +72,13 @@ const Entities = () => {
                 .map((e) => <EntityCard key={e.id} entity={e} />)
             )}
           </VStack>
-          <Paginated page={page} setPage={setPage} max={max} />
+          <Paginated
+            page={page}
+            setPage={setPage}
+            max={max}
+            input={input}
+            setInput={setInput}
+          />
         </GridItem>
       </Grid>
     </VStack>
