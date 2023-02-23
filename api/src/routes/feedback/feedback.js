@@ -24,7 +24,7 @@ router.post('/chargeDb', async (req, res) => {
   }
 });
 
-router.get('/rating', async (req, res) => {
+router.post('/rating', async (req, res) => {
   const { order } = req.body;
   try {
     const result = await ratingSort(order);

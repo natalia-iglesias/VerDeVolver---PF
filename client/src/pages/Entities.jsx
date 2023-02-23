@@ -8,33 +8,43 @@ import { useEffect, useState } from 'react';
 import {
   fetchEntities,
   getMaterials,
-  filterByMaterials,
+  listOfMaterialsToFilter,
 } from '../redux/actions/entitiesActions';
 import { Button } from '@chakra-ui/react';
+import Paginated from '../Components/Paginated';
 
 const Entities = () => {
-  const [update, setUpdate] = useState(0);
-  const { entities, isLoading, filterbymaterial } = useSelector(
+  const [page, setPage] = useState(1);
+  const [input, setInput] = useState(1);
+  const byPage = 5;
+  const { entities, isLoading, filteredEntities } = useSelector(
     (state) => state.entitiesReducer
   );
   const dispatch = useDispatch();
 
   function handleClick(e) {
     e.preventDefault();
-    dispatch(filterByMaterials(entities));
+    const sel = document.getElementById('select_materials');
+    sel.value = '';
+    dispatch(fetchEntities());
+    dispatch(listOfMaterialsToFilter([]));
+    setInput(1);
+    setPage(1);
   }
 
   useEffect(() => {
     dispatch(fetchEntities());
     dispatch(getMaterials());
+    filters = entities;
   }, []);
 
-  let filters = filterbymaterial;
-  if (filters.length === 0) filters = entities;
+  let filters = filteredEntities;
+
+  const max = Math.ceil(filters.length / byPage);
 
   return (
     <VStack mx="1rem">
-      <SearchBar />
+      <SearchBar filters={filters} setPage={setPage} setInput={setInput} />
       <Button
         colorScheme="green"
         size="sm"
@@ -46,18 +56,29 @@ const Entities = () => {
       </Button>
       <Grid templateColumns="1fr 4fr">
         <GridItem>
-          <AsideFilters filters={filters} setUpdate={setUpdate} />
+          <AsideFilters
+            filters={filters}
+            setPage={setPage}
+            setInput={setInput}
+          />
         </GridItem>
         <GridItem>
           <VStack spacing="4">
             {isLoading ? (
               <PropagateLoader color="#1c5738" />
             ) : (
-              filters?.map((e) => {
-                return <EntityCard key={e.id} entity={e} />;
-              })
+              filters
+                ?.slice((page - 1) * byPage, (page - 1) * byPage + byPage)
+                .map((e) => <EntityCard key={e.id} entity={e} />)
             )}
           </VStack>
+          <Paginated
+            page={page}
+            setPage={setPage}
+            max={max}
+            input={input}
+            setInput={setInput}
+          />
         </GridItem>
       </Grid>
     </VStack>

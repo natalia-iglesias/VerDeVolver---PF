@@ -15,7 +15,8 @@ const pepe = [
     img: 'https://i.pinimg.com/564x/0e/60/c7/0e60c7fcd2d898873fc7d1a5060cc232.jpg',
     mail: 'ra@mail.com',
     /* password:"12345", */ address: 'calle 1',
-    description: 'Entidad privada cuya actividad se centra en mejorar la calidad de vida de las personas optimizando el aprovechamiento de recursos.',
+    description:
+      'Entidad privada cuya actividad se centra en mejorar la calidad de vida de las personas optimizando el aprovechamiento de recursos.',
     cbu: '34567898777',
 
     materials: [1, 2], // este no se pasa a la creacion de la VdV , este dato se usa para relacionar las tablas
@@ -25,7 +26,8 @@ const pepe = [
     img: 'https://i.pinimg.com/564x/4e/db/10/4edb108418125c6085492f82349de7b2.jpg',
     mail: 'jxec@mail.com',
     /* password:"12345", */ address: 'calle 2',
-    description: 'Somos una asociación ecologista que fomenta el cambio local y global hacia una sociedad respetuosa con el medio ambiente, justa y solidaria.',
+    description:
+      'Somos una asociación ecologista que fomenta el cambio local y global hacia una sociedad respetuosa con el medio ambiente, justa y solidaria.',
     cbu: '23456788777',
     materials: [3, 4],
   },
@@ -34,7 +36,8 @@ const pepe = [
     img: 'https://i.pinimg.com/564x/10/81/8c/10818c11b7bf2f08a743ab31bec6273c.jpg',
     mail: 'tam@mail.com',
     /* password:"12345", */ address: 'calle 3',
-    description: 'Organización ecologista y pacifista políticamente independiente.',
+    description:
+      'Organización ecologista y pacifista políticamente independiente.',
     cbu: '0987698777',
     materials: [5, 6],
   },
@@ -43,13 +46,183 @@ const pepe = [
     img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
     mail: 'sep@mail.com',
     /* password:"12345", */ address: 'calle 4',
-    description: 'ONG sin fines de lucro para la gestión de los recursos y los residuos',
+    description:
+      'ONG sin fines de lucro para la gestión de los recursos y los residuos',
     cbu: '8976557898777',
     materials: [3, 4, 1, 2, 5, 6],
   },
+  // {
+  //   name: 'Reciclamos muchisimo',
+  //   img: 'https://www.faber-castell.com.ar/-/media/Faber-Castell-new/Corporate/sustainability/2020/image-content-sustainability-trees.ashx?sc_lang=es-AR&la=es-AR&h=1004&w=1074&mw=1280&hash=B6319CBBB0647F5C29A738D155FDDDA5',
+  //   mail: 'recimuchisimo@mail.com',
+  //   /* password:"12345", */ address: 'calle 6',
+  //   description:
+  //     'Empresa gigante que va y busca todo lo que tires.Empresa gigante que va y busca todo lo que tires.Empresa gigante que va y busca todo lo que tires.',
+  //   cbu: '8976457198777',
+  //   materials: [2, 5, 6, 7],
+  // },
+  // {
+  //   name: 'Verde que te quiero verde',
+  //   img: 'https://cdn-icons-png.flaticon.com/512/4396/4396133.png',
+  //   mail: 'verdeymasverde@mail.com',
+  //   /* password:"12345", */ address: 'calle 6',
+  //   description:
+  //     'Somos una entidad recicladora que recicla cosas reciclables y las reciclamos',
+  //   cbu: '8176457198778',
+  //   materials: [1],
+  // },
+  // {
+  //   name: 'Agua clara',
+  //   img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsWWi7DjPdRzvtAi1cD6HX5N-6Afg33xr_Uw&usqp=CAU',
+  //   mail: 'aguaclara@mail.com',
+  //   address: 'calle 6',
+  //   description:
+  //     'Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.',
+  //   cbu: '8176418198771',
+  //   materials: [3, 7, 8],
+  // },
+  // {
+  //   name: 'Tierra Verde',
+  //   img: 'https://cdn-icons-png.flaticon.com/512/4396/4396133.png',
+  //   mail: 'tierraverde@mail.com',
+  //   address: 'calle 8',
+  //   description:
+  //     'Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.',
+  //   cbu: '2371043886125',
+  //   materials: [3, 10, 11],
+  // },
+  // {
+  //   name: 'Aire Puro',
+  //   img: 'https://cdn-icons-png.flaticon.com/512/4396/4396133.png',
+  //   mail: 'airepuro@mail.com',
+  //   address: 'calle 5',
+  //   description:
+  //     'Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.',
+  //   cbu: '8601946518597',
+  //   materials: [1, 2, 9],
+  // },
+  // {
+  //   name: 'Fuego Nuevo',
+  //   img: 'https://cdn-icons-png.flaticon.com/512/4396/4396133.png',
+  //   mail: 'fuegonuevo@mail.com',
+  //   address: 'calle 7',
+  //   description:
+  //     'Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.',
+  //   cbu: '5970583325760',
+  //   materials: [1, 9, 11],
+  // },
+  // {
+  //   name: 'Luz Clara',
+  //   img: 'https://cdn-icons-png.flaticon.com/512/4396/4396133.png',
+  //   mail: 'luzclara@mail.com',
+  //   address: 'calle 10',
+  //   description:
+  //     'Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.',
+  //   cbu: '9747318960912',
+  //   materials: [6, 7, 10],
+  // },
+  // {
+  //   name: 'Mar Limpio',
+  //   img: 'https://cdn-icons-png.flaticon.com/512/4396/4396133.png',
+  //   mail: 'marlimpio@mail.com',
+  //   address: 'calle 3',
+  //   description:
+  //     'Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.',
+  //   cbu: '5096842975055',
+  //   materials: [3, 7, 8, 11],
+  // },
+  // {
+  //   name: 'Asociacionn de Jovenes Emprendedores',
+  //   img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
+  //   mail: 'jb@mail.com',
+  //   address: 'calle 2',
+  //   description:
+  //     'Organización sin fines de lucro que busca impulsar el emprendimiento en jóvenes de bajos recursos.',
+  //   cbu: '87654321987',
+  //   materials: [5, 7, 11],
+  // },
+  // {
+  //   name: 'Fundación para la Conservación del Medio Ambiente',
+  //   img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
+  //   mail: 'kd@mail.com',
+  //   address: 'calle 3',
+  //   description:
+  //     'Fundación cuyo objetivo es la conservación y restauración de los ecosistemas del planeta.',
+  //   cbu: '65748392002',
+  //   materials: [2, 10, 11],
+  // },
+  // {
+  //   name: 'Red de Bibliotecas Públicas',
+  //   img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
+  //   mail: 'pa@mail.com',
+  //   address: 'calle 4',
+  //   description:
+  //     'Red de bibliotecas públicas que busca fomentar la lectura y el acceso a la cultura en comunidades marginadas.',
+  //   cbu: '29384756291',
+  //   materials: [3, 4, 8, 9],
+  // },
+  // {
+  //   name: 'Fundación para la Educación y el Desarrollo',
+  //   img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
+  //   mail: 'ls@mail.com',
+  //   address: 'calle 5',
+  //   description:
+  //     'Organización que busca mejorar la calidad de vida de las personas a través de la educación y el desarrollo personal.',
+  //   cbu: '29837465748',
+  //   materials: [3, 4, 10],
+  // },
+  // {
+  //   name: 'Asociación de Agricultores Familiares',
+  //   img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
+  //   mail: 'cw@mail.com',
+  //   address: 'calle 6',
+  //   description:
+  //     'Asociación que busca promover y defender la agricultura familiar y la soberanía alimentaria.',
+  //   cbu: '83746592713',
+  //   materials: [3, 4, 7],
+  // },
+  // {
+  //   name: 'Fundación para la Investigación Científica',
+  //   img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
+  //   mail: 'mq@mail.com',
+  //   address: 'calle 7',
+  //   description:
+  //     'Fundación que financia investigaciones científicas en diferentes áreas del conocimiento.',
+  //   cbu: '28374659283',
+  //   materials: [3, 4, 8, 9],
+  // },
+  // {
+  //   name: 'Asociación de Mujeres Empresarias',
+  //   img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
+  //   mail: 'hn@mail.com',
+  //   address: 'calle 8',
+  //   description:
+  //     'Asociación que busca fomentar el emprendimiento y el liderazgo de las mujeres en el ámbito empresarial.',
+  //   cbu: '74658392011',
+  //   materials: [1, 2, 9, 10],
+  // },
+  // {
+  //   name: 'Fundación para la Lucha contra el Cáncer',
+  //   img: 'https://i.pinimg.com/564x/10/81/8c/10818c11b7bf2f08a743ab31bec6273c.jpg',
+  //   mail: 'yx@mail.com',
+  //   address: 'calle 9',
+  //   description:
+  //     'Fundación que brinda apoyo a pacientes con cáncer y financia investigaciones para encontrar curas y tratamientos efectivos.',
+  //   cbu: '49583746582',
+  //   materials: [4, 7, 8],
+  // },
+  // {
+  //   name: 'Asociación de Vecinos Unidos',
+  //   img: 'https://i.pinimg.com/564x/10/81/8c/10818c11b7bf2f08a743ab31bec6273c.jpg',
+  //   mail: 'zl@mail.com',
+  //   address: 'calle 10',
+  //   description:
+  //     'Asociación que busca mejorar la calidad de vida de los vecinos y promover la participación ciudadana en la gestión pública.',
+  //   cbu: '92837465722',
+  //   materials: [5, 8, 11],
+  // },
 ];
 
-//1
 async function chargeDbRoles() {
   const bulkCreateRoles = await Role.bulkCreate([
     { name: 'User' },

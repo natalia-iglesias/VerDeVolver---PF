@@ -1,58 +1,85 @@
-//import { materials } from '../db.json';
-//import { useEffect, useState } from 'react';
-import { VStack, Select } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { filterByMaterials } from '../redux/actions/entitiesActions.js';
 import axios from 'axios';
+import { VStack, Select, Badge } from '@chakra-ui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  filterEntitiesByMaterial,
+  listOfMaterialsToFilter,
+} from '../redux/actions/entitiesActions.js';
 
-const AsideFilters = ({ filters, setUpdate }) => {
+const AsideFilters = ({ filters, setPage, setInput }) => {
   const dispatch = useDispatch();
-  //const [materialFilter, setMaterialFilter] = useState('');
-  //const [rankingSort, setRankingSort] = useState('');
-  const getEntities = useSelector((state) => state.entitiesReducer.entities);
-  const { materials, filterbymaterial } = useSelector(
+
+  const { materials, listOfMaterialsToFilterState } = useSelector(
     (state) => state.entitiesReducer
   );
 
-  // const handleMaterialChange = (ev) => {
-  //   setMaterialFilter(ev.target.value);
-  //   //dispatch(filterEntitiesByMaterials(ev.target.value));
-  // };
-
   const handleClikMaterials = (e) => {
-    let filterByMat;
-    if (!filterbymaterial.length) {
-      filterByMat = getEntities.filter((objeto) => {
-        return objeto.Materials.some(
-          (material) => material.name === e.target.value
-        );
-      });
-    } else {
-      filterByMat = filterbymaterial.filter((objeto) => {
-        return objeto.Materials.some(
-          (material) => material.name === e.target.value
-        );
-      });
-    }
-
-    dispatch(filterByMaterials(filterByMat));
+    const newFilters = filters.filter((ent) => {
+      return ent.Materials.some((mat) => mat.name === e.target.value);
+    });
+    if (newFilters.length == 0) return window.alert('No hubo coincidencias');
+    listOfMaterialsToFilterState.push(e.target.value);
+    dispatch(filterEntitiesByMaterial(newFilters));
+    dispatch(listOfMaterialsToFilter(listOfMaterialsToFilterState));
+    setPage(1);
+    setInput(1);
   };
 
-  const handleRanking = (e) => {};
+  const handleRanking = (e) => {
+    if (e.target.value === 'Ascendente') {
+      axios
+        .post('http://localhost:3001/feedback/rating', {
+          order: 'Ascendente',
+        })
+        .then((res) => {
+          let newFilters = [];
+          res.data.forEach((ent1) => {
+            filters.forEach((ent2) => {
+              if (ent1.name === ent2.name) newFilters.push(ent2);
+            });
+          });
+
+          dispatch(filterEntitiesByMaterial(newFilters));
+        });
+    } else {
+      axios
+        .post('http://localhost:3001/feedback/rating', {
+          order: 'Descendente',
+        })
+        .then((res) => {
+          let newFilters = [];
+          res.data.forEach((ent1) => {
+            filters.forEach((ent2) => {
+              if (ent1.name === ent2.name) newFilters.push(ent2);
+            });
+          });
+
+          dispatch(filterEntitiesByMaterial(newFilters));
+        });
+    }
+  };
 
   return (
     <VStack>
       <Select
+        id="select_materials"
         placeholder="Selecciona un material"
         width="-moz-fit-content"
-        onClick={(e) => handleClikMaterials(e)}
+        onChange={(e) => handleClikMaterials(e)}
       >
         {materials.map((m, i) => (
-          <option key={i} value={m}>
-            {m}
+          <option key={i} value={m.name}>
+            {m.name}
           </option>
         ))}
       </Select>
+      {listOfMaterialsToFilterState?.map((mat, i) => {
+        return (
+          <Badge key={i} variant="solid" colorScheme="green">
+            {mat}
+          </Badge>
+        );
+      })}
       <Select
         placeholder="Puntuación"
         onClick={(e) => handleRanking(e)}

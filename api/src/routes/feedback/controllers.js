@@ -259,7 +259,6 @@ const getRatings = async () => {
 // Obtengo un array con los nombres de las entidades en orden ASC o DES ["Entidad-con-menor-raiting", "Entidad-con-mayor-rating"] ><
 const ratingSort = async (order) => {
   const result = await getRatings();
-  console.log('result', result);
   order === 'Ascendente'
     ? result.sort((a, b) => a.dataValues.rating - b.dataValues.rating)
     : result.sort((a, b) => b.dataValues.rating - a.dataValues.rating);
