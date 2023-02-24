@@ -10,7 +10,8 @@ export const usersReducer = (state = initialState, { type, payload }) => {
     case FETCH_USERS:
       return { ...state, users: payload };
     case CREATE_NEW_CONTACT:
-      return { ...state, message: payload };
+      console.log(state.contact);
+      return { ...state, contact: [...state.contact, payload] };
     default:
       return { ...state };
   }
