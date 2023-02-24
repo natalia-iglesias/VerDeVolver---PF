@@ -82,7 +82,15 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
       })}
       <Select
         placeholder="Puntuación"
-        onClick={(e) => handleRanking(e)}
+        onClick={(e) => {
+          console.log(e.target.value);
+          if (
+            e.target.value === 'Ascendente' ||
+            e.target.value === 'Descendente'
+          ) {
+            handleRanking(e);
+          }
+        }}
         width="-moz-fit-content"
       >
         <option value="Ascendente">Ascendente</option>
