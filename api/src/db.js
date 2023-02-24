@@ -4,12 +4,14 @@ const path = require('path');
 
 require('dotenv').config();
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+// const { DATABASE, PGHOST, PGPASSWORD, PGPORT, PGUSER } = process.env;
 
 const sequelize = new Sequelize(
+  // `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${DATABASE}`,
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/verdevolver`,
   {
-    logging: false, // establecer en console.log para ver las consultas SQL sin procesar
-    native: false, // permite que Sequelize sepa que podemos usar pg-native para ~30% más de velocidad
+    logging: false,
+    native: false,
   }
 );
 
@@ -44,11 +46,11 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un (destructuring)
 
-const { Donation, Feedback, Material, Role, Service, User, VdV, PostHome } =
+const { Donation, Feedback, Material, Role, Service, User, VdV, Contact } =
   sequelize.models;
 
 // Relacion Usuario -> Feedback -> VdV
-User.hasMany(Feedback,); // comentario y puntuacion
+User.hasMany(Feedback); // comentario y puntuacion
 Feedback.belongsTo(User);
 
 VdV.hasMany(Feedback);

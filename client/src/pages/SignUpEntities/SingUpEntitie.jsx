@@ -17,6 +17,8 @@ import {
   Button,
 } from '@chakra-ui/react';
 
+import UploadImage from '../../Components/Cloudinary';
+
 const SingUpEntitie = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +35,7 @@ const SingUpEntitie = () => {
     mail: '',
     address: '',
     img: '',
-    cbu: '',
+    cbu: undefined,
     materials: [],
     description: '',
   });
@@ -49,6 +51,8 @@ const SingUpEntitie = () => {
   });
 
   const [msg, setMsg] = useState('');
+  const [descMsg, setdescMsg] = useState('');
+
   const handlerBlur = (ev) => {
     const errOjb = validate(form, ev.target.name);
     setErrors({ ...errors, [ev.target.name]: errOjb });
@@ -59,12 +63,18 @@ const SingUpEntitie = () => {
 
     setErrors({ ...errors, [name]: { isError: false, errorMsg: '' } });
 
-    if (name === 'cbu' || name === 'description') {
-      setMsg(value.length);
-      if (name === 'cbu' && value.length === 22) {
-        return;
+    if (name === 'cbu') {
+      if (form.cbu !== undefined) {
+        setMsg(value.length);
+        if (name === 'cbu' && value.length === 22) {
+          return;
+        }
       }
     }
+    if (name === 'description') {
+      setdescMsg(value.length);
+    }
+
     setForm({ ...form, [name]: value });
   };
 
@@ -84,8 +94,13 @@ const SingUpEntitie = () => {
     if (isError) {
       return;
     }
+
     dispatch(createNewEntity(form));
     navigate('/home');
+  };
+
+  const handleUploadImage = (url) => {
+    setForm({ ...form, img: url });
   };
 
   const deleteMaterial = (mat) => {
@@ -150,19 +165,16 @@ const SingUpEntitie = () => {
         )}
       </FormControl>
       <br />
+
       <FormControl isRequired isInvalid={errors.img.isError}>
         <FormLabel>Imagen</FormLabel>
-        <Input
-          name="img"
-          type="text"
+        <UploadImage
+          onUpload={handleUploadImage}
           onChange={handlerChange}
           onBlur={handlerBlur}
-          value={form.img}
         />
         {!errors.img.isError && form.img.length === 0 ? (
-          <FormHelperText>
-            Arrastra aquí la imagen de tu entidad.
-          </FormHelperText>
+          <FormHelperText>Sube tu imagen aqui.</FormHelperText>
         ) : (
           <FormErrorMessage>{errors.address.errorMsg}</FormErrorMessage>
         )}
@@ -177,12 +189,12 @@ const SingUpEntitie = () => {
           type="number"
           value={form.cbu}
         />
-        {form.cbu.length !== 0 && !errors.cbu.isError ? (
+        {form.cbu !== undefined && !errors.cbu.isError ? (
           <FormHelperText>Debes ingresar 22 números y vas {msg}</FormHelperText>
         ) : (
           ''
         )}
-        {!errors.cbu.isError && form.cbu.length === 0 ? (
+        {!errors.cbu.isError && form.cbu === undefined ? (
           <FormHelperText>
             Puedes ingresar tu CBU para recibir donaciones.
           </FormHelperText>
@@ -240,7 +252,7 @@ const SingUpEntitie = () => {
           value={form.description}
         />
         {form.description.length !== 0 && !errors.description.isError ? (
-          <FormHelperText>Caracteres {msg} de 70 hasta 450</FormHelperText>
+          <FormHelperText>Caracteres {descMsg} de 70 hasta 450</FormHelperText>
         ) : (
           ''
         )}
