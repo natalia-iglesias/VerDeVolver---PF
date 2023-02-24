@@ -94,11 +94,10 @@ const SingUpEntitie = () => {
     if (isError) {
       return;
     }
-    console.log(form);
+
     dispatch(createNewEntity(form));
     navigate('/home');
   };
-  console.log(form);
 
   const handleUploadImage = (url) => {
     setForm({ ...form, img: url });

@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { createNewContact } from '../redux/actions/usersActions';
 import {
   Button,
   FormControl,
@@ -11,23 +14,28 @@ import {
 } from '@chakra-ui/react';
 
 const Contact = () => {
-  const [nombre, setNombre] = useState('');
-  const [email, setEmail] = useState('');
-  const [descripcion, setDescripcion] = useState('');
+  const [name, setName] = useState('');
+  const [mail, setMail] = useState('');
+  const [description, setDescription] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!nombre) {
+    if (!name) {
       alert('Por favor ingresa tu nombre.');
-    } else if (!email) {
+    } else if (!mail) {
       alert('Por favor ingresa tu correo electrónico.');
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
+    } else if (!/\S+@\S+\.\S+/.test(mail)) {
       alert('Por favor ingresa un correo electrónico válido.');
-    } else if (descripcion.length < 20) {
+    } else if (description.length < 20) {
       alert('La descripción debe tener al menos 20 caracteres.');
     } else {
-      console.log(nombre, email, descripcion);
+      console.log(name, mail, description);
     }
+    const body = { name, mail, description };
+    dispatch(createNewContact(body));
+    navigate('/home');
   };
 
   return (
@@ -57,8 +65,8 @@ const Contact = () => {
               border={'none'}
               textAlign={'center'}
               placeholder="Ingresá tu nombre"
-              value={nombre}
-              onChange={(event) => setNombre(event.target.value)}
+              value={name}
+              onChange={(event) => setName(event.target.value)}
             />
           </FormControl>
           <FormControl
@@ -82,8 +90,8 @@ const Contact = () => {
               textAlign={'center'}
               placeholder="Ingresá tu email"
               type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              value={mail}
+              onChange={(event) => setMail(event.target.value)}
             />
           </FormControl>
         </Flex>
@@ -107,8 +115,8 @@ const Contact = () => {
             _hover={{ color: 'brand.green' }}
             textAlign={'center'}
             placeholder="Ingresá una descripción!"
-            value={descripcion}
-            onChange={(event) => setDescripcion(event.target.value)}
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
           />
         </FormControl>
         <Button colorScheme="green" size="sm" type="submit">
