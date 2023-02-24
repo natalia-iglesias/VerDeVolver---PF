@@ -1,22 +1,13 @@
-const nodemailer = require('nodemailer');
+const createNodemailerTransport = require('./createTransport');
 
 const sendVdVFormEmail = async (name, mail) => {
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    auth: {
-      user: 'verdevolver@gmail.com',
-      pass: 'hngpoqxjettmhpiv',
-    },
-  });
-
+  const transporter = createNodemailerTransport();
   await transporter.sendMail(
     {
       from: 'verdevolver@gmail.com',
       to: `${mail}`,
       subject: 'Recibimos tu formulario!',
-      text: 'Gracas por contactarte con nosotros',
+      text: 'Gracias por contactarte con nosotros',
       html: `
                     <h1>Hola ${name}, gracias por completar nuestro formulario.</h1>
                     <p>Los administradores revisarán tu solicitud cuidadosamente.</p>
