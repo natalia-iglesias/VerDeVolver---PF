@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { sendVdVFormEmail } = require('../../services/nodemailer');
+const { sendVdVFormEmail } = require('../../services/templateFormVdV');
 const {
   chargeDbVdVs,
   vdvCreate,
