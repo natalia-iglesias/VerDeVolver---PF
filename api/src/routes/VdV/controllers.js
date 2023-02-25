@@ -9,9 +9,10 @@ const chargeDbVdVs = (array) => {
   return Promise.all(result);
 };
 
-//La password queda en null
+//La password queda en null.
 const vdvCreate = async (body) => {
-  const { name, img, description, mail, address, cbu, materials } = body;
+  const { name, img, description, mail, address, cbu, materials, lat, lng } =
+    body;
 
   if (!name || !img || !description || !mail || !address)
     throw Error('Debes completar todos los campos obligatorios');
@@ -22,6 +23,8 @@ const vdvCreate = async (body) => {
     address,
     description,
     cbu,
+    lat,
+    lng,
   });
 
   await vdvCreate.addMaterials(materials); // Unir VdV con materiales
