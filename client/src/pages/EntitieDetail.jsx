@@ -39,8 +39,7 @@ const EntityDetail = () => {
 
   const { entity, feedbacks } = useSelector((state) => state.entitiesReducer);
 
-  if (!entity) return <PropagateLoader color="#1c5738" />;
-  if (!feedbacks) return <PropagateLoader color="#1c5738" />;
+  if (!entity || !feedbacks) return <PropagateLoader color="#1c5738" />;
 
   return (
     <Grid templateColumns="repeat(2, 1fr)" gap={'1rem'}>
