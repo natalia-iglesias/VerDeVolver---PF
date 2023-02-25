@@ -1,5 +1,5 @@
 const { Donation, User, VdV } = require('../../db.js');
-const { sendMail } = require('../../services/nodemailer.js');
+//const { sendMail } = require('../../services/nodemailer.js');
 
 //ESTE ES EL BULKCREATE NO LO BORREN
 async function chargeDbDonation() {
