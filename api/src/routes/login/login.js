@@ -41,8 +41,14 @@ router.get(
   }),
   (req, res, next) => {
     try {
+      // console.log(req);
+      console.log(
+        'user.profile::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::',
+        req.user.profile
+      );
       res.send('autorizado');
     } catch (error) {
+      console.log('error');
       next(error);
     }
   }

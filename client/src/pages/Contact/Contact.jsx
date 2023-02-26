@@ -67,7 +67,7 @@ const Contact = () => {
     if (isError) {
       return;
     }
-    dispatch(createNewContact(body));
+    dispatch(createNewContact(form));
     navigate('/home');
   };
 
