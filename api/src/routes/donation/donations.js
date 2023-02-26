@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { mercadopago } = require('../mercadoPago.js');
 
 const {
   chargeDbDonation,
@@ -12,7 +13,7 @@ const {
 
 const router = Router();
 
-//ESTE ES EL BULKCREATE NO LO BORREN
+// ESTE ES EL BULKCREATE NO LO BORREN
 router.post('/chargeDb', async (req, res) => {
   try {
     const chargeDonationsDb = await chargeDbDonation();
@@ -26,10 +27,15 @@ router.post('/chargeDb', async (req, res) => {
 router.post('/', async (req, res) => {
   const { body } = req;
   try {
-    const newDonation = await createDonation(body);
-    res.status(200).send(newDonation);
+    const newDonation = await createDonation(body); // recibe preference
+
+    mercadopago.preferences
+      .create(newDonation)
+      .then((response) => res.status(200).send(response));
+    // res.status(200).send(newDonation);
   } catch (error) {
-    res.status(404).send(error.message);
+    res.status(404).send(error);
+    // 'Ocurrio un error. No se puede crear la donacion'
   }
 });
 
