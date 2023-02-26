@@ -47,7 +47,7 @@ const createDonation = async (body) => {
     ],
     back_urls: {
       success: 'http://localhost:5173/home',
-      failure: 'http://localhost:5173/map',
+      failure: 'http://localhost:5173/contact',
       pending: '', // Este es para pagos en efectivo, por ejemplo en un rapipago, queda como pendiente
     },
     auto_return: 'approved',
