@@ -6,7 +6,7 @@ const {findBymail} = require('../../routes/user/controllers')
 
 const LocalStrategy = new Strategy(
   {
-    usernameField : 'email',
+    usernameField : 'mail',
     passwordField: 'password'
   },
   async (mail, password, done) => {

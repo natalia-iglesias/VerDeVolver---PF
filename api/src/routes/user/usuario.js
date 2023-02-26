@@ -58,7 +58,6 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
-
     const byId = await findId(id);
     !byId
       ? res.status(400).send(`El usuario con id ${id} no fue encontrado`)
@@ -72,7 +71,6 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const userSent = req.body;
-
 
   try {
     const upgradedId = await findId(id);
@@ -99,14 +97,13 @@ router.delete('/:id', async (req, res) => {
     return res.status(404).send(error.message);
   }
 });
-router.post('/signup', async (req, res, next) => {
+/* router.post('/signup', async (req, res, next) => {
   try {
-      const newUser = await createUser(req.body);
-      res.status(200).json(newUser)
+    const newUser = await createUser(req.body);
+    res.status(200).json(newUser);
   } catch (error) {
-      next(error)
+    next(error);
   }
-})
-
+}); */
 
 module.exports = router;

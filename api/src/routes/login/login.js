@@ -1,97 +1,74 @@
 const { Router } = require('express');
 const passport = require('passport');
-//const LocalStrategy = require("passport-local").Strategy;
-const LocalStrategy = require('../../authentication/index')
-const User = require('../../db')
-const {findUser}= require('./controller.js')
-
-
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const { SECRET } = process.env;
+const User = require('../../db');
+const { findUser } = require('./controller.js');
 
 const router = Router();
-// Configuración de la sesión de Passport.js
-/* passport.use(
-  new LocalStrategy(
-    {
-      usernameField: "mail", // campo de formulario para el correo electrónico
-      passwordField: "password", // campo de formulario para la contraseña
-    },
-    async function (mail, password, done) {
-      try {
-        // Busca el usuario en la base de datos por su correo electrónico
-        const user = await User.findOne({ where: { mail } });
-        if (!user) {
-          return done(null, false, {
-            message: "Correo electrónico incorrecto.",
-          });
-        }
-        if (password !== user.password) {
-          return done(null, false, { message: "Contraseña incorrecta." });
-        }
-        // Si todo sale bien, devuelve el usuario
-        return done(null, user);
-      } catch (error) {
-        done(error);
-      }
-    }
-  )
-) */;
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
 
-passport.deserializeUser(async (id, done) => {
-  try {
-    // Busca el usuario en la base de datos por su ID
-    const user = await User.findByPk(id);
-    if (user) {
-      done(null, user);
-    } else {
-      done(null, false);
-    }
-  } catch (error) {
-    done(error);
-  }
-});
 //login
-router.post('/', passport.authenticate('local', {
-  successRedirect: "/",
-  failureRedirect: "/?err=password",
-}),
+
+router.post(
+  '/',
+  passport.authenticate('local', {
+    session: false,
+  }),
   async (req, res, next) => {
     try {
-      const {mail, password }= req.body;
-      const users = await findUser(mail)
-     
-     
+      const user = req.user;
+      const payload = {
+        sub: user.id,
+      };
+      const token = jwt.sign(payload, SECRET);
       res.send({
-       id: users.id,
-       name: users.name,
-       mail:users.mail
-
-      }) 
+        id: user.id,
+        name: user.name,
+        mail: user.mail,
+        token,
+      });
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
-)
-//si ya iniciamos sesion
-router.get('/', (req, res) => {
-  res.send('holi')
-})
+);
+//estrategia autirizacion
+router.get(
+  '/',
+  passport.authenticate('jwt', {
+    session: false,
+  }),
+  (req, res, next) => {
+    try {
+      res.send('autorizado');
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+//redirigir al home ?? true--->/home-- false--> / registro
+//funcion redirect
+router.get(
+  '/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
 
-// recibir las credenciales
+router.get(
+  '/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.redirect('/');
+  }
+);
+//CERRAR
 router.get('/', (req, res) => {
-  res.send('holi')
-})
-//get ---> form--> ruta nueva 
-router.get("/logout", (req, res) => {
   req.logout((err) => {
     if (err) return next(err);
     req.session.destroy(function (err) {
       if (err) return next(err);
-      res.redirect("/");
+      res.redirect('/');
     });
   });
 });
-
-module.exports = router
+module.exports = router;

@@ -28,8 +28,9 @@ server.use(
     saveUninitialized: true,
   })
 );
-server.use(passport.initialize());
-server.use(passport.session());
+require('./authentication/index');
+/* server.use(passport.initialize());
+server.use(passport.session()); */
 
 //corse
 server.use((req, res, next) => {

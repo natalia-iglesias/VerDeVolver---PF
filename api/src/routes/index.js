@@ -11,9 +11,9 @@ const materialMiddle = require('./material/material.js');
 const roleMiddle = require('./role/role.js');
 const chargeDbMiddle = require('./chargeDb/chargeDb.js');
 const contactMiddle = require('./contact/contact.js');
-const loginMiddle = require('./login/login.js')
-
-
+const loginMiddle = require('./login/login.js');
+const logoutMiddle = require('./login/login.js');
+const authMiddle = require('./login/login.js');
 
 router.use('/user', userMiddle);
 router.use('/vdv', vdvMiddle);
@@ -25,5 +25,7 @@ router.use('/role', roleMiddle);
 router.use('/chargedb', chargeDbMiddle);
 router.use('/contact', contactMiddle);
 router.use('/login', loginMiddle);
+router.use('/logout', logoutMiddle);
+router.use('/auth', authMiddle);
 
 module.exports = router;
