@@ -2,6 +2,9 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const passport = require('passport')
+require('dotenv').config();
+const { SECRET } = process.env;
 const googleStrategy = require('./authentication/googleStrategy.js');
 const localStrategy = require('./authentication/localStrategy.js');
 const passport = require('passport');
@@ -16,18 +19,23 @@ require('./db.js');
 const server = express();
 server.name = 'API';
 
+
+//server.use(cors());
+//requiero auth
 //middlewares
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
 server.use(
-  require('express-session')({
-    secret: uuidv4(),
+  require("express-session")({
+    secret: SECRET,
     resave: true,
     saveUninitialized: true,
   })
 );
+
+require('./authentication/index');
 server.use(passport.initialize());
 server.use(passport.session());
 
