@@ -11,7 +11,7 @@ import UserProfile from './pages/user profile/UserProfile';
 import EntityProfile from './pages/entity profile/EntityProfile';
 import Dashboard from './pages/Dashboard';
 import About from './pages/About';
-import Contact from './pages/Contact';
+import Contact from './pages/Contact/Contact';
 import Navbar from './Components/NavBar';
 import SingUp from './pages/SingUp';
 // import { useDispatch } from 'react-redux';
