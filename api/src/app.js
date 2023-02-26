@@ -2,11 +2,11 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const passport = require('passport');
 require('dotenv').config();
 const { SECRET } = process.env;
 const googleStrategy = require('./authentication/googleStrategy.js');
 const localStrategy = require('./authentication/localStrategy.js');
-const passport = require('passport');
 const { v4: uuidv4 } = require('uuid');
 const { User } = require('./db.js');
 
