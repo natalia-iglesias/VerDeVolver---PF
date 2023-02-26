@@ -15,31 +15,53 @@ async function chargeDbDonation() {
 }
 
 const createDonation = async (body) => {
-  try {
-    const { amount, UserId, VdVId } = body;
+  const { amount, UserId, VdVId } = body;
 
-    const checkUsers = await User.findAll({
-      where: { id: UserId },
-    });
-    const checkVdvs = await VdV.findAll({
-      where: { id: VdVId },
-    });
+  const checkUsers = await User.findAll({
+    where: { id: UserId },
+  });
+  const checkVdvs = await VdV.findAll({
+    where: { id: VdVId },
+  });
 
-    if (!checkUsers || !checkVdvs)
-      throw Error(
-        'No se puede crear la donacion. El usuario o la VdV no existen'
-      );
+  if (!checkUsers || !checkVdvs)
+    throw Error(
+      'No se puede crear la donacion. El usuario o la VdV no existen'
+    );
 
-    const newDonation = await Donation.create({
-      amount,
-      UserId,
-      VdVId,
-    });
+  // console.log('checkVdvs', checkVdvs);
+  const { name, img } = checkVdvs[0].dataValues;
 
-    return newDonation;
-  } catch (error) {
-    throw Error('Ocurrio un error. No se puede crear la donacion');
-  }
+  // id:
+  // category_id
+  let preference = {
+    items: [
+      {
+        title: name,
+        currency_id: 'ARS',
+        quantity: 1,
+        unit_price: Number(amount),
+        description: `Gracias por su donacion a la entidad ${name}`,
+        picture_url: img,
+      },
+    ],
+    back_urls: {
+      success: 'http://localhost:5173/home',
+      failure: 'http://localhost:5173/map',
+      pending: '', // Este es para pagos en efectivo, por ejemplo en un rapipago, queda como pendiente
+    },
+    auto_return: 'approved',
+    binary_mode: true, // esto es para que no se acepten pagos pendientes, sino pagos que se resuelvan en el momento -> Pongo mi tarjeta de credito, pago y listo
+  };
+
+  const newDonation = await Donation.create({
+    amount,
+    UserId,
+    VdVId,
+  });
+
+  return preference;
+  // return newDonation;
 };
 
 const getAll = async () => {
