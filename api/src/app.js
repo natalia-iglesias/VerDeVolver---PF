@@ -7,7 +7,7 @@ require('dotenv').config();
 const { SECRET } = process.env;
 const googleStrategy = require('./authentication/googleStrategy.js');
 const localStrategy = require('./authentication/localStrategy.js');
-
+const { v4: uuidv4 } = require('uuid');
 const { User } = require('./db.js');
 
 // importamos index
