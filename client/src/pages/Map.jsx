@@ -71,6 +71,10 @@ const Map = () => {
             setZoom(13);
           }}
           style={autocompleteStyle}
+          options={{
+            types: ['address'],
+            componentRestrictions: { country: 'ar' },
+          }}
         />
       </Box>
 

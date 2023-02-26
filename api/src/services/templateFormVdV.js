@@ -84,6 +84,7 @@ const sendVdVFormEmail = async (name, mail) => {
           cid: 'vdv@Fondo',
         },
       ],
+      j,
     },
     (error, info) => {
       if (error) {
