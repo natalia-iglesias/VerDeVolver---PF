@@ -59,7 +59,7 @@ export const createNewEntity = (entity) => {
         'Muchas gracias por completar tus datos! Nos pondremos en contacto vía email.'
       );
     } catch (error) {
-      alert('No pudimos crear el formulario.');
+      alert(error.message);
       dispatch({ type: CREATE_NEW_ENTITY, payload: error.message });
     }
   };
@@ -69,7 +69,7 @@ export const getMaterials = () => {
   return async function (dispatch) {
     try {
       const response = await axios.get('http://localhost:3001/material');
-    //const materials = response.data.map((m) => m.name);---esto lo subio juan, lo dejamos comentado por si le servia para algo
+      //const materials = response.data.map((m) => m.name);---esto lo subio juan, lo dejamos comentado por si le servia para algo
 
       const materials = response.data;
       dispatch({ type: GET_MATERIALS, payload: materials });

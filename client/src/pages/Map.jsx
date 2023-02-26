@@ -108,5 +108,5 @@ const autocompleteStyle = {
   padding: '10px',
   border: '1px solid gray',
   borderRadius: '4px',
-  'font-size': '20px',
+  fontSize: '20px',
 };
