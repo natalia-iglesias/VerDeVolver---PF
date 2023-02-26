@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
-const { Contact } = require('../../db.js');
 
-const sendEmail = async (name, mail, description) => {
+const sendVdVFormEmail = async (name, mail) => {
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
@@ -16,7 +15,7 @@ const sendEmail = async (name, mail, description) => {
     {
       from: 'verdevolver@gmail.com',
       to: `${mail}`,
-      subject: 'Gracias por contactarte con nosotros',
+      subject: 'Recibimos tu formulario!',
       text: 'Gracas por contactarte con nosotros',
       html: `
       <!DOCTYPE html>
@@ -61,9 +60,11 @@ const sendEmail = async (name, mail, description) => {
         <div class="container">
           <img alt="logo-vdv" src="https://res.cloudinary.com/verdevolver/image/upload/v1677343466/Header_Mail_pblyyo.png" class="header" />
           <div class="text_container">
-            <h1>Hola ${name}, gracias por comunicarte con Verdevolver</h1>
-            <p>Hemos recibido el siguiente mensaje: ${description}</p>
-            <p>En el menor tiempo nos comunicaremos contigo</p>
+            <h1>Hola ${name},gracias por completar nuestro formulario.</h1>
+            <p>Los administradores revisarán tu solicitud cuidadosamente.</p>
+            <p>Recibirás una respuesta en los próximos días!</p>
+            <p>Que tengas muy buen día,</p>
+            <p>Equipo de Verde Volver</p>
             <img alt="fondo-vdv" src="https://res.cloudinary.com/verdevolver/image/upload/v1677345555/Fondo2_zstsxi.png" class="fondo_imagen" />
           </div>
         </div>
@@ -94,20 +95,6 @@ const sendEmail = async (name, mail, description) => {
   );
 };
 
-const postComments = async (name, mail, description) => {
-  await Contact.create({ name, mail, description });
-
-  await sendEmail(name, mail, description);
-
-  return 'Se ha enviado el mensaje con exito';
-};
-
-const allComents = async () => {
-  const getAllComents = await Contact.findAll();
-  return getAllComents;
-};
-
 module.exports = {
-  postComments,
-  allComents,
+  sendVdVFormEmail,
 };

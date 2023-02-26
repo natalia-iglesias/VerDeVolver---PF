@@ -11,7 +11,7 @@ const SearchBar = ({ filters, setPage, setInput }) => {
   const [search, setSearch] = useState('');
   let dispatch = useDispatch();
 
-  function handleClick(e) {
+  const handleClick = (e) => {
     e.preventDefault();
     const newFilters = filters.filter((ent) =>
       ent.name.toUpperCase().includes(e.target.value.toUpperCase())
@@ -21,16 +21,12 @@ const SearchBar = ({ filters, setPage, setInput }) => {
     setPage(1);
   }
 
-  function handleKeyDown(e) {
-    if (e.keyCode === 13) {
-      handleClick(e);
-    }
-  }
-
-  function handleChange(e) {
-    e.preventDefault();
+  const handleChange = (e) => {
     setSearch(e.target.value);
-  }
+    dispatch(searchEntities(search));
+  };
+
+  const handleKeyDown = (e) => e.keyCode === 13 && handleClick(e);
 
   return (
     <InputGroup>
