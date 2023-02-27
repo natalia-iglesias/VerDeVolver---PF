@@ -141,7 +141,7 @@ const Contact = () => {
             />
             {!errors.mail.isError && form.mail.length === 0 ? (
               <FormHelperText textAlign={'center'}>
-                Ingresá tu email.
+                Ingresá tu email
               </FormHelperText>
             ) : (
               <FormErrorMessage textAlign={'center'}>
