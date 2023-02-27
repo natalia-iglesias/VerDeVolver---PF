@@ -3,7 +3,6 @@ import {
   Button,
   Checkbox,
   Divider,
-  HStack,
   IconButton,
   Input,
   InputGroup,
@@ -14,17 +13,24 @@ import {
 import { Link } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { AiFillGoogleCircle } from 'react-icons/ai';
-import { BsFacebook, BsGithub } from 'react-icons/bs';
+import {
+  authAcountLocal,
+  authAcountGoogle,
+} from '../redux/actions/acountActions';
 
 const Login = () => {
-  const [logInData, setLogInData] = useState({ user: '', password: '' });
+  const dispatch = useDispatch();
+  const [logInData, setLogInData] = useState({ mail: '', password: '' });
   const [show, setShow] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLogInData({ ...logInData, [name]: value });
   };
+
+  const handleLogin = () => dispatch(authAcountLocal(logInData));
 
   return (
     <Box
@@ -39,9 +45,9 @@ const Login = () => {
         <Input
           type="text"
           onChange={handleChange}
-          value={logInData.user}
-          name="user"
-          placeholder="Type your email or user name"
+          value={logInData.mail}
+          name="mail"
+          placeholder="Type your email"
         />
       </InputGroup>
 
@@ -64,31 +70,19 @@ const Login = () => {
 
       <Checkbox>Remember me?</Checkbox>
 
-      <Button>LOGIN</Button>
+      <Button onClick={handleLogin}>LOGIN</Button>
+
+      <IconButton
+        icon={<AiFillGoogleCircle />}
+        color="brands.google"
+        onClick={() => dispatch(authAcountGoogle())}
+      />
 
       <Text alignSelf={'flex-end'}>
         <Link>Forgot Password?</Link>
       </Text>
 
       <Divider />
-
-      <HStack justifyContent={'center'} gap={'1rem'}>
-        <IconButton
-          icon={<AiFillGoogleCircle />}
-          color="brands.google"
-          variant={'ghost'}
-        />
-        <IconButton
-          icon={<BsFacebook />}
-          color="brands.facebook"
-          variant={'ghost'}
-        />
-        <IconButton
-          icon={<BsGithub />}
-          color="brands.github"
-          variant={'ghost'}
-        />
-      </HStack>
 
       <Text textAlign={'center'}>
         Need an account? <Link to="/singup">SIGN UP</Link>

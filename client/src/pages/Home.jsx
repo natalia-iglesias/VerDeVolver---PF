@@ -12,7 +12,6 @@ import {
   HStack,
   Heading,
 } from '@chakra-ui/react';
-// import PostsCarousel from '../components/PostsCarousel';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import axios from 'axios';
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, useColorMode } from '@chakra-ui/react';
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import MarkerInfo from '../Components/MarkerInfo';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,6 +20,8 @@ const Map = () => {
     (state) => state.entitiesReducer
   );
   const dispatch = useDispatch();
+
+  //const { colorMode } = useColorMode();
 
   useEffect(() => {
     dispatch(fetchEntities());
@@ -92,12 +94,14 @@ const Map = () => {
         ))}
 
         {activeMarker && (
-          <InfoWindow
-            position={{ lat: activeMarker.lat, lng: activeMarker.lng }}
-            onCloseClick={handleInfoWindowClose}
-          >
-            <MarkerInfo data={activeMarker} />
-          </InfoWindow>
+          
+            <InfoWindow
+              position={{ lat: activeMarker.lat, lng: activeMarker.lng }}
+              onCloseClick={handleInfoWindowClose}
+            >
+              <MarkerInfo data={activeMarker} />
+            </InfoWindow>
+          
         )}
       </GoogleMap>
     </Box>
