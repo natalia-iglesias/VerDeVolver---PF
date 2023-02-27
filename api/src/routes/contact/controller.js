@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const { Contact } = require('../../db.js');
+const { SMTP_PASSWORD } = process.env;
 
 const sendEmail = (name, mail, description) => {
   const transporter = nodemailer.createTransport({
@@ -7,14 +8,14 @@ const sendEmail = (name, mail, description) => {
     port: 587,
     secure: false,
     auth: {
-      user: 'verdevolver@gmail.com',
-      pass: 'hngpoqxjettmhpiv',
+      user: 'verdevolver2@gmail.com',
+      pass: SMTP_PASSWORD,
     },
   });
 
   transporter.sendMail(
     {
-      from: 'verdevolver@gmail.com',
+      from: 'verdevolver2@gmail.com',
       to: `${mail}`,
       subject: 'Gracias por contactarte con nosotros 💚',
       text: '',
