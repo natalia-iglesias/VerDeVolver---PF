@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import axios from 'axios';
 import { Link as ReachLink } from 'react-router-dom';
 import {
   Button,
@@ -18,6 +20,30 @@ import {
 } from '@chakra-ui/react';
 
 const EntityCard = ({ entity }) => {
+  const [inputMonto, setInputMonto] = useState('');
+
+  const handleInputs = (event) => {
+    setInputMonto(event.target.value);
+  };
+
+  const handleButton = (event) => {
+    if (inputMonto) {
+      try {
+        axios
+          .post('http://localhost:3001/donation', {
+            VdVId: entity.id,
+            amount: inputMonto,
+            UserId: 1,
+          }) // userId LocalStorage
+          .then((res) => (window.location.href = res.data.body.init_point));
+      } catch (error) {
+        res.status(400).send(error);
+      }
+    } else {
+      alert('ingrese monto');
+    }
+  };
+
   return (
     <Card display="flex" justifyContent="center">
       <CardBody display="flex" flexDir="row" gap="1.5rem" width="80vw">
@@ -46,9 +72,21 @@ const EntityCard = ({ entity }) => {
       <CardFooter>
         <InputGroup size="md">
           <InputLeftAddon children="$" />
-          <Input pr="4.5rem" type="number" placeholder="Amout" />
+          <Input
+            pr="4.5rem"
+            type="number"
+            placeholder="Amout"
+            name="amount"
+            onChange={handleInputs}
+          />
           <InputRightElement width="4.5rem">
-            <Button h="1.75rem" m="0.5rem" size="sm" colorScheme={'green'}>
+            <Button
+              onClick={handleButton}
+              h="1.75rem"
+              m="0.5rem"
+              size="sm"
+              colorScheme={'green'}
+            >
               Donar
             </Button>
           </InputRightElement>

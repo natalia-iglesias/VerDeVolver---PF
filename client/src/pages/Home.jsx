@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchEntities } from '../redux/actions/entitiesActions';
 import {
   Button,
@@ -13,12 +13,13 @@ import {
   Heading,
 } from '@chakra-ui/react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
+import axios from 'axios';
 
 const Home = () => {
   const { entities } = useSelector((state) => state.entitiesReducer);
 
-  // const [inputVdv, setInputVdV] = useState();
-  // const [inputMonto, setInputMonto] = useState();
+  const [inputVdv, setInputVdV] = useState('');
+  const [inputMonto, setInputMonto] = useState('');
 
   const dispatch = useDispatch();
 
@@ -26,18 +27,28 @@ const Home = () => {
     dispatch(fetchEntities());
   }, [dispatch]);
 
-  // const handleInputs = (event) => {
-  //   const { name, value } = event.target;
-  //   name === 'Monto' ? setInputMonto(value) : setInputVdV(value);
-  // };
+  const handleInputs = (event) => {
+    const { name, value } = event.target;
+    name === 'Monto' ? setInputMonto(value) : setInputVdV(value);
+  };
 
-  // const handleButton = (event) => {
-  //   if (inputMonto && inputVdv) {
-  //     alert(`Gracias por donar ${inputMonto} a ${inputVdv}`);
-  //   } else {
-  //     alert('Seleccione entidad o monto faltante');
-  //   }
-  // };
+  const handleButton = (event) => {
+    if (inputMonto && inputVdv) {
+      try {
+        axios
+          .post('http://localhost:3001/donation', {
+            VdVId: inputVdv,
+            amount: inputMonto,
+            UserId: 1,
+          }) // userId LocalStorage
+          .then((res) => (window.location.href = res.data.body.init_point));
+      } catch (error) {
+        res.status(400).send(error);
+      }
+    } else {
+      alert('Seleccione entidad e ingrese monto');
+    }
+  };
 
   return (
     <Box justify="center" align="center">
@@ -58,28 +69,27 @@ const Home = () => {
       </Heading>
       <Stack p={'4'}>
         <HStack>
-          <Select placeholder="Colabora con el punto de reciclaje que te haya ayudado..">
+          <Select
+            placeholder="Colabora con el punto de reciclaje que te haya ayudado.."
+            onChange={handleInputs}
+          >
             {entities?.map(({ id, name }) => (
-              <option key={id}>{name}</option>
+              <option value={id} key={id}>
+                {name}
+              </option>
             ))}
           </Select>
           <InputGroup>
-            <InputLeftElement
-              children={<MdOutlineAttachMoney />}
-              // onChange={handleInputs}
-            />
+            <InputLeftElement children={<MdOutlineAttachMoney />} />
             <Input
               name="Monto"
               placeholder="Monto"
               type="number"
-              // onChange={handleInputs}
+              onChange={handleInputs}
             />
           </InputGroup>
         </HStack>
-        <Button
-          color={'vdv.main'}
-          colorScheme="green" /*onClick={handleButton}*/
-        >
+        <Button color={'vdv.main'} colorScheme="green" onClick={handleButton}>
           Donar
         </Button>
       </Stack>
