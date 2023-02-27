@@ -25,7 +25,11 @@ const Navbar = () => {
       <Flex justifyContent={'center'} mb={'3rem'}>
         <Link as={ReachLink} to="/home">
           <Box boxSize="10em" position={'absolute'} top="-10" left={0}>
-            <Image boxSize="170px" objectFit="cover" src="/images/logo.png" />
+            <Image
+              boxSize="170px"
+              objectFit="cover"
+              src="https://res.cloudinary.com/verdevolver/image/upload/v1677472484/images/kj5khde8ek1o7xrpwhaj.png"
+            />
           </Box>
         </Link>
         <Box fontWeight={'700'} fontSize="1.5em" mt={'2%'}>
