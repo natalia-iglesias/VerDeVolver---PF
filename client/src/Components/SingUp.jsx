@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Divider,
-  HStack,
   IconButton,
   Input,
   InputGroup,
@@ -14,20 +13,20 @@ import { Link } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import { AiFillGoogleCircle } from 'react-icons/ai';
-import { BsFacebook, BsGithub } from 'react-icons/bs';
+import axios from 'axios';
+import { authAcountLocal } from '../redux/actions/acountActions';
+import { useDispatch } from 'react-redux';
 
-const validate = (singUpData) => {
+const validate = ({ mail, password }) => {
   const errors = {};
 
-  if (!singUpData.user) {
-    errors.user = 'Email or username is required';
-  } else if (
-    !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(singUpData.user)
-  ) {
-    errors.user = 'Invalid email format';
+  if (!mail) {
+    errors.mail = 'Email is required';
+  } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(mail)) {
+    errors.mail = 'Invalid email format';
   }
 
-  if (!singUpData.password) {
+  if (!password) {
     errors.password = 'Password is required';
   }
 
@@ -35,7 +34,9 @@ const validate = (singUpData) => {
 };
 
 const SingUp = () => {
-  const [singUpData, setSingUpData] = useState({ user: '', password: '' });
+  const dispatch = useDispatch();
+
+  const [singUpData, setSingUpData] = useState({ mail: '', password: '' });
   const [show, setShow] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -45,16 +46,23 @@ const SingUp = () => {
     setErrors({ ...errors, [name]: '' });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     const errors = validate(singUpData);
     setErrors(errors);
-    if (Object.keys(errors).length === 0) {
-      //hacer el axios
+
+    if (!Object.keys(errors).length) {
+      const res = await axios.post('http://localhost:3001/user', {
+        ...singUpData,
+        name: 'John',
+        last_name: 'Doe',
+        image:
+          'https://thumbs.dreamstime.com/b/portrait-smart-intelligent-middle-aged-man-use-cellphone-professional-social-network-user-wear-stylish-spectacles-isolated-over-165720119.jpg',
+        address: 'Anchorena 545',
+        role: 1,
+      });
+      res.status === 200 && dispatch(authAcountLocal(singUpData));
     }
   };
-
-  console.log(singUpData.user, singUpData.password);
 
   return (
     <Box
@@ -69,12 +77,12 @@ const SingUp = () => {
         <Input
           type="text"
           onChange={handleChange}
-          value={singUpData.user}
-          name="user"
+          value={singUpData.mail}
+          name="mail"
           placeholder="Type your email"
         />
       </InputGroup>
-      {errors.user && <Text color="red.500">{errors.user}</Text>}
+      {errors.mail && <Text color="red.500">{errors.mail}</Text>}
       <InputGroup>
         <InputLeftElement pointerEvents="none" children={<LockIcon />} />
         <Input
@@ -93,7 +101,7 @@ const SingUp = () => {
       </InputGroup>
       {errors.password && <Text color="red.500">{errors.password}</Text>}
 
-      <Button onSubmit={handleSubmit}>SIGN UP</Button>
+      <Button onClick={handleSubmit}>SIGN UP</Button>
 
       <IconButton
         icon={<AiFillGoogleCircle />}
