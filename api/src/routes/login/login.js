@@ -64,14 +64,5 @@ router.get(
 );
 
 //CERRAR
-router.get('/', (req, res) => {
-  req.logout((err) => {
-    if (err) return next(err);
-    req.session.destroy(function (err) {
-      if (err) return next(err);
-      res.redirect('/');
-    });
-  });
-});
 
 module.exports = router;

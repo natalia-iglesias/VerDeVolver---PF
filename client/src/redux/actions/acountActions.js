@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const AUTH_ACOUNT_LOCAL = 'AUTH_ACOUNT_LOCAL';
 export const AUTH_ACOUNT_GOOGLE = 'AUTH_ACOUNT_GOOGLE';
+export const LOGOUT_ACOUNT = 'LOGOUT_ACOUNT';
 
 export const authAcountLocal = ({ mail, password }) => {
   return async (dispatch) => {
@@ -39,6 +40,18 @@ export const authAcountGoogle = () => {
       dispatch({ type: AUTH_ACOUNT_GOOGLE, payload: auth.data });
     } catch (error) {
       alert(error.message);
+    }
+  };
+};
+
+export const logoutAcount = () => {
+  return async (dispatch) => {
+    try {
+      await axios.get('http://localhost:3001/logout');
+
+      dispatch({ type: LOGOUT_ACOUNT, payload: {} });
+    } catch (error) {
+      dispatch({ type: LOGOUT_ACOUNT, payload: {} });
     }
   };
 };
