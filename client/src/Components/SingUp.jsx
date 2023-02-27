@@ -9,13 +9,13 @@ import {
   InputRightElement,
   Text,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiFillGoogleCircle } from 'react-icons/ai';
 import axios from 'axios';
 import { authAcountLocal } from '../redux/actions/acountActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const validate = ({ mail, password }) => {
   const errors = {};
@@ -34,7 +34,13 @@ const validate = ({ mail, password }) => {
 };
 
 const SingUp = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { acount } = useSelector((state) => state.acountReducer);
+
+  useEffect(() => {
+    Object.entries(acount).length && navigate('/home');
+  }, [acount]);
 
   const [singUpData, setSingUpData] = useState({ mail: '', password: '' });
   const [show, setShow] = useState(false);
