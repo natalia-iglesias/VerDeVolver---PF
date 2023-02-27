@@ -94,7 +94,7 @@ const Home = () => {
         </Button>
       </Stack>
 
-      {/* <PostsCarousel
+      <PostsCarousel
         posts={[
           {
             url: 'https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link',
@@ -109,7 +109,7 @@ const Home = () => {
             url: 'https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link',
           },
         ]}
-      /> */}
+      />
     </Box>
   );
 };
