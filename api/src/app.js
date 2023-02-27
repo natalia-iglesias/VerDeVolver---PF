@@ -42,7 +42,7 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   );
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
@@ -73,6 +73,16 @@ passport.deserializeUser(async (id, done) => {
 
 // middlewares para las rutas
 server.use('/', routes);
+
+server.get('/logout', (req, res) => {
+  req.logout((err) => {
+    if (err) return next(err);
+    req.session.destroy(function (err) {
+      if (err) return next(err);
+      res.redirect('/');
+    });
+  });
+});
 
 // Error catching endware.
 server.use((err, req, res, next) => {

@@ -7,12 +7,14 @@ import {
   MenuItem,
   useColorMode,
 } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Link as ReachLink } from 'react-router-dom';
+import { logoutAcount } from '../redux/actions/acountActions';
 
 const Profile = () => {
   const { acount } = useSelector((state) => state.acountReducer);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { colorMode } = useColorMode();
 
@@ -22,12 +24,15 @@ const Profile = () => {
   return (
     <Menu>
       <MenuButton>
-        <Avatar name="John Doe" />
+        <Avatar
+          name={`${acount.name} ${acount.last_name}`}
+          src={acount.image}
+        />
       </MenuButton>
       <MenuList>
         <MenuItem
           as={ReachLink}
-          to={`/userprofile/${acount?.id}`}
+          to={`/userprofile`}
           fontWeight={'700'}
           color={colorMode === 'light' ? 'green' : '#68D391'}
         >
@@ -35,9 +40,10 @@ const Profile = () => {
         </MenuItem>
         <MenuItem
           as={ReachLink}
-          to="/"
+          to="/home"
           fontWeight={'700'}
           color={colorMode === 'light' ? 'green' : '#68D391'}
+          onClick={() => dispatch(logoutAcount())}
         >
           Cerrar Sesión
         </MenuItem>
