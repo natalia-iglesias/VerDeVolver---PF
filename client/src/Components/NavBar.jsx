@@ -10,15 +10,11 @@ import {
   MenuList,
   Link,
   useColorMode,
-  Avatar,
 } from '@chakra-ui/react';
-import { AiOutlineUser } from 'react-icons/ai';
 import Profile from './Profile';
 
 const Navbar = () => {
   const { colorMode } = useColorMode();
-  //Este user id deberia sacarse del local storage o de donde sea que se guarde el id del usuario
-  const userId = 1;
 
   return (
     <Box bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}>
