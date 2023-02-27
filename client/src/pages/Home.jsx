@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import axios from 'axios';
-import PostsCarousel from '../Components/PostsCarousel';
+// import PostsCarousel from '../Components/PostsCarousel';
 
 const Home = () => {
   const { entities } = useSelector((state) => state.entitiesReducer);
@@ -95,7 +95,7 @@ const Home = () => {
         </Button>
       </Stack>
 
-      <PostsCarousel
+      {/* <PostsCarousel
         posts={[
           {
             url: 'https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link',
@@ -110,7 +110,7 @@ const Home = () => {
             url: 'https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link',
           },
         ]}
-      />
+      /> */}
     </Box>
   );
 };
