@@ -7,30 +7,28 @@ import {
   filterEntitiesByMaterial,
 } from '../redux/actions/entitiesActions';
 
-const SearchBar = ({ filters, setPage, setInput }) => {
+const SearchBar = ({ entities, setPage, setInput }) => {
   const [search, setSearch] = useState('');
   let dispatch = useDispatch();
 
-  function handleClick(e) {
+  const handleClick = (e) => {
     e.preventDefault();
-    const newFilters = filters.filter((ent) =>
+    const newFilters = entities.filter((ent) =>
       ent.name.toUpperCase().includes(e.target.value.toUpperCase())
     );
+    if (newFilters.length === 0)
+      return window.alert('No se encontró ninguna entidad con ese nombre');
     dispatch(filterEntitiesByMaterial(newFilters));
     setInput(1);
     setPage(1);
-  }
+  };
 
-  function handleKeyDown(e) {
-    if (e.keyCode === 13) {
-      handleClick(e);
-    }
-  }
-
-  function handleChange(e) {
-    e.preventDefault();
+  const handleChange = (e) => {
     setSearch(e.target.value);
-  }
+    dispatch(searchEntities(search));
+  };
+
+  const handleKeyDown = (e) => e.keyCode === 13 && handleClick(e);
 
   return (
     <InputGroup>
@@ -43,6 +41,7 @@ const SearchBar = ({ filters, setPage, setInput }) => {
       />
 
       <IconButton
+        value={search}
         colorScheme={'green'}
         icon={<SearchIcon />}
         onClick={handleClick}

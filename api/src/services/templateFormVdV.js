@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
-const { Contact } = require('../../db.js');
 
-const sendEmail = (name, mail, description) => {
+const sendVdVFormEmail = async (name, mail) => {
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
@@ -12,14 +11,13 @@ const sendEmail = (name, mail, description) => {
     },
   });
 
-  transporter.sendMail(
+  await transporter.sendMail(
     {
       from: 'verdevolver@gmail.com',
       to: `${mail}`,
-      subject: 'Gracias por contactarte con nosotros 💚',
+      subject: 'Recibimos tu formulario 💚',
       text: '',
-      html: `
-      
+      html: `      
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,8 +56,7 @@ const sendEmail = (name, mail, description) => {
             color: black; 
             font-family: Verdana;
             font-weight: 500; 
-            font-size: 15px; 
-
+            font-size: 15px;  
           }
           .image_container {
             width: 100%;
@@ -73,15 +70,15 @@ const sendEmail = (name, mail, description) => {
           </div>
           <div class="text_container">
             <h1>Hola ${name}, </h1>
-            <h2>Gracias por comunicarte con Verdevolver.</h2>
-            <p>Hemos recibido el siguiente mensaje: ${description}.</p>
-            
-            <p>En el menor tiempo nos comunicaremos contigo!</p>
+            <h2>Gracias por completar nuestro formulario.</h2>
+            <p>Los administradores revisarán tu solicitud cuidadosamente.</p>
+            <p>Recibirás una respuesta en los próximos días!</p>
+            <p>Que tengas muy buen día,</p>
+            <p>Equipo de Verde Volver</p>
             <img alt="fondo-vdv" src="cid:vdv@Fondo" />
           </div>
         </div>
-      </body>
-      
+      </body>      
               `,
       disableUrlAccess: false,
       attachments: [
@@ -101,26 +98,12 @@ const sendEmail = (name, mail, description) => {
       if (error) {
         throw Error('An error has ocurred');
       } else {
-        console.log('Email sent:sssss ', info.response);
+        console.log('Email sent: ', info.response);
       }
     }
   );
 };
 
-const postComments = async (name, mail, description) => {
-  await Contact.create({ name, mail, description });
-
-  sendEmail(name, mail, description);
-
-  return 'Se ha enviado el mensaje con exito';
-};
-
-const allComents = async () => {
-  const getAllComents = await Contact.findAll();
-  return getAllComents;
-};
-
 module.exports = {
-  postComments,
-  allComents,
+  sendVdVFormEmail,
 };

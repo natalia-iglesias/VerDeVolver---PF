@@ -30,6 +30,12 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      lat: {
+        type: DataTypes.FLOAT,
+      },
+      lng: {
+        type: DataTypes.FLOAT,
+      },
       cbu: {
         type: DataTypes.STRING,
         unique: true,

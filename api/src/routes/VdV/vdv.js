@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { sendVdVFormEmail } = require('../../services/nodemailer');
+const { sendVdVFormEmail } = require('../../services/templateFormVdV');
 const {
   chargeDbVdVs,
   vdvCreate,
@@ -77,7 +77,7 @@ router.post('/', async (req, res) => {
     res.status(200).send(result);
     sendVdVFormEmail(req.body.name, req.body.mail);
   } catch (error) {
-    res.status(404).send('Ocurrio un error. No se pudo crear la entidad');
+    res.status(404).json({ error: error.message });
   }
 });
 

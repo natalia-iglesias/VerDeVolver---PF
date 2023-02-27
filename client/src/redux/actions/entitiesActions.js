@@ -15,7 +15,6 @@ export const fetchEntities = () => {
   return async (dispatch) => {
     try {
       const res = await axios.get('http://localhost:3001/vdv');
-
       const entities = res.data;
 
       dispatch({ type: FETCH_ENTITIES, payload: entities });
@@ -37,8 +36,6 @@ export const getEntityById = (id) => {
     const res = await axios.get(`http://localhost:3001/vdv/${id}`);
     const entity = res.data;
 
-    console.log(entity);
-
     dispatch({ type: GET_ENTITY_BY_ID, payload: entity });
   };
 };
@@ -47,8 +44,6 @@ export const getEntityFeedbacks = (id) => {
   return async (dispatch) => {
     const res = await axios.get(`http://localhost:3001/feedback/vdv/${id}`);
     const feedbacks = res.data;
-
-    console.log(feedbacks);
 
     dispatch({ type: GET_ENTITY_FEEDBACKS, payload: feedbacks });
   };
@@ -64,7 +59,7 @@ export const createNewEntity = (entity) => {
         'Muchas gracias por completar tus datos! Nos pondremos en contacto vía email.'
       );
     } catch (error) {
-      alert('No pudimos crear el formulario.');
+      alert(error.message);
       dispatch({ type: CREATE_NEW_ENTITY, payload: error.message });
     }
   };
@@ -74,9 +69,9 @@ export const getMaterials = () => {
   return async function (dispatch) {
     try {
       const response = await axios.get('http://localhost:3001/material');
+      //const materials = response.data.map((m) => m.name);---esto lo subio juan, lo dejamos comentado por si le servia para algo
 
       const materials = response.data;
-
       dispatch({ type: GET_MATERIALS, payload: materials });
     } catch (error) {
       alert(error.message);

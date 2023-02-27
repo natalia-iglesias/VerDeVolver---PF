@@ -17,7 +17,11 @@ export const createNewContact = (contact) => {
     try {
       const res = await axios.post('http://localhost:3001/contact', contact);
       const message = res.data;
-      dispatch({ type: CREATE_NEW_CONTACT, payload: message });
+      let payload = {
+        message,
+        contact,
+      };
+      dispatch({ type: CREATE_NEW_CONTACT, payload: payload.contact });
       alert('Muchas gracias! Nos pondremos en contacto vía email.');
     } catch (error) {
       alert('No pudimos enviar tu comentario.');

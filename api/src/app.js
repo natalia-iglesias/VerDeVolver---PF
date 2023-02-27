@@ -2,6 +2,12 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const passport = require('passport');
+require('dotenv').config();
+const { SECRET } = process.env;
+const googleStrategy = require('./authentication/googleStrategy.js');
+const localStrategy = require('./authentication/localStrategy.js');
+const { User } = require('./db.js');
 
 // importamos index
 const routes = require('./routes/index.js');
@@ -11,11 +17,24 @@ require('./db.js');
 const server = express();
 server.name = 'API';
 
+//server.use(cors());
+//requiero auth
 //middlewares
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
+server.use(
+  require('express-session')({
+    secret: SECRET,
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+require('./authentication/index');
+server.use(passport.initialize());
+server.use(passport.session());
 
 //corse
 server.use((req, res, next) => {
@@ -27,6 +46,29 @@ server.use((req, res, next) => {
   );
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
+});
+
+// Configuracion de Passport.js
+passport.use(googleStrategy);
+passport.use(localStrategy);
+
+// Configuración de la sesión de Passport.js
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    // Busca el usuario en la base de datos por su ID
+    const user = await User.findByPk(id);
+    if (user) {
+      done(null, user);
+    } else {
+      done(null, false);
+    }
+  } catch (error) {
+    done(error);
+  }
 });
 
 // middlewares para las rutas

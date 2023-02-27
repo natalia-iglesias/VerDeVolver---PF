@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
+import axios from 'axios';
 import PropagateLoader from 'react-spinners/PropagateLoader';
 import {
   Avatar,
@@ -39,8 +41,31 @@ const EntityDetail = () => {
 
   const { entity, feedbacks } = useSelector((state) => state.entitiesReducer);
 
-  if (!entity) return <PropagateLoader color="#1c5738" />;
-  if (!feedbacks) return <PropagateLoader color="#1c5738" />;
+  if (!entity || !feedbacks) return <PropagateLoader color="#1c5738" />;
+
+  const [inputMonto, setInputMonto] = useState('');
+
+  const handleInputs = (event) => {
+    setInputMonto(event.target.value);
+  };
+
+  const handleButton = (event) => {
+    if (inputMonto) {
+      try {
+        axios
+          .post('http://localhost:3001/donation', {
+            VdVId: id,
+            amount: inputMonto,
+            UserId: 1,
+          }) // userId LocalStorage
+          .then((res) => (window.location.href = res.data.body.init_point));
+      } catch (error) {
+        res.status(400).send(error);
+      }
+    } else {
+      alert('ingrese monto');
+    }
+  };
 
   return (
     <Grid templateColumns="repeat(2, 1fr)" gap={'1rem'}>
@@ -49,8 +74,13 @@ const EntityDetail = () => {
           <Image src={entity.img} maxHeight="35%" maxWidth="50%" />
           <InputGroup>
             <InputLeftElement children={<MdOutlineAttachMoney />} />
-            <Input placeholder="Monto" type={'number'} />
-            <Button>Donar</Button>
+            <Input
+              name="Monto"
+              placeholder="Monto"
+              type={'number'}
+              onChange={handleInputs}
+            />
+            <Button onClick={handleButton}>Donar</Button>
           </InputGroup>
         </VStack>
       </GridItem>
