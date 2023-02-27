@@ -29,6 +29,7 @@ const Navbar = () => {
               boxSize="170px"
               objectFit="cover"
               src="https://res.cloudinary.com/verdevolver/image/upload/v1677472484/images/kj5khde8ek1o7xrpwhaj.png"
+              // src="/images/logo.png"
             />
           </Box>
         </Link>

@@ -14,8 +14,8 @@ import {
 } from '@chakra-ui/react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import axios from 'axios';
-import { InstagramEmbed } from 'react-social-media-embed';
-// import PostsCarousel from '../Components/PostsCarousel';
+// import { InstagramEmbed } from 'react-social-media-embed';
+import PostsCarousel from '../Components/PostsCarousel';
 
 const Home = () => {
   const { entities } = useSelector((state) => state.entitiesReducer);
@@ -96,7 +96,7 @@ const Home = () => {
         </Button>
       </Stack>
 
-      <div
+      {/* <div
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -105,8 +105,8 @@ const Home = () => {
           marginTop: '1rem',
           marginBottom: '1rem',
         }}
-      >
-        <InstagramEmbed
+      > */}
+      {/* <InstagramEmbed
           url="https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link"
           width={328}
         />
@@ -122,9 +122,9 @@ const Home = () => {
           url="https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link"
           width={328}
         />
-      </div>
+      </div> */}
 
-      {/* <PostsCarousel
+      <PostsCarousel
         posts={[
           {
             url: 'https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link',
@@ -139,7 +139,7 @@ const Home = () => {
             url: 'https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link',
           },
         ]}
-      /> */}
+      />
     </Box>
   );
 };
