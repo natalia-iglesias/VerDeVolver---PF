@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import axios from 'axios';
+// import PostsCarousel from '../Components/PostsCarousel';
 
 const Home = () => {
   const { entities } = useSelector((state) => state.entitiesReducer);
