@@ -1,3 +1,7 @@
+// Las rutas para devolver al usuario mientras usamos el localhost en el front
+// success: 'http://localhost:5173/home',
+// failure: 'http://localhost:5173/home',
+
 const { Donation, User, VdV } = require('../../db.js');
 
 //ESTE ES EL BULKCREATE NO LO BORREN
@@ -46,8 +50,8 @@ const createDonation = async (body) => {
       },
     ],
     back_urls: {
-      success: 'http://localhost:5173/home',
-      failure: 'http://localhost:5173/home',
+      success: 'https://ver-de-volver-pf.vercel.app/',
+      failure: 'https://ver-de-volver-pf.vercel.app/',
       pending: '', // Este es para pagos en efectivo, por ejemplo en un rapipago, queda como pendiente
     },
     auto_return: 'approved',
