@@ -22,7 +22,10 @@ import {
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [logInData, setLogInData] = useState({ mail: '', password: '' });
+  const [logInData, setLogInData] = useState({
+    mail: '',
+    password: '',
+  });
   const [show, setShow] = useState(false);
 
   const handleChange = (e) => {
@@ -30,7 +33,9 @@ const Login = () => {
     setLogInData({ ...logInData, [name]: value });
   };
 
-  const handleLogin = () => dispatch(authAcountLocal(logInData));
+  const handleLogin = async () => {
+    dispatch(authAcountLocal(logInData));
+  };
 
   return (
     <Box

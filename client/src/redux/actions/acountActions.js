@@ -7,18 +7,22 @@ export const authAcountLocal = ({ mail, password }) => {
   return async (dispatch) => {
     try {
       const auth = await axios.post('http://localhost:3001/login', {
-        mail,
-        password,
+        mail: mail,
+        password: password,
       });
+
       const { token } = await auth.data;
 
-      const cfg = {
+      const config = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       };
 
-      const acount = await axios.get('http://localhost:3001/login', mail, cfg);
+      const acount = await axios.get(
+        `http://localhost:3001/login?mail=${mail}`,
+        config
+      );
 
       dispatch({ type: AUTH_ACOUNT_LOCAL, payload: acount.data });
     } catch (error) {

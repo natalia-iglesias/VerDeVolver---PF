@@ -40,7 +40,7 @@ router.get(
   }),
   async (req, res, next) => {
     try {
-      const { mail } = req.body;
+      const { mail } = req.query;
       const user = await findUser(mail);
       res.send(user);
     } catch (error) {
