@@ -13,6 +13,7 @@ import {
   Avatar,
 } from '@chakra-ui/react';
 import { AiOutlineUser } from 'react-icons/ai';
+import Profile from './Profile';
 
 const Navbar = () => {
   const { colorMode } = useColorMode();
@@ -99,32 +100,7 @@ const Navbar = () => {
           </Menu>
         </Box>
         <Box boxSize="50px" position={'absolute'} top="2" right={2}>
-          <Menu>
-            <MenuButton>
-              <Image
-                src="https://img.icons8.com/ios11/600/FFFFFF/user.png"
-                alt="Perfil logo"
-              ></Image>
-            </MenuButton>
-            <MenuList>
-              <MenuItem
-                as={ReachLink}
-                to={`/userprofile/${userId}`}
-                fontWeight={'700'}
-                color={colorMode === 'light' ? 'green' : '#68D391'}
-              >
-                Mi perfil
-              </MenuItem>
-              <MenuItem
-                as={ReachLink}
-                to="/"
-                fontWeight={'700'}
-                color={colorMode === 'light' ? 'green' : '#68D391'}
-              >
-                Cerrar Sesión
-              </MenuItem>
-            </MenuList>
-          </Menu>
+          <Profile />
         </Box>
       </Flex>
     </Box>

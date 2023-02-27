@@ -3,7 +3,6 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const { SECRET } = process.env;
-const User = require('../../db');
 const { findUser } = require('./controller.js');
 
 const router = Router();
@@ -39,9 +38,11 @@ router.get(
   passport.authenticate('jwt', {
     session: false,
   }),
-  (req, res, next) => {
+  async (req, res, next) => {
     try {
-      res.send('autorizado');
+      const { mail } = req.body;
+      const user = await findUser(mail);
+      res.send(user);
     } catch (error) {
       next(error);
     }
@@ -61,6 +62,7 @@ router.get(
     res.redirect('/');
   }
 );
+
 //CERRAR
 router.get('/', (req, res) => {
   req.logout((err) => {
@@ -71,4 +73,5 @@ router.get('/', (req, res) => {
     });
   });
 });
+
 module.exports = router;

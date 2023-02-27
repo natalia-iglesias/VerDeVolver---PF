@@ -71,7 +71,7 @@ const SingUp = () => {
           onChange={handleChange}
           value={singUpData.user}
           name="user"
-          placeholder="Type your email or user name"
+          placeholder="Type your email"
         />
       </InputGroup>
       {errors.user && <Text color="red.500">{errors.user}</Text>}
@@ -92,27 +92,16 @@ const SingUp = () => {
         </InputRightElement>
       </InputGroup>
       {errors.password && <Text color="red.500">{errors.password}</Text>}
+
       <Button onSubmit={handleSubmit}>SIGN UP</Button>
 
-      <Divider />
+      <IconButton
+        icon={<AiFillGoogleCircle />}
+        color="brands.google"
+        onClick={() => dispatch(authAcountGoogle())}
+      />
 
-      <HStack justifyContent={'center'} gap={'1rem'}>
-        <IconButton
-          icon={<AiFillGoogleCircle />}
-          color="brands.google"
-          variant={'ghost'}
-        />
-        <IconButton
-          icon={<BsFacebook />}
-          color="brands.facebook"
-          variant={'ghost'}
-        />
-        <IconButton
-          icon={<BsGithub />}
-          color="brands.github"
-          variant={'ghost'}
-        />
-      </HStack>
+      <Divider />
 
       <Text textAlign={'center'}>
         Already a user? <Link to="/login">LOGIN</Link>
