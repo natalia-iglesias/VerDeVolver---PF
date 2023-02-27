@@ -40,7 +40,7 @@ router.get(
   }),
   async (req, res, next) => {
     try {
-      const { mail } = req.body;
+      const { mail } = req.query;
       const user = await findUser(mail);
       res.send(user);
     } catch (error) {
@@ -65,14 +65,5 @@ router.get(
 );
 
 //CERRAR
-router.get('/', (req, res) => {
-  req.logout((err) => {
-    if (err) return next(err);
-    req.session.destroy(function (err) {
-      if (err) return next(err);
-      res.redirect('/');
-    });
-  });
-});
 
 module.exports = router;

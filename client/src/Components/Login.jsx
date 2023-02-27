@@ -10,10 +10,10 @@ import {
   InputRightElement,
   Text,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { AiFillGoogleCircle } from 'react-icons/ai';
 import {
   authAcountLocal,
@@ -21,8 +21,18 @@ import {
 } from '../redux/actions/acountActions';
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [logInData, setLogInData] = useState({ mail: '', password: '' });
+  const { acount } = useSelector((state) => state.acountReducer);
+
+  useEffect(() => {
+    Object.entries(acount).length && navigate('/home');
+  }, [acount]);
+
+  const [logInData, setLogInData] = useState({
+    mail: '',
+    password: '',
+  });
   const [show, setShow] = useState(false);
 
   const handleChange = (e) => {
@@ -30,7 +40,9 @@ const Login = () => {
     setLogInData({ ...logInData, [name]: value });
   };
 
-  const handleLogin = () => dispatch(authAcountLocal(logInData));
+  const handleLogin = async () => {
+    dispatch(authAcountLocal(logInData));
+  };
 
   return (
     <Box
