@@ -44,7 +44,7 @@ const Entities = () => {
 
   return (
     <VStack mx="1rem">
-      <SearchBar filters={filters} setPage={setPage} setInput={setInput} />
+      <SearchBar entities={entities} setPage={setPage} setInput={setInput} />
       <Button
         colorScheme="green"
         size="sm"
