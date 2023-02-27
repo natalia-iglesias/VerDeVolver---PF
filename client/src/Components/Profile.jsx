@@ -22,12 +22,15 @@ const Profile = () => {
   return (
     <Menu>
       <MenuButton>
-        <Avatar name="John Doe" />
+        <Avatar
+          name={`${acount.name} ${acount.last_name}`}
+          src={acount.image}
+        />
       </MenuButton>
       <MenuList>
         <MenuItem
           as={ReachLink}
-          to={`/userprofile/${acount?.id}`}
+          to={`/userprofile`}
           fontWeight={'700'}
           color={colorMode === 'light' ? 'green' : '#68D391'}
         >

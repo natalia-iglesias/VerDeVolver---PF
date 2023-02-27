@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   Flex,
@@ -6,40 +6,45 @@ import {
   Card,
   CardBody,
   Text,
-  Button,
   Divider,
   Link,
 } from '@chakra-ui/react';
-import { StarIcon, DeleteIcon } from '@chakra-ui/icons';
+import { StarIcon } from '@chakra-ui/icons';
 import { Link as ReachLink } from 'react-router-dom';
 
 function DashboardScroll({ type, id }) {
   const [arrayToRender, setArrayToRender] = useState();
   useEffect(() => {
-    if (type == 'userDonation') {
-      axios.get(`http://localhost:3001/donation/user/${id}`).then((res) => {
-        res.data.forEach((obj) => (obj.User = false));
-        setArrayToRender(res.data);
-      });
+    const Axios = axios.create({ baseURL: 'http://localhost:3001' });
+
+    switch (type) {
+      case 'userDonation':
+        Axios.get(`/donation/user/${id}`).then((res) => {
+          res.data.forEach((obj) => (obj.User = false));
+          setArrayToRender(res.data);
+        });
+        break;
+      case 'userService':
+        Axios.get(`/service/user/${id}`).then((res) => {
+          res.data.forEach((obj) => (obj.User = false));
+          setArrayToRender(res.data);
+        });
+        break;
+      case 'entityDonation':
+        Axios.get(`/donation/vdv/${id}`).then((res) => {
+          res.data.forEach((obj) => (obj.VdV = false));
+          setArrayToRender(res.data);
+        });
+        break;
+      case 'comment':
+        setArrayToRender(commentArray);
+        break;
     }
-    if (type == 'userService') {
-      axios.get(`http://localhost:3001/service/user/${id}`).then((res) => {
-        res.data.forEach((obj) => (obj.User = false));
-        setArrayToRender(res.data);
-      });
-    }
-    if (type == 'entityDonation') {
-      axios.get(`http://localhost:3001/donation/vdv/${id}`).then((res) => {
-        res.data.forEach((obj) => (obj.VdV = false));
-        setArrayToRender(res.data);
-      });
-    }
-    if (type == 'comment') setArrayToRender(commentArray);
   }, []);
 
   return (
     <Box w="40vw" h="40vh" overflow="auto">
-      <Flex overflowX="scroll" px={4} py={2} flexDirection="column">
+      <Flex overflowY="scroll" flexDirection="column" gap={'1rem'}>
         {arrayToRender?.map((item, i) => {
           let arreglo;
           if (item.rating) {
@@ -49,7 +54,7 @@ function DashboardScroll({ type, id }) {
           return (
             <div key={i}>
               <Flex direction="row">
-                <Card w="90vw">
+                <Card w="full">
                   <CardBody>
                     <Text>
                       {item.name && `${item.name} /`}
