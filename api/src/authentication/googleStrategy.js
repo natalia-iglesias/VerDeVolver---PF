@@ -24,6 +24,7 @@ const googleStrategy = new GoogleStrategy(
           last_name: profile.name.familyName,
           mail: profile.emails[0].value,
           image: profile.photos[0].value,
+          password: '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',
         });
         done(null, newUser);
       }

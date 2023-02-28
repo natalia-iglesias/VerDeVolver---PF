@@ -59,7 +59,8 @@ router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    res.redirect('/');
+    const { user } = req;
+    res.redirect(`http://localhost:5174/login/${user.id}`);
   }
 );
 

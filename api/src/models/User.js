@@ -26,7 +26,6 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
         // validate: {
         //   len: [8, 20],
         // },
@@ -34,7 +33,9 @@ module.exports = (sequelize) => {
       // Esto va a ser "Longitud" y "Latitud" -> GMaps || address -> ver Front
       address: {
         type: DataTypes.STRING, // buscra regex
-        allowNull: false,
+      },
+      googleId: {
+        type: DataTypes.STRING,
       },
     },
     { timestamps: false }
