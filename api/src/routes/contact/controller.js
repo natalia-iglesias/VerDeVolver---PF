@@ -9,7 +9,11 @@ const sendEmail = (name, mail, description) => {
     secure: false,
     auth: {
       user: 'verdevolver2@gmail.com',
-      pass: SMTP_PASSWORD,
+
+      //pass: SMTP_PASSWORD,
+
+      pass: 'ioiolsykzqzfwday',
+
     },
   });
 
