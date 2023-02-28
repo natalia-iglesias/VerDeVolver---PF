@@ -7,10 +7,10 @@ require('dotenv').config();
 const { PGDATABASE, PGHOST, PGPASSWORD, PGPORT, PGUSER } = process.env;
 
 const sequelize = new Sequelize(
-  // `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}`,
-  `postgresql://${{ PGUSER }}:${{ PGPASSWORD }}@${{ PGHOST }}:${{ PGPORT }}/${{
-    PGDATABASE,
-  }}`,
+  `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}`,
+  // `postgresql://${{ PGUSER }}:${{ PGPASSWORD }}@${{ PGHOST }}:${{ PGPORT }}/${{
+  //   PGDATABASE,
+  // }}`,
   // `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/verdevolver`,
   {
     logging: false,
