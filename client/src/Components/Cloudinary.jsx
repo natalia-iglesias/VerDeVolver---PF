@@ -6,6 +6,9 @@ const UploadImage = ({ onUpload }) => {
   const [image, setImage] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const apiKey = '733373445746211';
+  const secretKey = '5EQKnIBW3RsNTlut0oy6y6IJgAc';
+
   const upImages = async (e) => {
     const files = e.target.files;
     const data = new FormData();
@@ -15,10 +18,16 @@ const UploadImage = ({ onUpload }) => {
     setLoading(true);
     try {
       const res = await fetch(
-        'https:api.cloudinary.com/v1_1/verdevolver/image/upload',
+        'https://api.cloudinary.com/v1_1/verdevolver/image/upload?upload_preset=skkkp5tl',
+
         {
           method: 'POST',
           body: data,
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+            Authorization: 'Basic ' + btoa(`${apiKey}:${secretKey}`),
+          },
         }
       );
       const file = await res.json();
@@ -48,41 +57,3 @@ const UploadImage = ({ onUpload }) => {
 };
 
 export default UploadImage;
-
-// import React, { useState } from 'react';
-
-// const cloudName = 'tateuer';
-// const uploadPreset = 'ef81nfzf';
-
-// const ImageUploader = () => {
-//   const [image, setImage] = useState('');
-
-//   const handleImageUpload = (event) => {
-//     const file = event.target.files[0];
-//     const formData = new FormData();
-//     formData.append('file', file);
-//     formData.append('upload_preset', uploadPreset);
-//     formData.append('cloud_name', cloudName);
-
-//     fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-//       method: 'POST',
-//       body: formData,
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         setImage(data.secure_url);
-//       })
-//       .catch((error) => {
-//         console.error(error);
-//       });
-//   };
-//   console.log(image);
-//   return (
-//     <div>
-//       <input type="file" onChange={handleImageUpload} />
-//       {image && <img src={image} alt="Uploaded" />}
-//     </div>
-//   );
-// };
-
-// export default ImageUploader;
