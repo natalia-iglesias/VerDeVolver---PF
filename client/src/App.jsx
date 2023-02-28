@@ -38,6 +38,7 @@ const App = () => {
         <Route path="/entitie/:id" element={<EntitieDetail />} />
         <Route path="/beVdV" element={<SingUpEntitie />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/login/:googleId" element={<Login />} />
         <Route path="/singup" element={<SingUp />} />
         <Route path="/userprofile" element={<UserProfile />} />
         <Route path="/entityprofile/:id" element={<EntityProfile />} />
