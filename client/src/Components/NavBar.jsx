@@ -28,7 +28,10 @@ const Navbar = () => {
     >
       <Box>
         <Link as={ReachLink} to="/home">
-          <Image src="/images/logo.png" w="10rem" />
+          <Image
+            src="https://res.cloudinary.com/verdevolver/image/upload/v1677472484/images/kj5khde8ek1o7xrpwhaj.png"
+            w="10rem"
+          />
         </Link>
       </Box>
 
