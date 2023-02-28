@@ -52,7 +52,11 @@ export const getEntityFeedbacks = (id) => {
 export const createNewEntity = (entity) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post('http://localhost:3001/vdv', entity);
+      const res = await axios.post(
+        // http://localhost:3001/vdv
+        'verdevolver-pf-production.up.railway.app/vdv',
+        entity
+      );
       const message = res.data;
       dispatch({ type: CREATE_NEW_ENTITY, payload: message });
       alert(
