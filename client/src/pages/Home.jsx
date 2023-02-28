@@ -13,9 +13,14 @@ import {
   Heading,
 } from '@chakra-ui/react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
+import PostsCarousel from '../Components/PostsCarousel';
 import axios from 'axios';
+<<<<<<< HEAD
 // import { InstagramEmbed } from 'react-social-media-embed';
 import PostsCarousel from '../Components/PostsCarousel';
+=======
+import { InstagramEmbed } from 'react-social-media-embed';
+>>>>>>> 9466b1811b4f1207094d855b45c90264f68fa674
 
 const Home = () => {
   const { entities } = useSelector((state) => state.entitiesReducer);
@@ -95,6 +100,7 @@ const Home = () => {
           Donar
         </Button>
       </Stack>
+<<<<<<< HEAD
 
       {/* <div
         style={{
@@ -124,6 +130,9 @@ const Home = () => {
         />
       </div> */}
 
+=======
+      
+>>>>>>> 9466b1811b4f1207094d855b45c90264f68fa674
       <PostsCarousel
         posts={[
           {
