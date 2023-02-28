@@ -36,6 +36,9 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING, // buscra regex
         allowNull: false,
       },
+      image: {
+        type: DataTypes.STRING,
+      },
     },
     { timestamps: false }
   );

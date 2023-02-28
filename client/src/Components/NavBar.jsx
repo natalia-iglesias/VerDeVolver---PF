@@ -60,7 +60,7 @@ const Navbar = () => {
               </MenuItem>
               <MenuItem
                 as={ReachLink}
-                to="/breVdV"
+                to="/beVdV"
                 color={colorMode === 'light' ? 'green' : '#68D391'}
                 fontWeight="semibold"
                 fontSize="xl"
