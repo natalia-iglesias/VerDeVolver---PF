@@ -13,9 +13,14 @@ import {
   Heading,
 } from '@chakra-ui/react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
+import PostsCarousel from '../Components/PostsCarousel';
 import axios from 'axios';
+<<<<<<< HEAD
+// import { InstagramEmbed } from 'react-social-media-embed';
+import PostsCarousel from '../Components/PostsCarousel';
+=======
 import { InstagramEmbed } from 'react-social-media-embed';
-// import PostsCarousel from '../Components/PostsCarousel';
+>>>>>>> 9466b1811b4f1207094d855b45c90264f68fa674
 
 const Home = () => {
   const { entities } = useSelector((state) => state.entitiesReducer);
@@ -95,8 +100,9 @@ const Home = () => {
           Donar
         </Button>
       </Stack>
+<<<<<<< HEAD
 
-      <div
+      {/* <div
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -105,8 +111,8 @@ const Home = () => {
           marginTop: '1rem',
           marginBottom: '1rem',
         }}
-      >
-        <InstagramEmbed
+      > */}
+      {/* <InstagramEmbed
           url="https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link"
           width={328}
         />
@@ -122,9 +128,12 @@ const Home = () => {
           url="https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link"
           width={328}
         />
-      </div>
+      </div> */}
 
-      {/* <PostsCarousel
+=======
+      
+>>>>>>> 9466b1811b4f1207094d855b45c90264f68fa674
+      <PostsCarousel
         posts={[
           {
             url: 'https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link',
@@ -139,7 +148,7 @@ const Home = () => {
             url: 'https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link',
           },
         ]}
-      /> */}
+      />
     </Box>
   );
 };

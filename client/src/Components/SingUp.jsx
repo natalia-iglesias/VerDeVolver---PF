@@ -2,7 +2,8 @@ import {
   Box,
   Button,
   Divider,
-  HStack,
+  FormControl,
+  FormErrorMessage,
   IconButton,
   Input,
   InputGroup,
@@ -10,51 +11,98 @@ import {
   InputRightElement,
   Text,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiFillGoogleCircle } from 'react-icons/ai';
-import { BsFacebook, BsGithub } from 'react-icons/bs';
+import { BiUser, BiDirections, BiImage } from 'react-icons/bi';
+import axios from 'axios';
+import { authAcountLocal } from '../redux/actions/acountActions';
+import { useDispatch, useSelector } from 'react-redux';
 
-const validate = (singUpData) => {
+const validate = ({ name, last_name, mail, password, address, image }) => {
   const errors = {};
 
-  if (!singUpData.user) {
-    errors.user = 'Email or username is required';
-  } else if (
-    !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(singUpData.user)
-  ) {
-    errors.user = 'Invalid email format';
+  if (!name) {
+    errors.name = 'El nombre es obligatorio';
+  } else if (name.length < 4 || name.length > 16) {
+    errors.name = 'El nombre debe tener entre 4 y 16 caracteres';
   }
 
-  if (!singUpData.password) {
-    errors.password = 'Password is required';
+  if (!last_name) {
+    errors.last_name = 'El apellido es obligatorio';
+  } else if (last_name.length < 4 || last_name.length > 16) {
+    errors.last_name = 'El apellido debe tener entre 4 y 16 caracteres';
+  }
+
+  if (!mail) {
+    errors.mail = 'El mail es obligatorio';
+  } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(mail)) {
+    errors.mail = 'Formato de mail invalido';
+  }
+
+  if (!password) {
+    errors.password = 'La contraseña es obligatoria';
+  } else if (password.length < 4 || password.length > 16) {
+    errors.password = 'La contraseña debe tener entre 4 y 16 caracteres';
+  }
+
+  if (!address) {
+    errors.address = 'La dirección es obligatoria';
+  } else if (address.length < 8 || address.length > 32) {
+    errors.address = 'La dirección debe tener entre 8 y 32 caracteres';
+  }
+
+  if (!image) {
+    errors.image = 'La imagen es obligatoria';
+  } else if (
+    !image.startsWith('https://') ||
+    (!image.endsWith('.jpg') && !image.endsWith('.png'))
+  ) {
+    errors.image = 'Formato de imagen invalido';
   }
 
   return errors;
 };
 
 const SingUp = () => {
-  const [singUpData, setSingUpData] = useState({ user: '', password: '' });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { acount } = useSelector((state) => state.acountReducer);
+
+  useEffect(() => {
+    Object.entries(acount).length && navigate('/home');
+  }, [acount]);
+
+  const [singUpData, setSingUpData] = useState({
+    name: '',
+    last_name: '',
+    mail: '',
+    password: '',
+    address: '',
+    image: '',
+  });
   const [show, setShow] = useState(false);
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSingUpData({ ...singUpData, [name]: value });
-    setErrors({ ...errors, [name]: '' });
+    setErrors(validate({ ...singUpData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     const errors = validate(singUpData);
     setErrors(errors);
-    if (Object.keys(errors).length === 0) {
-      //hacer el axios
+
+    if (!Object.keys(errors).length) {
+      const res = await axios.post('http://localhost:3001/user', {
+        ...singUpData,
+        role: 1,
+      });
+      res.status === 200 && dispatch(authAcountLocal(singUpData));
     }
   };
-
-  console.log(singUpData.user, singUpData.password);
 
   return (
     <Box
@@ -64,36 +112,105 @@ const SingUp = () => {
       gap={'1rem'}
       overflow={'hidden'}
     >
-      <InputGroup>
-        <InputLeftElement pointerEvents="none" children={<AtSignIcon />} />
-        <Input
-          type="text"
-          onChange={handleChange}
-          value={singUpData.user}
-          name="user"
-          placeholder="Type your email"
-        />
-      </InputGroup>
-      {errors.user && <Text color="red.500">{errors.user}</Text>}
-      <InputGroup>
-        <InputLeftElement pointerEvents="none" children={<LockIcon />} />
-        <Input
-          type={show ? 'text' : 'password'}
-          onChange={handleChange}
-          value={singUpData.password}
-          name="password"
-          placeholder="Type your password"
-        />
-        <InputRightElement>
-          <IconButton
-            icon={show ? <ViewOffIcon /> : <ViewIcon />}
-            onClick={() => setShow(!show)}
-          />
-        </InputRightElement>
-      </InputGroup>
-      {errors.password && <Text color="red.500">{errors.password}</Text>}
+      <FormControl isInvalid={errors.name}>
+        <InputGroup>
+          <InputLeftElement pointerEvents="none" children={<BiUser />} />
 
-      <Button onSubmit={handleSubmit}>SIGN UP</Button>
+          <Input
+            type="text"
+            onChange={handleChange}
+            value={singUpData.name}
+            name="name"
+            placeholder="Escribe tu nombre"
+          />
+        </InputGroup>
+        {errors.name && <FormErrorMessage>{errors.name}</FormErrorMessage>}
+      </FormControl>
+
+      <FormControl isInvalid={errors.last_name}>
+        <InputGroup>
+          <InputLeftElement pointerEvents="none" children={<BiUser />} />
+
+          <Input
+            type="text"
+            onChange={handleChange}
+            value={singUpData.last_name}
+            name="last_name"
+            placeholder="Escribe tu apellido"
+          />
+        </InputGroup>
+        {errors.last_name && (
+          <FormErrorMessage>{errors.last_name}</FormErrorMessage>
+        )}
+      </FormControl>
+
+      <FormControl isInvalid={errors.mail}>
+        <InputGroup>
+          <InputLeftElement pointerEvents="none" children={<AtSignIcon />} />
+          <Input
+            type="text"
+            onChange={handleChange}
+            value={singUpData.mail}
+            name="mail"
+            placeholder="Escibre tu mail"
+          />
+        </InputGroup>
+        {errors.mail && <FormErrorMessage>{errors.mail}</FormErrorMessage>}
+      </FormControl>
+
+      <FormControl isInvalid={errors.password}>
+        <InputGroup>
+          <InputLeftElement pointerEvents="none" children={<LockIcon />} />
+          <Input
+            type={show ? 'text' : 'password'}
+            onChange={handleChange}
+            value={singUpData.password}
+            name="password"
+            placeholder="Escribe tu contraseña"
+          />
+          <InputRightElement>
+            <IconButton
+              icon={show ? <ViewOffIcon /> : <ViewIcon />}
+              onClick={() => setShow(!show)}
+            />
+          </InputRightElement>
+        </InputGroup>
+        {errors.password && (
+          <FormErrorMessage>{errors.password}</FormErrorMessage>
+        )}
+      </FormControl>
+
+      <FormControl isInvalid={errors.address}>
+        <InputGroup>
+          <InputLeftElement pointerEvents="none" children={<BiDirections />} />
+          <Input
+            type="text"
+            onChange={handleChange}
+            value={singUpData.address}
+            name="address"
+            placeholder="Escribe tu dirreción"
+          />
+        </InputGroup>
+        {errors.address && (
+          <FormErrorMessage>{errors.address}</FormErrorMessage>
+        )}
+      </FormControl>
+
+      <FormControl isInvalid={errors.image}>
+        <InputGroup>
+          <InputLeftElement pointerEvents="none" children={<BiImage />} />
+          <Input
+            type="text"
+            onChange={handleChange}
+            value={singUpData.image}
+            name="image"
+            placeholder="Escibre la URL de tu imagen"
+          />
+        </InputGroup>
+        {errors.image && <FormErrorMessage>{errors.image}</FormErrorMessage>}
+      </FormControl>
+
+      <Button onClick={handleSubmit}>Registrarse</Button>
 
       <IconButton
         icon={<AiFillGoogleCircle />}
@@ -104,7 +221,7 @@ const SingUp = () => {
       <Divider />
 
       <Text textAlign={'center'}>
-        Already a user? <Link to="/login">LOGIN</Link>
+        Ya estas registrado? <Link to="/login">Inicia sesión</Link>
       </Text>
     </Box>
   );
