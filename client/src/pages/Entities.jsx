@@ -16,6 +16,7 @@ import Paginated from '../Components/Paginated';
 const Entities = () => {
   const [page, setPage] = useState(1);
   const [input, setInput] = useState(1);
+  const [search, setSearch] = useState('');
   const byPage = 5;
   const { entities, isLoading, filteredEntities } = useSelector(
     (state) => state.entitiesReducer
@@ -30,6 +31,7 @@ const Entities = () => {
     dispatch(listOfMaterialsToFilter([]));
     setInput(1);
     setPage(1);
+    setSearch('');
   }
 
   useEffect(() => {
@@ -44,7 +46,13 @@ const Entities = () => {
 
   return (
     <VStack mx="1rem">
-      <SearchBar entities={entities} setPage={setPage} setInput={setInput} />
+      <SearchBar
+        entities={entities}
+        setPage={setPage}
+        setInput={setInput}
+        search={search}
+        setSearch={setSearch}
+      />
       <Button
         colorScheme="green"
         size="sm"
@@ -52,7 +60,7 @@ const Entities = () => {
           handleClick(e);
         }}
       >
-        Recargar entidades
+        Recargar puntos de reciclaje
       </Button>
       <Grid templateColumns="1fr 4fr">
         <GridItem>

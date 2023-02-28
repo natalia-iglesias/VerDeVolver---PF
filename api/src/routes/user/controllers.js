@@ -63,6 +63,7 @@ const postUser = async (body) => {
       password: body.password,
       address: body.address,
       RoleId: role.id,
+      image: body.image,
     });
     return newUser;
   }
