@@ -7,8 +7,8 @@ const sendEmail = (name, mail, description) => {
     port: 587,
     secure: false,
     auth: {
-      user: 'verdevolver@gmail.com',
-      pass: 'hngpoqxjettmhpiv',
+      user: 'verdevolver2@gmail.com',
+      pass: 'ioiolsykzqzfwday',
     },
   });
 
