@@ -95,23 +95,8 @@ const Home = () => {
           Donar
         </Button>
       </Stack>
-      
-      <PostsCarousel
-        posts={[
-          {
-            url: 'https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link',
-          },
-          {
-            url: 'https://www.instagram.com/p/CIT3Hz2jDqh/?utm_source=ig_web_copy_link',
-          },
-          {
-            url: 'https://www.instagram.com/p/CIBswgBs1Ps/?utm_source=ig_web_copy_link',
-          },
-          {
-            url: 'https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link',
-          },
-        ]}
-      />
+
+      <PostsCarousel />
     </Box>
   );
 };
