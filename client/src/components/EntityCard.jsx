@@ -17,7 +17,9 @@ import {
   Link,
   Badge,
   HStack,
+  Box,
 } from '@chakra-ui/react';
+import RankingStars from './RankingStars';
 
 const EntityCard = ({ entity }) => {
   const [inputMonto, setInputMonto] = useState('');
@@ -45,7 +47,10 @@ const EntityCard = ({ entity }) => {
   };
 
   return (
-    <Card display="flex" justifyContent="center">
+    <Card display="flex" justifyContent="center" pos={'relative'} py="1.5rem">
+      <Box pos="absolute" top="0" right="0" m="1rem">
+        <RankingStars stars={entity?.rating} />
+      </Box>
       <CardBody display="flex" flexDir="row" gap="1.5rem" width="80vw">
         <Image
           src={entity.img}

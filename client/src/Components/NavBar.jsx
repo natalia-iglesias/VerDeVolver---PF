@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link as ReachLink } from 'react-router-dom';
 import {
+  useColorMode,
+  HStack,
   Box,
-  Flex,
+  Link,
   Image,
+  List,
+  ListItem,
   Menu,
   MenuButton,
-  MenuItem,
   MenuList,
-  Link,
-  useColorMode,
+  MenuItem,
 } from '@chakra-ui/react';
 import Profile from './Profile';
 
@@ -17,65 +19,64 @@ const Navbar = () => {
   const { colorMode } = useColorMode();
 
   return (
-    <Box bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}>
-      <Flex justifyContent={'center'} mb={'3rem'}>
+    <HStack
+      bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+      justifyContent="space-between"
+      alignItems="center"
+      mb="1rem"
+      pr="1rem"
+    >
+      <Box>
         <Link as={ReachLink} to="/home">
-          <Box boxSize="10em" position={'absolute'} top="-10" left={0}>
-            <Image
-              boxSize="170px"
-              objectFit="cover"
-              src="https://res.cloudinary.com/verdevolver/image/upload/v1677472484/images/kj5khde8ek1o7xrpwhaj.png"
-            />
-          </Box>
+          <Image src="/images/logo.png" w="10rem" />
         </Link>
-        <Box fontWeight={'700'} fontSize="1.5em" mt={'2%'}>
-          <Link
-            as={ReachLink}
-            to="/map"
-            color={colorMode === 'light' ? 'green' : '#68D391'}
-            mr={5}
-          >
-            Mapa
-          </Link>
+      </Box>
+
+      <List display="flex" flexDir="row" gap="1rem">
+        <ListItem
+          as={ReachLink}
+          to="/map"
+          color={colorMode === 'light' ? 'green' : '#68D391'}
+          fontWeight="semibold"
+          fontSize="xl"
+        >
+          Mapa
+        </ListItem>
+
+        <ListItem color={colorMode === 'light' ? 'green' : '#68D391'}>
           <Menu>
-            <MenuButton
-              mr={5}
-              fontWeight={'700'}
-              color={colorMode === 'light' ? 'green' : '#68D391'}
-            >
-              Puntos de Reciclaje
+            <MenuButton fontWeight="semibold" fontSize="xl">
+              Puntos de reciclaje
             </MenuButton>
             <MenuList>
               <MenuItem
                 as={ReachLink}
                 to="/entities"
-                fontWeight={'700'}
                 color={colorMode === 'light' ? 'green' : '#68D391'}
+                fontWeight="semibold"
+                fontSize="xl"
               >
                 Ver todos
               </MenuItem>
               <MenuItem
                 as={ReachLink}
-                to="/beVdV"
-                fontWeight={'700'}
+                to="/breVdV"
                 color={colorMode === 'light' ? 'green' : '#68D391'}
+                fontWeight="semibold"
+                fontSize="xl"
               >
-                Publica tu Punto de Reciclaje
+                Publica tu punto de reciclaje
               </MenuItem>
             </MenuList>
           </Menu>
-          <Link
-            as={ReachLink}
-            to="/login"
-            color={colorMode === 'light' ? 'green' : '#68D391'}
-            mr={5}
-          >
-            Ingresar
-          </Link>
+        </ListItem>
+
+        <ListItem>
           <Menu>
             <MenuButton
-              fontWeight={'700'}
               color={colorMode === 'light' ? 'green' : '#68D391'}
+              fontWeight="semibold"
+              fontSize="xl"
             >
               Contactanos
             </MenuButton>
@@ -83,27 +84,28 @@ const Navbar = () => {
               <MenuItem
                 as={ReachLink}
                 to="/about"
-                fontWeight={'700'}
                 color={colorMode === 'light' ? 'green' : '#68D391'}
+                fontWeight="semibold"
+                fontSize="xl"
               >
                 Quienes somos
               </MenuItem>
               <MenuItem
                 as={ReachLink}
                 to="/contact"
-                fontWeight={'700'}
                 color={colorMode === 'light' ? 'green' : '#68D391'}
+                fontWeight="semibold"
+                fontSize="xl"
               >
                 Contacto
               </MenuItem>
             </MenuList>
           </Menu>
-        </Box>
-        <Box boxSize="50px" position={'absolute'} top="2" right={2}>
-          <Profile />
-        </Box>
-      </Flex>
-    </Box>
+        </ListItem>
+      </List>
+
+      <Profile />
+    </HStack>
   );
 };
 
