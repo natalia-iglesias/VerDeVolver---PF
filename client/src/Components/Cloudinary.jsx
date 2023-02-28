@@ -8,6 +8,8 @@ const UploadImage = ({ onUpload }) => {
 
   const apiKey = '733373445746211';
   const secretKey = '5EQKnIBW3RsNTlut0oy6y6IJgAc';
+  // const apiKey = '733373445746211';
+  // const secretKey = '5EQKnIBW3RsNTlut0oy6y6IJgAc';
 
   const upImages = async (e) => {
     const files = e.target.files;
@@ -18,16 +20,16 @@ const UploadImage = ({ onUpload }) => {
     setLoading(true);
     try {
       const res = await fetch(
-        'https://api.cloudinary.com/v1_1/verdevolver/image/upload?upload_preset=skkkp5tl',
-
+        //'https://api.cloudinary.com/v1_1/verdevolver/image/upload?upload_preset=skkkp5tl',
+        'https:api.cloudinary.com/v1_1/verdevolver/image/upload',
         {
           method: 'POST',
           body: data,
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest',
-            Authorization: 'Basic ' + btoa(`${apiKey}:${secretKey}`),
-          },
+          // headers: {
+          //   'Content-Type': 'application/json',
+          //   'X-Requested-With': 'XMLHttpRequest',
+          //   Authorization: 'Basic ' + btoa(`${apiKey}:${secretKey}`),
+          //},
         }
       );
       const file = await res.json();
