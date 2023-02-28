@@ -3,12 +3,15 @@ const fs = require('fs');
 const path = require('path');
 
 require('dotenv').config();
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
-// const { DATABASE, PGHOST, PGPASSWORD, PGPORT, PGUSER } = process.env;
+// const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { PGDATABASE, PGHOST, PGPASSWORD, PGPORT, PGUSER } = process.env;
 
 const sequelize = new Sequelize(
-  // `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${DATABASE}`,
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/verdevolver`,
+  // `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}`,
+  `postgresql://${{ PGUSER }}:${{ PGPASSWORD }}@${{ PGHOST }}:${{ PGPORT }}/${{
+    PGDATABASE,
+  }}`,
+  // `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/verdevolver`,
   {
     logging: false,
     native: false,
