@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { IconButton, Input, InputGroup } from '@chakra-ui/react';
 import {
@@ -7,8 +6,7 @@ import {
   filterEntitiesByMaterial,
 } from '../redux/actions/entitiesActions';
 
-const SearchBar = ({ entities, setPage, setInput }) => {
-  const [search, setSearch] = useState('');
+const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
   let dispatch = useDispatch();
 
   const handleClick = (e) => {
@@ -25,7 +23,7 @@ const SearchBar = ({ entities, setPage, setInput }) => {
 
   const handleChange = (e) => {
     setSearch(e.target.value);
-    dispatch(searchEntities(search));
+    dispatch(searchEntities(e.target.value));
   };
 
   const handleKeyDown = (e) => e.keyCode === 13 && handleClick(e);
