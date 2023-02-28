@@ -14,9 +14,13 @@ import {
 } from '@chakra-ui/react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { AiFillGoogleCircle } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { authAcountLocal } from '../redux/actions/acountActions';
+import {
+  authAcountGoogle,
+  authAcountLocal,
+} from '../redux/actions/acountActions';
 import axios from 'axios';
 
 const fetchUser = async (id) => {
@@ -125,7 +129,11 @@ const Login = () => {
 
       <Button onClick={handleLogin}>Iniciar sesión</Button>
 
-      <a href="http://localhost:3001/login/google">Iniciar sesión con google</a>
+      <IconButton
+        icon={<AiFillGoogleCircle />}
+        color="brands.google"
+        onClick={() => dispatch(authAcountGoogle())}
+      />
 
       <Text alignSelf={'flex-end'}>
         <Link>Olvidaste tu contraseña?</Link>

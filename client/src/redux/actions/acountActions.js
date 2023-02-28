@@ -33,15 +33,7 @@ export const authAcountLocal = ({ mail, password }) => {
 };
 
 export const authAcountGoogle = () => {
-  return async (dispatch) => {
-    try {
-      const auth = await axios.get('http://localhost:3001/login/google');
-
-      dispatch({ type: AUTH_ACOUNT_GOOGLE, payload: auth.data });
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+  window.location.href = 'http://localhost:3001/login/google';
 };
 
 export const logoutAcount = () => {

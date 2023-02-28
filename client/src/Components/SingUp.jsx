@@ -17,7 +17,10 @@ import { useEffect, useState } from 'react';
 import { AiFillGoogleCircle } from 'react-icons/ai';
 import { BiUser, BiDirections, BiImage } from 'react-icons/bi';
 import axios from 'axios';
-import { authAcountLocal } from '../redux/actions/acountActions';
+import {
+  authAcountLocal,
+  authAcountGoogle,
+} from '../redux/actions/acountActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const validate = ({ name, last_name, mail, password, address, image }) => {
