@@ -36,6 +36,20 @@ export const authAcountLocal = ({ mail, password }) => {
   };
 };
 
+export function Logeduser() {
+  return async function (dispatch) {
+    try {
+      let userData = localStorage.getItem("LogedUser");
+      return dispatch({
+        type: AUTH_ACOUNT_LOCAL,
+        payload: JSON.parse(userData),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
 export const authAcountGoogle = () => {
   window.location.href = 'http://localhost:3001/login/google';
 };

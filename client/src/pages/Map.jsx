@@ -11,15 +11,24 @@ const containerStyle = {
   width: '99vw',
   height: '100vh',
 };
+import { Logeduser } from "../../src/redux/actions/acountActions";
 
 const Map = () => {
+  const dispatch = useDispatch();
+  let userData = localStorage.getItem("LogedUser");
+  if (userData){
+    useEffect(() => {
+    dispatch(Logeduser())
+    }, [dispatch]);
+  }
+
   const [activeMarker, setActiveMarker] = useState(null);
   const [mapCenter, setMapCenter] = useState({ lat: -39, lng: -64 });
   const [zoom, setZoom] = useState(5);
   const { entities, filteredEntities } = useSelector(
     (state) => state.entitiesReducer
   );
-  const dispatch = useDispatch();
+  
 
   //const { colorMode } = useColorMode();
 
