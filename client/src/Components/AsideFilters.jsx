@@ -64,7 +64,8 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
       <Select
         id="select_materials"
         placeholder="Selecciona un material"
-        width="-moz-fit-content"
+        //width="-moz-fit-content"
+        width="14vw"
         onChange={(e) => handleClikMaterials(e)}
       >
         {materials.map((m, i) => (
@@ -91,7 +92,9 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
             handleRanking(e);
           }
         }}
-        width="-moz-fit-content"
+        //width="-moz-fit-content"
+        width="14vw"
+        
       >
         <option value="Ascendente">Ascendente</option>
         <option value="Descendente">Descendente</option>

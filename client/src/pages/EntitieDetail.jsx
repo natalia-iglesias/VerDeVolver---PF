@@ -47,7 +47,7 @@ const EntityDetail = () => {
     dispatch(Logeduser())
     }, [dispatch]);
   }
-
+  
   const { entity, feedbacks } = useSelector((state) => state.entitiesReducer);
 
   if (!entity || !feedbacks) return <PropagateLoader color="#1c5738" />;
