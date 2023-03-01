@@ -139,11 +139,11 @@ const EntityDetail = () => {
             maxH="25vh"
             divider={<StackDivider />}
           >
-            {feedbacks?.map(({ User, rating, comment }, i) => (
+            {feedbacks?.map(({ User, comment }, i) => (
               <Box key={i}>
                 <HStack>
                   <Avatar name={User.name} size="sm" />
-                  <RankingStars stars={rating} />
+                  <RankingStars />
                 </HStack>
                 <Text>{comment}</Text>
               </Box>

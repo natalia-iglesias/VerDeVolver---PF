@@ -68,6 +68,7 @@ function TabListPosts() {
         <Tab fontWeight="bold">Post 1</Tab>
         <Tab fontWeight="bold">Post 2</Tab>
         <Tab fontWeight="bold">Post 3</Tab>
+        <Tab fontWeight="bold">Post 4</Tab>
       </TabList>
       <TabPanels>
         {posts?.map((eachUrl) => {
