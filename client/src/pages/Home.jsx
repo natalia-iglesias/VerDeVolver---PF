@@ -15,13 +15,14 @@ import {
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import PostsCarousel from '../Components/PostsCarousel';
 import axios from 'axios';
-import { InstagramEmbed } from 'react-social-media-embed';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const { entities } = useSelector((state) => state.entitiesReducer);
 
   const [inputVdv, setInputVdV] = useState('');
   const [inputMonto, setInputMonto] = useState('');
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -35,13 +36,17 @@ const Home = () => {
   };
 
   const handleButton = (event) => {
+    let userData = JSON.parse(localStorage.getItem('LogedUser'));
+    if (!userData) {
+      navigate('/login');
+    }
     if (inputMonto && inputVdv) {
       try {
         axios
           .post('http://localhost:3001/donation', {
             VdVId: inputVdv,
             amount: inputMonto,
-            UserId: 1,
+            UserId: userData.id,
           }) // userId LocalStorage
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
