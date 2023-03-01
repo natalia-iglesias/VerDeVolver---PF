@@ -49,6 +49,8 @@ const Home = () => {
     let userData = JSON.parse(localStorage.getItem('LogedUser'));
     if (!userData) {
       navigate('/login');
+      alert('Debes iniciar sesión para poder donar');
+      throw Error ('Debes iniciar sesión para poder donar');
     }
     if (inputMonto && inputVdv) {
       try {
