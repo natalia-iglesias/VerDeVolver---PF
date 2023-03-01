@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import axios from 'axios';
@@ -45,6 +45,7 @@ const EntityDetail = () => {
 
   if (!entity || !feedbacks) return <PropagateLoader color="#1c5738" />;
 
+  const navigate = useNavigate();
   const [inputMonto, setInputMonto] = useState('');
   const [inputReview, setInputReview] = useState('');
   const [stars, setStars] = useState(1);
@@ -56,6 +57,10 @@ const EntityDetail = () => {
   };
 
   const handleButton = (event) => {
+    let userData = JSON.parse(localStorage.getItem('LogedUser'));
+    if (!userData) {
+      navigate('/login');
+    }
     if (inputMonto) {
       try {
         axios
@@ -75,6 +80,9 @@ const EntityDetail = () => {
 
   const handleButtonReview = async (event) => {
     let userData = JSON.parse(localStorage.getItem('LogedUser'));
+    if (!userData) {
+      navigate('/login');
+    }
     if (inputReview) {
       try {
         const resultAxios = await axios.post(
@@ -87,9 +95,7 @@ const EntityDetail = () => {
           }
         );
         alert('Creacion de comentario exitosa!');
-        console.log('resultAxios', resultAxios);
       } catch (error) {
-        alert(error);
       }
     }
   };

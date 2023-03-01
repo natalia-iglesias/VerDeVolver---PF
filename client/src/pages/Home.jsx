@@ -15,13 +15,14 @@ import {
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import PostsCarousel from '../Components/PostsCarousel';
 import axios from 'axios';
-import { InstagramEmbed } from 'react-social-media-embed';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const { entities } = useSelector((state) => state.entitiesReducer);
 
   const [inputVdv, setInputVdV] = useState('');
   const [inputMonto, setInputMonto] = useState('');
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -36,6 +37,9 @@ const Home = () => {
 
   const handleButton = (event) => {
     let userData = JSON.parse(localStorage.getItem('LogedUser'));
+    if (!userData) {
+      navigate('/login');
+    }
     if (inputMonto && inputVdv) {
       try {
         axios

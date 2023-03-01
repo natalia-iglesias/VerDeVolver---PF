@@ -1,9 +1,7 @@
 import { HStack, Text, Button } from '@chakra-ui/react';
-import { useState } from 'react';
 import { StarIcon, AddIcon } from '@chakra-ui/icons';
 
 const CreateRating = ({stars, setStars}) => {
-  /* const [stars, setStars] = useState(1); */
 
   const numberOfStars = (value) => {
     if (value + 1 !== stars) {
