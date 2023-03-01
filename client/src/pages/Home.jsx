@@ -22,13 +22,15 @@ const Home = () => {
   const dispatch = useDispatch();
 
   //no puedo mantener la sesion abierta porque me rompe el home por el useEffect
-  //... al recargar la pagina se cierra la sesion 
+  //... al recargar la pagina se cierra la sesion
+  //no anda 
  /*  let userData = localStorage.getItem("LogedUser");
   if (userData){
     useEffect(() => {
     dispatch(Logeduser())
     }, [dispatch]);
   } */
+  
 
   const { entities } = useSelector((state) => state.entitiesReducer);
 
