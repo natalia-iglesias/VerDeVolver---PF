@@ -1,4 +1,3 @@
-// aca logica
 const { Role } = require('../../db.js');
 
 async function chargeDbRoles() {

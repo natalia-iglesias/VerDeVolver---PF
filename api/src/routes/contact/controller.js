@@ -15,7 +15,7 @@ const postComments = async (name, mail, description) => {
     'Gracias por contactarnos 💚',
     htmlContactEmailTemplate(name, description)
   );
-  // TODO DASHBOARD
+
   sendEmail(
     EMAIL,
     'Has sido contactado por el usuario 💚' + name,

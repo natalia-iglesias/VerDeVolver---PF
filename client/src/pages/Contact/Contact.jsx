@@ -19,9 +19,6 @@ import { useEffect } from 'react';
 import { Logeduser } from "../../redux/actions/acountActions";
 
 const Contact = () => {
-  // const [name, setName] = useState('');
-  // const [mail, setMail] = useState('');
-  // const [description, setDescription] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

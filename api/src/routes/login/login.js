@@ -7,8 +7,6 @@ const { findUser } = require('./controller.js');
 
 const router = Router();
 
-//login
-
 router.post(
   '/',
   passport.authenticate('local', {
@@ -32,7 +30,7 @@ router.post(
     }
   }
 );
-//estrategia autirizacion
+
 router.get(
   '/',
   passport.authenticate('jwt', {
@@ -49,8 +47,7 @@ router.get(
     }
   }
 );
-//redirigir al home ?? true--->/home-- false--> / registro
-//funcion redirect
+
 router.get(
   '/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
@@ -65,6 +62,5 @@ router.get(
   }
 );
 
-//CERRAR
 
 module.exports = router;

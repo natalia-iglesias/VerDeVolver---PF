@@ -16,21 +16,10 @@ import { MdOutlineAttachMoney } from 'react-icons/md';
 import PostsCarousel from '../Components/PostsCarousel';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-/* import { Logeduser } from "../../src/redux/actions/acountActions"; */
+import { Logeduser } from "../../src/redux/actions/acountActions";
 
 const Home = () => {
   const dispatch = useDispatch();
-
-  //no puedo mantener la sesion abierta porque me rompe el home por el useEffect
-  //... al recargar la pagina se cierra la sesion
-  //no anda 
- /*  let userData = localStorage.getItem("LogedUser");
-  if (userData){
-    useEffect(() => {
-    dispatch(Logeduser())
-    }, [dispatch]);
-  } */
-  
 
   const { entities } = useSelector((state) => state.entitiesReducer);
 
@@ -38,7 +27,11 @@ const Home = () => {
   const [inputMonto, setInputMonto] = useState('');
   const navigate = useNavigate();
 
+  let userData = localStorage.getItem("LogedUser");
   useEffect(() => {
+    if (userData){
+      dispatch(Logeduser())
+    }
     dispatch(fetchEntities());
   }, [dispatch]);
 
@@ -61,7 +54,7 @@ const Home = () => {
             VdVId: inputVdv,
             amount: inputMonto,
             UserId: userData.id,
-          }) // userId LocalStorage
+          }) 
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
         res.status(400).send(error);

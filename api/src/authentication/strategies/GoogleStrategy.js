@@ -12,13 +12,13 @@ const GoogleStrategy = new Strategy(
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
-      // Busca el usuario en la base de datos por su ID de Google
+      
       const user = await User.findOne({ where: { googleId: profile.id } });
       if (user) {
-        // Si el usuario ya existe, lo devuelve
+       
         done(null, user);
       } else {
-        // Si el usuario no existe, lo crea y lo devuelve
+        
         const newUser = await User.create({
           googleId: profile.id,
           name: profile.name.givenName,
@@ -34,14 +34,14 @@ const GoogleStrategy = new Strategy(
   }
 );
 
-// Configuración de la sesión de Passport.js
+
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
-    // Busca el usuario en la base de datos por su ID
+    
     const user = await User.findByPk(id);
     if (user) {
       done(null, user);

@@ -351,7 +351,7 @@ const vdvCreate = async (body) => {
     lng,
   });
 
-  await vdvCreate.addMaterials(materials); // Unir VdV con materiales
+  await vdvCreate.addMaterials(materials); 
   return vdvCreate;
 };
 
@@ -462,7 +462,6 @@ router.post('/', async (req, res) => {
     if (!seventh) throw Error('Ocurrio un error durante la carga de servicios');
     await chargeInstagramPosts();
 
-    //No me odien jeje, no pude con la de materiales. Me hizo llorar sangre y no lo pude lograr
     res.status(200).send('Base de datos cargada.');
   } catch (error) {
     res.status(404).send(error.message);
