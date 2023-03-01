@@ -20,6 +20,7 @@ import {
   Stack,
   StackDivider,
   Text,
+  Textarea,
   VStack,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
@@ -29,6 +30,7 @@ import {
   getEntityById,
   getEntityFeedbacks,
 } from '../redux/actions/entitiesActions';
+import CreateRating from '../Components/CreateRating';
 
 const EntityDetail = () => {
   const { id } = useParams();
@@ -44,9 +46,12 @@ const EntityDetail = () => {
   if (!entity || !feedbacks) return <PropagateLoader color="#1c5738" />;
 
   const [inputMonto, setInputMonto] = useState('');
+  const [inputReview, setInputReview] = useState('');
 
   const handleInputs = (event) => {
-    setInputMonto(event.target.value);
+    event.target.name === 'Monto'
+      ? setInputMonto(event.target.value)
+      : setInputReview(event.target.value);
   };
 
   const handleButton = (event) => {
@@ -64,6 +69,27 @@ const EntityDetail = () => {
       }
     } else {
       alert('ingrese monto');
+    }
+  };
+
+  const handleButtonReview = async (event) => {
+    let userData = JSON.parse(localStorage.getItem('LogedUser'));
+    if (inputReview) {
+      try {
+        const resultAxios = await axios.post(
+          'http://localhost:3001/feedback/create',
+          {
+            comment: inputReview,
+            rating: 5,
+            UserId: userData.id,
+            VdVId: id,
+          }
+        );
+        alert('Creacion de comentario exitosa!');
+        console.log('resultAxios', resultAxios);
+      } catch (error) {
+        alert(error);
+      }
     }
   };
 
@@ -116,7 +142,34 @@ const EntityDetail = () => {
               </Box>
             ))}
           </VStack>
+          <br></br>
+          <br></br>
         </Stack>
+        <Box
+          border="solid 0.2rem "
+          borderRadius="1rem"
+          mr="5vw"
+          p="1rem"
+          alignItems="center"
+        >
+          <Box>
+            <CreateRating />
+          </Box>
+          <Box mr="5vw">
+            <VStack ml="1rem">
+              <InputGroup align="center">
+                <InputLeftElement />
+                <Textarea
+                  name="Review"
+                  placeholder="Deja tu reseña"
+                  type={'text'}
+                  onChange={handleInputs}
+                />
+              </InputGroup>
+              <Button onClick={handleButtonReview}>Comentar</Button>
+            </VStack>
+          </Box>
+        </Box>
       </GridItem>
     </Grid>
   );

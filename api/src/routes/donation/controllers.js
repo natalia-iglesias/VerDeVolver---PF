@@ -18,6 +18,38 @@ async function chargeDbDonation() {
   return bulkCreateDonations;
 }
 
+// const MPfunction = async (body) => {
+//   const { amount, VdVId } = req.body;
+
+//   const checkVdvs = await VdV.findAll({
+//     where: { id: VdVId },
+//   });
+//   const { name, img } = checkVdvs[0].dataValues;
+
+//   let preference = {
+//     items: [
+//       {
+//         title: name,
+//         currency_id: 'ARS',
+//         quantity: 1,
+//         unit_price: Number(amount),
+//         description: `Gracias por su donacion a la entidad ${name}`,
+//         picture_url: img,
+//       },
+//     ],
+//     back_urls: {
+//       success: 'http://localhost:5173/home',
+//       failure: 'http://localhost:5173/home',
+//       pending: '', // Este es para pagos en efectivo, por ejemplo en un rapipago, queda como pendiente
+//     },
+//     auto_return: 'approved',
+//     binary_mode: true, // esto es para que no se acepten pagos pendientes, sino pagos que se resuelvan en el momento -> Pongo mi tarjeta de credito, pago y listo
+//   };
+
+//   console.log(preference);
+//   return preference;
+// };
+
 const createDonation = async (body) => {
   const { amount, UserId, VdVId } = body;
 
@@ -50,8 +82,8 @@ const createDonation = async (body) => {
       },
     ],
     back_urls: {
-      success: 'https://ver-de-volver-pf.vercel.app/',
-      failure: 'https://ver-de-volver-pf.vercel.app/',
+      success: 'http://localhost:5173/home',
+      failure: 'http://localhost:5173/home',
       pending: '', // Este es para pagos en efectivo, por ejemplo en un rapipago, queda como pendiente
     },
     auto_return: 'approved',
@@ -178,4 +210,5 @@ module.exports = {
   createDonation,
   getAll,
   getDonationsById,
+  // MPfunction,
 };
