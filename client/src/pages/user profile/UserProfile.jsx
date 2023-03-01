@@ -129,14 +129,7 @@ function UserProfile() {
           </InputGroup>
         </Box>
         <UploadImage onUpload={handleUploadImage} value={input.image} />
-        {/* <Box my="1rem">
-          <Text>Imagen</Text>
-          <InputGroup>
-            <InputLeftElement children={<BiImage />} />
-            <Input name="iamge" value={input.image} onChange={handleChange} />
-          </InputGroup>
-        </Box> */}
-
+     
         <ButtonGroup
           variant={'outline'}
           w="full"

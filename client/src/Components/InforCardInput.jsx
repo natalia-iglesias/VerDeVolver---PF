@@ -32,7 +32,6 @@ function InfoCardInput({ type, data, setInput, setSaveButton }) {
   }
 
   const onChange = (e) => {
-    console.log(e.target.name);
     setInput((prevObj) => {
       return { ...prevObj, [e.target.name]: e.target.value };
     });

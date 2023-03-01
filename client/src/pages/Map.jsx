@@ -15,12 +15,6 @@ import { Logeduser } from "../../src/redux/actions/acountActions";
 
 const Map = () => {
   const dispatch = useDispatch();
-  let userData = localStorage.getItem("LogedUser");
-  if (userData){
-    useEffect(() => {
-    dispatch(Logeduser())
-    }, [dispatch]);
-  }
 
   const [activeMarker, setActiveMarker] = useState(null);
   const [mapCenter, setMapCenter] = useState({ lat: -39, lng: -64 });
@@ -31,8 +25,11 @@ const Map = () => {
   
 
   //const { colorMode } = useColorMode();
-
+  let userData = localStorage.getItem("LogedUser");
   useEffect(() => {
+    if (userData){
+      dispatch(Logeduser())
+    }
     dispatch(fetchEntities());
     dispatch(getMaterials());
     filters = entities;

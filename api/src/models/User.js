@@ -1,8 +1,5 @@
 const { DataTypes } = require('sequelize');
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
-  // defino el modelo
   sequelize.define(
     'User',
     {
@@ -20,19 +17,15 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       mail: {
-        type: DataTypes.STRING, // buscra regex
+        type: DataTypes.STRING, 
         allowNull: false,
         unique: true,
       },
       password: {
         type: DataTypes.STRING,
-        // validate: {
-        //   len: [8, 20],
-        // },
       },
-      // Esto va a ser "Longitud" y "Latitud" -> GMaps || address -> ver Front
       address: {
-        type: DataTypes.STRING, // buscra regex
+        type: DataTypes.STRING, 
       },
       googleId: {
         type: DataTypes.STRING,
@@ -44,8 +37,3 @@ module.exports = (sequelize) => {
     { timestamps: false }
   );
 };
-
-/*
-
-[ "MAdera" , "Vidrio" ] 
-*/

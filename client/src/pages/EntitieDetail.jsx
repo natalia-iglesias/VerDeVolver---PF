@@ -36,17 +36,15 @@ import CreateRating from '../Components/CreateRating';
 const EntityDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-
+  
+  let userData = localStorage.getItem("LogedUser");
   useEffect(() => {
+    if (userData){
+      dispatch(Logeduser())
+    }
     dispatch(getEntityById(id));
     dispatch(getEntityFeedbacks(id));
   }, [id]);
-  let userData = localStorage.getItem("LogedUser");
-  if (userData){
-    useEffect(() => {
-    dispatch(Logeduser())
-    }, [dispatch]);
-  }
   
   const { entity, feedbacks } = useSelector((state) => state.entitiesReducer);
 
@@ -65,16 +63,18 @@ const EntityDetail = () => {
 
   const handleButton = (event) => {
     let userData = JSON.parse(localStorage.getItem('LogedUser'));
-    if (!userData) {
-      navigate('/login');
-    }
     if (inputMonto) {
+      if (!userData) {
+        navigate('/login');
+        alert('Debes iniciar sesión para donar')
+        throw Error ('Debes iniciar sesión para donar')
+      }
       try {
         axios
           .post('http://localhost:3001/donation', {
             VdVId: id,
             amount: inputMonto,
-            UserId: 1,
+            UserId: userData.id,
           }) 
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
@@ -92,7 +92,7 @@ const EntityDetail = () => {
       alert('Debes iniciar sesión para poder dejar tu reseña');
       throw Error ('Debes iniciar sesión para poder dejar tu reseña')
     }
-    if (inputReview) {
+    if (inputReview && userData) {
       try {
         const resultAxios = await axios.post(
           'http://localhost:3001/feedback/create',

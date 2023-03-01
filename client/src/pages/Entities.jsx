@@ -16,13 +16,7 @@ import { Logeduser } from "../../src/redux/actions/acountActions";
 
 const Entities = () => {
   const dispatch = useDispatch();
-  let userData = localStorage.getItem("LogedUser");
-  if (userData){
-    useEffect(() => {
-    dispatch(Logeduser())
-    }, [dispatch]);
-  }
-
+  
   const [page, setPage] = useState(1);
   const [input, setInput] = useState(1);
   const [search, setSearch] = useState('');
@@ -30,7 +24,7 @@ const Entities = () => {
   const { entities, isLoading, filteredEntities } = useSelector(
     (state) => state.entitiesReducer
   );
-  
+
   function handleClick(e) {
     e.preventDefault();
     const sel = document.getElementById('select_materials');
@@ -41,8 +35,12 @@ const Entities = () => {
     setPage(1);
     setSearch('');
   }
+  let userData = localStorage.getItem("LogedUser");
 
   useEffect(() => {
+    if (userData){
+      dispatch(Logeduser())
+    }
     dispatch(fetchEntities());
     dispatch(getMaterials());
     filters = entities;

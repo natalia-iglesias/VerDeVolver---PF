@@ -12,7 +12,6 @@ const {
 
 const router = Router();
 
-//NO BORREN. ESTE ES EL BULKCREATE PARA CARGAR LA BASE DE DATOS
 router.post('/chargeDb', async (req, res) => {
   try {
     const chargeUsersDb = await chargeDbUsers();
@@ -22,7 +21,6 @@ router.post('/chargeDb', async (req, res) => {
   }
 });
 
-// crear usuarios
 router.post('/', async (req, res) => {
   const { body } = req;
   try {
@@ -35,7 +33,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// get todos los usuarios || query por nombre
 router.get('/', async (req, res) => {
   const { name } = req.query;
 
@@ -55,7 +52,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// usuario por id
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -68,7 +64,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// modificar datos de un User
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const userSent = req.body;
@@ -86,7 +81,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-//Modificar el role del usuario a Owner
 router.put('/toowner/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -98,7 +92,6 @@ router.put('/toowner/:id', async (req, res) => {
   }
 });
 
-// Eliminar User -> No usamos Borrado Logico
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -110,13 +103,6 @@ router.delete('/:id', async (req, res) => {
     return res.status(404).send(error.message);
   }
 });
-/* router.post('/signup', async (req, res, next) => {
-  try {
-    const newUser = await createUser(req.body);
-    res.status(200).json(newUser);
-  } catch (error) {
-    next(error);
-  }
-}); */
+
 
 module.exports = router;

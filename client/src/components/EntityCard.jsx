@@ -20,9 +20,11 @@ import {
   Box,
 } from '@chakra-ui/react';
 import RankingStars from './RankingStars';
+import { useNavigate } from 'react-router-dom';
 
 const EntityCard = ({ entity }) => {
   const [inputMonto, setInputMonto] = useState('');
+  const navigate = useNavigate();
 
   const handleInputs = (event) => {
     setInputMonto(event.target.value);
@@ -30,15 +32,13 @@ const EntityCard = ({ entity }) => {
 
   const handleButton = (event) => {
     let userData = JSON.parse(localStorage.getItem('LogedUser'));
-    console.log('userdata', userData)
-    if (!userData) {
-      navigate('/login');
-      alert('Debes iniciar sesión para poder donar');
-      throw Error ('Debes iniciar sesión para poder donar');
-    }
-    if (inputMonto && userData) {
-      console.log('userid',userData.id)
-      
+    
+    if (inputMonto) {
+      if (!userData) {
+        navigate('/login');
+        alert('Debes iniciar sesión para donar');
+        throw Error ('Debes iniciar sesión para donar');
+      }
       try {
          axios
           .post('http://localhost:3001/donation', {

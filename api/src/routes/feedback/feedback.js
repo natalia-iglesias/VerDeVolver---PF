@@ -13,7 +13,6 @@ const {
 
 const router = Router();
 
-//ESTE ES EL BULKCREATE NO LO BORREN
 router.post('/chargeDb', async (req, res) => {
   try {
     const chargeFeedbacksDb = await chargeDbFeedback();
@@ -101,7 +100,6 @@ router.delete('/:id/delete', async (req, res) => {
   try {
     const deleted = await deleteFeedback(id);
     res.sendStatus(200).send(deleted);
-    /* alert('Feedback eliminado'); */
   } catch (error) {
     res.sendStatus(400).send(error.message);
   }
