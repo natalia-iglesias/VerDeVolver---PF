@@ -7,6 +7,7 @@ const {
   findId,
   updateUser,
   deleteUser,
+  modifyUserRole,
 } = require('./controllers.js');
 
 const router = Router();
@@ -80,6 +81,18 @@ router.put('/:id', async (req, res) => {
     await updateUser(userSent, id);
     const result = await findId(id);
     return res.status(200).send(result);
+  } catch (error) {
+    return res.status(404).send(error.message);
+  }
+});
+
+//Modificar el role del usuario a Owner
+router.put('/toowner/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const modifyUser = await modifyUserRole(id);
+
+    res.status(200).send(modifyUser);
   } catch (error) {
     return res.status(404).send(error.message);
   }
