@@ -20,8 +20,6 @@ export const authAcountLocal = ({ mail, password }) => {
         },
       };
 
-      //local storage
-      console.log(auth);
       localStorage.setItem('LogedUser', JSON.stringify(auth.data));
 
       const acount = await axios.get(

@@ -1,25 +1,20 @@
-import { HStack, Text, Button } from '@chakra-ui/react';
-import { StarIcon, AddIcon } from '@chakra-ui/icons';
+import { HStack, Button } from '@chakra-ui/react';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
-const CreateRating = ({stars, setStars}) => {
-
+const CreateRating = ({ stars, setStars }) => {
   const numberOfStars = (value) => {
-    if (value + 1 !== stars) {
-      setStars(value + 1);
-    }
+    if (value + 1 !== stars) setStars(value + 1);
   };
 
   return (
-    <HStack spacing={'2'}>
+    <HStack justifyContent="space-evenly">
       {[...Array(5)].map((n, i) => (
-        <Button key={i} onClick={() => numberOfStars(i)}>
-          {i <= stars - 1 ? <StarIcon /> : <AddIcon />}
+        <Button key={i} onClick={() => numberOfStars(i)} variant="unstyled">
+          {i <= stars - 1 ? <AiFillStar /> : <AiOutlineStar />}
         </Button>
       ))}
-      <Text>{stars}</Text>
     </HStack>
   );
 };
 
 export default CreateRating;
-

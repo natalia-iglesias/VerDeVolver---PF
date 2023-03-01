@@ -3,12 +3,11 @@ const fs = require('fs');
 const path = require('path');
 
 require('dotenv').config();
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
-// const { DATABASE, PGHOST, PGPASSWORD, PGPORT, PGUSER } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 const sequelize = new Sequelize(
   // `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${DATABASE}`,
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/verdevolver`,
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
   {
     logging: false,
     native: false,
@@ -38,11 +37,10 @@ let capsEntries = entries.map((entry) => [
 
 sequelize.models = Object.fromEntries(capsEntries);
 
-
 const { Donation, Feedback, Material, Role, Service, User, VdV, Contact } =
   sequelize.models;
 
-User.hasMany(Feedback); 
+User.hasMany(Feedback);
 Feedback.belongsTo(User);
 
 VdV.hasMany(Feedback);
@@ -60,8 +58,8 @@ Service.belongsTo(User);
 VdV.hasMany(Service);
 Service.belongsTo(VdV);
 
-User.belongsTo(Role); 
-Role.hasMany(User); 
+User.belongsTo(Role);
+Role.hasMany(User);
 
 Material.belongsToMany(VdV, { through: 'Material_VdV' });
 VdV.belongsToMany(Material, { through: 'Material_VdV' });
