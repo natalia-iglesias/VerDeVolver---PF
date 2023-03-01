@@ -11,7 +11,7 @@ const Dashboard = () => {
         <Heading align="center" m="3vh">
           Reseñas
         </Heading>
-        <OverflowScroll type="comment" />
+        <OverflowScroll type="feedback" />
         <Heading align="center" m="3vh">
           Posts
         </Heading>
@@ -25,15 +25,14 @@ const Dashboard = () => {
         <Heading align="center" m="3vh">
           Donaciones
         </Heading>
-        <OverflowScroll type="donation" />
+        <OverflowScroll type="allDonation" />
         <Heading align="center" m="3vh">
           Servicios
         </Heading>
-        <OverflowScroll type="services" />
+        <OverflowScroll type="allServices" />
       </Flex>
     </Flex>
   );
 };
 
 export default Dashboard;
-
