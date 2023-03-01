@@ -47,6 +47,7 @@ const EntityDetail = () => {
 
   const [inputMonto, setInputMonto] = useState('');
   const [inputReview, setInputReview] = useState('');
+  const [stars, setStars] = useState(1);
 
   const handleInputs = (event) => {
     event.target.name === 'Monto'
@@ -80,7 +81,7 @@ const EntityDetail = () => {
           'http://localhost:3001/feedback/create',
           {
             comment: inputReview,
-            rating: 5,
+            rating: stars,
             UserId: userData.id,
             VdVId: id,
           }
@@ -152,10 +153,10 @@ const EntityDetail = () => {
           p="1rem"
           alignItems="center"
         >
-          <Box>
-            <CreateRating />
-          </Box>
-          <Box mr="5vw">
+          <Box mr="5vw" >
+            <Box mb='0.5rem'>
+              <CreateRating stars={stars} setStars={setStars}/>
+            </Box>
             <VStack ml="1rem">
               <InputGroup align="center">
                 <InputLeftElement />
