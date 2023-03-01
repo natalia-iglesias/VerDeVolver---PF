@@ -1,7 +1,7 @@
 import { HStack, Text } from '@chakra-ui/react';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
-const RankingStars = ({ stars  }) => {
+const RankingStars = ({ stars, setStars }) => {
   return (
     <HStack spacing={'2'}>
       {[...Array(5)].map((n, i) =>

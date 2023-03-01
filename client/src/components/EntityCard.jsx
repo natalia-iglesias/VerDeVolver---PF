@@ -29,14 +29,23 @@ const EntityCard = ({ entity }) => {
   };
 
   const handleButton = (event) => {
-    if (inputMonto) {
+    let userData = JSON.parse(localStorage.getItem('LogedUser'));
+    console.log('userdata', userData)
+    if (!userData) {
+      navigate('/login');
+      alert('Debes iniciar sesión para poder donar');
+      throw Error ('Debes iniciar sesión para poder donar');
+    }
+    if (inputMonto && userData) {
+      console.log('userid',userData.id)
+      
       try {
-        axios
+         axios
           .post('http://localhost:3001/donation', {
             VdVId: entity.id,
             amount: inputMonto,
-            UserId: 1,
-          }) // userId LocalStorage
+            UserId: userData.id,
+          }) 
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
         res.status(400).send(error);

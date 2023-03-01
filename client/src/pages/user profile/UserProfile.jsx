@@ -28,11 +28,21 @@ import { BiUser, BiUserX } from 'react-icons/bi';
 import UploadImage from '../../Components/Cloudinary';
 import { authAcountLocal } from '../../redux/actions/acountActions';
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { Logeduser } from "../../redux/actions/acountActions";
 
 function UserProfile() {
+  const dispatch = useDispatch();
+  let userData = localStorage.getItem("LogedUser");
+  if (userData){
+    useEffect(() => {
+    dispatch(Logeduser())
+    }, [dispatch]);
+  }
+
   const { acount } = useSelector((state) => state.acountReducer);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  
 
   const [input, setInput] = useState({
     name: acount?.name,

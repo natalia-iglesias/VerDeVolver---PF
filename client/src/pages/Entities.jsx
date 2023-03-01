@@ -12,8 +12,17 @@ import {
 } from '../redux/actions/entitiesActions';
 import { Button } from '@chakra-ui/react';
 import Paginated from '../Components/Paginated';
+import { Logeduser } from "../../src/redux/actions/acountActions";
 
 const Entities = () => {
+  const dispatch = useDispatch();
+  let userData = localStorage.getItem("LogedUser");
+  if (userData){
+    useEffect(() => {
+    dispatch(Logeduser())
+    }, [dispatch]);
+  }
+
   const [page, setPage] = useState(1);
   const [input, setInput] = useState(1);
   const [search, setSearch] = useState('');
@@ -21,8 +30,7 @@ const Entities = () => {
   const { entities, isLoading, filteredEntities } = useSelector(
     (state) => state.entitiesReducer
   );
-  const dispatch = useDispatch();
-
+  
   function handleClick(e) {
     e.preventDefault();
     const sel = document.getElementById('select_materials');

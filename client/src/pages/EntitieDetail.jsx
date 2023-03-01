@@ -30,6 +30,7 @@ import {
   getEntityById,
   getEntityFeedbacks,
 } from '../redux/actions/entitiesActions';
+import { Logeduser } from "../../src/redux/actions/acountActions";
 import CreateRating from '../Components/CreateRating';
 
 const EntityDetail = () => {
@@ -40,7 +41,13 @@ const EntityDetail = () => {
     dispatch(getEntityById(id));
     dispatch(getEntityFeedbacks(id));
   }, [id]);
-
+  let userData = localStorage.getItem("LogedUser");
+  if (userData){
+    useEffect(() => {
+    dispatch(Logeduser())
+    }, [dispatch]);
+  }
+  
   const { entity, feedbacks } = useSelector((state) => state.entitiesReducer);
 
   if (!entity || !feedbacks) return <PropagateLoader color="#1c5738" />;
@@ -68,7 +75,7 @@ const EntityDetail = () => {
             VdVId: id,
             amount: inputMonto,
             UserId: 1,
-          }) // userId LocalStorage
+          }) 
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
         res.status(400).send(error);
@@ -82,6 +89,8 @@ const EntityDetail = () => {
     let userData = JSON.parse(localStorage.getItem('LogedUser'));
     if (!userData) {
       navigate('/login');
+      alert('Debes iniciar sesión para poder dejar tu reseña');
+      throw Error ('Debes iniciar sesión para poder dejar tu reseña')
     }
     if (inputReview) {
       try {
@@ -96,6 +105,7 @@ const EntityDetail = () => {
         );
         alert('Creacion de comentario exitosa!');
       } catch (error) {
+        throw Error(error.message);
       }
     }
   };
@@ -139,11 +149,11 @@ const EntityDetail = () => {
             maxH="25vh"
             divider={<StackDivider />}
           >
-            {feedbacks?.map(({ User, comment }, i) => (
+            {feedbacks?.map(({ User, comment, rating }, i) => (
               <Box key={i}>
                 <HStack>
                   <Avatar name={User.name} size="sm" />
-                  <RankingStars />
+                  <RankingStars stars={rating} />
                 </HStack>
                 <Text>{comment}</Text>
               </Box>

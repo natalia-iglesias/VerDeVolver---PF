@@ -16,15 +16,27 @@ import { MdOutlineAttachMoney } from 'react-icons/md';
 import PostsCarousel from '../Components/PostsCarousel';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+/* import { Logeduser } from "../../src/redux/actions/acountActions"; */
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  //no puedo mantener la sesion abierta porque me rompe el home por el useEffect
+  //... al recargar la pagina se cierra la sesion
+  //no anda 
+ /*  let userData = localStorage.getItem("LogedUser");
+  if (userData){
+    useEffect(() => {
+    dispatch(Logeduser())
+    }, [dispatch]);
+  } */
+  
+
   const { entities } = useSelector((state) => state.entitiesReducer);
 
   const [inputVdv, setInputVdV] = useState('');
   const [inputMonto, setInputMonto] = useState('');
   const navigate = useNavigate();
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchEntities());
@@ -39,6 +51,8 @@ const Home = () => {
     let userData = JSON.parse(localStorage.getItem('LogedUser'));
     if (!userData) {
       navigate('/login');
+      alert('Debes iniciar sesión para poder donar');
+      throw Error ('Debes iniciar sesión para poder donar');
     }
     if (inputMonto && inputVdv) {
       try {
