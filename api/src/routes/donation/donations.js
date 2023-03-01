@@ -9,6 +9,7 @@ const {
   createDonation,
   getAll,
   getDonationsById,
+  MPfunction,
 } = require('./controllers.js');
 
 const router = Router();
@@ -27,6 +28,7 @@ router.post('/chargeDb', async (req, res) => {
 router.post('/', async (req, res) => {
   const { body } = req;
   try {
+    // const mpResult = await MPfunction(body);
     const newDonation = await createDonation(body); // recibe preference
 
     mercadopago.preferences

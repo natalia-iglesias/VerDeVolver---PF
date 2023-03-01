@@ -35,13 +35,14 @@ const Home = () => {
   };
 
   const handleButton = (event) => {
+    let userData = JSON.parse(localStorage.getItem('LogedUser'));
     if (inputMonto && inputVdv) {
       try {
         axios
           .post('http://localhost:3001/donation', {
             VdVId: inputVdv,
             amount: inputMonto,
-            UserId: 1,
+            UserId: userData.id,
           }) // userId LocalStorage
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {

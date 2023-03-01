@@ -42,9 +42,9 @@ export const authAcountGoogle = () => {
 
 export const logoutAcount = () => {
   return async (dispatch) => {
+    localStorage.removeItem('LogedUser');
     try {
       await axios.get('http://localhost:3001/logout');
-
       dispatch({ type: LOGOUT_ACOUNT, payload: {} });
     } catch (error) {
       dispatch({ type: LOGOUT_ACOUNT, payload: {} });
