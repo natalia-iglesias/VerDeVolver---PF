@@ -118,6 +118,19 @@ const updateUser = async (userToUD, id) => {
   });
 };
 
+const modifyUserRole = async (id) => {
+  try {
+    //const modifying = await findId(idUser);
+
+    await User.update({ RoleId: 3 }, { where: { id } });
+
+    const userModified = await findId(id);
+    return userModified;
+  } catch (error) {
+    throw Error({ error: error.message });
+  }
+};
+
 const deleteUser = async (id) => {
   try {
     if (!id) throw Error('No se ha suministrado ningun id');
@@ -161,4 +174,5 @@ module.exports = {
   updateUser,
   deleteUser,
   findBymail,
+  modifyUserRole,
 };
