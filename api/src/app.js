@@ -5,10 +5,9 @@ const morgan = require('morgan');
 const passport = require('passport');
 require('dotenv').config();
 const { SECRET } = process.env;
-const googleStrategy = require('./authentication/googleStrategy.js');
-const localStrategy = require('./authentication/localStrategy.js');
+const googleStrategy = require('./authentication/strategies/GoogleStrategy.js');
+const localStrategy = require('./authentication/strategies/LocalStrategy.js');
 const { User } = require('./db.js');
-
 
 const routes = require('./routes/index.js');
 
@@ -37,7 +36,7 @@ server.use(passport.session());
 
 //corse
 server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); 
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header(
     'Access-Control-Allow-Headers',
@@ -47,10 +46,9 @@ server.use((req, res, next) => {
   next();
 });
 
-
+// Configuracion de Passport.js
 passport.use(googleStrategy);
 passport.use(localStrategy);
-
 
 passport.serializeUser((user, done) => {
   done(null, user.id);

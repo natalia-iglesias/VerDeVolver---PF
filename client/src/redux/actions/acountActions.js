@@ -39,7 +39,7 @@ export const authAcountLocal = ({ mail, password }) => {
 export function Logeduser() {
   return async function (dispatch) {
     try {
-      let userData = localStorage.getItem("LogedUser");
+      let userData = localStorage.getItem('LogedUser');
       return dispatch({
         type: AUTH_ACOUNT_LOCAL,
         payload: JSON.parse(userData),
@@ -55,13 +55,6 @@ export const authAcountGoogle = () => {
 };
 
 export const logoutAcount = () => {
-  return async (dispatch) => {
-    localStorage.removeItem('LogedUser');
-    try {
-      await axios.get('http://localhost:3001/logout');
-      dispatch({ type: LOGOUT_ACOUNT, payload: {} });
-    } catch (error) {
-      dispatch({ type: LOGOUT_ACOUNT, payload: {} });
-    }
-  };
+  localStorage.removeItem('LogedUser');
+  return { type: LOGOUT_ACOUNT, payload: {} };
 };

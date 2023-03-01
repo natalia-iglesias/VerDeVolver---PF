@@ -14,13 +14,7 @@ import OverflowScroll from '../../Components/OverflowScroll';
 import InfoCardInput from '../../Components/InforCardInput';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import {
-  deleteMaterial,
-  addMaterial,
-  updateVdV,
-  deleteVdV,
-} from './entityProfileFunctions';
-import { useSelector } from 'react-redux';
+import { deleteMaterial, addMaterial, updateVdV, deleteVdV } from './utils';
 
 const EntityProfile = () => {
   const { id } = useParams();

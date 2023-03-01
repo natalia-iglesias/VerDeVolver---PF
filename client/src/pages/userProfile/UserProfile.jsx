@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import OverflowScroll from '../../Components/OverflowScroll';
-import { deleteUser, updateUser } from './userProfileFunctions';
-import { useSelector } from 'react-redux';
+import { deleteUser, updateUser } from './utils';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -24,25 +24,23 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { logoutAcount } from '../../redux/actions/acountActions';
 import { BiUser, BiUserX } from 'react-icons/bi';
 import UploadImage from '../../Components/Cloudinary';
 import { authAcountLocal } from '../../redux/actions/acountActions';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { Logeduser } from "../../redux/actions/acountActions";
+import { Logeduser } from '../../redux/actions/acountActions';
 
 function UserProfile() {
   const dispatch = useDispatch();
-  let userData = localStorage.getItem("LogedUser");
-  if (userData){
+  let userData = localStorage.getItem('LogedUser');
+  if (userData) {
     useEffect(() => {
-    dispatch(Logeduser())
+      dispatch(Logeduser());
     }, [dispatch]);
   }
 
   const { acount } = useSelector((state) => state.acountReducer);
   const navigate = useNavigate();
-  
 
   const [input, setInput] = useState({
     name: acount?.name,
@@ -74,6 +72,7 @@ function UserProfile() {
 
   const handleDeleteUser = () => {
     deleteUser(acount?.id, navigate);
+    dispatch(logoutAcount());
   };
 
   const handleUploadImage = (url) => {
@@ -129,7 +128,7 @@ function UserProfile() {
           </InputGroup>
         </Box>
         <UploadImage onUpload={handleUploadImage} value={input.image} />
-     
+
         <ButtonGroup
           variant={'outline'}
           w="full"

@@ -5,26 +5,18 @@ import Map from './pages/Map';
 import Service from './pages/Service';
 import Entities from './pages/Entities';
 import EntitieDetail from '../src/pages/EntitieDetail';
-import SingUpEntitie from './pages/SignUpEntities/SingUpEntitie';
+import SingUpEntitie from './pages/signUpEntities/SingUpEntitie';
 import Login from './Components/Login';
-import UserProfile from './pages/user profile/UserProfile';
-import EntityProfile from './pages/entity profile/EntityProfile';
+import UserProfile from './pages/userProfile/UserProfile';
+import EntityProfile from './pages/entityProfile/EntityProfile';
 import Dashboard from './pages/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact/Contact';
 import Navbar from './Components/NavBar';
 import SingUp from './pages/SingUp';
-// import { useDispatch } from 'react-redux';
-// import { useEffect } from 'react';
-// import { getEntities } from './redux/actions/entitiesActions';
 import ColorModeSwitcher from './Components/ColorModeSwitcher';
 
 const App = () => {
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getEntities());
-  // }, []);
   return (
     <BrowserRouter>
       <Navbar />
