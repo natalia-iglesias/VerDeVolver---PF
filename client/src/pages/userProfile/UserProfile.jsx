@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import OverflowScroll from '../../Components/OverflowScroll';
-import { deleteUser, updateUser } from './userProfileFunctions';
-import { useSelector } from 'react-redux';
+import { deleteUser, updateUser } from './utils';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -25,10 +25,12 @@ import {
 } from '@chakra-ui/react';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { BiUser, BiUserX, BiImage } from 'react-icons/bi';
+import { logoutAcount } from '../../redux/actions/acountActions';
 
 function UserProfile() {
   const { acount } = useSelector((state) => state.acountReducer);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [input, setInput] = useState({
     name: acount?.name,
@@ -59,6 +61,7 @@ function UserProfile() {
 
   const handleDeleteUser = () => {
     deleteUser(acount?.id, navigate);
+    dispatch(logoutAcount());
   };
 
   if (!Object.entries(acount).length) return navigate('/login');

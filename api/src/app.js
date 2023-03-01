@@ -5,8 +5,8 @@ const morgan = require('morgan');
 const passport = require('passport');
 require('dotenv').config();
 const { SECRET } = process.env;
-const googleStrategy = require('./authentication/googleStrategy.js');
-const localStrategy = require('./authentication/localStrategy.js');
+const googleStrategy = require('./authentication/strategies/GoogleStrategy.js');
+const localStrategy = require('./authentication/strategies/LocalStrategy.js');
 const { User } = require('./db.js');
 
 // importamos index
@@ -47,10 +47,6 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
-
-// Configuracion de Passport.js
-passport.use(googleStrategy);
-passport.use(localStrategy);
 
 // Configuración de la sesión de Passport.js
 passport.serializeUser((user, done) => {

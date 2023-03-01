@@ -18,27 +18,11 @@ import PostsCarousel from '../Components/PostsCarousel';
 const Home = () => {
   const { entities } = useSelector((state) => state.entitiesReducer);
 
-  // const [inputVdv, setInputVdV] = useState();
-  // const [inputMonto, setInputMonto] = useState();
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchEntities());
   }, [dispatch]);
-
-  // const handleInputs = (event) => {
-  //   const { name, value } = event.target;
-  //   name === 'Monto' ? setInputMonto(value) : setInputVdV(value);
-  // };
-
-  // const handleButton = (event) => {
-  //   if (inputMonto && inputVdv) {
-  //     alert(`Gracias por donar ${inputMonto} a ${inputVdv}`);
-  //   } else {
-  //     alert('Seleccione entidad o monto faltante');
-  //   }
-  // };
 
   return (
     <Box justify="center" align="center">
