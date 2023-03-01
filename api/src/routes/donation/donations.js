@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { mercadopago } = require('../mercadoPago.js');
 
 const {
   chargeDbDonation,
@@ -8,11 +9,11 @@ const {
   createDonation,
   getAll,
   getDonationsById,
+  MPfunction,
 } = require('./controllers.js');
 
 const router = Router();
 
-//ESTE ES EL BULKCREATE NO LO BORREN
 router.post('/chargeDb', async (req, res) => {
   try {
     const chargeDonationsDb = await chargeDbDonation();
@@ -22,18 +23,19 @@ router.post('/chargeDb', async (req, res) => {
   }
 });
 
-// creacion de donacion
 router.post('/', async (req, res) => {
   const { body } = req;
   try {
-    const newDonation = await createDonation(body);
-    res.status(200).send(newDonation);
+    const newDonation = await createDonation(body); 
+
+    mercadopago.preferences
+      .create(newDonation)
+      .then((response) => res.status(200).send(response));
   } catch (error) {
-    res.status(404).send(error.message);
+    res.status(404).send(error);
   }
 });
 
-// obtener todos
 router.get('/', async (req, res) => {
   try {
     const allDonations = await getAll();
@@ -44,9 +46,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// update- modificacion de Pending a Delivered (status)
-// la modifique porque se rompia despues de hacer una donacion. Se ejecutaba igual el if del status 404,
-// entonces lo saque
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -58,7 +57,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// obtener las donaciones del usuarioId
 router.get('/user/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -70,7 +68,6 @@ router.get('/user/:id', async (req, res) => {
   }
 });
 
-// obtener las donaciones a la VdVId
 router.get('/vdv/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -82,8 +79,6 @@ router.get('/vdv/:id', async (req, res) => {
   }
 });
 
-//este no lo tiene rodri
-//obtener donaciones por el id especifico de la donacion
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;

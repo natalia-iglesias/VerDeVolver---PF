@@ -4,12 +4,14 @@ import {
   Divider,
   FormControl,
   FormErrorMessage,
+  FormHelperText,
   IconButton,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
   Text,
+  FormLabel,
 } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -22,6 +24,7 @@ import {
   authAcountGoogle,
 } from '../redux/actions/acountActions';
 import { useDispatch, useSelector } from 'react-redux';
+import UploadImage from '../Components/Cloudinary';
 
 const validate = ({ name, last_name, mail, password, address, image }) => {
   const errors = {};
@@ -56,9 +59,7 @@ const validate = ({ name, last_name, mail, password, address, image }) => {
     errors.address = 'La dirección debe tener entre 8 y 32 caracteres';
   }
 
-  if (!image) {
-    errors.image = 'La imagen es obligatoria';
-  } else if (
+  if (
     !image.startsWith('https://') ||
     (!image.endsWith('.jpg') && !image.endsWith('.png'))
   ) {
@@ -105,6 +106,10 @@ const SingUp = () => {
       });
       res.status === 200 && dispatch(authAcountLocal(singUpData));
     }
+  };
+
+  const handleUploadImage = (url) => {
+    setSingUpData({ ...singUpData, image: url });
   };
 
   return (
@@ -155,7 +160,7 @@ const SingUp = () => {
             onChange={handleChange}
             value={singUpData.mail}
             name="mail"
-            placeholder="Escibre tu mail"
+            placeholder="Escribe tu mail"
           />
         </InputGroup>
         {errors.mail && <FormErrorMessage>{errors.mail}</FormErrorMessage>}
@@ -198,21 +203,16 @@ const SingUp = () => {
           <FormErrorMessage>{errors.address}</FormErrorMessage>
         )}
       </FormControl>
-
       <FormControl isInvalid={errors.image}>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" children={<BiImage />} />
-          <Input
-            type="text"
-            onChange={handleChange}
-            value={singUpData.image}
-            name="image"
-            placeholder="Escibre la URL de tu imagen"
-          />
-        </InputGroup>
-        {errors.image && <FormErrorMessage>{errors.image}</FormErrorMessage>}
+        <FormLabel>Imagen</FormLabel>
+        <UploadImage onUpload={handleUploadImage} value={singUpData.image} />
+        {errors.image ? (
+          <FormHelperText>Sube tu imagen aqui.</FormHelperText>
+        ) : (
+          <FormErrorMessage>{errors.image}</FormErrorMessage>
+        )}
       </FormControl>
-
+      
       <Button onClick={handleSubmit}>Registrarse</Button>
 
       <IconButton

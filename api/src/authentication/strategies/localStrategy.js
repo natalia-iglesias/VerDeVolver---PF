@@ -1,32 +1,28 @@
-const {Strategy} = require('passport-local');
-const {findBymail} = require('../../routes/user/controllers')
-
-//ver como me traigo el email
+const { Strategy } = require('passport-local');
+const { findBymail } = require('../../routes/user/controllers');
 
 
 const LocalStrategy = new Strategy(
   {
-    usernameField : 'mail',
-    passwordField: 'password'
+    usernameField: 'mail',
+    passwordField: 'password',
   },
   async (mail, password, done) => {
     try {
       const user = await findBymail(mail);
-      if(!user){
+      if (!user) {
         done(null, false, {
-           message: "Correo electrónico incorrecto.",
-          
-        })
+          message: 'Correo electrónico incorrecto.',
+        });
       }
       if (password !== user.password) {
-        return done(null, false, { message: "Contraseña incorrecta." });
+        return done(null, false, { message: 'Contraseña incorrecta.' });
       }
-      return done(null, user)
-    
+      return done(null, user);
     } catch (error) {
-      done(error, false)
+      done(error, false);
     }
   }
-)
+);
 
 module.exports = LocalStrategy;

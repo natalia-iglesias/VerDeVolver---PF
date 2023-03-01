@@ -15,7 +15,6 @@ const Paginated = ({ page, setPage, max, input, setInput }) => {
   };
 
   const onKeyDown = (e) => {
-    //console.log(e.keyCode)
     if (e.keyCode === 13) {
       setPage(parseInt(e.target.value));
       if (
@@ -34,8 +33,6 @@ const Paginated = ({ page, setPage, max, input, setInput }) => {
   const onChange = (e) => {
     setInput(e.target.value);
   };
-
-  console.log(page);
 
   return (
     <Box m={10} display="flex" alignItems="center" justifyContent="center">

@@ -200,6 +200,10 @@ const SingUpEntitie = () => {
             <Autocomplete
               onPlaceSelected={(e) => handlePlaceSelected(e)}
               style={autocompleteStyle}
+              options={{
+                types: ['address'],
+                componentRestrictions: { country: 'ar' },
+              }}
             />
           </Box>
           {!errors.address.isError && form.address.length === 0 ? (

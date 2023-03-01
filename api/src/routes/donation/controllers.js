@@ -1,6 +1,9 @@
+// Las rutas para devolver al usuario mientras usamos el localhost en el front
+// success: 'http://localhost:5173/home',
+// failure: 'http://localhost:5173/home',
+
 const { Donation, User, VdV } = require('../../db.js');
 
-//ESTE ES EL BULKCREATE NO LO BORREN
 async function chargeDbDonation() {
   const bulkCreateDonations = await Donation.bulkCreate([
     { amount: '1500', UserId: '1', VdVId: '1' },
@@ -14,32 +17,52 @@ async function chargeDbDonation() {
   return bulkCreateDonations;
 }
 
+
 const createDonation = async (body) => {
-  try {
-    const { amount, UserId, VdVId } = body;
+  const { amount, UserId, VdVId } = body;
 
-    const checkUsers = await User.findAll({
-      where: { id: UserId },
-    });
-    const checkVdvs = await VdV.findAll({
-      where: { id: VdVId },
-    });
+  const checkUsers = await User.findAll({
+    where: { id: UserId },
+  });
+  const checkVdvs = await VdV.findAll({
+    where: { id: VdVId },
+  });
 
-    if (!checkUsers || !checkVdvs)
-      throw Error(
-        'No se puede crear la donacion. El usuario o la VdV no existen'
-      );
+  if (!checkUsers || !checkVdvs)
+    throw Error(
+      'No se puede crear la donacion. El usuario o la VdV no existen'
+    );
 
-    const newDonation = await Donation.create({
-      amount,
-      UserId,
-      VdVId,
-    });
+  const { name, img } = checkVdvs[0].dataValues;
 
-    return newDonation;
-  } catch (error) {
-    throw Error('Ocurrio un error. No se puede crear la donacion');
-  }
+  let preference = {
+    items: [
+      {
+        title: name,
+        currency_id: 'ARS',
+        quantity: 1,
+        unit_price: Number(amount),
+        description: `Gracias por su donacion a la entidad ${name}`,
+        picture_url: img,
+      },
+    ],
+    back_urls: {
+      success: 'http://localhost:5173/home',
+      failure: 'http://localhost:5173/home',
+      pending: '',
+    },
+    auto_return: 'approved',
+    binary_mode: true, 
+  };
+
+  const newDonation = await Donation.create({
+    amount,
+    UserId,
+    VdVId,
+  });
+
+  return preference;
+  
 };
 
 const getAll = async () => {
@@ -57,7 +80,6 @@ const getAll = async () => {
   }
 };
 
-//el nombre de la funcion estaba mal escrito.
 const updateDonations = async (id) => {
   await Donation.update(
     {
@@ -75,7 +97,6 @@ const updateDonations = async (id) => {
   return result;
 };
 
-//este no lo tiene rodri
 const getDonationsById = async (id) => {
   try {
     if (!id) throw Error('Debes ingresar un id');

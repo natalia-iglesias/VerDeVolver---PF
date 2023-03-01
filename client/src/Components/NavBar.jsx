@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link as ReachLink } from 'react-router-dom';
 import {
   useColorMode,
@@ -18,6 +18,8 @@ import Profile from './Profile';
 const Navbar = () => {
   const { colorMode } = useColorMode();
 
+  useEffect;
+
   return (
     <HStack
       bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
@@ -28,7 +30,10 @@ const Navbar = () => {
     >
       <Box>
         <Link as={ReachLink} to="/home">
-          <Image src="/images/logo.png" w="10rem" />
+          <Image
+            src="https://res.cloudinary.com/verdevolver/image/upload/v1677472484/images/kj5khde8ek1o7xrpwhaj.png"
+            w="10rem"
+          />
         </Link>
       </Box>
 
@@ -60,7 +65,7 @@ const Navbar = () => {
               </MenuItem>
               <MenuItem
                 as={ReachLink}
-                to="/breVdV"
+                to="/beVdV"
                 color={colorMode === 'light' ? 'green' : '#68D391'}
                 fontWeight="semibold"
                 fontSize="xl"

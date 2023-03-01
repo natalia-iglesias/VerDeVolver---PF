@@ -15,13 +15,19 @@ import {
   FormHelperText,
   FormErrorMessage,
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { Logeduser } from "../../redux/actions/acountActions";
 
 const Contact = () => {
-  // const [name, setName] = useState('');
-  // const [mail, setMail] = useState('');
-  // const [description, setDescription] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  let userData = localStorage.getItem("LogedUser");
+  if (userData){
+    useEffect(() => {
+    dispatch(Logeduser())
+    }, [dispatch]);
+  }
 
   const [form, setForm] = useState({
     name: '',
@@ -67,7 +73,7 @@ const Contact = () => {
     if (isError) {
       return;
     }
-    dispatch(createNewContact(body));
+    dispatch(createNewContact(form));
     navigate('/home');
   };
 
@@ -141,7 +147,7 @@ const Contact = () => {
             />
             {!errors.mail.isError && form.mail.length === 0 ? (
               <FormHelperText textAlign={'center'}>
-                Ingresá tu email.
+                Ingresá tu email
               </FormHelperText>
             ) : (
               <FormErrorMessage textAlign={'center'}>

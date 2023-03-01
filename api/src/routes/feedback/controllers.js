@@ -1,7 +1,6 @@
 const { Feedback, User, VdV } = require('../../db.js');
 const { Op } = require('sequelize');
 
-//ESTE ES EL BULKCREATE NO LO BORREN
 const chargeDbFeedback = async () => {
   try {
     const bulkCreateFeedbacks = await Feedback.bulkCreate([
@@ -191,39 +190,31 @@ const deleteFeedback = async (id) => {
   }
 };
 
-// sort rating
-
-// Traigo los ids de las entidades
 const getAllVdV = async () => {
   const checkVdvs = await VdV.findAll();
-  return checkVdvs.map((ele) => ele.dataValues.id); //[1,2,3,4,10]
+  return checkVdvs.map((ele) => ele.dataValues.id); 
 };
 
-// obtengo un array que dentro tiene un array por entidad que dentro tiene objetos que son cada reseña hecha a la entidad
 const mapeoDeIds = (array) => {
   const result = array.map(async (ele) => {
-    return await getFeedbacksByVdVId(ele); //[[{reseña} {reseña}]] [ [[entidad {reseñas1, reseña2}]]
+    return await getFeedbacksByVdVId(ele); 
   });
   return Promise.all(result);
 };
 
-// Obtengo el array de las entidades con las reseñas
 const getFeedbacksForVdV = async () => {
   const result = mapeoDeIds(await getAllVdV());
   return result;
 };
-
-// Obtengo un array con objetos -> cada objeto es el nombde de la entidad con su promedio de rating [{"Entidad_A : 5","Entidad_B : 2",etc }]
 const getRatings = async () => {
   const entitiesAndReviews = await getFeedbacksForVdV();
   const entitiesWithReviews = entitiesAndReviews.filter(
     (ent) => ent.length > 0
-  ); // Entidades a las cuales se les haya haecho reseñas/puntuacion
-  // primer reocrrido para pasar por c/u de las entidades
+  ); 
   entitiesWithReviews.forEach(async (ele) => {
     let contador = 0;
     let rating = 0;
-    // segundo recorrido para pasar por c/u de las reseñas
+   
     ele.forEach((element) => {
       rating += element.rating;
       contador++;
@@ -240,7 +231,6 @@ const getRatings = async () => {
   return vdvUpdateRating.filter((vdv) => vdv.dataValues.rating !== null);
 };
 
-// Obtengo un array con los nombres de las entidades en orden ASC o DES ["Entidad-con-menor-raiting", "Entidad-con-mayor-rating"] ><
 const ratingSort = async (order) => {
   const result = await getRatings();
   order === 'Ascendente'

@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import axios from 'axios';
 import { Link as ReachLink } from 'react-router-dom';
 import {
   Button,
@@ -18,8 +20,41 @@ import {
   Box,
 } from '@chakra-ui/react';
 import RankingStars from './RankingStars';
+import { useNavigate } from 'react-router-dom';
 
 const EntityCard = ({ entity }) => {
+  const [inputMonto, setInputMonto] = useState('');
+  const navigate = useNavigate();
+
+  const handleInputs = (event) => {
+    setInputMonto(event.target.value);
+  };
+
+  const handleButton = (event) => {
+    let userData = JSON.parse(localStorage.getItem('LogedUser'));
+    
+    if (inputMonto) {
+      if (!userData) {
+        navigate('/login');
+        alert('Debes iniciar sesión para donar');
+        throw Error ('Debes iniciar sesión para donar');
+      }
+      try {
+         axios
+          .post('http://localhost:3001/donation', {
+            VdVId: entity.id,
+            amount: inputMonto,
+            UserId: userData.id,
+          }) 
+          .then((res) => (window.location.href = res.data.body.init_point));
+      } catch (error) {
+        res.status(400).send(error);
+      }
+    } else {
+      alert('ingrese monto');
+    }
+  };
+
   return (
     <Card display="flex" justifyContent="center" pos={'relative'} py="1.5rem">
       <Box pos="absolute" top="0" right="0" m="1rem">
@@ -51,9 +86,21 @@ const EntityCard = ({ entity }) => {
       <CardFooter>
         <InputGroup size="md">
           <InputLeftAddon children="$" />
-          <Input pr="4.5rem" type="number" placeholder="Amout" />
+          <Input
+            pr="4.5rem"
+            type="number"
+            placeholder="Amout"
+            name="amount"
+            onChange={handleInputs}
+          />
           <InputRightElement width="4.5rem">
-            <Button h="1.75rem" m="0.5rem" size="sm" colorScheme={'green'}>
+            <Button
+              onClick={handleButton}
+              h="1.75rem"
+              m="0.5rem"
+              size="sm"
+              colorScheme={'green'}
+            >
               Donar
             </Button>
           </InputRightElement>

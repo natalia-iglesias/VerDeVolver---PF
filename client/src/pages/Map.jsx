@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, useColorMode } from '@chakra-ui/react';
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import MarkerInfo from '../Components/MarkerInfo';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,17 +11,25 @@ const containerStyle = {
   width: '99vw',
   height: '100vh',
 };
+import { Logeduser } from "../../src/redux/actions/acountActions";
 
 const Map = () => {
+  const dispatch = useDispatch();
+
   const [activeMarker, setActiveMarker] = useState(null);
   const [mapCenter, setMapCenter] = useState({ lat: -39, lng: -64 });
   const [zoom, setZoom] = useState(5);
   const { entities, filteredEntities } = useSelector(
     (state) => state.entitiesReducer
   );
-  const dispatch = useDispatch();
+  
 
+  //const { colorMode } = useColorMode();
+  let userData = localStorage.getItem("LogedUser");
   useEffect(() => {
+    if (userData){
+      dispatch(Logeduser())
+    }
     dispatch(fetchEntities());
     dispatch(getMaterials());
     filters = entities;
@@ -71,6 +79,10 @@ const Map = () => {
             setZoom(13);
           }}
           style={autocompleteStyle}
+          options={{
+            types: ['address'],
+            componentRestrictions: { country: 'ar' },
+          }}
         />
       </Box>
 
@@ -88,12 +100,14 @@ const Map = () => {
         ))}
 
         {activeMarker && (
-          <InfoWindow
-            position={{ lat: activeMarker.lat, lng: activeMarker.lng }}
-            onCloseClick={handleInfoWindowClose}
-          >
-            <MarkerInfo data={activeMarker} />
-          </InfoWindow>
+          
+            <InfoWindow
+              position={{ lat: activeMarker.lat, lng: activeMarker.lng }}
+              onCloseClick={handleInfoWindowClose}
+            >
+              <MarkerInfo data={activeMarker} />
+            </InfoWindow>
+          
         )}
       </GoogleMap>
     </Box>
