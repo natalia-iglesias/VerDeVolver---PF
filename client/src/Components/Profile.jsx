@@ -7,6 +7,7 @@ import {
   MenuItem,
   useColorMode,
 } from '@chakra-ui/react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Link as ReachLink } from 'react-router-dom';
