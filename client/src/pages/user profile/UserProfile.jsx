@@ -24,11 +24,15 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { BiUser, BiUserX, BiImage } from 'react-icons/bi';
+import { BiUser, BiUserX } from 'react-icons/bi';
+import UploadImage from '../../Components/Cloudinary';
+import { authAcountLocal } from '../../redux/actions/acountActions';
+import { useDispatch } from 'react-redux';
 
 function UserProfile() {
   const { acount } = useSelector((state) => state.acountReducer);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [input, setInput] = useState({
     name: acount?.name,
@@ -46,6 +50,7 @@ function UserProfile() {
 
   const handleSaveChanges = () => {
     updateUser(acount?.id, input);
+    dispatch(authAcountLocal(acount));
   };
 
   const handleCancelChanges = () => {
@@ -59,6 +64,10 @@ function UserProfile() {
 
   const handleDeleteUser = () => {
     deleteUser(acount?.id, navigate);
+  };
+
+  const handleUploadImage = (url) => {
+    setInput({ ...input, image: url });
   };
 
   if (!Object.entries(acount).length) return navigate('/login');
@@ -109,13 +118,14 @@ function UserProfile() {
             </InputRightElement>
           </InputGroup>
         </Box>
-        <Box my="1rem">
+        <UploadImage onUpload={handleUploadImage} value={input.image} />
+        {/* <Box my="1rem">
           <Text>Imagen</Text>
           <InputGroup>
             <InputLeftElement children={<BiImage />} />
             <Input name="iamge" value={input.image} onChange={handleChange} />
           </InputGroup>
-        </Box>
+        </Box> */}
 
         <ButtonGroup
           variant={'outline'}
