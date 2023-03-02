@@ -11,6 +11,8 @@ import {
   InputLeftElement,
   InputRightElement,
   Text,
+  AlertDialog,
+  FormLabel,
 } from '@chakra-ui/react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -70,6 +72,10 @@ const Login = () => {
   });
   const [errors, setErrors] = useState({});
   const [show, setShow] = useState(false);
+  const [forgottenPassword, setForgottenPassword] = useState(false);
+  const [forgottenPasswordEmail, setForgottenPasswordEmail] = useState({
+    newEmail: '',
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -79,6 +85,19 @@ const Login = () => {
 
   const handleLogin = () => {
     !Object.keys(errors).length && dispatch(authAcountLocal(logInData));
+  };
+  const handleForgottenPassEmail = (e) => {
+    const { name, value } = e.target;
+    setForgottenPasswordEmail({ ...forgottenPasswordEmail, [name]: value });
+  };
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+
+    await axios.get(
+      `http://localhost:3001/user/password/${forgottenPasswordEmail.newEmail}`
+    );
+    setForgottenPassword(false);
+    alert('Te hemos enviado un mail para que cambies tu contraseña');
   };
 
   return (
@@ -136,14 +155,33 @@ const Login = () => {
       />
 
       <Text alignSelf={'flex-end'}>
-        <Link>Olvidaste tu contraseña?</Link>
+        <Link onClick={() => setForgottenPassword(true)}>
+          ¿Olvidaste tu contraseña?
+        </Link>
       </Text>
 
       <Divider />
 
       <Text textAlign={'center'}>
-        Necesitas una cuenta? <Link to="/singup">Registrate</Link>
+        ¿Necesitas una cuenta? <Link to="/singup">Registrate</Link>
       </Text>
+
+      <AlertDialog isOpen={forgottenPassword} isCentered>
+        <FormControl isRequired>
+          <FormLabel>Escribe tu email: </FormLabel>
+          <InputGroup>
+            <InputLeftElement pointerEvents="none" children={<AtSignIcon />} />
+            <Input
+              type="text"
+              onChange={handleForgottenPassEmail}
+              value={forgottenPasswordEmail.newEmail}
+              name="newEmail"
+            />
+          </InputGroup>
+
+          <Button onClick={handlePasswordSubmit}>Enviar</Button>
+        </FormControl>
+      </AlertDialog>
       <Box height={'10rem'}></Box>
     </Box>
   );
