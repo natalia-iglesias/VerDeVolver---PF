@@ -16,16 +16,16 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { Logeduser } from "../../redux/actions/acountActions";
+import { Logeduser } from '../../redux/actions/acountActions';
 
 const Contact = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  let userData = localStorage.getItem("LogedUser");
-  if (userData){
+  let userData = localStorage.getItem('LogedUser');
+  if (userData) {
     useEffect(() => {
-    dispatch(Logeduser())
+      dispatch(Logeduser());
     }, [dispatch]);
   }
 
@@ -206,6 +206,7 @@ const Contact = () => {
         >
           Enviar
         </Button>
+        <Box height={'3.5rem'}></Box>
       </VStack>
     </Box>
   );

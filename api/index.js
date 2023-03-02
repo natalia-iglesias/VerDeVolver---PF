@@ -5,8 +5,7 @@ const { conn } = require('./src/db.js');
 // const { PGPORT } = process.env;
 
 conn.sync({ force: true }).then(() => {
-  server.listen(3001, () => {
-    // ${PGPORT} en lugar de 3001
-    console.log(`%s listening at 3001`); // eslint-disable-line no-console
+  server.listen(DB_PORT, () => {
+    console.log(`%s listening at ${DB_PORT}`); // eslint-disable-line no-console
   });
 });

@@ -15,6 +15,7 @@ import Contact from './pages/Contact/Contact';
 import Navbar from './Components/NavBar';
 import SingUp from './pages/SingUp';
 import ColorModeSwitcher from './Components/ColorModeSwitcher';
+import Footer from './Components/Footer';
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
       </Routes>
       <ColorModeSwitcher />
+      <Footer />
     </BrowserRouter>
   );
 };
