@@ -1,21 +1,14 @@
 const { verify } = require('jsonwebtoken');
-const { hash } = require('bcrypt');
-const { QueryTypes } = require('sequelize');
-
-const { conn } = require('../../db');
+const { findBymail } = require('../../routes/user/controllers');
+// TODO HASHEO DE CONTRASEÑA
+// const { hash } = require('bcrypt');
 
 const changePasswordByToken = async (token, password) => {
-  console.log('changePasswordByToken', token);
   const { email } = verify(token, process.env.SECRET);
-  const emailObj = { mail: email };
-  console.log('eeeeeeeeeeeeeeeeee', emailObj);
-  await conn.query(
-    `UPDATE Users SET password='${await hash(password, 8)}' WHERE mail = :mail`,
-    {
-      replacements: emailObj,
-      type: QueryTypes.UPDATE,
-    }
-  );
+
+  const userUpdate = await findBymail(email);
+  userUpdate.password = password;
+  await userUpdate.save();
 
   return '<h1>Tu contraseña ha sido actualizada.</h1>';
 };

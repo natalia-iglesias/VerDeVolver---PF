@@ -164,7 +164,7 @@ const Login = () => {
         ¿Necesitas una cuenta? <Link to="/singup">Registrate</Link>
       </Text>
 
-      <AlertDialog isOpen={forgottenPassword}>
+      <AlertDialog isOpen={forgottenPassword} isCentered>
         <FormControl isRequired>
           <FormLabel>Escribe tu email: </FormLabel>
           <InputGroup>

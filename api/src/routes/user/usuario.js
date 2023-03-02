@@ -111,8 +111,6 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// nuevas rutas para el cambio de contraseña (cuando el usuario olvidó su contraseña)
-
 router.get('/password/:email', async (req, res) => {
   const { email } = req.params;
   try {
@@ -138,6 +136,7 @@ router.post('/password', async (req, res) => {
   try {
     res.status(200).send(await changePasswordByToken(token, password));
   } catch (error) {
+    console.log('error::', error);
     res.status(404).send(error.message);
   }
 });
