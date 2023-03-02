@@ -15,7 +15,7 @@ const PostsCarousel = () => {
     });
   }, []);
   return (
-    <div style={{ padding: `0 ${chevronWidth}px` }}>
+    <div style={{ marginBottom: '5rem', padding: `0 ${chevronWidth}px` }}>
       <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}
@@ -30,7 +30,7 @@ const PostsCarousel = () => {
           <InstagramEmbed
             url={pos.url}
             key={pos.id}
-            style={{ maxHeight: '50vh', overflowY: 'scroll' }}
+            style={{ maxHeight: '80vh', overflowY: 'scroll' }}
           />
         ))}
       </ItemsCarousel>

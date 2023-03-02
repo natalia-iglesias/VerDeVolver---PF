@@ -180,6 +180,7 @@ const Login = () => {
           <Button onClick={handlePasswordSubmit}>Enviar</Button>
         </FormControl>
       </AlertDialog>
+      <Box height={'10rem'}></Box>
     </Box>
   );
 };
