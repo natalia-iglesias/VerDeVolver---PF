@@ -134,7 +134,6 @@ router.post('/password', async (req, res) => {
   try {
     res.status(200).send(await changePasswordByToken(token, password));
   } catch (error) {
-    console.log('error::', error);
     res.status(404).send(error.message);
   }
 });

@@ -96,6 +96,8 @@ const Login = () => {
     await axios.get(
       `http://localhost:3001/user/password/${forgottenPasswordEmail.newEmail}`
     );
+    setForgottenPassword(false);
+    alert('Te hemos enviado un mail para que cambies tu contraseña');
   };
 
   return (
