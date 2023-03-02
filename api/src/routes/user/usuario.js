@@ -1,4 +1,12 @@
 const { Router } = require('express');
+const { sendEmail } = require('../../services/email');
+const {
+  changePasswordByToken,
+} = require('../../services/email/userChangePassword');
+const { sign } = require('jsonwebtoken');
+const {
+  htmlChangePasswordEmailTemplate,
+} = require('../../services/email/templates/templateUsers');
 const {
   chargeDbUsers,
   postUser,
@@ -7,8 +15,9 @@ const {
   findId,
   updateUser,
   deleteUser,
+  findBymail,
+  // findNameByMail,
 } = require('./controllers.js');
-
 const router = Router();
 
 //NO BORREN. ESTE ES EL BULKCREATE PARA CARGAR LA BASE DE DATOS
@@ -97,6 +106,7 @@ router.delete('/:id', async (req, res) => {
     return res.status(404).send(error.message);
   }
 });
+
 /* router.post('/signup', async (req, res, next) => {
   try {
     const newUser = await createUser(req.body);
@@ -105,5 +115,36 @@ router.delete('/:id', async (req, res) => {
     next(error);
   }
 }); */
+
+// nuevas rutas para el cambio de contraseña (cuando el usuario olvidó su contraseña)
+
+router.get('/password/:email', async (req, res) => {
+  const { email } = req.params;
+  try {
+    console.log('email', email);
+    const user = await findBymail(email);
+    console.log('user', user.name);
+    sendEmail(
+      email,
+      'Cambio de contraseña',
+      htmlChangePasswordEmailTemplate(
+        user.name,
+        sign({ email }, process.env.SECRET, { expiresIn: '24h' })
+      )
+    );
+    res.status(200).send('Enviado con éxito');
+  } catch (error) {
+    return res.status(404).send(error.message);
+  }
+});
+
+router.post('/password', async (req, res) => {
+  const { token, password } = req.body;
+  try {
+    res.status(200).send(await changePasswordByToken(token, password));
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
 
 module.exports = router;
