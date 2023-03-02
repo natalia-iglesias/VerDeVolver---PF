@@ -160,7 +160,7 @@ const SingUp = () => {
             onChange={handleChange}
             value={singUpData.mail}
             name="mail"
-            placeholder="Escibre tu mail"
+            placeholder="Escribe tu mail"
           />
         </InputGroup>
         {errors.mail && <FormErrorMessage>{errors.mail}</FormErrorMessage>}
@@ -212,20 +212,7 @@ const SingUp = () => {
           <FormErrorMessage>{errors.image}</FormErrorMessage>
         )}
       </FormControl>
-      {/* <FormControl isInvalid={errors.image}>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" children={<BiImage />} />
-          <Input
-            type="text"
-            onChange={handleChange}
-            value={singUpData.image}
-            name="image"
-            placeholder="Escibre la URL de tu imagen"
-          />
-        </InputGroup>
-        {errors.image && <FormErrorMessage>{errors.image}</FormErrorMessage>}
-      </FormControl> */}
-
+      
       <Button onClick={handleSubmit}>Registrarse</Button>
 
       <IconButton

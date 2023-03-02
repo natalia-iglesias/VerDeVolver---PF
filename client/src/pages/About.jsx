@@ -12,8 +12,18 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon, CopyIcon } from '@chakra-ui/icons';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Logeduser } from "../../src/redux/actions/acountActions";
 
 const About = () => {
+  const dispatch = useDispatch();
+  let userData = localStorage.getItem("LogedUser");
+  if (userData){
+    useEffect(() => {
+    dispatch(Logeduser())
+    }, [dispatch]);
+  }
   function renderDevCard(devName) {
     return (
       <Card bg="brand.light-green" border="solid 3px" w="20%" m="1vh" h="45vh">

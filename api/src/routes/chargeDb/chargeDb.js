@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const router = Router();
+const { postInsta } = require('../instagramPosts/controllers');
+
 const {
   Role,
   User,
@@ -268,6 +270,7 @@ async function chargeDbRoles() {
   const bulkCreateRoles = await Role.bulkCreate([
     { name: 'User' },
     { name: 'Admin' },
+    { name: 'Owner' },
   ]);
 
   return bulkCreateRoles;
@@ -348,7 +351,7 @@ const vdvCreate = async (body) => {
     lng,
   });
 
-  await vdvCreate.addMaterials(materials); // Unir VdV con materiales
+  await vdvCreate.addMaterials(materials); 
   return vdvCreate;
 };
 
@@ -418,6 +421,28 @@ async function chargeDbServices() {
 
   return bulkCreateServices;
 }
+
+const posts = [
+  {
+    url: 'https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link',
+  },
+  {
+    url: 'https://www.instagram.com/p/CIT3Hz2jDqh/?utm_source=ig_web_copy_link',
+  },
+  {
+    url: 'https://www.instagram.com/p/CIBswgBs1Ps/?utm_source=ig_web_copy_link',
+  },
+  {
+    url: 'https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link',
+  },
+];
+
+async function chargeInstagramPosts() {
+  posts.forEach(async (post) => {
+    await postInsta(post.url);
+  });
+}
+
 // function autoinvocalbe
 router.post('/', async (req, res) => {
   try {
@@ -435,8 +460,8 @@ router.post('/', async (req, res) => {
     if (!sixth) throw Error('Ocurrio un error durante la carga de donaciones');
     const seventh = await chargeDbServices();
     if (!seventh) throw Error('Ocurrio un error durante la carga de servicios');
+    await chargeInstagramPosts();
 
-    //No me odien jeje, no pude con la de materiales. Me hizo llorar sangre y no lo pude lograr
     res.status(200).send('Base de datos cargada.');
   } catch (error) {
     res.status(404).send(error.message);

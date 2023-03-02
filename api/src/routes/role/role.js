@@ -1,4 +1,3 @@
-// aca rutas
 const { Router } = require('express');
 const {
   chargeDbRoles,
@@ -18,7 +17,6 @@ router.post('/chargeDb', async (req, res) => {
   }
 });
 
-// crear rol
 router.post('/', async (req, res) => {
   const { name } = req.body;
   try {
@@ -29,7 +27,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// eliminar rol
 router.delete('/', async (req, res) => {
   const { name } = req.body;
   try {
@@ -42,7 +39,6 @@ router.delete('/', async (req, res) => {
   }
 });
 
-// traer todos lo roles -> devuelve [ 'Admin', 'User' ] se puede agregar mas roles
 router.get('/', async (req, res) => {
   try {
     const result = await getAll();

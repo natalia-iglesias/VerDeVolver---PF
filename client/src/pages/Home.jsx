@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchEntities } from '../redux/actions/entitiesActions';
 import {
   Button,
@@ -14,18 +15,23 @@ import {
 } from '@chakra-ui/react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import PostsCarousel from '../Components/PostsCarousel';
+import { Logeduser } from '../../src/redux/actions/acountActions';
 import axios from 'axios';
-import { InstagramEmbed } from 'react-social-media-embed';
 
 const Home = () => {
+  const dispatch = useDispatch();
+
   const { entities } = useSelector((state) => state.entitiesReducer);
 
   const [inputVdv, setInputVdV] = useState('');
   const [inputMonto, setInputMonto] = useState('');
+  const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-
+  let userData = localStorage.getItem('LogedUser');
   useEffect(() => {
+    if (userData) {
+      dispatch(Logeduser());
+    }
     dispatch(fetchEntities());
   }, [dispatch]);
 
@@ -35,14 +41,20 @@ const Home = () => {
   };
 
   const handleButton = (event) => {
+    let userData = JSON.parse(localStorage.getItem('LogedUser'));
+    if (!userData) {
+      navigate('/login');
+      alert('Debes iniciar sesión para poder donar');
+      throw Error('Debes iniciar sesión para poder donar');
+    }
     if (inputMonto && inputVdv) {
       try {
         axios
           .post('http://localhost:3001/donation', {
             VdVId: inputVdv,
             amount: inputMonto,
-            UserId: 1,
-          }) // userId LocalStorage
+            UserId: userData.id,
+          })
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
         res.status(400).send(error);

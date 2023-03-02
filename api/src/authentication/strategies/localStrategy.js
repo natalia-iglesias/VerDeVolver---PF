@@ -1,7 +1,6 @@
 const { Strategy } = require('passport-local');
 const { findBymail } = require('../../routes/user/controllers');
 
-//ver como me traigo el email
 
 const LocalStrategy = new Strategy(
   {

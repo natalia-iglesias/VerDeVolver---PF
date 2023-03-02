@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link as ReachLink } from 'react-router-dom';
 import {
   useColorMode,
@@ -17,6 +17,8 @@ import Profile from './Profile';
 
 const Navbar = () => {
   const { colorMode } = useColorMode();
+
+  useEffect;
 
   return (
     <HStack

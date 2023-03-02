@@ -12,4 +12,4 @@ const JwtStrategy = new Strategy(options, (payload, done) => {
 });
 
 module.exports = JwtStrategy;
-//solo verifica el token--> funcione verifay
+

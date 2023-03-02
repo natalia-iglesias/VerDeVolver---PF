@@ -3,6 +3,7 @@ import axios from 'axios';
 export const AUTH_ACOUNT_LOCAL = 'AUTH_ACOUNT_LOCAL';
 export const AUTH_ACOUNT_GOOGLE = 'AUTH_ACOUNT_GOOGLE';
 export const LOGOUT_ACOUNT = 'LOGOUT_ACOUNT';
+export const LOGED_USER = 'LOGED_USER';
 
 export const authAcountLocal = ({ mail, password }) => {
   return async (dispatch) => {
@@ -20,8 +21,6 @@ export const authAcountLocal = ({ mail, password }) => {
         },
       };
 
-      //local storage
-      console.log(auth);
       localStorage.setItem('LogedUser', JSON.stringify(auth.data));
 
       const acount = await axios.get(
@@ -36,18 +35,41 @@ export const authAcountLocal = ({ mail, password }) => {
   };
 };
 
+export function Logeduser() {
+  return async function (dispatch) {
+    try {
+      let userData = localStorage.getItem("LogedUser");
+      let userLS = JSON.parse(userData); 
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userLS.token}`,
+        },
+      };
+
+      const userInfo = await axios.get(
+        `http://localhost:3001/login?mail=${userLS.mail}`,
+        config
+      );
+      const userDataDb = userInfo.data;
+
+      const payload = {...userLS, ...userDataDb}
+
+      return dispatch({
+        type: LOGED_USER,
+        payload: payload
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
 export const authAcountGoogle = () => {
   window.location.href = 'http://localhost:3001/login/google';
 };
 
 export const logoutAcount = () => {
-  return async (dispatch) => {
-    try {
-      await axios.get('http://localhost:3001/logout');
-
-      dispatch({ type: LOGOUT_ACOUNT, payload: {} });
-    } catch (error) {
-      dispatch({ type: LOGOUT_ACOUNT, payload: {} });
-    }
-  };
+  localStorage.removeItem('LogedUser');
+  return { type: LOGOUT_ACOUNT, payload: {} };
 };

@@ -1,7 +1,6 @@
 const { Op } = require('sequelize');
 const { Role, User } = require('../../db.js');
 
-//ESTE ES EL BULKCREATE NO LO BORREN
 async function chargeDbUsers() {
   const role = await Role.findByPk(1);
 
@@ -47,7 +46,6 @@ const postUser = async (body) => {
   console.log(body);
   const role = await Role.findByPk(1);
   const existUser = await User.findOne({
-    // mail unique:true en modelo, no hace falta validar
     where: {
       mail: {
         [Op.like]: body.mail,
@@ -118,6 +116,17 @@ const updateUser = async (userToUD, id) => {
   });
 };
 
+const modifyUserRole = async (id) => {
+  try {
+    await User.update({ RoleId: 3 }, { where: { id } });
+
+    const userModified = await findId(id);
+    return userModified;
+  } catch (error) {
+    throw Error({ error: error.message });
+  }
+};
+
 const deleteUser = async (id) => {
   try {
     if (!id) throw Error('No se ha suministrado ningun id');
@@ -135,15 +144,6 @@ const deleteUser = async (id) => {
     throw Error({ error: error.message });
   }
 };
-// la ruta del create funciona usemos la misma ??
-/* const createUser = async (data) => {
-  const algHash = await bcrypt.hash(data.password, 10);
-  const user = await User.create({ ...data, password: algHash });
-  console.log(user);
-
-  delete user.dataValues.password;
-  return user;
-}; */
 
 const findBymail = async (mail) => {
   const userMail = User.findOne({
@@ -161,5 +161,5 @@ module.exports = {
   updateUser,
   deleteUser,
   findBymail,
-  // findNameByMail,
+  modifyUserRole,
 };

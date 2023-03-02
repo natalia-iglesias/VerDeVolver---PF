@@ -1,6 +1,5 @@
 const { Service, User, VdV } = require('../../db.js');
 
-//ESTE ES EL BULKCREATE NO LO BORREN
 async function chargeDbServices() {
   const bulkCreateServices = await Service.bulkCreate([
     { amount: '5000', UserId: '1', VdVId: '1' },
@@ -44,7 +43,6 @@ const getServiceById = async (id) => {
   }
 };
 
-// Ver como podria utilizar un objeto que sea where el cual modifico dependiendo la peticion
 const getByUserId = async (id) => {
   if (!id) throw Error('Debes ingresar un id');
 

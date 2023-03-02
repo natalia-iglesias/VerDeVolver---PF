@@ -1,13 +1,10 @@
 const { DataTypes } = require('sequelize');
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
-  // defino el modelo
   sequelize.define(
     'VdV',
     {
       id: {
-        type: DataTypes.INTEGER, // buscar regex
+        type: DataTypes.INTEGER, 
         primaryKey: true,
         autoIncrement: true,
       },
@@ -25,8 +22,6 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       address: {
-        // Esto va a ser "Longitud" y "Latitud" -> Numbers(integer)
-        // type: DataTypes.ARRAY(DataTypes.INTEGER), --> vamos a usar
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -44,18 +39,13 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,
-        // buscar regex
       },
       password: {
         type: DataTypes.STRING,
-        // allowNull: false,
-        // validate: {
-        //   len: [8, 20],
-        // },
       },
       status: {
-        type: DataTypes.ENUM('Pending', 'Active', 'Disabled'), // Active de ser aprobado.
-        defaultValue: 'Pending', // 'Pending' // Admin lo rechaza se elimina el registro
+        type: DataTypes.ENUM('Pending', 'Active', 'Disabled'), 
+        defaultValue: 'Pending', 
       },
       rating: {
         type: DataTypes.INTEGER,

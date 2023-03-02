@@ -8,15 +8,16 @@ import {
   Text,
   Divider,
   Link,
+  Button,
 } from '@chakra-ui/react';
-import { StarIcon } from '@chakra-ui/icons';
+import { StarIcon, DeleteIcon } from '@chakra-ui/icons';
 import { Link as ReachLink } from 'react-router-dom';
 
 function DashboardScroll({ type, id }) {
   const [arrayToRender, setArrayToRender] = useState();
+  const [deleteFeedbackIcon, setdeleteFeedbackIcon] = useState();
+  const Axios = axios.create({ baseURL: 'http://localhost:3001' });
   useEffect(() => {
-    const Axios = axios.create({ baseURL: 'http://localhost:3001' });
-
     switch (type) {
       case 'userDonation':
         Axios.get(`/donation/user/${id}`).then((res) => {
@@ -36,19 +37,46 @@ function DashboardScroll({ type, id }) {
           setArrayToRender(res.data);
         });
         break;
-      case 'comment':
-        setArrayToRender(commentArray);
+      case 'allDonation':
+        Axios.get(`/donation`).then((res) => {
+          res.data.forEach((obj) => (obj.VdV = false));
+          setArrayToRender(res.data);
+        });
+        break;
+      case 'feedback':
+        Axios.get(`/feedback`).then((res) => {
+          res.data.forEach((obj) => (obj.VdV = false));
+          setdeleteFeedbackIcon(true);
+          setArrayToRender(res.data);
+        });
+        break;
+      case 'allServices':
+        Axios.get(`/service`).then((res) => {
+          res.data.forEach((obj) => (obj.VdV = false));
+          setArrayToRender(res.data);
+        });
         break;
     }
   }, []);
+
+  const deleteFeedback = (id) => {
+    Axios.delete(`/feedback/${id}/delete`).then(() => {
+      window.alert('La reseña fue borrada');
+      Axios.get(`/feedback`).then((res) => {
+        res.data.forEach((obj) => (obj.VdV = false));
+        setdeleteFeedbackIcon(true);
+        setArrayToRender(res.data);
+      });
+    });
+  };
 
   return (
     <Box w="40vw" h="40vh" overflow="auto">
       <Flex overflowY="scroll" flexDirection="column" gap={'1rem'}>
         {arrayToRender?.map((item, i) => {
-          let arreglo;
+          let stars;
           if (item.rating) {
-            arreglo = new Array(item.rating).fill(<StarIcon />);
+            stars = new Array(item.rating).fill(<StarIcon />);
           }
 
           return (
@@ -70,9 +98,14 @@ function DashboardScroll({ type, id }) {
                       {item.serviceType && `${item.serviceType} /`}
                       {item.content && item.content}
                     </Text>
-                    {item.rating && arreglo}
+                    {item.rating && stars}
                   </CardBody>
                 </Card>
+                {deleteFeedbackIcon && (
+                  <Button onClick={() => deleteFeedback(item.id)}>
+                    <DeleteIcon />
+                  </Button>
+                )}
               </Flex>
               <Divider />
             </div>
@@ -84,75 +117,3 @@ function DashboardScroll({ type, id }) {
 }
 
 export default DashboardScroll;
-
-const commentArray = [
-  {
-    content: 'UNOUNOUNOUNOUNOUNOUNOUNOUNOUNOUNOUNOUNOUNOUNOUNOUNOUNOUNOUNO',
-    rating: 3,
-  },
-  {
-    content: 'DOSDOSDOSDOSDOSDOSDOSDOSDOSDOSDOSDOSDOSDOSDOSDOSDOSDOSDOSDOS',
-    rating: 1,
-  },
-  {
-    content:
-      'TRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRESTRES',
-    rating: 5,
-  },
-];
-
-const donationArray = [
-  {
-    name: 'Pepito Sanchez',
-    date: '22/7/22',
-    entity: 'Entidad 1111',
-  },
-  {
-    name: 'Carlos Carlos',
-    date: '12/2/21',
-    entity: 'Entidad 22222',
-  },
-  {
-    name: 'Shakira',
-    date: '4/12/20',
-    entity: 'Entidad 333333',
-  },
-  {
-    name: 'Carola Reina',
-    date: '8/1/19',
-    entity: 'Entidad 22222',
-  },
-  {
-    name: 'Andrea del Boca',
-    date: '1/3/23',
-    entity: 'Entidad 444444',
-  },
-];
-
-const servicesArray = [
-  {
-    name: 'Pepito Sanchez',
-    date: '22/7/22',
-    serviceType: 'Semanal',
-  },
-  {
-    name: 'Carlos Carlos',
-    date: '12/2/21',
-    serviceType: 'Individual',
-  },
-  {
-    name: 'Shakira',
-    date: '4/12/20',
-    serviceType: 'Semanal',
-  },
-  {
-    name: 'Carola Reina',
-    date: '8/1/19',
-    serviceType: 'Individual',
-  },
-  {
-    name: 'Andrea del Boca',
-    date: '1/3/23',
-    serviceType: 'Individual',
-  },
-];
