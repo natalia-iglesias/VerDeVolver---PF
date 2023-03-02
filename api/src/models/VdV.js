@@ -4,7 +4,7 @@ module.exports = (sequelize) => {
     'VdV',
     {
       id: {
-        type: DataTypes.INTEGER, 
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
@@ -44,8 +44,8 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
       },
       status: {
-        type: DataTypes.ENUM('Pending', 'Active', 'Disabled'), 
-        defaultValue: 'Pending', 
+        type: DataTypes.ENUM('Pending', 'Active', 'Disabled'),
+        defaultValue: 'Pending',
       },
       rating: {
         type: DataTypes.INTEGER,
