@@ -1,6 +1,9 @@
 const { Op } = require('sequelize');
 const { Role, User } = require('../../db.js');
 const { verify } = require('jsonwebtoken');
+const {
+  updatePassword,
+} = require('../../services/email/templates/templateUsers');
 
 async function chargeDbUsers() {
   const role = await Role.findByPk(1);
@@ -160,7 +163,7 @@ const changePasswordByToken = async (token, password) => {
   userUpdate.password = password;
   await userUpdate.save();
 
-  return '<h1>Tu contraseña ha sido actualizada.</h1><a href = "http://localhost:5173/login" > Puedes volver a ingresar.</a > ';
+  return updatePassword;
 };
 
 module.exports = {
