@@ -12,6 +12,7 @@ import {
   InputLeftElement,
   HStack,
   Heading,
+  Grid,
 } from '@chakra-ui/react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import PostsCarousel from '../Components/PostsCarousel';
@@ -71,10 +72,12 @@ const Home = () => {
         size="l"
         bg="#2F855A"
         w="70%"
-        h="100px"
+        h="6.2rem"
         color="white"
-        padding="2%"
+        padding="1.5%"
         borderRadius="md"
+        fontFamily="sans-serif"
+        textAlign={'center'}
       >
         Te brindamos información sobre los distintos lugares dedicados al
         reciclaje en todo el país. Encontrá los más cercanos y hacé que tu
@@ -86,6 +89,8 @@ const Home = () => {
           <Select
             placeholder="Colabora con el punto de reciclaje que te haya ayudado.."
             onChange={handleInputs}
+            borderColor="gray.200"
+            borderWidth="2px"
           >
             {entities?.map(({ id, name }) => (
               <option value={id} key={id}>
@@ -99,13 +104,22 @@ const Home = () => {
               name="Monto"
               placeholder="Monto"
               type="number"
+              borderColor="gray.200"
+              borderWidth="2px"
               onChange={handleInputs}
             />
           </InputGroup>
         </HStack>
-        <Button color={'vdv.main'} colorScheme="green" onClick={handleButton}>
-          Donar
-        </Button>
+        <Grid placeItems="center">
+          <Button
+            color={'vdv.main'}
+            colorScheme="green"
+            onClick={handleButton}
+            width="8rem"
+          >
+            Donar
+          </Button>
+        </Grid>
       </Stack>
 
       <PostsCarousel />
