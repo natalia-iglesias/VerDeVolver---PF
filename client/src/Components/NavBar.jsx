@@ -27,14 +27,13 @@ const Navbar = () => {
       alignItems="center"
       pr="1rem"
     >
-      <Box>
-        <Link as={ReachLink} to="/home">
-          <Image
-            src="https://res.cloudinary.com/verdevolver/image/upload/v1677472484/images/kj5khde8ek1o7xrpwhaj.png"
-            w="10rem"
-          />
-        </Link>
-      </Box>
+      <Link as={ReachLink} to="/home">
+        <Image
+          src="https://res.cloudinary.com/verdevolver/image/upload/v1677472484/images/kj5khde8ek1o7xrpwhaj.png"
+          w="10rem"
+          style={{ transform: 'scale(1.4)' }}
+        />
+      </Link>
 
       <List display="flex" flexDir="row" gap="1rem">
         <ListItem

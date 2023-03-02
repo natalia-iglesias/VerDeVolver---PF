@@ -20,7 +20,7 @@ const htmlUserRegisterEmailTemplate = (name) => `
         </body>        
                 `;
 
-const htmlChangePasswordEmailTemplate = (name) => `       
+const htmlChangePasswordEmailTemplate = (name, token) => `       
         ${templateHeader}
         <body>
           <div class="main_container">
@@ -29,7 +29,17 @@ const htmlChangePasswordEmailTemplate = (name) => `
             </div>
             <div class="text_container">
               <h1>Hola ${name}, </h1>
-              <p>Por favor ingresa tu nueva contraseña.</p>              
+              <p>Por favor ingresa tu nueva contraseña y haz click en aceptar.</p>
+              <p>La misma tendrá validez por las próximas 24 horas.</p>
+              <form action="http://localhost:3001/user/password"
+              method="POST">
+              <input type="password"
+              placeholder= "Nueva contraseña..."
+              name="password"
+              required />
+              <input type="hidden" name="token" value="${token}" />
+              <input type="submit" value="Aceptar" />              
+              </form>              
               <p>Que tengas buen día!</p>
               <p>Equipo de Verde Volver</p>
               <img alt="fondo-vdv" src="cid:vdv@Fondo" />
@@ -37,6 +47,7 @@ const htmlChangePasswordEmailTemplate = (name) => `
           </div>
         </body>        
                 `;
+
 const htmlChangeCBUEmailTemplate = (name) => `       
         ${templateHeader}
         <body>

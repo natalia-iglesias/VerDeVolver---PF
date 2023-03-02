@@ -16,14 +16,14 @@ import {
 import { ExternalLinkIcon, CopyIcon } from '@chakra-ui/icons';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Logeduser } from "../../src/redux/actions/acountActions";
+import { Logeduser } from '../../src/redux/actions/acountActions';
 
 const About = () => {
   const dispatch = useDispatch();
-  let userData = localStorage.getItem("LogedUser");
-  if (userData){
+  let userData = localStorage.getItem('LogedUser');
+  if (userData) {
     useEffect(() => {
-    dispatch(Logeduser())
+      dispatch(Logeduser());
     }, [dispatch]);
   }
   const { colorMode } = useColorMode();

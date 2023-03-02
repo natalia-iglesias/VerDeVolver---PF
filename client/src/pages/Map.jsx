@@ -11,7 +11,7 @@ const containerStyle = {
   width: '99vw',
   height: '100vh',
 };
-import { Logeduser } from "../../src/redux/actions/acountActions";
+import { Logeduser } from '../../src/redux/actions/acountActions';
 
 const Map = () => {
   const dispatch = useDispatch();
@@ -22,13 +22,12 @@ const Map = () => {
   const { entities, filteredEntities } = useSelector(
     (state) => state.entitiesReducer
   );
-  
 
   //const { colorMode } = useColorMode();
-  let userData = localStorage.getItem("LogedUser");
+  let userData = localStorage.getItem('LogedUser');
   useEffect(() => {
-    if (userData){
-      dispatch(Logeduser())
+    if (userData) {
+      dispatch(Logeduser());
     }
     dispatch(fetchEntities());
     dispatch(getMaterials());
@@ -100,16 +99,15 @@ const Map = () => {
         ))}
 
         {activeMarker && (
-          
-            <InfoWindow
-              position={{ lat: activeMarker.lat, lng: activeMarker.lng }}
-              onCloseClick={handleInfoWindowClose}
-            >
-              <MarkerInfo data={activeMarker} />
-            </InfoWindow>
-          
+          <InfoWindow
+            position={{ lat: activeMarker.lat, lng: activeMarker.lng }}
+            onCloseClick={handleInfoWindowClose}
+          >
+            <MarkerInfo data={activeMarker} />
+          </InfoWindow>
         )}
       </GoogleMap>
+      <Box height={'2rem'}></Box>
     </Box>
   );
 };
