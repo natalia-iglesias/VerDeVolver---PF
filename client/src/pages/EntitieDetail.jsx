@@ -155,7 +155,6 @@ const EntityDetail = () => {
                   <RankingStars stars={rating} />
                 </HStack>
                 <Text>{comment}</Text>
-                {console.log(User.name)}
               </Box>
             ))}
           </VStack>

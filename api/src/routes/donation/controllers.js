@@ -69,8 +69,8 @@ const getAll = async () => {
   try {
     const result = Donation.findAll({
       include: [
-        { model: User, attributes: ['name', 'last_name'] },
-        { model: VdV, attributes: ['name'] },
+        { model: User, attributes: ['name', 'last_name', 'image'] },
+        { model: VdV, attributes: ['name', 'img'] },
       ],
     });
 
@@ -129,8 +129,8 @@ const getByUserId = async (id) => {
         UserId: id,
       },
       include: [
-        { model: User, attributes: ['name', 'last_name'] },
-        { model: VdV, attributes: ['name'] },
+        { model: User, attributes: ['name', 'last_name', 'image'] },
+        { model: VdV, attributes: ['name', 'img'] },
       ],
     });
     if (!result) throw Error(`La donacion con id ${id} no fue encontrada`);
@@ -153,8 +153,8 @@ const getByVdVId = async (id) => {
         VdVId: id,
       },
       include: [
-        { model: User, attributes: ['name', 'last_name'] },
-        { model: VdV, attributes: ['name'] },
+        { model: User, attributes: ['name', 'last_name', 'image'] },
+        { model: VdV, attributes: ['name', 'img'] },
       ],
     });
     if (!result) throw Error(`La entidad con id ${id} no fue encontrada`);

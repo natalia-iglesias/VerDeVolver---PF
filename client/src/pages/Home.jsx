@@ -66,7 +66,7 @@ const Home = () => {
   };
 
   return (
-    <Box justify="center" align="center">
+    <Box justify="center" align="center" mt='1rem'>
       <Heading
         as="h1"
         size="l"
