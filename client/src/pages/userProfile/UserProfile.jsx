@@ -24,7 +24,6 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { logoutAcount } from '../../redux/actions/acountActions';
 import { BiUser, BiUserX } from 'react-icons/bi';
 import UploadImage from '../../Components/Cloudinary';
 import { authAcountLocal } from '../../redux/actions/acountActions';
@@ -71,8 +70,7 @@ function UserProfile() {
   };
 
   const handleDeleteUser = () => {
-    deleteUser(acount?.id, navigate);
-    dispatch(logoutAcount());
+    deleteUser(acount?.id, navigate, dispatch);
   };
 
   const handleUploadImage = (url) => {

@@ -22,10 +22,12 @@ const Profile = () => {
   if (!Object.entries(acount).length)
     return (
       <Button
-        bg={colorMode === 'light' ? '#F5F2EB' : '#68D391'}
-        onClick={() => navigate('/login')}
+      bg={colorMode === 'light' ? '#F5F2EB' : '#68D391'}
+      onClick={() => navigate('/login')}
       >
-        Iniciar Sesión
+        <Avatar
+          src="https://res.cloudinary.com/verdevolver/image/upload/v1677709221/images/av1d2yqkihxddfx1llzu.jpg"
+        />
       </Button>
     );
 
