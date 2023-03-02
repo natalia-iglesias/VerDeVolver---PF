@@ -48,7 +48,11 @@ const Entities = () => {
 
   let filters = filteredEntities;
 
-  const max = Math.ceil(filters.length / byPage);
+  let numberEntitiesActives = 0;
+  for (let i = 0; i < filters.length; i++)
+    if (filters[i].status === 'Active') numberEntitiesActives++;
+
+  const max = Math.ceil(numberEntitiesActives / byPage);
 
   return (
     <VStack mx="1rem">
