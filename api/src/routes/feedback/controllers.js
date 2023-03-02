@@ -137,7 +137,7 @@ const getFeedbacksByVdVId = async (id) => {
         },
       },
       include: [
-        { model: User, attributes: ['name', 'last_name'] },
+        { model: User, attributes: ['name', 'last_name', 'image'] },
         { model: VdV, attributes: ['name'] },
       ],
     });

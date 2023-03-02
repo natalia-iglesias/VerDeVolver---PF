@@ -22,8 +22,8 @@ const Profile = () => {
   if (!Object.entries(acount).length)
     return (
       <Button
-        bg={colorMode === 'light' ? '#F5F2EB' : '#68D391'}
-        onClick={() => navigate('/login')}
+      bg={colorMode === 'light' ? '#F5F2EB' : '#68D391'}
+      onClick={() => navigate('/login')}
       >
         Iniciar Sesión
       </Button>
