@@ -5,7 +5,7 @@ const RankingStars = ({ stars, setStars }) => {
   return (
     <HStack spacing={'2'}>
       {[...Array(5)].map((n, i) =>
-        i <= stars -1 ? (
+        i <= stars - 1 ? (
           <AiFillStar key={i.toString()} />
         ) : (
           <AiOutlineStar key={i} />

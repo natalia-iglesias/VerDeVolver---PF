@@ -17,6 +17,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
   Stack,
   StackDivider,
   Text,
@@ -30,22 +31,22 @@ import {
   getEntityById,
   getEntityFeedbacks,
 } from '../redux/actions/entitiesActions';
-import { Logeduser } from "../../src/redux/actions/acountActions";
+import { Logeduser } from '../../src/redux/actions/acountActions';
 import CreateRating from '../Components/CreateRating';
 
 const EntityDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  
-  let userData = localStorage.getItem("LogedUser");
+
+  let userData = localStorage.getItem('LogedUser');
   useEffect(() => {
-    if (userData){
-      dispatch(Logeduser())
+    if (userData) {
+      dispatch(Logeduser());
     }
     dispatch(getEntityById(id));
     dispatch(getEntityFeedbacks(id));
   }, [id]);
-  
+
   const { entity, feedbacks } = useSelector((state) => state.entitiesReducer);
 
   if (!entity || !feedbacks) return <PropagateLoader color="#1c5738" />;
@@ -53,7 +54,7 @@ const EntityDetail = () => {
   const navigate = useNavigate();
   const [inputMonto, setInputMonto] = useState('');
   const [inputReview, setInputReview] = useState('');
-  const [stars, setStars] = useState(1);
+  const [stars, setStars] = useState(0);
 
   const handleInputs = (event) => {
     event.target.name === 'Monto'
@@ -61,13 +62,13 @@ const EntityDetail = () => {
       : setInputReview(event.target.value);
   };
 
-  const handleButton = (event) => {
+  const handleDonate = () => {
     let userData = JSON.parse(localStorage.getItem('LogedUser'));
     if (inputMonto) {
       if (!userData) {
         navigate('/login');
-        alert('Debes iniciar sesión para donar')
-        throw Error ('Debes iniciar sesión para donar')
+        alert('Debes iniciar sesión para donar');
+        throw Error('Debes iniciar sesión para donar');
       }
       try {
         axios
@@ -75,7 +76,7 @@ const EntityDetail = () => {
             VdVId: id,
             amount: inputMonto,
             UserId: userData.id,
-          }) 
+          })
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
         res.status(400).send(error);
@@ -85,24 +86,21 @@ const EntityDetail = () => {
     }
   };
 
-  const handleButtonReview = async (event) => {
+  const handleComment = async (event) => {
     let userData = JSON.parse(localStorage.getItem('LogedUser'));
     if (!userData) {
       navigate('/login');
       alert('Debes iniciar sesión para poder dejar tu reseña');
-      throw Error ('Debes iniciar sesión para poder dejar tu reseña')
+      throw Error('Debes iniciar sesión para poder dejar tu reseña');
     }
     if (inputReview && userData) {
       try {
-        const resultAxios = await axios.post(
-          'http://localhost:3001/feedback/create',
-          {
-            comment: inputReview,
-            rating: stars,
-            UserId: userData.id,
-            VdVId: id,
-          }
-        );
+        await axios.post('http://localhost:3001/feedback/create', {
+          comment: inputReview,
+          rating: stars,
+          UserId: userData.id,
+          VdVId: id,
+        });
         alert('Creacion de comentario exitosa!');
       } catch (error) {
         throw Error(error.message);
@@ -123,7 +121,7 @@ const EntityDetail = () => {
               type={'number'}
               onChange={handleInputs}
             />
-            <Button onClick={handleButton}>Donar</Button>
+            <Button onClick={handleDonate}>Donar</Button>
           </InputGroup>
         </VStack>
       </GridItem>
@@ -140,7 +138,7 @@ const EntityDetail = () => {
           {entity.description}
         </Text>
 
-        <Stack mt="1rem">
+        <Stack mt="1rem" spacing={'1rem'}>
           <Heading fontSize={'lg'}>Reseñas</Heading>
           <Divider />
           <VStack
@@ -149,8 +147,8 @@ const EntityDetail = () => {
             maxH="25vh"
             divider={<StackDivider />}
           >
-            {feedbacks?.map(({ User, comment, rating }, i) => (
-              <Box key={i}>
+            {feedbacks?.map(({ User, comment, rating }) => (
+              <Box key={User + comment}>
                 <HStack>
                   <Avatar name={User.name} size="sm" />
                   <RankingStars stars={rating} />
@@ -159,34 +157,25 @@ const EntityDetail = () => {
               </Box>
             ))}
           </VStack>
-          <br></br>
-          <br></br>
-        </Stack>
-        <Box
-          border="solid 0.2rem "
-          borderRadius="1rem"
-          mr="5vw"
-          p="1rem"
-          alignItems="center"
-        >
-          <Box mr="5vw" >
-            <Box mb='0.5rem'>
-              <CreateRating stars={stars} setStars={setStars}/>
+          <Divider />
+
+          <Box>
+            <Box>
+              <CreateRating stars={stars} setStars={setStars} />
             </Box>
-            <VStack ml="1rem">
-              <InputGroup align="center">
-                <InputLeftElement />
-                <Textarea
-                  name="Review"
-                  placeholder="Deja tu reseña"
-                  type={'text'}
-                  onChange={handleInputs}
-                />
-              </InputGroup>
-              <Button onClick={handleButtonReview}>Comentar</Button>
+            <VStack>
+              <Textarea
+                name="Review"
+                placeholder="Deja tu reseña"
+                type={'text'}
+                onChange={handleInputs}
+              />
+              <Button onClick={handleComment} w="full">
+                Comentar
+              </Button>
             </VStack>
           </Box>
-        </Box>
+        </Stack>
       </GridItem>
     </Grid>
   );
