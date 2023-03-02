@@ -1,5 +1,6 @@
 const { Op } = require('sequelize');
 const { Role, User } = require('../../db.js');
+const { verify } = require('jsonwebtoken');
 
 async function chargeDbUsers() {
   const role = await Role.findByPk(1);
@@ -152,6 +153,16 @@ const findBymail = async (mail) => {
   return userMail;
 };
 
+const changePasswordByToken = async (token, password) => {
+  const { email } = verify(token, process.env.SECRET);
+
+  const userUpdate = await findBymail(email);
+  userUpdate.password = password;
+  await userUpdate.save();
+
+  return '<h1>Tu contraseña ha sido actualizada.</h1>';
+};
+
 module.exports = {
   chargeDbUsers,
   postUser,
@@ -162,4 +173,5 @@ module.exports = {
   deleteUser,
   findBymail,
   modifyUserRole,
+  changePasswordByToken,
 };

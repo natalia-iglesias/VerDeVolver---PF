@@ -1,8 +1,5 @@
 const { Router } = require('express');
 const { sendEmail } = require('../../services/email');
-const {
-  changePasswordByToken,
-} = require('../../services/email/userChangePassword');
 const { sign } = require('jsonwebtoken');
 const {
   htmlChangePasswordEmailTemplate,
@@ -16,6 +13,7 @@ const {
   updateUser,
   deleteUser,
   findBymail,
+  changePasswordByToken,
 } = require('./controllers.js');
 const router = Router();
 
