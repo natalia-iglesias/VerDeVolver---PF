@@ -10,29 +10,24 @@ import {
   StackDivider,
   Link,
   Image,
-  Box, 
-  useColorMode
+  Box,
+  useColorMode,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon, CopyIcon } from '@chakra-ui/icons';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Logeduser } from '../../src/redux/actions/acountActions';
 
 const About = () => {
-  const dispatch = useDispatch();
-  let userData = localStorage.getItem('LogedUser');
-  if (userData) {
-    useEffect(() => {
-      dispatch(Logeduser());
-    }, [dispatch]);
-  }
   const { colorMode } = useColorMode();
   function renderDevCard(devName, devImg, devLinkd, devIg, devMail) {
     return (
-      <Card 
-          bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'} 
-          border="solid 3px" borderColor={colorMode === 'light' ? 'black' : '#2c835b'}
-          fontFamily='lato' w="20%" m="1vh" h="45vh" p='0.5rem'
+      <Card
+        bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
+        border="solid 3px"
+        borderColor={colorMode === 'light' ? 'black' : '#2c835b'}
+        fontFamily="lato"
+        w="20%"
+        m="1vh"
+        h="45vh"
+        p="0.5rem"
       >
         <Image
           src={devImg}
@@ -41,7 +36,7 @@ const About = () => {
           boxSize="100px"
           m="auto"
         />
-        <CardHeader m="1px" p="1px" align="center" >
+        <CardHeader m="1px" p="1px" align="center">
           <Heading size="md">{devName}</Heading>
         </CardHeader>
 
@@ -100,32 +95,46 @@ const About = () => {
     },
   ];
   return (
-    <Flex 
-        flexDirection="column" align="center" 
-        bg={colorMode === 'light' ? '#b4c4ac' : '#212933'} 
-        padding='1rem' 
+    <Flex
+      flexDirection="column"
+      align="center"
+      bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+      padding="1rem"
     >
-      <Box 
-          borderRadius='lg' mb='0.8rem' p='0.7rem' 
-          bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
+      <Box
+        borderRadius="lg"
+        mb="0.8rem"
+        p="0.7rem"
+        bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
       >
-        <Heading align='center' fontFamily='Exo 2' mb='0.8rem' >Proyecto final Henry</Heading>
-        <Text align='center' width="90vw" m='0.7rem' fontSize='xl' fontFamily='lato'>
-      VerDeVolver es un sitio web sin fines de lucro, que busca promover e informar sobre el
-      reciclaje y gestión de residuos a nivel nacional en Argentina, a través de una interfaz de
-      usuario intuitiva y amigable.
-      Ofrecemos una guía simple sobre los
-      materiales reciclables (qué son, qué hacer con ellos, cuánto dañan el medio ambiente) y
-      un mapa georreferenciado que muestra los lugares (entidades VdV) cercanos donde
-      puedes entregar tus residuos. Las entidades VdV son organizaciones, cooperativas,
-      emprendimientos, empresas o particulares que reciben, reciclan y/o reutilizan
-      determinados residuos. VerDeVolver no está involucrada ni participa directamente con
-      ninguno de los puntos de reciclaje en el mapa.
+        <Heading align="center" fontFamily="Exo 2" mb="0.8rem">
+          Proyecto final Henry
+        </Heading>
+        <Text
+          align="center"
+          width="90vw"
+          m="0.7rem"
+          fontSize="xl"
+          fontFamily="lato"
+        >
+          VerDeVolver es un sitio web sin fines de lucro, que busca promover e
+          informar sobre el reciclaje y gestión de residuos a nivel nacional en
+          Argentina, a través de una interfaz de usuario intuitiva y amigable.
+          Ofrecemos una guía simple sobre los materiales reciclables (qué son,
+          qué hacer con ellos, cuánto dañan el medio ambiente) y un mapa
+          georreferenciado que muestra los lugares (entidades VdV) cercanos
+          donde puedes entregar tus residuos. Las entidades VdV son
+          organizaciones, cooperativas, emprendimientos, empresas o particulares
+          que reciben, reciclan y/o reutilizan determinados residuos.
+          VerDeVolver no está involucrada ni participa directamente con ninguno
+          de los puntos de reciclaje en el mapa.
         </Text>
       </Box>
-      
+
       <Flex flexWrap="wrap" align="center" w="100%" ml="30vh">
-        {devList.map((dev) => renderDevCard(dev.name, dev.img, dev.linkedin, dev.ig, dev.mail))}
+        {devList.map((dev) =>
+          renderDevCard(dev.name, dev.img, dev.linkedin, dev.ig, dev.mail)
+        )}
       </Flex>
     </Flex>
   );

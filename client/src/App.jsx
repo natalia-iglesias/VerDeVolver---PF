@@ -1,3 +1,7 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { LogedUser } from './redux/actions/acountActions';
+import { fetchEntities } from './redux/actions/entitiesActions';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
@@ -18,6 +22,12 @@ import ColorModeSwitcher from './Components/ColorModeSwitcher';
 import Footer from './Components/Footer';
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(LogedUser());
+    dispatch(fetchEntities());
+  }, []);
+
   return (
     <BrowserRouter>
       <Navbar />

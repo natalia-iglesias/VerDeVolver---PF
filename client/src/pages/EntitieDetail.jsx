@@ -17,7 +17,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  InputRightElement,
   Stack,
   StackDivider,
   Text,
@@ -31,18 +30,13 @@ import {
   getEntityById,
   getEntityFeedbacks,
 } from '../redux/actions/entitiesActions';
-import { Logeduser } from '../../src/redux/actions/acountActions';
 import CreateRating from '../Components/CreateRating';
 
 const EntityDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  let userData = localStorage.getItem('LogedUser');
   useEffect(() => {
-    if (userData) {
-      dispatch(Logeduser());
-    }
     dispatch(getEntityById(id));
     dispatch(getEntityFeedbacks(id));
   }, [id]);

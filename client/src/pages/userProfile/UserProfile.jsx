@@ -37,23 +37,10 @@ import {
   getUserDonations, getUserFeedbacks
 } from '../../redux/actions/usersActions';
 import { authAcountLocal } from '../../redux/actions/acountActions';
-import { Logeduser } from '../../redux/actions/acountActions';
-import RankingStars from '../../Components/RankingStars';
+import { LogedUser } from '../../redux/actions/acountActions';
 
 function UserProfile() {
   const dispatch = useDispatch();
-
-  let userData = localStorage.getItem('LogedUser');
-  let userDataParsed = JSON.parse(userData); 
-  const userId = userDataParsed.id; 
-
-  useEffect(() => {
-    if (userData) {
-      dispatch(Logeduser());
-    }
-    dispatch(getUserDonations(userId));
-    dispatch(getUserFeedbacks(userId));
-  }, [userId]);
 
   const { acount } = useSelector((state) => state.acountReducer);
   const { donations, feedbacks } = useSelector((state) => state.usersReducer);

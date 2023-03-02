@@ -102,10 +102,47 @@ const htmlDonationOkEmailTemplate = (name, vdvEntityName) => `
         </body>        
                 `;
 
+const updatePassword = `
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VerdeVolver</title>
+<style type="text/css">
+                h1 {
+                    color: #2c302c; 
+                    font-size: 28px;
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                
+                a {
+                    display: block; 
+                    margin-top: 20px; 
+                    text-align: center; 
+                    font-size: 18px; 
+                    color: #19a500;
+                    text-decoration: none;
+                    font-family: Arial, sans-serif; 
+                }
+                
+                a:hover {
+                    text-decoration: underline; 
+                }
+              </style>
+              </head> 
+              <body>        
+              <h1>Tu contraseña ha sido actualizada.</h1>
+              <a href="http://localhost:5173/login">Puedes volver a ingresar</a>
+              </body>
+              <html>`;
+
 module.exports = {
   htmlUserRegisterEmailTemplate,
   htmlDeleteUserEmailTemplate,
   htmlChangePasswordEmailTemplate,
   htmlChangeCBUEmailTemplate,
   htmlDonationOkEmailTemplate,
+  updatePassword,
 };

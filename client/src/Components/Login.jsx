@@ -11,8 +11,6 @@ import {
   InputLeftElement,
   InputRightElement,
   Text,
-  AlertDialog,
-  FormLabel,
 } from '@chakra-ui/react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -24,6 +22,7 @@ import {
   authAcountLocal,
 } from '../redux/actions/acountActions';
 import axios from 'axios';
+import ForgotPassword from './ForgotPassword';
 
 const fetchUser = async (id) => {
   const res = await axios.get(`http://localhost:3001/user/${id}`);
@@ -69,35 +68,19 @@ const Login = () => {
   const [logInData, setLogInData] = useState({
     mail: '',
     password: '',
+    keepLogged: false,
   });
   const [errors, setErrors] = useState({});
-  const [show, setShow] = useState(false);
-  const [forgottenPassword, setForgottenPassword] = useState(false);
-  const [forgottenPasswordEmail, setForgottenPasswordEmail] = useState({
-    newEmail: '',
-  });
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLogInData({ ...logInData, [name]: value });
+    const { name, value, checked } = e.target;
+    setLogInData({ ...logInData, [name]: value || checked });
     setErrors(validate({ ...logInData, [name]: value }));
   };
 
   const handleLogin = () => {
     !Object.keys(errors).length && dispatch(authAcountLocal(logInData));
-  };
-  const handleForgottenPassEmail = (e) => {
-    const { name, value } = e.target;
-    setForgottenPasswordEmail({ ...forgottenPasswordEmail, [name]: value });
-  };
-  const handlePasswordSubmit = async (e) => {
-    e.preventDefault();
-
-    await axios.get(
-      `http://localhost:3001/user/password/${forgottenPasswordEmail.newEmail}`
-    );
-    setForgottenPassword(false);
-    alert('Te hemos enviado un mail para que cambies tu contraseña');
   };
 
   return (
@@ -126,7 +109,7 @@ const Login = () => {
         <InputGroup>
           <InputLeftElement pointerEvents="none" children={<LockIcon />} />
           <Input
-            type={show ? 'text' : 'password'}
+            type={showPassword ? 'text' : 'password'}
             onChange={handleChange}
             value={logInData.password}
             name="password"
@@ -134,8 +117,8 @@ const Login = () => {
           />
           <InputRightElement>
             <IconButton
-              icon={show ? <ViewOffIcon /> : <ViewIcon />}
-              onClick={() => setShow(!show)}
+              icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+              onClick={() => setShowPassword(!showPassword)}
             />
           </InputRightElement>
         </InputGroup>
@@ -144,7 +127,13 @@ const Login = () => {
         )}
       </FormControl>
 
-      <Checkbox>Mantener sesión</Checkbox>
+      <Checkbox
+        name="keepLogged"
+        isChecked={logInData.keepLogged}
+        onChange={handleChange}
+      >
+        Mantener sesión
+      </Checkbox>
 
       <Button onClick={handleLogin}>Iniciar sesión</Button>
 
@@ -155,9 +144,7 @@ const Login = () => {
       />
 
       <Text alignSelf={'flex-end'}>
-        <Link onClick={() => setForgottenPassword(true)}>
-          ¿Olvidaste tu contraseña?
-        </Link>
+        <ForgotPassword />
       </Text>
 
       <Divider />
@@ -165,24 +152,6 @@ const Login = () => {
       <Text textAlign={'center'}>
         ¿Necesitas una cuenta? <Link to="/singup">Registrate</Link>
       </Text>
-
-      <AlertDialog isOpen={forgottenPassword} isCentered>
-        <FormControl isRequired>
-          <FormLabel>Escribe tu email: </FormLabel>
-          <InputGroup>
-            <InputLeftElement pointerEvents="none" children={<AtSignIcon />} />
-            <Input
-              type="text"
-              onChange={handleForgottenPassEmail}
-              value={forgottenPasswordEmail.newEmail}
-              name="newEmail"
-            />
-          </InputGroup>
-
-          <Button onClick={handlePasswordSubmit}>Enviar</Button>
-        </FormControl>
-      </AlertDialog>
-      <Box height={'10rem'}></Box>
     </Box>
   );
 };
