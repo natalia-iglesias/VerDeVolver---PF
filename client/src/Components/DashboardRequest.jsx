@@ -17,26 +17,44 @@ function DashboardRequest() {
   const [requestArray, setRequestArray] = useState();
 
   useEffect(() => {
+    getDataBase();
+  }, []);
+
+  const getDataBase = () => {
     Axios.get('/vdv/pending').then((res) => {
-      setRequestArray(res.data);
+      Axios.get('/cbuRequest').then((res2) => {
+        setRequestArray([...res.data, ...res2.data]);
+      });
     });
-  }, [requestArray]);
+  };
 
   const changeStatus = (id) => {
     Axios.put(`/vdv/status/${id}`).then(() => {
       window.alert('Entidad aprobada');
-      Axios.get('/vdv/pending').then((res) => {
-        setRequestArray(res.data);
-      });
+      getDataBase();
     });
   };
 
   const disapproveEntity = (id) => {
     Axios.delete(`/vdv/${id}`).then(() => {
       window.alert('La entidad ha sido borrada');
-      Axios.get('/vdv/pending').then((res) => {
-        setRequestArray(res.data);
+      getDataBase();
+    });
+  };
+
+  const approveCbu = (id, cbu, idVdV) => {
+    Axios.put(`/vdv/${idVdV}`, { cbu }).then(() => {
+      Axios.delete(`/cbuRequest/${id}`).then(() => {
+        window.alert('Cambio de CBU aprobado');
+        getDataBase();
       });
+    });
+  };
+
+  const disapproveCbu = (id) => {
+    Axios.delete(`/cbuRequest/${id}`).then(() => {
+      window.alert('Cambio de cbu NO fue aprobado');
+      getDataBase();
     });
   };
 
@@ -46,14 +64,19 @@ function DashboardRequest() {
         <h2>
           <AccordionButton>
             <Box as="span" flex="1" textAlign="left" fontWeight="bold">
-              {/* {req.cbu && 'Solicitud cambio de cbu'} */}
-              'Solicitud nueva entidad'
+              {req.vdvName ? (
+                <p>Solicitud de cambio de cbu</p>
+              ) : (
+                <p>Solicitud de nueva entidad</p>
+              )}
             </Box>
             <AccordionIcon />
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          {`Nombre: ${req.name}`}
+          <p>Nombre: </p>
+          {req.name && req.name}
+          {req.vdvName && req.vdvName}
           <br></br>
           {req.mail && (
             <>
@@ -79,7 +102,7 @@ function DashboardRequest() {
               <br />
             </>
           )}
-          Materiales:
+          {req.name && <p>Materiales: </p>}
           {req.Materials && (
             <>
               {req.Materials.map((mat) => (
@@ -94,10 +117,22 @@ function DashboardRequest() {
               <br />
             </>
           )}
-          <Button onClick={() => changeStatus(req.id)}>
+          <Button
+            onClick={
+              req.vdvName
+                ? () => approveCbu(req.id, req.cbu, req.idVdV)
+                : () => changeStatus(req.id)
+            }
+          >
             <CheckIcon />
           </Button>
-          <Button onClick={() => disapproveEntity(req.id)}>
+          <Button
+            onClick={
+              req.vdvName
+                ? () => disapproveCbu(req.id)
+                : () => disapproveEntity(req.id)
+            }
+          >
             <DeleteIcon />
           </Button>
         </AccordionPanel>
