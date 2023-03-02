@@ -23,6 +23,7 @@ const pepe = [
     lat: -34.1,
     lng: -68.2,
     materials: [1, 2], // este no se pasa a la creacion de la VdV , este dato se usa para relacionar las tablas
+    status: 'Active',
   },
   {
     name: 'Amigos de la Tierra',
@@ -35,6 +36,7 @@ const pepe = [
     lat: -34.3,
     lng: -68.4,
     materials: [3, 4],
+    status: 'Active',
   },
   {
     name: 'Greenpeace',
@@ -47,6 +49,7 @@ const pepe = [
     lat: -34.5,
     lng: -68.6,
     materials: [5, 6],
+    status: 'Active',
   },
   {
     name: 'DemoVerde',
@@ -59,6 +62,7 @@ const pepe = [
     lat: -34.7,
     lng: -68.8,
     materials: [3, 4, 1, 2, 5, 6],
+    status: 'Active',
   },
   {
     name: 'Reciclamos muchisimo',
@@ -71,6 +75,7 @@ const pepe = [
     lat: -34.2,
     lng: -68.1,
     materials: [2, 5, 6, 7],
+    status: 'Active',
   },
   {
     name: 'Verde que te quiero verde',
@@ -83,6 +88,7 @@ const pepe = [
     lat: -34.4,
     lng: -68.3,
     materials: [1],
+    status: 'Active',
   },
   {
     name: 'Agua clara',
@@ -95,6 +101,7 @@ const pepe = [
     lat: -34.6,
     lng: -68.5,
     materials: [3, 7, 8],
+    status: 'Active',
   },
   {
     name: 'Tierra Verde',
@@ -107,6 +114,7 @@ const pepe = [
     lat: -34.8,
     lng: -68.7,
     materials: [3, 10, 11],
+    status: 'Active',
   },
   {
     name: 'Aire Puro',
@@ -119,6 +127,7 @@ const pepe = [
     lat: -34.1,
     lng: -68.9,
     materials: [1, 2, 9],
+    status: 'Active',
   },
   {
     name: 'Fuego Nuevo',
@@ -131,6 +140,7 @@ const pepe = [
     lat: -34.2,
     lng: -68.8,
     materials: [1, 9, 11],
+    status: 'Active',
   },
   {
     name: 'Luz Clara',
@@ -143,6 +153,7 @@ const pepe = [
     lat: -34.3,
     lng: -68.7,
     materials: [6, 7, 10],
+    status: 'Active',
   },
   {
     name: 'Mar Limpio',
@@ -155,6 +166,7 @@ const pepe = [
     lat: -34.6,
     lng: -68.3,
     materials: [3, 7, 8, 11],
+    status: 'Active',
   },
   {
     name: 'Asociacionn de Jovenes Emprendedores',
@@ -167,6 +179,7 @@ const pepe = [
     lat: -34.7,
     lng: -68.2,
     materials: [5, 7, 11],
+    status: 'Active',
   },
   {
     name: 'Fundación para la Conservación del Medio Ambiente',
@@ -179,6 +192,7 @@ const pepe = [
     lat: -34.8,
     lng: -68.1,
     materials: [2, 10, 11],
+    status: 'Active',
   },
   {
     name: 'Red de Bibliotecas Públicas',
@@ -191,6 +205,7 @@ const pepe = [
     lat: -34.1,
     lng: -68.1,
     materials: [3, 4, 8, 9],
+    status: 'Active',
   },
   {
     name: 'Fundación para la Educación y el Desarrollo',
@@ -203,6 +218,7 @@ const pepe = [
     lat: -34.2,
     lng: -68.2,
     materials: [3, 4, 10],
+    status: 'Active',
   },
   {
     name: 'Asociación de Agricultores Familiares',
@@ -215,6 +231,7 @@ const pepe = [
     lat: -34.3,
     lng: -68.3,
     materials: [3, 4, 7],
+    status: 'Active',
   },
   {
     name: 'Fundación para la Investigación Científica',
@@ -227,6 +244,7 @@ const pepe = [
     lat: -34.4,
     lng: -68.4,
     materials: [3, 4, 8, 9],
+    status: 'Active',
   },
   {
     name: 'Asociación de Mujeres Empresarias',
@@ -239,6 +257,7 @@ const pepe = [
     lat: -34.5,
     lng: -68.5,
     materials: [1, 2, 9, 10],
+    status: 'Active',
   },
   {
     name: 'Fundación para la Lucha contra el Cáncer',
@@ -251,6 +270,7 @@ const pepe = [
     lat: -34.6,
     lng: -68.6,
     materials: [4, 7, 8],
+    status: 'Active',
   },
   {
     name: 'Asociación de Vecinos Unidos',
@@ -263,6 +283,7 @@ const pepe = [
     lat: -34.7,
     lng: -68.7,
     materials: [5, 8, 11],
+    status: 'Active',
   },
 ];
 
@@ -336,8 +357,18 @@ const chargeDbMaterial = async () => {
 
 //4
 const vdvCreate = async (body) => {
-  const { name, img, description, mail, address, cbu, materials, lat, lng } =
-    body;
+  const {
+    name,
+    img,
+    description,
+    mail,
+    address,
+    cbu,
+    materials,
+    lat,
+    lng,
+    status,
+  } = body;
   if (!name || !img || !description || !mail || !address)
     throw Error('Debes completar todos los campos obligatorios');
   const vdvCreate = await VdV.create({
@@ -349,9 +380,10 @@ const vdvCreate = async (body) => {
     cbu,
     lat,
     lng,
+    status,
   });
 
-  await vdvCreate.addMaterials(materials); 
+  await vdvCreate.addMaterials(materials);
   return vdvCreate;
 };
 

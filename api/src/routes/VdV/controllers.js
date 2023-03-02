@@ -25,7 +25,8 @@ const vdvCreate = async (body) => {
     lng,
   });
 
-  await vdvCreate.addMaterials(materials); 
+  await vdvCreate.addMaterials(materials);
+  console.log(vdvCreate);
   return vdvCreate;
 };
 
