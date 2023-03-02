@@ -1,6 +1,9 @@
 // Las rutas para devolver al usuario mientras usamos el localhost en el front
 // success: 'http://localhost:5173/home',
 // failure: 'http://localhost:5173/home',
+// Las rutas para devolver al usuario mientras usamos el deploy
+// success: 'https://ver-de-volver-pf.vercel.app/',
+// failure: 'https://ver-de-volver-pf.vercel.app/',
 
 const { Donation, User, VdV } = require('../../db.js');
 
