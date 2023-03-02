@@ -155,6 +155,7 @@ const EntityDetail = () => {
                 </HStack>
                 <Text>{comment}</Text>
                 {console.log(User.name)}
+                
               </Box>
             ))}
           </VStack>
