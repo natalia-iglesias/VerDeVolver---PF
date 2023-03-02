@@ -27,16 +27,10 @@ import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { BiUser, BiUserX } from 'react-icons/bi';
 import UploadImage from '../../Components/Cloudinary';
 import { authAcountLocal } from '../../redux/actions/acountActions';
-import { Logeduser } from '../../redux/actions/acountActions';
+import { LogedUser } from '../../redux/actions/acountActions';
 
 function UserProfile() {
   const dispatch = useDispatch();
-  let userData = localStorage.getItem('LogedUser');
-  if (userData) {
-    useEffect(() => {
-      dispatch(Logeduser());
-    }, [dispatch]);
-  }
 
   const { acount } = useSelector((state) => state.acountReducer);
   const navigate = useNavigate();

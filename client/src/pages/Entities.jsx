@@ -12,7 +12,7 @@ import {
 } from '../redux/actions/entitiesActions';
 import { Button } from '@chakra-ui/react';
 import Paginated from '../Components/Paginated';
-import { Logeduser } from '../../src/redux/actions/acountActions';
+import { LogedUser } from '../../src/redux/actions/acountActions';
 
 const Entities = () => {
   const dispatch = useDispatch();
@@ -35,12 +35,8 @@ const Entities = () => {
     setPage(1);
     setSearch('');
   }
-  let userData = localStorage.getItem('LogedUser');
 
   useEffect(() => {
-    if (userData) {
-      dispatch(Logeduser());
-    }
     dispatch(fetchEntities());
     dispatch(getMaterials());
     filters = entities;

@@ -68,13 +68,14 @@ const Login = () => {
   const [logInData, setLogInData] = useState({
     mail: '',
     password: '',
+    keepLogged: false,
   });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLogInData({ ...logInData, [name]: value });
+    const { name, value, checked } = e.target;
+    setLogInData({ ...logInData, [name]: value || checked });
     setErrors(validate({ ...logInData, [name]: value }));
   };
 
@@ -126,7 +127,13 @@ const Login = () => {
         )}
       </FormControl>
 
-      <Checkbox>Mantener sesión</Checkbox>
+      <Checkbox
+        name="keepLogged"
+        isChecked={logInData.keepLogged}
+        onChange={handleChange}
+      >
+        Mantener sesión
+      </Checkbox>
 
       <Button onClick={handleLogin}>Iniciar sesión</Button>
 
