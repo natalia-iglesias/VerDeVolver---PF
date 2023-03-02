@@ -27,9 +27,13 @@ const About = () => {
     }, [dispatch]);
   }
   const { colorMode } = useColorMode();
-  function renderDevCard(devName, devImg) {
+  function renderDevCard(devName, devImg, devLinkd, devIg, devMail) {
     return (
-      <Card backgroundColor='#FFFEEC' bg="brand.light-green" border="solid 3px" borderColor='#3B7A57' fontFamily='lato' w="20%" m="1vh" h="45vh" p='0.5rem'>
+      <Card 
+          bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'} 
+          border="solid 3px" borderColor={colorMode === 'light' ? 'black' : '#2c835b'}
+          fontFamily='lato' w="20%" m="1vh" h="45vh" p='0.5rem'
+      >
         <Image
           src={devImg}
           alt="Dev Photo"
@@ -37,20 +41,20 @@ const About = () => {
           boxSize="100px"
           m="auto"
         />
-        <CardHeader m="1px" p="1px" align="center">
+        <CardHeader m="1px" p="1px" align="center" >
           <Heading size="md">{devName}</Heading>
         </CardHeader>
 
         <CardBody mt="1px">
           <Stack divider={<StackDivider />} spacing="1">
-            <Link href="https://www.instagram.com/" isExternal m="auto">
+            <Link href={devIg} isExternal m="auto">
               Instagram <ExternalLinkIcon mx="2px" />
             </Link>
-            <Link href="https://ar.linkedin.com" isExternal m="auto">
+            <Link href={devLinkd} isExternal m="auto">
               LinkedIn <ExternalLinkIcon mx="2px" />
             </Link>
-            <Text pt="2" fontSize="sm" m="auto">
-              Mail <CopyIcon mx="2px" />
+            <Text pt="2" fontSize="md" m="auto">
+              {devMail} <CopyIcon mx="2px" />
             </Text>
           </Stack>
         </CardBody>
@@ -68,15 +72,18 @@ const About = () => {
       img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730247/tato_sa9zqk.jpg',
     },
     {
-      name: 'Diana Noemi Atobe Gimenez',
+      name: 'Diana Atobe',
       img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730798/dini_vcji6w.png',
+      linkedin: 'https://www.linkedin.com/in/diana-atobe/',
+      ig: 'https://www.instagram.com/dianaatobe/',
+      mail: 'dianatobe@gmail.com',
     },
     {
       name: 'Juan Cruz Toloy',
       img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730200/juan_c7r7qq.jpg',
     },
     {
-      name: 'Cristian Mauricio Ortiz Cano',
+      name: 'Cristian Mauricio Ortiz',
       img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730219/cris_zwqoxn.jpg',
     },
     {
@@ -92,10 +99,16 @@ const About = () => {
       img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730241/dami_sa1vpt.jpg',
     },
   ];
-
   return (
-    <Flex flexDirection="column" align="center" backgroundColor='#b4c4ac' padding='1rem' >
-      <Box borderRadius='lg' mb='0.8rem' p='0.7rem' bg={colorMode === 'light' ? '#F5F2EB' : '#68D391'}>
+    <Flex 
+        flexDirection="column" align="center" 
+        bg={colorMode === 'light' ? '#b4c4ac' : '#212933'} 
+        padding='1rem' 
+    >
+      <Box 
+          borderRadius='lg' mb='0.8rem' p='0.7rem' 
+          bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
+      >
         <Heading align='center' fontFamily='Exo 2' mb='0.8rem' >Proyecto final Henry</Heading>
         <Text align='center' width="90vw" m='0.7rem' fontSize='xl' fontFamily='lato'>
       VerDeVolver es un sitio web sin fines de lucro, que busca promover e informar sobre el
@@ -112,7 +125,7 @@ const About = () => {
       </Box>
       
       <Flex flexWrap="wrap" align="center" w="100%" ml="30vh">
-        {devList.map((dev) => renderDevCard(dev.name, dev.img))}
+        {devList.map((dev) => renderDevCard(dev.name, dev.img, dev.linkedin, dev.ig, dev.mail))}
       </Flex>
     </Flex>
   );
