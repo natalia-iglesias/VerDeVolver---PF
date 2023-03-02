@@ -45,7 +45,18 @@ function DashboardScroll({ type, id }) {
         break;
       case 'feedback':
         Axios.get(`/feedback`).then((res) => {
-          res.data.forEach((obj) => (obj.VdV = false));
+          setdeleteFeedbackIcon(true);
+          setArrayToRender(res.data);
+        });
+        break;
+      case 'userFeedback':
+        Axios.get(`/feedback/user/${id}`).then((res) => {
+          setdeleteFeedbackIcon(true);
+          setArrayToRender(res.data);
+        });
+        break;
+      case 'vdvFeedback':
+        Axios.get(`/feedback/vdv/${id}`).then((res) => {
           setdeleteFeedbackIcon(true);
           setArrayToRender(res.data);
         });
@@ -57,7 +68,7 @@ function DashboardScroll({ type, id }) {
         });
         break;
     }
-  }, []);
+  }, [type, id]);
 
   const deleteFeedback = (id) => {
     Axios.delete(`/feedback/${id}/delete`).then(() => {
