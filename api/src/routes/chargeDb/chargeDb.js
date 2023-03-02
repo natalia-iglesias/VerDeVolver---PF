@@ -218,7 +218,7 @@ const pepe = [
     lat: -34.2,
     lng: -68.2,
     materials: [3, 4, 10],
-    status: 'Active',
+    status: 'Pending',
   },
   {
     name: 'Asociación de Agricultores Familiares',
@@ -231,7 +231,7 @@ const pepe = [
     lat: -34.3,
     lng: -68.3,
     materials: [3, 4, 7],
-    status: 'Active',
+    status: 'Pending',
   },
   {
     name: 'Fundación para la Investigación Científica',
@@ -244,7 +244,7 @@ const pepe = [
     lat: -34.4,
     lng: -68.4,
     materials: [3, 4, 8, 9],
-    status: 'Active',
+    status: 'Pending',
   },
   {
     name: 'Asociación de Mujeres Empresarias',
@@ -257,7 +257,7 @@ const pepe = [
     lat: -34.5,
     lng: -68.5,
     materials: [1, 2, 9, 10],
-    status: 'Active',
+    status: 'Pending',
   },
   {
     name: 'Fundación para la Lucha contra el Cáncer',
@@ -270,7 +270,7 @@ const pepe = [
     lat: -34.6,
     lng: -68.6,
     materials: [4, 7, 8],
-    status: 'Active',
+    status: 'Pending',
   },
   {
     name: 'Asociación de Vecinos Unidos',
@@ -283,7 +283,7 @@ const pepe = [
     lat: -34.7,
     lng: -68.7,
     materials: [5, 8, 11],
-    status: 'Active',
+    status: 'Pending',
   },
 ];
 
