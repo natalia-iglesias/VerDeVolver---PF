@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Flex,
   Text,
@@ -8,17 +8,55 @@ import {
   TabPanels,
   Tab,
   TabPanel,
+  Input,
+  Box,
 } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function TabListPosts() {
-  function renderUrlPost(url) {
+  const [posts, setPosts] = useState();
+  const [txtOrInput, settxtOrInput] = useState(false);
+  const [input, setInput] = useState('');
+  const navigate = useNavigate();
+  useEffect(() => {
+    axios.get('http://localhost:3001/instagram').then((res) => {
+      setPosts(res.data);
+    });
+  }, []);
+
+  const updatePost = (id) => {
+    axios.put('http://localhost:3001/instagram', { url: input, id });
+    navigate('/home');
+  };
+
+  const txtOrInputChange = () => {
+    settxtOrInput(true);
+  };
+
+  const handleOnChange = (e) => {
+    setInput(e.target.value);
+  };
+
+  function renderUrlPost(url, id) {
     return (
       <TabPanel>
         <Flex direction="row">
-          <Text width="30vw">{url}</Text>
+          {!txtOrInput && <Text width="30vw">{url}</Text>}
+          {txtOrInput && (
+            <Box>
+              <Input
+                width="30vw"
+                value={input}
+                onChange={handleOnChange}
+              ></Input>
+              <Button onClick={() => updatePost(id)}>Guardar</Button>
+            </Box>
+          )}
+
           <Button>
-            <EditIcon />
+            <EditIcon onClick={txtOrInputChange} />
           </Button>
         </Flex>
       </TabPanel>
@@ -30,10 +68,11 @@ function TabListPosts() {
         <Tab fontWeight="bold">Post 1</Tab>
         <Tab fontWeight="bold">Post 2</Tab>
         <Tab fontWeight="bold">Post 3</Tab>
+        <Tab fontWeight="bold">Post 4</Tab>
       </TabList>
       <TabPanels>
-        {urlListArray.map((eachUrl) => {
-          return renderUrlPost(eachUrl);
+        {posts?.map((eachUrl) => {
+          return renderUrlPost(eachUrl.url, eachUrl.id);
         })}
       </TabPanels>
     </Tabs>
@@ -41,9 +80,3 @@ function TabListPosts() {
 }
 
 export default TabListPosts;
-
-const urlListArray = [
-  'URL1URL1URL1URL1URL1URL1',
-  'URL2URL2URL2URL2URL2URL2URL2',
-  'URL3URL3URL3URL3URL3URL3URL3',
-];

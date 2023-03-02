@@ -107,3 +107,4 @@ const sendVdVFormEmail = async (name, mail) => {
 module.exports = {
   sendVdVFormEmail,
 };
+

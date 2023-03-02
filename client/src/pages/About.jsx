@@ -12,8 +12,18 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon, CopyIcon } from '@chakra-ui/icons';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Logeduser } from '../../src/redux/actions/acountActions';
 
 const About = () => {
+  const dispatch = useDispatch();
+  let userData = localStorage.getItem('LogedUser');
+  if (userData) {
+    useEffect(() => {
+      dispatch(Logeduser());
+    }, [dispatch]);
+  }
   function renderDevCard(devName) {
     return (
       <Card bg="brand.light-green" border="solid 3px" w="20%" m="1vh" h="45vh">
@@ -84,22 +94,22 @@ const About = () => {
     <Flex flexDirection="column" align="center">
       <Heading>Proyecto final Henry</Heading>
       <Text align="center" width="90vw">
-    VerDeVolver es un sitio web sin fines de lucro, que busca promover e informar sobre el
-    reciclaje y gestión de residuos a nivel nacional en Argentina, a través de una interfaz de
-    usuario intuitiva y amigable.
-    Debido a la urgencia ambiental, más empresas, organismos e instituciones están
-    comprometidos en incluir este tema en sus propuestas.
-    La separación de residuos es un paso importante para contribuir a la sustentabilidad y
-    ser parte activa del cambio ambiental. Por lo tanto, ofrecemos una guía simple sobre los
-    materiales reciclables (qué son, qué hacer con ellos, cuánto dañan el medio ambiente) y
-    un mapa georreferenciado que muestra los lugares (entidades VdV) cercanos donde
-    puedes entregar tus residuos. Las entidades VdV son organizaciones, cooperativas,
-    emprendimientos, empresas o particulares que reciben, reciclan y/o reutilizan
-    determinados residuos. VerDeVolver no está involucrada ni participa directamente con
-    ninguno de los puntos de reciclaje en el mapa.
-    Buscamos concienciar y ofrecer soluciones a un problema que nos incluye a todos.
-   ¡Únete, no hay tiempo que perder!
-
+        VerDeVolver es un sitio web sin fines de lucro, que busca promover e
+        informar sobre el reciclaje y gestión de residuos a nivel nacional en
+        Argentina, a través de una interfaz de usuario intuitiva y amigable.
+        Debido a la urgencia ambiental, más empresas, organismos e instituciones
+        están comprometidos en incluir este tema en sus propuestas. La
+        separación de residuos es un paso importante para contribuir a la
+        sustentabilidad y ser parte activa del cambio ambiental. Por lo tanto,
+        ofrecemos una guía simple sobre los materiales reciclables (qué son, qué
+        hacer con ellos, cuánto dañan el medio ambiente) y un mapa
+        georreferenciado que muestra los lugares (entidades VdV) cercanos donde
+        puedes entregar tus residuos. Las entidades VdV son organizaciones,
+        cooperativas, emprendimientos, empresas o particulares que reciben,
+        reciclan y/o reutilizan determinados residuos. VerDeVolver no está
+        involucrada ni participa directamente con ninguno de los puntos de
+        reciclaje en el mapa. Buscamos concienciar y ofrecer soluciones a un
+        problema que nos incluye a todos. ¡Únete, no hay tiempo que perder!
       </Text>
       <Flex flexWrap="wrap" align="center" w="100%" ml="30vh">
         {devList.map((dev) => renderDevCard(dev.name))}

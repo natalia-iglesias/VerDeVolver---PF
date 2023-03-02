@@ -12,8 +12,11 @@ import {
 } from '../redux/actions/entitiesActions';
 import { Button } from '@chakra-ui/react';
 import Paginated from '../Components/Paginated';
+import { Logeduser } from '../../src/redux/actions/acountActions';
 
 const Entities = () => {
+  const dispatch = useDispatch();
+
   const [page, setPage] = useState(1);
   const [input, setInput] = useState(1);
   const [search, setSearch] = useState('');
@@ -21,7 +24,6 @@ const Entities = () => {
   const { entities, isLoading, filteredEntities } = useSelector(
     (state) => state.entitiesReducer
   );
-  const dispatch = useDispatch();
 
   function handleClick(e) {
     e.preventDefault();
@@ -33,8 +35,12 @@ const Entities = () => {
     setPage(1);
     setSearch('');
   }
+  let userData = localStorage.getItem('LogedUser');
 
   useEffect(() => {
+    if (userData) {
+      dispatch(Logeduser());
+    }
     dispatch(fetchEntities());
     dispatch(getMaterials());
     filters = entities;
@@ -42,7 +48,11 @@ const Entities = () => {
 
   let filters = filteredEntities;
 
-  const max = Math.ceil(filters.length / byPage);
+  let numberEntitiesActives = 0;
+  for (let i = 0; i < filters.length; i++)
+    if (filters[i].status === 'Active') numberEntitiesActives++;
+
+  const max = Math.ceil(numberEntitiesActives / byPage);
 
   return (
     <VStack mx="1rem">
@@ -77,7 +87,11 @@ const Entities = () => {
             ) : (
               filters
                 ?.slice((page - 1) * byPage, (page - 1) * byPage + byPage)
-                .map((e) => <EntityCard key={e.id} entity={e} />)
+                .map((e) => {
+                  if (e.status === 'Active') {
+                    return <EntityCard key={e.id} entity={e} />;
+                  }
+                })
             )}
           </VStack>
           <Paginated

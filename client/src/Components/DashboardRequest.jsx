@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Accordion,
@@ -7,74 +7,143 @@ import {
   AccordionPanel,
   AccordionIcon,
   Button,
+  Image,
 } from '@chakra-ui/react';
 import { CheckIcon, DeleteIcon } from '@chakra-ui/icons';
+import axios from 'axios';
 
 function DashboardRequest() {
-  function requestRender(req) {
+  const Axios = axios.create({ baseURL: 'http://localhost:3001' });
+  const [requestArray, setRequestArray] = useState();
+
+  useEffect(() => {
+    getDataBase();
+  }, []);
+
+  const getDataBase = () => {
+    Axios.get('/vdv/pending').then((res) => {
+      Axios.get('/cbuRequest').then((res2) => {
+        setRequestArray([...res.data, ...res2.data]);
+      });
+    });
+  };
+
+  const changeStatus = (id) => {
+    Axios.put(`/vdv/status/${id}`).then(() => {
+      window.alert('Entidad aprobada');
+      getDataBase();
+    });
+  };
+
+  const disapproveEntity = (id) => {
+    Axios.delete(`/vdv/${id}`).then(() => {
+      window.alert('La entidad ha sido borrada');
+      getDataBase();
+    });
+  };
+
+  const approveCbu = (id, cbu, idVdV) => {
+    Axios.put(`/vdv/${idVdV}`, { cbu }).then(() => {
+      Axios.delete(`/cbuRequest/${id}`).then(() => {
+        window.alert('Cambio de CBU aprobado');
+        getDataBase();
+      });
+    });
+  };
+
+  const disapproveCbu = (id) => {
+    Axios.delete(`/cbuRequest/${id}`).then(() => {
+      window.alert('Cambio de cbu NO fue aprobado');
+      getDataBase();
+    });
+  };
+
+  const requestRender = (req) => {
     return (
       <AccordionItem>
         <h2>
           <AccordionButton>
             <Box as="span" flex="1" textAlign="left" fontWeight="bold">
-              {req.cbu && 'Solicitud cambio de cbu'}
-              {req.adress && 'Solicitud nueva entidad'}
+              {req.vdvName ? (
+                <p>Solicitud de cambio de cbu</p>
+              ) : (
+                <p>Solicitud de nueva entidad</p>
+              )}
             </Box>
             <AccordionIcon />
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          {req.name}
+          <p>Nombre: </p>
+          {req.name && req.name}
+          {req.vdvName && req.vdvName}
           <br></br>
+          {req.mail && (
+            <>
+              {`E-mail: ${req.mail}`}
+              <br />
+            </>
+          )}
           {req.cbu && (
             <>
-              {req.cbu}
+              {`CBU: ${req.cbu}`}
               <br />
             </>
           )}
-          {req.adress && (
+          {req.address && (
             <>
-              {req.adress}
+              {`Dirección: ${req.address}`}
               <br />
             </>
           )}
-          {req.materials && (
+          {req.description && (
             <>
-              {req.materials}
+              {`Descripción: ${req.description}`}
               <br />
             </>
           )}
-          {req.image && (
+          {req.name && <p>Materiales: </p>}
+          {req.Materials && (
             <>
-              {req.image}
+              {req.Materials.map((mat) => (
+                <p>{mat.name}</p>
+              ))}
               <br />
             </>
           )}
-          <Button>
+          {req.img && (
+            <>
+              <Image src={req.img} />
+              <br />
+            </>
+          )}
+          <Button
+            onClick={
+              req.vdvName
+                ? () => approveCbu(req.id, req.cbu, req.idVdV)
+                : () => changeStatus(req.id)
+            }
+          >
             <CheckIcon />
           </Button>
-          <Button>
+          <Button
+            onClick={
+              req.vdvName
+                ? () => disapproveCbu(req.id)
+                : () => disapproveEntity(req.id)
+            }
+          >
             <DeleteIcon />
           </Button>
         </AccordionPanel>
       </AccordionItem>
     );
-  }
+  };
   return (
     <Accordion w="40vw">
-      {requestArray.map((req) => requestRender(req))}
+      {requestArray?.map((req) => requestRender(req))}
     </Accordion>
   );
 }
 
 export default DashboardRequest;
-
-const requestArray = [
-  {
-    name: 'Entidad 1',
-    adress: 'Av. tanto numero tanto',
-    materials: 'Plastico, vidrio',
-    image: 'https://cdn-icons-png.flaticon.com/512/4284/4284490.png',
-  },
-  { name: 'Entidad 2', cbu: '784935027345807203485' },
-];

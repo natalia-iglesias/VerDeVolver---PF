@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import validate from './validate';
+import validate from './utils';
 import { createNewContact } from '../../redux/actions/usersActions';
 import {
   Button,
@@ -15,13 +15,19 @@ import {
   FormHelperText,
   FormErrorMessage,
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { Logeduser } from '../../redux/actions/acountActions';
 
 const Contact = () => {
-  // const [name, setName] = useState('');
-  // const [mail, setMail] = useState('');
-  // const [description, setDescription] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  let userData = localStorage.getItem('LogedUser');
+  if (userData) {
+    useEffect(() => {
+      dispatch(Logeduser());
+    }, [dispatch]);
+  }
 
   const [form, setForm] = useState({
     name: '',
@@ -200,6 +206,7 @@ const Contact = () => {
         >
           Enviar
         </Button>
+        <Box height={'3.5rem'}></Box>
       </VStack>
     </Box>
   );

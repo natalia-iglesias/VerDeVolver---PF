@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { IconButton } from '@chakra-ui/react';
 import ItemsCarousel from 'react-items-carousel';
 import { InstagramEmbed } from 'react-social-media-embed';
+import axios from 'axios';
 
-const PostsCarousel = ({ posts }) => {
+const PostsCarousel = () => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
+  const [posts, setPosts] = useState();
+  useEffect(() => {
+    axios.get('http://localhost:3001/instagram').then((res) => {
+      setPosts(res.data);
+    });
+  }, []);
   return (
-    <div style={{ padding: `0 ${chevronWidth}px` }}>
+    <div style={{ marginBottom: '5rem', padding: `0 ${chevronWidth}px` }}>
       <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}
@@ -19,11 +26,11 @@ const PostsCarousel = ({ posts }) => {
         outsideChevron
         chevronWidth={chevronWidth}
       >
-        {posts?.map(({ url }, index) => (
+        {posts?.map((pos) => (
           <InstagramEmbed
-            url={url}
-            key={index}
-            style={{ maxHeight: '50vh', overflowY: 'scroll' }}
+            url={pos.url}
+            key={pos.id}
+            style={{ maxHeight: '80vh', overflowY: 'scroll' }}
           />
         ))}
       </ItemsCarousel>

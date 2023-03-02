@@ -7,24 +7,17 @@ import Entities from './pages/Entities';
 import EntitieDetail from '../src/pages/EntitieDetail';
 import SingUpEntitie from './pages/SignUpEntities/SingUpEntitie';
 import Login from './Components/Login';
-import UserProfile from './pages/user profile/UserProfile';
-import EntityProfile from './pages/entity profile/EntityProfile';
+import UserProfile from './pages/userProfile/UserProfile';
+import EntityProfile from './pages/entityProfile/EntityProfile';
 import Dashboard from './pages/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact/Contact';
 import Navbar from './Components/NavBar';
 import SingUp from './pages/SingUp';
-// import { useDispatch } from 'react-redux';
-// import { useEffect } from 'react';
-// import { getEntities } from './redux/actions/entitiesActions';
 import ColorModeSwitcher from './Components/ColorModeSwitcher';
+import Footer from './Components/Footer';
 
 const App = () => {
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getEntities());
-  // }, []);
   return (
     <BrowserRouter>
       <Navbar />
@@ -38,6 +31,7 @@ const App = () => {
         <Route path="/entitie/:id" element={<EntitieDetail />} />
         <Route path="/beVdV" element={<SingUpEntitie />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/login/:googleId" element={<Login />} />
         <Route path="/singup" element={<SingUp />} />
         <Route path="/userprofile" element={<UserProfile />} />
         <Route path="/entityprofile/:id" element={<EntityProfile />} />
@@ -46,6 +40,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
       </Routes>
       <ColorModeSwitcher />
+      <Footer />
     </BrowserRouter>
   );
 };

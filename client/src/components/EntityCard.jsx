@@ -20,23 +20,32 @@ import {
   Box,
 } from '@chakra-ui/react';
 import RankingStars from './RankingStars';
+import { useNavigate } from 'react-router-dom';
 
 const EntityCard = ({ entity }) => {
   const [inputMonto, setInputMonto] = useState('');
+  const navigate = useNavigate();
 
   const handleInputs = (event) => {
     setInputMonto(event.target.value);
   };
 
   const handleButton = (event) => {
+    let userData = JSON.parse(localStorage.getItem('LogedUser'));
+    
     if (inputMonto) {
+      if (!userData) {
+        navigate('/login');
+        alert('Debes iniciar sesión para donar');
+        throw Error ('Debes iniciar sesión para donar');
+      }
       try {
-        axios
+         axios
           .post('http://localhost:3001/donation', {
             VdVId: entity.id,
             amount: inputMonto,
-            UserId: 1,
-          }) // userId LocalStorage
+            UserId: userData.id,
+          }) 
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
         res.status(400).send(error);

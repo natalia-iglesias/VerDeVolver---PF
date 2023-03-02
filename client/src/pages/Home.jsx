@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchEntities } from '../redux/actions/entitiesActions';
 import {
   Button,
@@ -11,26 +12,27 @@ import {
   InputLeftElement,
   HStack,
   Heading,
+  Grid,
 } from '@chakra-ui/react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import PostsCarousel from '../Components/PostsCarousel';
+import { Logeduser } from '../../src/redux/actions/acountActions';
 import axios from 'axios';
-<<<<<<< HEAD
-// import { InstagramEmbed } from 'react-social-media-embed';
-import PostsCarousel from '../Components/PostsCarousel';
-=======
-import { InstagramEmbed } from 'react-social-media-embed';
->>>>>>> 9466b1811b4f1207094d855b45c90264f68fa674
 
 const Home = () => {
+  const dispatch = useDispatch();
+
   const { entities } = useSelector((state) => state.entitiesReducer);
 
   const [inputVdv, setInputVdV] = useState('');
   const [inputMonto, setInputMonto] = useState('');
+  const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-
+  let userData = localStorage.getItem('LogedUser');
   useEffect(() => {
+    if (userData) {
+      dispatch(Logeduser());
+    }
     dispatch(fetchEntities());
   }, [dispatch]);
 
@@ -40,14 +42,20 @@ const Home = () => {
   };
 
   const handleButton = (event) => {
+    let userData = JSON.parse(localStorage.getItem('LogedUser'));
+    if (!userData) {
+      navigate('/login');
+      alert('Debes iniciar sesión para poder donar');
+      throw Error('Debes iniciar sesión para poder donar');
+    }
     if (inputMonto && inputVdv) {
       try {
         axios
           .post('http://localhost:3001/donation', {
             VdVId: inputVdv,
             amount: inputMonto,
-            UserId: 1,
-          }) // userId LocalStorage
+            UserId: userData.id,
+          })
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
         res.status(400).send(error);
@@ -64,10 +72,12 @@ const Home = () => {
         size="l"
         bg="#2F855A"
         w="70%"
-        h="100px"
+        h="6.2rem"
         color="white"
-        padding="2%"
+        padding="1.5%"
         borderRadius="md"
+        fontFamily="sans-serif"
+        textAlign={'center'}
       >
         Te brindamos información sobre los distintos lugares dedicados al
         reciclaje en todo el país. Encontrá los más cercanos y hacé que tu
@@ -79,6 +89,8 @@ const Home = () => {
           <Select
             placeholder="Colabora con el punto de reciclaje que te haya ayudado.."
             onChange={handleInputs}
+            borderColor="gray.200"
+            borderWidth="2px"
           >
             {entities?.map(({ id, name }) => (
               <option value={id} key={id}>
@@ -92,63 +104,25 @@ const Home = () => {
               name="Monto"
               placeholder="Monto"
               type="number"
+              borderColor="gray.200"
+              borderWidth="2px"
               onChange={handleInputs}
             />
           </InputGroup>
         </HStack>
-        <Button color={'vdv.main'} colorScheme="green" onClick={handleButton}>
-          Donar
-        </Button>
+        <Grid placeItems="center">
+          <Button
+            color={'vdv.main'}
+            colorScheme="green"
+            onClick={handleButton}
+            width="8rem"
+          >
+            Donar
+          </Button>
+        </Grid>
       </Stack>
-<<<<<<< HEAD
 
-      {/* <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          gap: '2rem',
-          marginTop: '1rem',
-          marginBottom: '1rem',
-        }}
-      > */}
-      {/* <InstagramEmbed
-          url="https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link"
-          width={328}
-        />
-        <InstagramEmbed
-          url="https://www.instagram.com/p/CIT3Hz2jDqh/?utm_source=ig_web_copy_link"
-          width={328}
-        />
-        <InstagramEmbed
-          url="https://www.instagram.com/p/CIBswgBs1Ps/?utm_source=ig_web_copy_link"
-          width={328}
-        />
-        <InstagramEmbed
-          url="https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link"
-          width={328}
-        />
-      </div> */}
-
-=======
-      
->>>>>>> 9466b1811b4f1207094d855b45c90264f68fa674
-      <PostsCarousel
-        posts={[
-          {
-            url: 'https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link',
-          },
-          {
-            url: 'https://www.instagram.com/p/CIT3Hz2jDqh/?utm_source=ig_web_copy_link',
-          },
-          {
-            url: 'https://www.instagram.com/p/CIBswgBs1Ps/?utm_source=ig_web_copy_link',
-          },
-          {
-            url: 'https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link',
-          },
-        ]}
-      />
+      <PostsCarousel />
     </Box>
   );
 };

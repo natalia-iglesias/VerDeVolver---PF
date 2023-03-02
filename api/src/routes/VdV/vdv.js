@@ -1,5 +1,10 @@
 const { Router } = require('express');
-const { sendVdVFormEmail } = require('../../services/templateFormVdV');
+const { EMAIL } = process.env;
+const { sendEmail } = require('../../services/email');
+const {
+  htmlFormVdVEmailTemplate,
+  htmlAdminFormVdVEmailTemplate,
+} = require('../../services/email/templates/templateFormVdV');
 const {
   chargeDbVdVs,
   vdvCreate,
@@ -75,7 +80,17 @@ router.post('/', async (req, res) => {
   try {
     const result = await vdvCreate(req.body);
     res.status(200).send(result);
-    sendVdVFormEmail(req.body.name, req.body.mail);
+    sendEmail(
+      req.body.mail,
+      'Gracias por completar el formulario 💚',
+      htmlFormVdVEmailTemplate(req.body.name)
+    );
+    // TODO DASHBOARD
+    sendEmail(
+      EMAIL,
+      'Tienes una nueva solicitud 🌱',
+      htmlAdminFormVdVEmailTemplate(req.body.name)
+    );
   } catch (error) {
     res.status(404).json({ error: error.message });
   }

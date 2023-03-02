@@ -21,7 +21,7 @@ const UploadImage = ({ onUpload }) => {
     try {
       const res = await fetch(
         //'https://api.cloudinary.com/v1_1/verdevolver/image/upload?upload_preset=skkkp5tl',
-        'https:api.cloudinary.com/v1_1/verdevolver/image/upload',
+        'https://api.cloudinary.com/v1_1/verdevolver/image/upload',
         {
           method: 'POST',
           body: data,

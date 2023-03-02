@@ -9,7 +9,6 @@ const {
 
 const router = Router();
 
-//FUNCIONA. crear material
 router.post('/', async (req, res) => {
   try {
     const material = await crearMaterialFinal(req.body);
@@ -19,7 +18,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-//FUNCIONA. obtener todos los materiales
 router.get('/', async (req, res) => {
   try {
     const allMaterials = await getAllMaterials();
@@ -29,7 +27,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-//NO LO PROBE, NO SE SI FUNCIONA. eliminar un material
 router.delete('/', async (req, res) => {
   const { name } = req.body;
   try {

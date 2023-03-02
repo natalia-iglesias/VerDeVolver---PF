@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link as ReachLink } from 'react-router-dom';
 import {
   useColorMode,
@@ -18,6 +18,8 @@ import Profile from './Profile';
 const Navbar = () => {
   const { colorMode } = useColorMode();
 
+  useEffect;
+
   return (
     <HStack
       bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
@@ -26,22 +28,13 @@ const Navbar = () => {
       mb="1rem"
       pr="1rem"
     >
-      <Box>
-        <Link as={ReachLink} to="/home">
-<<<<<<< HEAD
-          <Box boxSize="10em" position={'absolute'} top="-10" left={0}>
-            <Image
-              boxSize="170px"
-              objectFit="cover"
-              src="https://res.cloudinary.com/verdevolver/image/upload/v1677472484/images/kj5khde8ek1o7xrpwhaj.png"
-              // src="/images/logo.png"
-            />
-          </Box>
-=======
-          <Image src="/images/logo.png" w="10rem" />
->>>>>>> 9466b1811b4f1207094d855b45c90264f68fa674
-        </Link>
-      </Box>
+      <Link as={ReachLink} to="/home">
+        <Image
+          src="https://res.cloudinary.com/verdevolver/image/upload/v1677472484/images/kj5khde8ek1o7xrpwhaj.png"
+          w="10rem"
+          style={{ transform: 'scale(1.4)' }}
+        />
+      </Link>
 
       <List display="flex" flexDir="row" gap="1rem">
         <ListItem

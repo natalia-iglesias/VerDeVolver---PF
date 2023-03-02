@@ -12,15 +12,21 @@ import {
   InputRightElement,
   Text,
 } from '@chakra-ui/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { AiFillGoogleCircle } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AiFillGoogleCircle } from 'react-icons/ai';
 import {
-  authAcountLocal,
   authAcountGoogle,
+  authAcountLocal,
 } from '../redux/actions/acountActions';
+import axios from 'axios';
+
+const fetchUser = async (id) => {
+  const res = await axios.get(`http://localhost:3001/user/${id}`);
+  return res.data;
+};
 
 const validate = ({ mail, password }) => {
   const errors = {};
@@ -44,10 +50,19 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { acount } = useSelector((state) => state.acountReducer);
+  const { googleId } = useParams();
 
   useEffect(() => {
     Object.entries(acount).length && navigate('/home');
   }, [acount]);
+
+  useEffect(() => {
+    if (googleId)
+      (async () => {
+        const res = await fetchUser(googleId);
+        dispatch(authAcountLocal(res));
+      })();
+  }, [googleId]);
 
   const [logInData, setLogInData] = useState({
     mail: '',
@@ -129,6 +144,7 @@ const Login = () => {
       <Text textAlign={'center'}>
         Necesitas una cuenta? <Link to="/singup">Registrate</Link>
       </Text>
+      <Box height={'10rem'}></Box>
     </Box>
   );
 };
