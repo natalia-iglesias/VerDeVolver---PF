@@ -102,6 +102,7 @@ const EntityDetail = () => {
           VdVId: id,
         });
         alert('Creacion de comentario exitosa!');
+        location.reload();
       } catch (error) {
         throw Error(error.message);
       }
@@ -155,7 +156,6 @@ const EntityDetail = () => {
                 </HStack>
                 <Text>{comment}</Text>
                 {console.log(User.name)}
-                
               </Box>
             ))}
           </VStack>
@@ -179,6 +179,7 @@ const EntityDetail = () => {
           </Box>
         </Stack>
       </GridItem>
+      <Box height={'1rem'}></Box>
     </Grid>
   );
 };
