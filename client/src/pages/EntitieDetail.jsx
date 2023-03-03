@@ -46,6 +46,10 @@ const EntityDetail = () => {
   const { entity, feedbacks } = useSelector((state) => state.entitiesReducer);
   const { acount } = useSelector((state) => state.acountReducer);
 
+  //borra dp 
+  console.log('estadoFeedbacks', feedbacks)
+  //
+
   if (!entity || !feedbacks) return <PropagateLoader color="#1c5738" />;
 
   const navigate = useNavigate();
@@ -180,7 +184,11 @@ const EntityDetail = () => {
             {feedbacks?.map(({ User, comment, rating }) => (
               <Box key={User + comment}>
                 <HStack spacing='1rem'>
-                <Avatar src={User.name}  size="sm" />
+                {
+                  (User.image == null)? <Avatar name={User.name}  size="sm" />
+                  : <Avatar src={User.image}  size="sm" />
+                }
+                
                   <Text>{User.name}</Text>
                   <RankingStars stars={rating} />
                 </HStack>
