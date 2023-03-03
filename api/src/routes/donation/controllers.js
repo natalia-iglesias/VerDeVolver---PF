@@ -3,6 +3,10 @@
 // failure: 'http://localhost:5173/home',
 
 const { Donation, User, VdV } = require('../../db.js');
+const { sendEmail } = require('../../services/email');
+const {
+  htmlDonationOkEmailTemplate,
+} = require('../../services/email/templates/templateUsers.js');
 
 async function chargeDbDonation() {
   const bulkCreateDonations = await Donation.bulkCreate([
@@ -16,7 +20,6 @@ async function chargeDbDonation() {
 
   return bulkCreateDonations;
 }
-
 
 const createDonation = async (body) => {
   const { amount, UserId, VdVId } = body;
@@ -35,6 +38,8 @@ const createDonation = async (body) => {
 
   const { name, img } = checkVdvs[0].dataValues;
 
+  const userDetail = checkUsers[0].dataValues;
+
   let preference = {
     items: [
       {
@@ -46,23 +51,30 @@ const createDonation = async (body) => {
         picture_url: img,
       },
     ],
+    notification_url:
+      'https://0b51-181-229-236-62.sa.ngrok.io/donation/confirmationDonation',
     back_urls: {
       success: 'http://localhost:5173/home',
       failure: 'http://localhost:5173/home',
       pending: '',
     },
     auto_return: 'approved',
-    binary_mode: true, 
+    binary_mode: true,
   };
 
-  const newDonation = await Donation.create({
+  await Donation.create({
     amount,
     UserId,
     VdVId,
   });
 
+  sendEmail(
+    userDetail.mail,
+    `Confirmacion de donación a la entidad ${name}`,
+    htmlDonationOkEmailTemplate(userDetail.name, name)
+  );
+
   return preference;
-  
 };
 
 const getAll = async () => {
