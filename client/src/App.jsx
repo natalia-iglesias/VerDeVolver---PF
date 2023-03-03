@@ -13,7 +13,7 @@ import SingUpEntitie from './pages/signUpEntities/SingUpEntitie';
 import Login from './Components/Login';
 import UserProfile from './pages/userProfile/UserProfile';
 import EntityProfile from './pages/entityProfile/EntityProfile';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact/Contact';
 import Navbar from './Components/NavBar';
