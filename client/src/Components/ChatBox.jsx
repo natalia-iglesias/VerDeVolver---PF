@@ -55,7 +55,7 @@ const qa = [
 ];
 
 const iaResponse = (message) => {
-  const res = qa.find(({ q }) => q === message)?.a;
+  const res = qa.find(({ q }) => q.toLowerCase() === message.toLowerCase())?.a;
 
   if (res) return res;
   return `No encontré un respuesta a tu pregunta en mi base de datos, puedes ir a la sección de contacto y completar el formulario para enviar tu consulta y que un administrador pueda responderte!`;
