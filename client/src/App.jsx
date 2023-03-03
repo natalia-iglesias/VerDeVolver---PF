@@ -13,18 +13,22 @@ import SingUpEntitie from './pages/signUpEntities/SingUpEntitie';
 import Login from './Components/Login';
 import UserProfile from './pages/userProfile/UserProfile';
 import EntityProfile from './pages/entityProfile/EntityProfile';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact/Contact';
 import Navbar from './Components/NavBar';
 import SingUp from './pages/SingUp';
 import ColorModeSwitcher from './Components/ColorModeSwitcher';
 import Footer from './Components/Footer';
+import ChatBox from './components/ChatBox';
+import { useSelector } from 'react-redux';
 
 const App = () => {
+  const { acount } = useSelector((state) => state.acountReducer);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(LogedUser());
+    !Object.keys(acount).length && dispatch(LogedUser());
     dispatch(fetchEntities());
   }, []);
 
@@ -49,6 +53,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <ChatBox />
       <ColorModeSwitcher />
       <Footer />
     </BrowserRouter>
