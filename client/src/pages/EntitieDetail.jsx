@@ -22,6 +22,7 @@ import {
   Text,
   Textarea,
   VStack,
+  useToast,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
@@ -35,6 +36,7 @@ import CreateRating from '../Components/CreateRating';
 const EntityDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const toast = useToast();
 
   useEffect(() => {
     dispatch(getEntityById(id));
@@ -58,12 +60,17 @@ const EntityDetail = () => {
   };
 
   const handleDonate = () => {
+    const userId = acount.id;
     if (inputMonto) {
-      const userId = acount.id ;
       if (!userId) {
         navigate('/login');
-        alert('Debes iniciar sesión para donar');
-        throw Error('Debes iniciar sesión para donar');
+        toast({
+          title: 'Error',
+          description: 'Debes iniciar sesión para poder donar',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
       }
       try {
         axios
@@ -77,27 +84,54 @@ const EntityDetail = () => {
         res.status(400).send(error);
       }
     } else {
-      alert('ingrese monto');
+      toast({
+        title: 'Warning',
+        description: 'Debes ingresar un monto',
+        status: 'warning',
+        duration: 1500,
+        isClosable: true,
+      });
     }
   };
 
   const handleComment = async (event) => {
-    let userData = JSON.parse(localStorage.getItem('LogedUser'));
-    if (!userData) {
+    const userId = acount.id;
+    if (!userId) {
       navigate('/login');
-      alert('Debes iniciar sesión para poder dejar tu reseña');
-      throw Error('Debes iniciar sesión para poder dejar tu reseña');
+        toast({
+          title: 'Error',
+          description: 'Debes iniciar sesión para poder dejar tu reseña',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
     }
-    if (inputReview && userData) {
+    if (!inputReview) {
+        toast({
+          title: 'Error',
+          description: 'Debes elegir una puntuación y escribir un comentario',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
+    }
+    if (inputReview && userId) {
       try {
         await axios.post('http://localhost:3001/feedback/create', {
           comment: inputReview,
           rating: stars,
-          UserId: userData.id,
+          UserId: userId,
           VdVId: id,
         });
-        alert('Creacion de comentario exitosa!');
         location.reload();
+        toast({
+          title: 'Éxito',
+          description: 'Creación de reseña exitosa',
+          status: 'success',
+          duration: 1500,
+          isClosable: true,
+        });
+        
       } catch (error) {
         throw Error(error.message);
       }
@@ -145,8 +179,9 @@ const EntityDetail = () => {
           >
             {feedbacks?.map(({ User, comment, rating }) => (
               <Box key={User + comment}>
-                <HStack>
+                <HStack spacing='1rem'>
                   <Avatar src={User.image} name={User.name} size="sm" />
+                  <Text>{User.name}</Text>
                   <RankingStars stars={rating} />
                 </HStack>
                 <Text>{comment}</Text>
