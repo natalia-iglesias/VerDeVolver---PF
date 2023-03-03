@@ -30,14 +30,29 @@ const EntityCard = ({ entity }) => {
     setInputMonto(event.target.value);
   };
 
-  const handleButton = (event) => {
-    let userData = JSON.parse(localStorage.getItem('LogedUser'));
-    
+  
+
+  const handleButton = async (event) => {
+    const getUserData = () => {
+      const userSessionStorage = sessionStorage.getItem('LogedUser');
+      const userLocalStorage = localStorage.getItem('LogedUser');
+      let userData;
+      if (userSessionStorage){
+        userData = JSON.parse(userSessionStorage);
+        return userData;
+      }
+      else {
+        userData = JSON.parse(userLocalStorage);
+        return userData; 
+      }
+    };
+    const userData = await getUserData(); 
+     
     if (inputMonto) {
       if (!userData) {
-        navigate('/login');
+        /* navigate('/login'); */
         alert('Debes iniciar sesión para donar');
-        throw Error ('Debes iniciar sesión para donar');
+        /* throw Error ('Debes iniciar sesión para donar'); */
       }
       try {
          axios

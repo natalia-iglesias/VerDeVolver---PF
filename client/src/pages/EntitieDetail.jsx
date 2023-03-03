@@ -42,6 +42,7 @@ const EntityDetail = () => {
   }, [id]);
 
   const { entity, feedbacks } = useSelector((state) => state.entitiesReducer);
+  const { acount } = useSelector((state) => state.acountReducer);
 
   if (!entity || !feedbacks) return <PropagateLoader color="#1c5738" />;
 
@@ -57,9 +58,9 @@ const EntityDetail = () => {
   };
 
   const handleDonate = () => {
-    let userData = JSON.parse(localStorage.getItem('LogedUser'));
     if (inputMonto) {
-      if (!userData) {
+      const userId = acount.id ;
+      if (!userId) {
         navigate('/login');
         alert('Debes iniciar sesión para donar');
         throw Error('Debes iniciar sesión para donar');
@@ -69,7 +70,7 @@ const EntityDetail = () => {
           .post('http://localhost:3001/donation', {
             VdVId: id,
             amount: inputMonto,
-            UserId: userData.id,
+            UserId: userId 
           })
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {

@@ -33,11 +33,9 @@ import {
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { BiUser, BiUserX } from 'react-icons/bi';
 import UploadImage from '../../Components/Cloudinary';
-import {
-  getUserDonations, getUserFeedbacks
-} from '../../redux/actions/usersActions';
+import {getUserDonations, getUserFeedbacks} from '../../redux/actions/usersActions';
 import { authAcountLocal } from '../../redux/actions/acountActions';
-import { LogedUser } from '../../redux/actions/acountActions';
+import RankingStars from '../../Components/RankingStars';
 
 function UserProfile() {
   const dispatch = useDispatch();
@@ -46,7 +44,12 @@ function UserProfile() {
   const { donations, feedbacks } = useSelector((state) => state.usersReducer);
   const navigate = useNavigate();
 
-  console.log('estado acount', acount)
+
+  const userId = acount.id;
+  useEffect(() => {
+    dispatch(getUserDonations(userId));
+    dispatch(getUserFeedbacks(userId));
+  }, [userId]);
 
   const [input, setInput] = useState({
     name: acount?.name,
