@@ -20,11 +20,15 @@ import Navbar from './Components/NavBar';
 import SingUp from './pages/SingUp';
 import ColorModeSwitcher from './Components/ColorModeSwitcher';
 import Footer from './Components/Footer';
+import ChatBox from './components/ChatBox';
+import { useSelector } from 'react-redux';
 
 const App = () => {
+  const { acount } = useSelector((state) => state.acountReducer);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(LogedUser());
+    !Object.keys(acount).length && dispatch(LogedUser());
     dispatch(fetchEntities());
   }, []);
 
@@ -49,6 +53,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <ChatBox />
       <ColorModeSwitcher />
       <Footer />
     </BrowserRouter>
