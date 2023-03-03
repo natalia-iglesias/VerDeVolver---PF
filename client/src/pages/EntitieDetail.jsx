@@ -180,7 +180,7 @@ const EntityDetail = () => {
             {feedbacks?.map(({ User, comment, rating }) => (
               <Box key={User + comment}>
                 <HStack spacing='1rem'>
-                  <Avatar src={User.image} name={User.name} size="sm" />
+                <Avatar src={User.name}  size="sm" />
                   <Text>{User.name}</Text>
                   <RankingStars stars={rating} />
                 </HStack>
