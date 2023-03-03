@@ -20,6 +20,7 @@ import Navbar from './Components/NavBar';
 import SingUp from './pages/SingUp';
 import ColorModeSwitcher from './Components/ColorModeSwitcher';
 import Footer from './Components/Footer';
+import ChatBox from './components/ChatBox';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <ChatBox />
       <ColorModeSwitcher />
       <Footer />
     </BrowserRouter>
