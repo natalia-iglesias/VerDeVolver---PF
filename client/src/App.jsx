@@ -22,6 +22,7 @@ import ColorModeSwitcher from './Components/ColorModeSwitcher';
 import Footer from './Components/Footer';
 import ChatBox from './components/ChatBox';
 import { useSelector } from 'react-redux';
+import SingUpEntitiePrueba from './pages/signUpEntities/SingUpEntitiePrueba';
 
 const App = () => {
   const { acount } = useSelector((state) => state.acountReducer);
@@ -43,7 +44,7 @@ const App = () => {
         <Route path="/services" element={<Service />} />
         <Route path="/entities" element={<Entities />} />
         <Route path="/entitie/:id" element={<EntitieDetail />} />
-        <Route path="/beVdV" element={<SingUpEntitie />} />
+        <Route path="/beVdV" element={<SingUpEntitiePrueba />} />
         <Route path="/login" element={<Login />} />
         <Route path="/login/:googleId" element={<Login />} />
         <Route path="/singup" element={<SingUp />} />
