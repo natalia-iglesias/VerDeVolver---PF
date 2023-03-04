@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { SearchIcon } from '@chakra-ui/icons';
-import { IconButton, Input, InputGroup } from '@chakra-ui/react';
+import { IconButton, Input, InputGroup, Box, Button } from '@chakra-ui/react';
 import {
   searchEntities,
   filterEntitiesByMaterial,
@@ -10,10 +10,12 @@ const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
   let dispatch = useDispatch();
 
   const handleClick = (e) => {
-    e.preventDefault();
-    const newFilters = entities.filter((ent) =>
-      ent.name.toUpperCase().includes(e.target.value.toUpperCase())
-    );
+    const newFilters = entities.filter((ent) => {
+      console.log(typeof ent.name);
+      console.log(e);
+
+      return ent.name.toUpperCase().includes(e.target.value.toUpperCase());
+    });
     if (newFilters.length === 0)
       return window.alert('No se encontró ninguna entidad con ese nombre');
     dispatch(filterEntitiesByMaterial(newFilters));
@@ -29,22 +31,26 @@ const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
   const handleKeyDown = (e) => e.keyCode === 13 && handleClick(e);
 
   return (
-    <InputGroup>
-      <Input
-        placeholder="Entidad VdV"
-        type="text"
-        value={search}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-      />
-
+    <Box>
+      <InputGroup>
+        <Input
+          placeholder="Entidad VdV"
+          type="text"
+          value={search}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+        />
+      </InputGroup>
       <IconButton
         value={search}
         colorScheme={'green'}
-        icon={<SearchIcon />}
         onClick={handleClick}
+        icon={SearchIcon}
       />
-    </InputGroup>
+      <Button value={search} colorScheme={'green'} onClick={handleClick}>
+        <SearchIcon />
+      </Button>
+    </Box>
   );
 };
 
