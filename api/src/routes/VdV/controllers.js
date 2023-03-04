@@ -1,4 +1,4 @@
-const { VdV, Material, Role } = require('../../db.js');
+const { VdV, Material, Role, User } = require('../../db.js');
 const { Op } = require('sequelize');
 
 const chargeDbVdVs = (array) => {
@@ -10,6 +10,9 @@ const chargeDbVdVs = (array) => {
 
 const vdvCreate = async (body) => {
   const { name, img, description, mail, address, cbu, materials, lat, lng } = body;
+
+  const check = await checkMail(mail);
+  if (check == false) throw Error('El mail ingresado ya pertenece a una cuenta'); 
 
   const role = await Role.findByPk(4);
 
@@ -31,6 +34,26 @@ const vdvCreate = async (body) => {
   await vdvCreate.addMaterials(materials);
   console.log(vdvCreate);
   return vdvCreate;
+};
+
+const checkMail = async (mail) => {
+  if (!mail) throw Error ('Debes ingresar un mail'); 
+  
+  const userMail = await User.findOne({
+    where: { mail },
+  });
+  console.log(userMail); 
+  
+
+  const vdvMail = await VdV.findOne({
+    where: { mail },
+  }); 
+
+  if ( vdvMail || userMail) {
+    return false ; 
+  }
+
+  return true ; 
 };
 
 const getVdV = async (name) => {

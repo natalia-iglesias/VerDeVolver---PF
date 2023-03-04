@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Role, User } = require('../../db.js');
+const { Role, User, VdV } = require('../../db.js');
 const { verify } = require('jsonwebtoken');
 const {
   updatePassword,
@@ -46,8 +46,29 @@ async function chargeDbUsers() {
   return bulkCreateUsers;
 }
 
+const checkMail = async (mail) => {
+  if (!mail) throw Error ('Debes ingresar un mail'); 
+  
+  const userMail = await User.findOne({
+    where: { mail },
+  });
+
+  const vdvMail = await VdV.findOne({
+    where: { mail },
+  }); 
+
+  if ( vdvMail || userMail){
+    return false ; 
+  } 
+
+  return true ; 
+};
+
 const postUser = async (body) => {
   const { name, last_name, mail, password, image } = body;
+
+  const check = await checkMail(mail); 
+  if (check == false) throw Error('El mail ingresado ya pertenece a una cuenta'); 
 
   if (!name || !last_name|| !mail || !password)
     throw Error('Debes completar todos los campos obligatorios');
@@ -62,7 +83,7 @@ const postUser = async (body) => {
     },
   });
 
-  if (existUser) throw Error(`El usuario con mail ${body.mail}, ya existe`)
+  if (existUser) throw Error(`El usuario con mail ${body.mail}, ya existe`); 
   else{  
     const newUser = await User.create({
       name: body.name,
