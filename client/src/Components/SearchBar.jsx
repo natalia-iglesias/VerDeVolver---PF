@@ -10,7 +10,6 @@ const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
   let dispatch = useDispatch();
 
   const handleClick = (e) => {
-    e.preventDefault();
     const newFilters = entities.filter((ent) =>
       ent.name.toUpperCase().includes(e.target.value.toUpperCase())
     );
@@ -37,12 +36,10 @@ const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
-
       <IconButton
-        value={search}
         colorScheme={'green'}
         icon={<SearchIcon />}
-        onClick={handleClick}
+        onClick={() => handleClick({ target: { value: search } })}
       />
     </InputGroup>
   );
