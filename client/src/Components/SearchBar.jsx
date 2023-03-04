@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { SearchIcon } from '@chakra-ui/icons';
-import { IconButton, Input, InputGroup, Box, Button } from '@chakra-ui/react';
+import { IconButton, Input, InputGroup } from '@chakra-ui/react';
 import {
   searchEntities,
   filterEntitiesByMaterial,
@@ -31,26 +31,21 @@ const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
   const handleKeyDown = (e) => e.keyCode === 13 && handleClick(e);
 
   return (
-    <Box>
-      <InputGroup>
-        <Input
-          placeholder="Entidad VdV"
-          type="text"
-          value={search}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-        />
-      </InputGroup>
+    <InputGroup>
+      <Input
+        placeholder="Entidad VdV"
+        type="text"
+        value={search}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+      />
       <IconButton
         value={search}
         colorScheme={'green'}
         onClick={handleClick}
         icon={SearchIcon}
       />
-      <Button value={search} colorScheme={'green'} onClick={handleClick}>
-        <SearchIcon />
-      </Button>
-    </Box>
+    </InputGroup>
   );
 };
 
