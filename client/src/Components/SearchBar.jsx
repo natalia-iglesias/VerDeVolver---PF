@@ -10,12 +10,10 @@ const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
   let dispatch = useDispatch();
 
   const handleClick = (e) => {
-    const newFilters = entities.filter((ent) => {
-      console.log(typeof ent.name);
-      console.log(e);
-
-      return ent.name.toUpperCase().includes(e.target.value.toUpperCase());
-    });
+    e.preventDefault();
+    const newFilters = entities.filter((ent) =>
+      ent.name.toUpperCase().includes(e.target.value.toUpperCase())
+    );
     if (newFilters.length === 0)
       return window.alert('No se encontró ninguna entidad con ese nombre');
     dispatch(filterEntitiesByMaterial(newFilters));
@@ -39,11 +37,12 @@ const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
+
       <IconButton
         value={search}
         colorScheme={'green'}
+        icon={<SearchIcon />}
         onClick={handleClick}
-        icon={SearchIcon}
       />
     </InputGroup>
   );
