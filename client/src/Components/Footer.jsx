@@ -5,13 +5,14 @@ const Footer = () => {
   return (
     <Box>
       <Flex
-        alignItems={'center'}
+        alignItems="center"
         justifyContent="center"
-        width={'100%'}
-        h="4rem"
+        width="full"
+        p="1rem"
         bg="#80808080"
-        color={'white'}
-        bottom={'0'}
+        color="#e4ebed"
+        pos="absolute"
+        bottom="0"
       >
         <Text fontSize="l">
           © 2023 VerDeVolver. All rights reserved. Designed and developed by
