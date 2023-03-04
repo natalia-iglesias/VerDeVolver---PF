@@ -216,7 +216,7 @@ const EntityDetail = () => {
           </Box>
         </Stack>
       </GridItem>
-      <Box height={'5rem'}></Box>
+      <Box height={'28rem'}></Box>
     </Grid>
   );
 };

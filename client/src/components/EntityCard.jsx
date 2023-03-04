@@ -19,6 +19,7 @@ import {
   HStack,
   Box,
   useToast,
+  useColorMode,
 } from '@chakra-ui/react';
 import RankingStars from './RankingStars';
 import { useNavigate } from 'react-router-dom';
@@ -27,6 +28,7 @@ const EntityCard = ({ entity, acount }) => {
   const [inputMonto, setInputMonto] = useState('');
   const navigate = useNavigate();
   const toast = useToast();
+  const { colorMode } = useColorMode();
 
   const handleInputs = (event) => {
     setInputMonto(event.target.value);
@@ -46,12 +48,12 @@ const EntityCard = ({ entity, acount }) => {
         });
       }
       try {
-         axios
+        axios
           .post('http://localhost:3001/donation', {
             VdVId: entity.id,
             amount: inputMonto,
             UserId: id,
-          }) 
+          })
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
         res.status(400).send(error);
@@ -68,7 +70,15 @@ const EntityCard = ({ entity, acount }) => {
   };
 
   return (
-    <Card display="flex" justifyContent="center" pos={'relative'} py="1.5rem">
+    <Card
+      display="flex"
+      justifyContent="center"
+      pos={'relative'}
+      py="1.5rem"
+      borderWidth="0.2rem"
+      borderColor="gray.300"
+      bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+    >
       <Box pos="absolute" top="0" right="0" m="1rem">
         <RankingStars stars={entity?.rating} />
       </Box>
@@ -97,8 +107,14 @@ const EntityCard = ({ entity, acount }) => {
 
       <CardFooter>
         <InputGroup size="md">
-          <InputLeftAddon children="$" />
+          <InputLeftAddon
+            children="$"
+            borderWidth="0.2rem"
+            borderColor="gray.300"
+          />
           <Input
+            borderWidth="0.2rem"
+            borderColor="gray.300"
             pr="4.5rem"
             type="number"
             placeholder="Amout"

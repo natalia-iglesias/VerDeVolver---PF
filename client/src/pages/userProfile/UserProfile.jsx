@@ -247,7 +247,7 @@ function UserProfile() {
             )}
           </VStack>
         </Stack>
-        <Box height={'8rem'}></Box>
+        <Box height={'20rem'}></Box>
       </GridItem>
     </Grid>
   );

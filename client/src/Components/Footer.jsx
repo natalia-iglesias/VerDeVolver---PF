@@ -11,7 +11,8 @@ const Footer = () => {
         h="4rem"
         bg="#80808080"
         color={'white'}
-        bottom={'0'}
+        // bottom={'0'}
+        position={'absolute'}
       >
         <Text fontSize="l">
           © 2023 VerDeVolver. All rights reserved. Designed and developed by
