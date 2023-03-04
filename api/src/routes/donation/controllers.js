@@ -39,8 +39,6 @@ const createDonation = async (body) => {
   const { name, img } = checkVdvs[0].dataValues;
   const userDetail = checkUsers[0].dataValues;
 
-  const userDetail = checkUsers[0].dataValues;
-
   let preference = {
     items: [
       {
@@ -52,8 +50,9 @@ const createDonation = async (body) => {
         picture_url: img,
       },
     ],
-    notification_url:
-      'https://0b51-181-229-236-62.sa.ngrok.io/donation/confirmationDonation',
+    // notification_url:
+    // 'https://0b51-181-229-236-62.sa.ngrok.io/donation/confirmationDonation',
+
     back_urls: {
       success: 'http://localhost:5173/home',
       failure: 'http://localhost:5173/home',

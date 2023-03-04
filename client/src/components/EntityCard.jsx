@@ -34,24 +34,25 @@ const EntityCard = ({ entity, acount }) => {
 
   const handleButton = async (event) => {
     const { id } = acount;
+    if (!id) {
+      navigate('/login');
+      toast({
+        title: 'Error',
+        description: 'Debes iniciar sesión para poder donar',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
+      throw error('Debes iniciar sesión para poder donar');
+    }
     if (inputMonto) {
-      if (!id) {
-        navigate('/login');
-        toast({
-          title: 'Error',
-          description: 'Debes iniciar sesión para poder donar',
-          status: 'error',
-          duration: 1500,
-          isClosable: true,
-        });
-      }
       try {
-         axios
+        axios
           .post('http://localhost:3001/donation', {
             VdVId: entity.id,
             amount: inputMonto,
             UserId: id,
-          }) 
+          })
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
         res.status(400).send(error);

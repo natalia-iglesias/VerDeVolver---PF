@@ -65,17 +65,18 @@ const EntityDetail = () => {
 
   const handleDonate = () => {
     const userId = acount.id;
+    if (!userId) {
+      navigate('/login');
+      toast({
+        title: 'Error',
+        description: 'Debes iniciar sesión para poder donar',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
+      throw error('Debes iniciar sesión para poder donar');
+    }
     if (inputMonto) {
-      if (!userId) {
-        navigate('/login');
-        toast({
-          title: 'Error',
-          description: 'Debes iniciar sesión para poder donar',
-          status: 'error',
-          duration: 1500,
-          isClosable: true,
-        });
-      }
       try {
         axios
           .post('http://localhost:3001/donation', {
