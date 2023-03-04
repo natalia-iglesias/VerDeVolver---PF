@@ -322,6 +322,7 @@ const SingUpEntitie = () => {
         </Button>
         <br />
       </FormControl>
+      <Box height={'1rem'}></Box>
     </Box>
   );
 };

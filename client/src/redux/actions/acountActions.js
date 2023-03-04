@@ -52,12 +52,12 @@ export const LogedUser = () => {
       if (user) {
         const config = {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${user?.token}`,
           },
         };
 
         const res = await axios.get(
-          `http://localhost:3001/login?mail=${mail}`,
+          `http://localhost:3001/login?mail=${user?.mail}`,
           config
         );
 

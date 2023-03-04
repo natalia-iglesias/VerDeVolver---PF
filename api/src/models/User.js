@@ -17,15 +17,12 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       mail: {
-        type: DataTypes.STRING, 
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },
       password: {
         type: DataTypes.STRING,
-      },
-      address: {
-        type: DataTypes.STRING, 
       },
       googleId: {
         type: DataTypes.STRING,

@@ -13,58 +13,21 @@ import {
   Box,
   useColorMode,
 } from '@chakra-ui/react';
-import { ExternalLinkIcon, CopyIcon } from '@chakra-ui/icons';
+import RenderDevCard from '../Components/renderDevCard';
 
 const About = () => {
   const { colorMode } = useColorMode();
-  function renderDevCard(devName, devImg, devLinkd, devIg, devMail) {
-    return (
-      <Card
-        bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
-        border="solid 3px"
-        borderColor={colorMode === 'light' ? 'black' : '#2c835b'}
-        fontFamily="lato"
-        w="20%"
-        m="1vh"
-        h="45vh"
-        p="0.5rem"
-      >
-        <Image
-          src={devImg}
-          alt="Dev Photo"
-          borderRadius="full"
-          boxSize="100px"
-          m="auto"
-        />
-        <CardHeader m="1px" p="1px" align="center">
-          <Heading size="md">{devName}</Heading>
-        </CardHeader>
-
-        <CardBody mt="1px">
-          <Stack divider={<StackDivider />} spacing="1">
-            <Link href={devIg} isExternal m="auto">
-              Instagram <ExternalLinkIcon mx="2px" />
-            </Link>
-            <Link href={devLinkd} isExternal m="auto">
-              LinkedIn <ExternalLinkIcon mx="2px" />
-            </Link>
-            <Text pt="2" fontSize="md" m="auto">
-              {devMail} <CopyIcon mx="2px" />
-            </Text>
-          </Stack>
-        </CardBody>
-      </Card>
-    );
-  }
-
   const devList = [
     {
       name: 'Solana Rocio Gomez',
       img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730208/sol_qut1t5.jpg',
     },
     {
-      name: 'Milton Jeremias Amelino',
-      img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730247/tato_sa9zqk.jpg',
+      name: 'Milton Amelino',
+      img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677875983/images/bcdspw6rvhwxnxszvduc.jpg',
+      linkedin: 'https://www.linkedin.com/in/milton-amelino-6987a1192/',
+      ig: 'https://www.instagram.com/tateuer/',
+      mail: 'tateuer@gmail.com',
     },
     {
       name: 'Diana Atobe',
@@ -132,10 +95,11 @@ const About = () => {
       </Box>
 
       <Flex flexWrap="wrap" align="center" w="100%" ml="30vh">
-        {devList.map((dev) =>
-          renderDevCard(dev.name, dev.img, dev.linkedin, dev.ig, dev.mail)
-        )}
+        {devList.map((dev, indx) => (
+          <RenderDevCard key={`${dev.name}+${indx}`} dev={dev} />
+        ))}
       </Flex>
+      <Box height={'2rem'}></Box>
     </Flex>
   );
 };

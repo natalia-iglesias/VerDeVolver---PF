@@ -199,7 +199,7 @@ const Contact = () => {
         >
           Enviar
         </Button>
-        <Box height={'3.5rem'}></Box>
+        <Box height={'4rem'}></Box>
       </VStack>
     </Box>
   );

@@ -50,6 +50,9 @@ const createDonation = async (body) => {
         picture_url: img,
       },
     ],
+    // notification_url:
+    // 'https://0b51-181-229-236-62.sa.ngrok.io/donation/confirmationDonation',
+
     back_urls: {
       success: 'http://localhost:5173/home',
       failure: 'http://localhost:5173/home',
@@ -59,7 +62,7 @@ const createDonation = async (body) => {
     binary_mode: true,
   };
 
-  const newDonation = await Donation.create({
+  await Donation.create({
     amount,
     UserId,
     VdVId,
