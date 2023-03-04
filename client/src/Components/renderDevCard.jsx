@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Text,
+  Flex,
   Heading,
   Card,
   CardHeader,
@@ -9,9 +10,14 @@ import {
   StackDivider,
   Link,
   Image,
+  Box,
+  useColorMode,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon, CopyIcon } from '@chakra-ui/icons';
-function renderDevCard(devName, devImg, devLinkd, devIg, devMail) {
+
+function RenderDevCard({ dev }) {
+  const { colorMode } = useColorMode();
+  const { name, img, linkedin, ig, mail } = dev;
   return (
     <Card
       bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
@@ -24,26 +30,26 @@ function renderDevCard(devName, devImg, devLinkd, devIg, devMail) {
       p="0.5rem"
     >
       <Image
-        src={devImg}
+        src={img}
         alt="Dev Photo"
         borderRadius="full"
         boxSize="100px"
         m="auto"
       />
       <CardHeader m="1px" p="1px" align="center">
-        <Heading size="md">{devName}</Heading>
+        <Heading size="md">{name}</Heading>
       </CardHeader>
 
       <CardBody mt="1px">
         <Stack divider={<StackDivider />} spacing="1">
-          <Link href={devIg} isExternal m="auto">
+          <Link href={ig} isExternal m="auto">
             Instagram <ExternalLinkIcon mx="2px" />
           </Link>
-          <Link href={devLinkd} isExternal m="auto">
+          <Link href={linkedin} isExternal m="auto">
             LinkedIn <ExternalLinkIcon mx="2px" />
           </Link>
           <Text pt="2" fontSize="md" m="auto">
-            {devMail} <CopyIcon mx="2px" />
+            {mail} <CopyIcon mx="2px" />
           </Text>
         </Stack>
       </CardBody>
@@ -51,4 +57,4 @@ function renderDevCard(devName, devImg, devLinkd, devIg, devMail) {
   );
 }
 
-export default renderDevCard;
+export default RenderDevCard;

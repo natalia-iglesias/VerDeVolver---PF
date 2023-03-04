@@ -13,6 +13,7 @@ import {
   Box,
   useColorMode,
 } from '@chakra-ui/react';
+import RenderDevCard from '../Components/renderDevCard';
 
 const About = () => {
   const { colorMode } = useColorMode();
@@ -94,9 +95,9 @@ const About = () => {
       </Box>
 
       <Flex flexWrap="wrap" align="center" w="100%" ml="30vh">
-        {devList.map((dev) =>
-          renderDevCard(dev.name, dev.img, dev.linkedin, dev.ig, dev.mail)
-        )}
+        {devList.map((dev, indx) => (
+          <RenderDevCard key={`${dev.name}+${indx}`} dev={dev} />
+        ))}
       </Flex>
       <Box height={'2rem'}></Box>
     </Flex>
