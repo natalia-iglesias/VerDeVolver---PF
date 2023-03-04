@@ -7,7 +7,6 @@ const typeOfDataToRender = (
   setArrayToRender,
   setdeleteFeedbackIcon
 ) => {
-  console.log(id);
   switch (type) {
     case 'userService':
       Axios.get(`/service/user/${id}`).then((res) => {
