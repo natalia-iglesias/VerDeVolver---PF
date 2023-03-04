@@ -37,6 +37,7 @@ const createDonation = async (body) => {
     );
 
   const { name, img } = checkVdvs[0].dataValues;
+  const userDetail = checkUsers[0].dataValues;
 
   const userDetail = checkUsers[0].dataValues;
 
