@@ -1,4 +1,4 @@
-const { VdV, Material } = require('../../db.js');
+const { VdV, Material, Role } = require('../../db.js');
 const { Op } = require('sequelize');
 
 const chargeDbVdVs = (array) => {
@@ -9,20 +9,23 @@ const chargeDbVdVs = (array) => {
 };
 
 const vdvCreate = async (body) => {
-  const { name, img, description, mail, address, cbu, materials, lat, lng } =
-    body;
+  const { name, img, description, mail, address, cbu, materials, lat, lng } = body;
 
-  if (!name || !img || !description || !mail || !address)
+  const role = await Role.findByPk(4);
+
+  if (!name || !img || !description || !mail || !address || !lat || !lng || !materials)
     throw Error('Debes completar todos los campos obligatorios');
+    
   const vdvCreate = await VdV.create({
-    name,
-    img,
-    mail,
-    address,
-    description,
-    cbu,
-    lat,
-    lng,
+    name: body.name,
+    img: body.img,
+    mail: body.mail,
+    address: body.address,
+    description: body.description,
+    cbu: body.cbu,
+    lat: body.lat,
+    lng: body.lng,
+    RoleId: role.id,
   });
 
   await vdvCreate.addMaterials(materials);
@@ -44,8 +47,11 @@ const getVdV = async (name) => {
         through: {
           attributes: [],
         },
-      },
+      }
     });
+
+    if (!allVdVquey) throw Error(`No fue posible encontrar una entidad con nombre ${name}`);
+
     return allVdVquey;
   } else {
     const allVdV = await VdV.findAll({
@@ -57,6 +63,7 @@ const getVdV = async (name) => {
         },
       },
     });
+    if (!allVdV) throw Error('No fue posible encontrar ninguna entidad en la base de datos');
 
     return allVdV;
   }
@@ -74,6 +81,8 @@ const getPending = async () => {
     },
   });
 
+  if (!allVdV) throw Error('No fue posible encontrar ninguna entidad con status pending'); 
+
   return allVdV;
 };
 
@@ -89,10 +98,14 @@ const getActive = async () => {
     },
   });
 
+  if (!allVdV) throw Error('No fue posible encontrar ninguna entidad con status active en la base de datos'); 
+
   return allVdV;
 };
 
 const getByIdVdV = async (id) => {
+  if(!id) throw Error('Debes ingresar un id'); 
+
   const VdVFind = await VdV.findByPk(id, {
     include: {
       model: Material,
@@ -102,10 +115,16 @@ const getByIdVdV = async (id) => {
       },
     },
   });
+
+  if (!VdVFind) throw Error(`No fue posible encontrar una entidad con id ${id}`);
+
   return VdVFind;
 };
 
 const upDateVdV = async (id, body) => {
+  if (!id) throw Error('Debes ingresar un id'); 
+  if (!body) throw Error('No se recibieron datos para modificar');
+
   if (body.materials) {
     await VdV.update(body, {
       where: { id },
@@ -124,6 +143,8 @@ const upDateVdV = async (id, body) => {
 };
 
 const deleteVdV = (id) => {
+  if (!id) throw Error('Debes ingresar un id'); 
+
   const VdVdelete = VdV.destroy({
     where: {
       id,
@@ -137,6 +158,8 @@ const functionRandom = () => {
 };
 
 const changeStatus = async (id) => {
+  if (!id) throw Error('Debes ingresar un id'); 
+
   const randomPassword = functionRandom();
 
   await VdV.update(
