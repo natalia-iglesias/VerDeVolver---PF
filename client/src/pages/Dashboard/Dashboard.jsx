@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, Heading, Select } from '@chakra-ui/react';
+import { Flex, Heading, Select, Box } from '@chakra-ui/react';
 import TabListPosts from '../../Components/TabListPosts';
 import OverflowScroll from '../../Components/OverFlowScroll/OverflowScroll';
 import DashboardRequest from '../../Components/DashboardRequest';
@@ -40,7 +40,7 @@ const Dashboard = () => {
   };
 
   return (
-    <Flex direction="row" justify="space-evenly">
+    <Flex direction="row" justify="space-evenly" mb={'2rem'}>
       <Flex direction="column">
         <Heading align="center" m="3vh">
           Reseñas
