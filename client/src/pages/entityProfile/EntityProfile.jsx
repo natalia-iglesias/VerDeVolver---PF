@@ -9,8 +9,9 @@ import {
   Card,
   CardBody,
   Textarea,
+  Box,
 } from '@chakra-ui/react';
-import OverflowScroll from '../../Components/OverflowScroll';
+import OverflowScroll from '../../Components/OverflowScroll/OverflowScroll';
 import InfoCardInput from '../../Components/InforCardInput';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -47,7 +48,7 @@ const EntityProfile = () => {
   };
 
   return (
-    <Flex direction="row" justify="space-evenly">
+    <Flex direction="row" justify="space-evenly" mb={'2rem'}>
       <Flex direction="column">
         <Heading size="lg" align="center" m="3vh">
           Nombre

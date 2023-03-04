@@ -18,40 +18,53 @@ import {
   Badge,
   HStack,
   Box,
+  useToast,
 } from '@chakra-ui/react';
 import RankingStars from './RankingStars';
 import { useNavigate } from 'react-router-dom';
 
-const EntityCard = ({ entity }) => {
+const EntityCard = ({ entity, acount }) => {
   const [inputMonto, setInputMonto] = useState('');
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleInputs = (event) => {
     setInputMonto(event.target.value);
   };
 
-  const handleButton = (event) => {
-    let userData = JSON.parse(localStorage.getItem('LogedUser'));
-    
+  const handleButton = async (event) => {
+    const { id } = acount;
+    if (!id) {
+      navigate('/login');
+      toast({
+        title: 'Error',
+        description: 'Debes iniciar sesión para poder donar',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
+      throw error('Debes iniciar sesión para poder donar');
+    }
     if (inputMonto) {
-      if (!userData) {
-        navigate('/login');
-        alert('Debes iniciar sesión para donar');
-        throw Error ('Debes iniciar sesión para donar');
-      }
       try {
-         axios
+        axios
           .post('http://localhost:3001/donation', {
             VdVId: entity.id,
             amount: inputMonto,
-            UserId: userData.id,
-          }) 
+            UserId: id,
+          })
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
         res.status(400).send(error);
       }
     } else {
-      alert('ingrese monto');
+      toast({
+        title: 'Warning',
+        description: 'Debes ingresar un monto',
+        status: 'warning',
+        duration: 1500,
+        isClosable: true,
+      });
     }
   };
 

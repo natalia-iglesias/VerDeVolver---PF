@@ -1,7 +1,6 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchEntities } from '../redux/actions/entitiesActions';
 import {
   Button,
   Input,
@@ -13,116 +12,136 @@ import {
   HStack,
   Heading,
   Grid,
+  useToast,
+  Text,
+  useColorMode,
 } from '@chakra-ui/react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import PostsCarousel from '../Components/PostsCarousel';
-import { Logeduser } from '../../src/redux/actions/acountActions';
 import axios from 'axios';
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  const { entities } = useSelector((state) => state.entitiesReducer);
-
-  const [inputVdv, setInputVdV] = useState('');
-  const [inputMonto, setInputMonto] = useState('');
+  const toast = useToast();
   const navigate = useNavigate();
 
-  let userData = localStorage.getItem('LogedUser');
-  useEffect(() => {
-    if (userData) {
-      dispatch(Logeduser());
-    }
-    dispatch(fetchEntities());
-  }, [dispatch]);
+  const { entities } = useSelector((state) => state.entitiesReducer);
+  const { acount } = useSelector((state) => state.acountReducer);
+  const [donation, setDonation] = useState({ amount: '', entity: '' });
 
   const handleInputs = (event) => {
     const { name, value } = event.target;
-    name === 'Monto' ? setInputMonto(value) : setInputVdV(value);
+    setDonation({ ...donation, [name]: value });
   };
 
-  const handleButton = (event) => {
-    let userData = JSON.parse(localStorage.getItem('LogedUser'));
-    if (!userData) {
+  const handleDonate = () => {
+    const { id } = acount;
+    const { amount, entity } = donation;
+
+    if (!id) {
       navigate('/login');
-      alert('Debes iniciar sesión para poder donar');
-      throw Error('Debes iniciar sesión para poder donar');
+      toast({
+        title: 'Error',
+        description: 'Debes iniciar sesión para poder donar',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
+      throw error('Debes iniciar sesión para poder donar');
     }
-    if (inputMonto && inputVdv) {
+
+    if (amount && entity) {
       try {
         axios
           .post('http://localhost:3001/donation', {
-            VdVId: inputVdv,
-            amount: inputMonto,
-            UserId: userData.id,
+            VdVId: entity,
+            amount: amount,
+            UserId: id,
           })
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
         res.status(400).send(error);
       }
     } else {
-      alert('Seleccione entidad e ingrese monto');
+      toast({
+        title: 'Warning',
+        description: 'Debes seleccionar una entidad e ingresar un monto',
+        status: 'warning',
+        duration: 1500,
+        isClosable: true,
+      });
     }
   };
+  const { colorMode } = useColorMode();
 
   return (
-    <Box justify="center" align="center">
-      <Heading
-        as="h1"
-        size="l"
-        bg="#2F855A"
-        w="70%"
-        h="6.2rem"
-        color="white"
-        padding="1.5%"
-        borderRadius="md"
-        fontFamily="sans-serif"
-        textAlign={'center'}
+    <Box
+      align="center"
+      bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+      padding="1rem"
+    >
+      <Box
+        justify="center"
+        align="center"
+        mb="0.8rem"
+        p="0.7rem"
+        bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
       >
-        Te brindamos información sobre los distintos lugares dedicados al
-        reciclaje en todo el país. Encontrá los más cercanos y hacé que tu
-        experiencia de gestión de residuos sea mucho más fácil. ¡Gracias por
-        cuidar el planeta junto a nosotrxs!
-      </Heading>
-      <Stack p={'4'}>
-        <HStack>
-          <Select
-            placeholder="Colabora con el punto de reciclaje que te haya ayudado.."
-            onChange={handleInputs}
-            borderColor="gray.200"
-            borderWidth="2px"
-          >
-            {entities?.map(({ id, name }) => (
-              <option value={id} key={id}>
-                {name}
-              </option>
-            ))}
-          </Select>
-          <InputGroup>
-            <InputLeftElement children={<MdOutlineAttachMoney />} />
-            <Input
-              name="Monto"
-              placeholder="Monto"
-              type="number"
-              borderColor="gray.200"
-              borderWidth="2px"
+        <Text
+          bg={colorMode === 'light' ? '#2c835b' : '#212933'}
+          h="7rem"
+          color="white"
+          padding="0.8rem"
+          borderRadius="md"
+          textAlign={'center'}
+          align="center"
+          width="50vw"
+          m="0.7rem"
+          fontSize="xl"
+          fontFamily="lato"
+        >
+          Te brindamos información sobre los distintos lugares dedicados al
+          reciclaje en todo el país. Encontrá los más cercanos y hacé que tu
+          experiencia de gestión de residuos sea mucho más fácil. ¡Gracias por
+          cuidar el planeta junto a nosotrxs!
+        </Text>
+        <Stack p={'4'}>
+          <HStack>
+            <Select
+              placeholder="Colabora con el punto de reciclaje que te haya ayudado.."
               onChange={handleInputs}
-            />
-          </InputGroup>
-        </HStack>
-        <Grid placeItems="center">
-          <Button
-            color={'vdv.main'}
-            colorScheme="green"
-            onClick={handleButton}
-            width="8rem"
-          >
-            Donar
-          </Button>
-        </Grid>
-      </Stack>
+              name="entity"
+            >
+              {entities?.map(({ id, name }) => (
+                <option value={id} key={id}>
+                  {name}
+                </option>
+              ))}
+            </Select>
+            <InputGroup>
+              <InputLeftElement children={<MdOutlineAttachMoney />} />
+              <Input
+                name="amount"
+                placeholder="Monto"
+                type="number"
+                onChange={handleInputs}
+              />
+            </InputGroup>
+          </HStack>
+          <Grid placeItems="center">
+            <Button
+              color="vdv.main"
+              colorScheme="green"
+              width="full"
+              onClick={handleDonate}
+              mt="0.3rem"
+            >
+              Donar
+            </Button>
+          </Grid>
+        </Stack>
 
-      <PostsCarousel />
+        <PostsCarousel />
+      </Box>
     </Box>
   );
 };
