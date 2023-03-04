@@ -256,10 +256,10 @@ const EntityDetail = () => {
               </InputGroup>
             </VStack>
           </Box>
-        </Stack>
-      </GridItem>
-      <Box height={'28rem'}></Box>
-    </Grid>
+        </GridItem>
+        <Box height={'28rem'}></Box>
+      </Grid>
+    </Box>
   );
 };
 
