@@ -5,10 +5,10 @@ const Footer = () => {
   return (
     <Box>
       <Flex
-        alignItems={'center'}
+        alignItems="center"
         justifyContent="center"
-        width={'100%'}
-        h="4rem"
+        width="full"
+        p="1rem"
         bg="#80808080"
         color={'white'}
         // bottom={'0'}

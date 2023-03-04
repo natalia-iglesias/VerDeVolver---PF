@@ -14,11 +14,11 @@ import {
 
 const Dashboard = () => {
   const [feedbackType, setFeedbackType] = useState('feedback');
-  const [feedbackId, setFeedbackId] = useState();
+  const [feedbackId, setFeedbackId] = useState(['all', 'all']);
   const [feedbackVdVFilters, setFeedbackVdVFilters] = useState();
   const [feedbackUsersFilters, setFeedbackUsersFilters] = useState();
   const [donationType, setDonationType] = useState('donation');
-  const [donationId, setDonationId] = useState();
+  const [donationId, setDonationId] = useState(['all', 'all']);
   const [donationVdVFilters, setDonationVdVFilters] = useState();
   const [donationUsersFilters, setDonationUsersFilters] = useState();
 

@@ -46,6 +46,7 @@ const Home = () => {
         duration: 1500,
         isClosable: true,
       });
+      throw error('Debes iniciar sesión para poder donar');
     }
 
     if (amount && entity) {

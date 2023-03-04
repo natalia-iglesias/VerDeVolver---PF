@@ -8,7 +8,6 @@ const {
   VdV,
   Feedback,
   Donation,
-  Service,
   Material,
 } = require('../../db.js');
 const pepe = [
@@ -24,6 +23,7 @@ const pepe = [
     lng: -68.2,
     materials: [1, 2], // este no se pasa a la creacion de la VdV , este dato se usa para relacionar las tablas
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Amigos de la Tierra',
@@ -37,6 +37,7 @@ const pepe = [
     lng: -68.4,
     materials: [3, 4],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Greenpeace',
@@ -50,6 +51,7 @@ const pepe = [
     lng: -68.6,
     materials: [5, 6],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'DemoVerde',
@@ -63,6 +65,7 @@ const pepe = [
     lng: -68.8,
     materials: [3, 4, 1, 2, 5, 6],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Reciclamos muchisimo',
@@ -76,6 +79,7 @@ const pepe = [
     lng: -68.1,
     materials: [2, 5, 6, 7],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Verde que te quiero verde',
@@ -89,6 +93,7 @@ const pepe = [
     lng: -68.3,
     materials: [1],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Agua clara',
@@ -102,6 +107,7 @@ const pepe = [
     lng: -68.5,
     materials: [3, 7, 8],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Tierra Verde',
@@ -115,6 +121,7 @@ const pepe = [
     lng: -68.7,
     materials: [3, 10, 11],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Aire Puro',
@@ -128,6 +135,7 @@ const pepe = [
     lng: -68.9,
     materials: [1, 2, 9],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Fuego Nuevo',
@@ -141,6 +149,7 @@ const pepe = [
     lng: -68.8,
     materials: [1, 9, 11],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Luz Clara',
@@ -154,6 +163,7 @@ const pepe = [
     lng: -68.7,
     materials: [6, 7, 10],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Mar Limpio',
@@ -167,6 +177,7 @@ const pepe = [
     lng: -68.3,
     materials: [3, 7, 8, 11],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Asociacionn de Jovenes Emprendedores',
@@ -180,6 +191,7 @@ const pepe = [
     lng: -68.2,
     materials: [5, 7, 11],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Fundación para la Conservación del Medio Ambiente',
@@ -193,6 +205,7 @@ const pepe = [
     lng: -68.1,
     materials: [2, 10, 11],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Red de Bibliotecas Públicas',
@@ -206,6 +219,7 @@ const pepe = [
     lng: -68.1,
     materials: [3, 4, 8, 9],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Fundación para la Educación y el Desarrollo',
@@ -219,6 +233,7 @@ const pepe = [
     lng: -68.2,
     materials: [3, 4, 10],
     status: 'Pending',
+    RoleId: 4,
   },
   {
     name: 'Asociación de Agricultores Familiares',
@@ -232,6 +247,7 @@ const pepe = [
     lng: -68.3,
     materials: [3, 4, 7],
     status: 'Pending',
+    RoleId: 4,
   },
   {
     name: 'Fundación para la Investigación Científica',
@@ -245,6 +261,7 @@ const pepe = [
     lng: -68.4,
     materials: [3, 4, 8, 9],
     status: 'Pending',
+    RoleId: 4,
   },
   {
     name: 'Asociación de Mujeres Empresarias',
@@ -258,6 +275,7 @@ const pepe = [
     lng: -68.5,
     materials: [1, 2, 9, 10],
     status: 'Pending',
+    RoleId: 4,
   },
   {
     name: 'Fundación para la Lucha contra el Cáncer',
@@ -271,6 +289,7 @@ const pepe = [
     lng: -68.6,
     materials: [4, 7, 8],
     status: 'Pending',
+    RoleId: 4,
   },
   {
     name: 'Asociación de Vecinos Unidos',
@@ -284,14 +303,17 @@ const pepe = [
     lng: -68.7,
     materials: [5, 8, 11],
     status: 'Pending',
+    RoleId: 4,
   },
 ];
 
+//1
 async function chargeDbRoles() {
   const bulkCreateRoles = await Role.bulkCreate([
     { name: 'User' },
     { name: 'Admin' },
     { name: 'Owner' },
+    { name: 'Entity' },
   ]);
 
   return bulkCreateRoles;
@@ -333,6 +355,15 @@ async function chargeDbUsers() {
       address: 'calle 40',
       RoleId: role.id,
     },
+    {
+      name: 'Matias',
+      last_name: 'Serrano',
+      mail: 'mati@mail.com',
+      password: '12345',
+      address: 'calle 40',
+      RoleId: role.id,
+      image: 'https://res.cloudinary.com/verdevolver/image/upload/v1677854021/images/letjinjszswjgkb7waul.jpg'
+    },
   ]);
 
   return bulkCreateUsers;
@@ -369,9 +400,8 @@ const vdvCreate = async (body) => {
     lat,
     lng,
     status,
+    RoleId
   } = body;
-  if (!name || !img || !description || !mail || !address)
-    throw Error('Debes completar todos los campos obligatorios');
   const vdvCreate = await VdV.create({
     name,
     img,
@@ -382,6 +412,7 @@ const vdvCreate = async (body) => {
     lat,
     lng,
     status,
+    RoleId, 
   });
 
   await vdvCreate.addMaterials(materials);
@@ -432,19 +463,6 @@ async function chargeDbDonation() {
 }
 
 //7
-async function chargeDbServices() {
-  const bulkCreateServices = await Service.bulkCreate([
-    { amount: '5000', UserId: '1', VdVId: '1' },
-    { amount: '5000', UserId: '1', VdVId: '1' },
-    { amount: '5000', UserId: '1', VdVId: '1' },
-    { amount: '5000', UserId: '2', VdVId: '1' },
-    { amount: '5000', UserId: '3', VdVId: '3' },
-    { amount: '5000', UserId: '4', VdVId: '4' },
-  ]);
-
-  return bulkCreateServices;
-}
-
 const posts = [
   {
     url: 'https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link',
@@ -459,7 +477,6 @@ const posts = [
     url: 'https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link',
   },
 ];
-
 async function chargeInstagramPosts() {
   posts.forEach(async (post) => {
     await postInsta(post.url);
@@ -481,8 +498,6 @@ router.post('/', async (req, res) => {
     if (!fifth) throw Error('Ocurrio un error durante la carga de feedbacks');
     const sixth = await chargeDbDonation();
     if (!sixth) throw Error('Ocurrio un error durante la carga de donaciones');
-    const seventh = await chargeDbServices();
-    if (!seventh) throw Error('Ocurrio un error durante la carga de servicios');
     await chargeInstagramPosts();
 
     res.status(200).send('Base de datos cargada.');
