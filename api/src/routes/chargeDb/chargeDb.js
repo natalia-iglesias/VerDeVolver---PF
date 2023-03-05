@@ -18,7 +18,7 @@ const pepe = [
     /* password:"12345", */ address: 'calle 1',
     description:
       'Entidad privada cuya actividad se centra en mejorar la calidad de vida de las personas optimizando el aprovechamiento de recursos.',
-    cbu: '34567898777',
+    cbu: '345678987772356789121',
     lat: -34.1,
     lng: -68.2,
     materials: [1, 2], // este no se pasa a la creacion de la VdV , este dato se usa para relacionar las tablas
@@ -32,7 +32,7 @@ const pepe = [
     /* password:"12345", */ address: 'calle 2',
     description:
       'Somos una asociación ecologista que fomenta el cambio local y global hacia una sociedad respetuosa con el medio ambiente, justa y solidaria.',
-    cbu: '23456788777',
+    cbu: '545670987772356789132',
     lat: -34.3,
     lng: -68.4,
     materials: [3, 4],
@@ -46,7 +46,7 @@ const pepe = [
     /* password:"12345", */ address: 'calle 3',
     description:
       'Organización ecologista y pacifista políticamente independiente.',
-    cbu: '0987698777',
+    cbu: '445670987772356789135',
     lat: -34.5,
     lng: -68.6,
     materials: [5, 6],
@@ -60,7 +60,7 @@ const pepe = [
     /* password:"12345", */ address: 'calle 4',
     description:
       'ONG sin fines de lucro para la gestión de los recursos y los residuos',
-    cbu: '8976557898777',
+    cbu: '145670987772356789137',
     lat: -34.7,
     lng: -68.8,
     materials: [3, 4, 1, 2, 5, 6],
@@ -74,7 +74,7 @@ const pepe = [
     /* password:"12345", */ address: 'calle 6',
     description:
       'Empresa gigante que va y busca todo lo que tires.Empresa gigante que va y busca todo lo que tires.Empresa gigante que va y busca todo lo que tires.',
-    cbu: '8976457198777',
+    cbu: '945670987772356789138',
     lat: -34.2,
     lng: -68.1,
     materials: [2, 5, 6, 7],
@@ -88,7 +88,6 @@ const pepe = [
     /* password:"12345", */ address: 'calle 6',
     description:
       'Somos una entidad recicladora que recicla cosas reciclables y las reciclamos',
-    cbu: '8176457198778',
     lat: -34.4,
     lng: -68.3,
     materials: [1],
@@ -102,7 +101,6 @@ const pepe = [
     address: 'calle 6',
     description:
       'Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.',
-    cbu: '8176418198771',
     lat: -34.6,
     lng: -68.5,
     materials: [3, 7, 8],
@@ -116,7 +114,7 @@ const pepe = [
     address: 'calle 8',
     description:
       'Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.',
-    cbu: '2371043886125',
+    cbu: '245670987972356789194',
     lat: -34.8,
     lng: -68.7,
     materials: [3, 10, 11],
@@ -130,7 +128,7 @@ const pepe = [
     address: 'calle 5',
     description:
       'Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.',
-    cbu: '8601946518597',
+    cbu: '745670987912356789175',
     lat: -34.1,
     lng: -68.9,
     materials: [1, 2, 9],
@@ -144,7 +142,6 @@ const pepe = [
     address: 'calle 7',
     description:
       'Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.',
-    cbu: '5970583325760',
     lat: -34.2,
     lng: -68.8,
     materials: [1, 9, 11],
@@ -158,7 +155,6 @@ const pepe = [
     address: 'calle 10',
     description:
       'Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.',
-    cbu: '9747318960912',
     lat: -34.3,
     lng: -68.7,
     materials: [6, 7, 10],
@@ -172,7 +168,7 @@ const pepe = [
     address: 'calle 3',
     description:
       'Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.',
-    cbu: '5096842975055',
+    cbu: '845671987972356789185',
     lat: -34.6,
     lng: -68.3,
     materials: [3, 7, 8, 11],
@@ -186,7 +182,6 @@ const pepe = [
     address: 'calle 2',
     description:
       'Organización sin fines de lucro que busca impulsar el emprendimiento en jóvenes de bajos recursos.',
-    cbu: '87654321987',
     lat: -34.7,
     lng: -68.2,
     materials: [5, 7, 11],
@@ -200,7 +195,7 @@ const pepe = [
     address: 'calle 3',
     description:
       'Fundación cuyo objetivo es la conservación y restauración de los ecosistemas del planeta.',
-    cbu: '65748392002',
+    cbu: '145671987872356789104',
     lat: -34.8,
     lng: -68.1,
     materials: [2, 10, 11],
@@ -214,7 +209,6 @@ const pepe = [
     address: 'calle 4',
     description:
       'Red de bibliotecas públicas que busca fomentar la lectura y el acceso a la cultura en comunidades marginadas.',
-    cbu: '29384756291',
     lat: -34.1,
     lng: -68.1,
     materials: [3, 4, 8, 9],
@@ -228,7 +222,7 @@ const pepe = [
     address: 'calle 5',
     description:
       'Organización que busca mejorar la calidad de vida de las personas a través de la educación y el desarrollo personal.',
-    cbu: '29837465748',
+    cbu: '145601987172356789155',
     lat: -34.2,
     lng: -68.2,
     materials: [3, 4, 10],
@@ -242,7 +236,6 @@ const pepe = [
     address: 'calle 6',
     description:
       'Asociación que busca promover y defender la agricultura familiar y la soberanía alimentaria.',
-    cbu: '83746592713',
     lat: -34.3,
     lng: -68.3,
     materials: [3, 4, 7],
@@ -256,7 +249,7 @@ const pepe = [
     address: 'calle 7',
     description:
       'Fundación que financia investigaciones científicas en diferentes áreas del conocimiento.',
-    cbu: '28374659283',
+    cbu: '445601987472356789147',
     lat: -34.4,
     lng: -68.4,
     materials: [3, 4, 8, 9],
@@ -270,7 +263,6 @@ const pepe = [
     address: 'calle 8',
     description:
       'Asociación que busca fomentar el emprendimiento y el liderazgo de las mujeres en el ámbito empresarial.',
-    cbu: '74658392011',
     lat: -34.5,
     lng: -68.5,
     materials: [1, 2, 9, 10],
@@ -284,7 +276,6 @@ const pepe = [
     address: 'calle 9',
     description:
       'Fundación que brinda apoyo a pacientes con cáncer y financia investigaciones para encontrar curas y tratamientos efectivos.',
-    cbu: '49583746582',
     lat: -34.6,
     lng: -68.6,
     materials: [4, 7, 8],
@@ -298,7 +289,7 @@ const pepe = [
     address: 'calle 10',
     description:
       'Asociación que busca mejorar la calidad de vida de los vecinos y promover la participación ciudadana en la gestión pública.',
-    cbu: '92837465722',
+    cbu: '645601987162356719152',
     lat: -34.7,
     lng: -68.7,
     materials: [5, 8, 11],

@@ -6,7 +6,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
 import Map from './pages/Map';
-import Service from './pages/Service';
 import Entities from './pages/Entities';
 import EntitieDetail from '../src/pages/EntitieDetail';
 import SingUpEntitie from './pages/signUpEntities/SingUpEntitie';
@@ -41,7 +40,6 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/map" element={<Map />} />
-          <Route path="/services" element={<Service />} />
           <Route path="/entities" element={<Entities />} />
           <Route path="/entitie/:id" element={<EntitieDetail />} />
           <Route path="/beVdV" element={<SingUpEntitie />} />

@@ -42,8 +42,6 @@ const checkMail = async (mail) => {
   const userMail = await User.findOne({
     where: { mail },
   });
-  console.log(userMail); 
-  
 
   const vdvMail = await VdV.findOne({
     where: { mail },
