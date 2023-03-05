@@ -6,8 +6,7 @@ import {
   filterEntitiesByMaterial,
   listOfMaterialsToFilter,
 } from '../redux/actions/entitiesActions.js';
-import axios from 'axios';
-axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+
 //axios.defaults.baseURL = 'http://localhost:3001/'
 
 const AsideFilters = ({ filters, setPage, setInput }) => {

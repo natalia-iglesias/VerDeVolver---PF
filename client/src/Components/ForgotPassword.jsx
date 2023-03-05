@@ -17,8 +17,7 @@ import {
 } from '@chakra-ui/react';
 
 import { FiMail } from 'react-icons/fi';
-import axios from 'axios';
-axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+
 //axios.defaults.baseURL = 'http://localhost:3001/'
 
 const ForgotPassword = () => {

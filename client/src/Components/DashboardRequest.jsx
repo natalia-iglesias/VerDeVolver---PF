@@ -10,7 +10,7 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { CheckIcon, DeleteIcon } from '@chakra-ui/icons';
-require('dotenv').config();
+
 import axios from 'axios';
 axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
 //axios.defaults.baseURL = 'http://localhost:3001/'

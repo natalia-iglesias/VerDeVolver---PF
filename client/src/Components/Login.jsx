@@ -24,8 +24,7 @@ import {
 } from '../redux/actions/acountActions';
 import axios from 'axios';
 import ForgotPassword from './ForgotPassword';
-import axios from 'axios';
-axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+
 //axios.defaults.baseURL = 'http://localhost:3001/'
 
 const fetchUser = async (id) => {

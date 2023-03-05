@@ -1,7 +1,6 @@
 import axios from 'axios';
 require('dotenv').config();
-import axios from 'axios';
-axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+
 //axios.defaults.baseURL = 'http://localhost:3001/'
 
 const typeOfDataToRender = (

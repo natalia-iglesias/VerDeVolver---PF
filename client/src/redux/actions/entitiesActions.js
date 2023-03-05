@@ -1,6 +1,5 @@
 import axios from 'axios';
-import axios from 'axios';
-axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+
 //axios.defaults.baseURL = 'http://localhost:3001/'
 
 export const FETCH_ENTITIES = 'FETCH_ENTITIES';

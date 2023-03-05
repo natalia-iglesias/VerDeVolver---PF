@@ -3,7 +3,7 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { IconButton } from '@chakra-ui/react';
 import ItemsCarousel from 'react-items-carousel';
 import { InstagramEmbed } from 'react-social-media-embed';
-import axios from 'axios';
+
 import axios from 'axios';
 axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
 //axios.defaults.baseURL = 'http://localhost:3001/'

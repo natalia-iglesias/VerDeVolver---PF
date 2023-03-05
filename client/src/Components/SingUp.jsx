@@ -26,8 +26,7 @@ import {
 } from '../redux/actions/acountActions';
 import { useDispatch, useSelector } from 'react-redux';
 import UploadImage from '../Components/Cloudinary';
-import axios from 'axios';
-axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+
 //axios.defaults.baseURL = 'http://localhost:3001/'
 
 const validate = ({ name, last_name, mail, password, address, image }) => {

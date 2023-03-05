@@ -14,8 +14,8 @@ import {
 import { StarIcon, DeleteIcon } from '@chakra-ui/icons';
 import { Link as ReachLink } from 'react-router-dom';
 import typeOfDataToRender from './OverFlowScrollFunctions';
-import axios from 'axios';
-axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+/* import axios from 'axios';
+axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/'; */
 //axios.defaults.baseURL = 'http://localhost:3001/'
 
 function DashboardScroll({ type, id }) {

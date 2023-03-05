@@ -12,7 +12,7 @@ import {
   Box,
 } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
-import axios from 'axios';
+
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
