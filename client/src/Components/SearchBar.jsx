@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { SearchIcon } from '@chakra-ui/icons';
-import { IconButton, Input, InputGroup } from '@chakra-ui/react';
+import { IconButton, Input, InputGroup, useColorMode } from '@chakra-ui/react';
 import {
   searchEntities,
   filterEntitiesByMaterial,
@@ -8,6 +8,8 @@ import {
 
 const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
   let dispatch = useDispatch();
+
+  const { colorMode } = useColorMode();
 
   const handleClick = (e) => {
     const newFilters = entities.filter((ent) =>
@@ -30,16 +32,26 @@ const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
   return (
     <InputGroup>
       <Input
-        placeholder="Entidad VdV"
+        placeholder="Punto de reciclaje"
+        width={'50%'}
+        mx="auto"
         type="text"
         value={search}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
+        borderWidth="0.2rem"
+        borderColor="gray.300"
+        mt={'1rem'}
+        bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
       />
       <IconButton
         colorScheme={'green'}
         icon={<SearchIcon />}
         onClick={() => handleClick({ target: { value: search } })}
+        mt={'1rem'}
+        position={'absolute'}
+        left={'77%'}
+        transform={'translateX(-50%)'}
       />
     </InputGroup>
   );
