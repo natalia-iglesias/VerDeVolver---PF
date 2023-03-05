@@ -1,17 +1,18 @@
 import axios from 'axios';
 
-const deleteMaterial = (mat, materials, setInput, setSaveButton) => {
-  setSaveButton(true);
+const deleteMaterial = (mat, materials, setInput) => {
   const newMaterials = materials.filter((eachMat) => eachMat.name !== mat);
   setInput((prevObj) => {
     return { ...prevObj, Materials: newMaterials };
   });
 };
 
-const addMaterial = (e, materials, setInput, setSaveButton) => {
-  setSaveButton(true);
+const addMaterial = (e, materials, setInput) => {
   let newMaterials = [...materials];
-  newMaterials.push({ name: e.target.value });
+  const materialAdd = newMaterials.every(
+    (objeto) => objeto.name !== e.target.value
+  );
+  materialAdd ? newMaterials.push({ name: e.target.value }) : null;
   const uniqueMaterials = [...new Set([...newMaterials])];
   setInput((prevObj) => {
     return { ...prevObj, Materials: uniqueMaterials };

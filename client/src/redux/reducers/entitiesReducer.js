@@ -8,6 +8,7 @@ import {
   SORT_ENTITIES_BY_RANKING,
   GET_ENTITY_BY_ID,
   GET_ENTITY_FEEDBACKS,
+  GET_ENTITY_DONATION,
   FILL_ENTITY_FORM,
 } from '../actions/entitiesActions';
 
@@ -16,6 +17,7 @@ const initialState = {
   entity: {},
   entityForm: {},
   feedbacks: [],
+  donations: [],
   message: '',
   materials: [],
   filteredEntities: [],
@@ -61,6 +63,8 @@ export const entitiesReducer = (state = initialState, { type, payload }) => {
       return { ...state, feedbacks: payload };
     case FILL_ENTITY_FORM:
       return { ...state, entityForm: { ...state.entityForm, ...payload } };
+    case GET_ENTITY_DONATION:
+      return { ...state, donations: payload };
     default:
       return { ...state };
   }
