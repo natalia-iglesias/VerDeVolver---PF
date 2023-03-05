@@ -55,9 +55,6 @@ export const createNewEntity = (entity) => {
       const res = await axios.post('http://localhost:3001/vdv', entity);
       const message = res.data;
       dispatch({ type: CREATE_NEW_ENTITY, payload: message });
-      alert(
-        'Muchas gracias por completar tus datos! Nos pondremos en contacto vía email.'
-      );
     } catch (error) {
       alert(error.message);
       dispatch({ type: CREATE_NEW_ENTITY, payload: error.message });
