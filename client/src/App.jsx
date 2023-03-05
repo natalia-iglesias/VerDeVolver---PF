@@ -8,6 +8,10 @@ import Home from './pages/Home';
 import Map from './pages/Map';
 import Entities from './pages/Entities';
 import EntitieDetail from '../src/pages/EntitieDetail';
+
+
+import SingUpEntitie from './pages/SignUpEntities/SingUpEntitie';
+
 import Login from './Components/Login';
 import UserProfile from './pages/userProfile/UserProfile';
 import EntityProfile from './pages/entityProfile/EntityProfile';
