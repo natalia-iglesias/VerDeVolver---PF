@@ -78,8 +78,13 @@ const Form3 = () => {
     );
 
     if (isError) {
-      console.log('no envio');
-      return;
+      return toast({
+        title: 'Error',
+        description: 'Por favor chequea que no haya errores en ningun campo',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
     }
     dispatch(fillEntityForm(form));
     dispatch(createNewEntity(entityForm));

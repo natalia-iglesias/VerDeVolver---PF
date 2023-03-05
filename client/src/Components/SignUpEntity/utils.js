@@ -3,7 +3,7 @@ export default function validate(form, name, users, entities) {
     isError: false,
     errorMsg: '',
   };
-  console.log('validate:', name);
+
   if (name !== 'cbu' && form[name].length === 0) {
     isErrorObj = {
       isError: true,

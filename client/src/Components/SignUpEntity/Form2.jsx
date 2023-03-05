@@ -11,12 +11,20 @@ import {
 } from '@chakra-ui/react';
 import UploadImage from '../../Components/Cloudinary';
 import validate from './utils';
+import { fetchEntities } from '../../redux/actions/entitiesActions';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fillEntityForm } from '../../redux/actions/entitiesActions';
 
 const Form2 = ({ setProgressAndStep }) => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchEntities());
+  }, [dispatch]);
+
+  const { entities } = useSelector((state) => state.entitiesReducer);
+
   const [form, setForm] = useState({
     description: '',
     img: '',
@@ -36,7 +44,7 @@ const Form2 = ({ setProgressAndStep }) => {
   };
 
   const handlerBlur = (ev) => {
-    const errOjb = validate(form, ev.target.name);
+    const errOjb = validate(form, ev.target.name, [], entities);
     setErrors({ ...errors, [ev.target.name]: errOjb });
   };
 
@@ -63,7 +71,7 @@ const Form2 = ({ setProgressAndStep }) => {
   const handleNextClick = () => {
     let errorsObj = {};
     Object.keys(form).forEach((name) => {
-      const errOjb = { [name]: validate(form, name) };
+      const errOjb = { [name]: validate(form, name, [], entities) };
       errorsObj = { ...errorsObj, ...errOjb };
     });
     setErrors({ ...errors, ...errorsObj });

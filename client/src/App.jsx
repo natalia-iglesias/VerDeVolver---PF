@@ -8,7 +8,6 @@ import Home from './pages/Home';
 import Map from './pages/Map';
 import Entities from './pages/Entities';
 import EntitieDetail from '../src/pages/EntitieDetail';
-import SingUpEntitie from './pages/signUpEntities/SingUpEntitie';
 import Login from './Components/Login';
 import UserProfile from './pages/userProfile/UserProfile';
 import EntityProfile from './pages/entityProfile/EntityProfile';
@@ -21,7 +20,7 @@ import ColorModeSwitcher from './Components/ColorModeSwitcher';
 import Footer from './Components/Footer';
 import ChatBox from './components/ChatBox';
 import { useSelector } from 'react-redux';
-import SingUpEntitiePrueba from './pages/signUpEntities/SingUpEntitiePrueba';
+import SingUpEntitie from './pages/SignUpEntities/SingUpEntitie';
 
 const App = () => {
   const { acount } = useSelector((state) => state.acountReducer);
@@ -43,7 +42,7 @@ const App = () => {
           <Route path="/map" element={<Map />} />
           <Route path="/entities" element={<Entities />} />
           <Route path="/entitie/:id" element={<EntitieDetail />} />
-          <Route path="/beVdV" element={<SingUpEntitiePrueba />} />
+          <Route path="/beVdV" element={<SingUpEntitie />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/:googleId" element={<Login />} />
           <Route path="/singup" element={<SingUp />} />

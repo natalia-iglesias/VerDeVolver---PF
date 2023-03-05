@@ -15,7 +15,8 @@ import {
   fillEntityForm,
 } from '../../redux/actions/entitiesActions';
 import validate from './utils';
-
+import { fetchUsers } from '../../redux/actions/usersActions';
+import { fetchEntities } from '../../redux/actions/entitiesActions';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -40,11 +41,17 @@ const Form1 = ({ setProgressAndStep }) => {
   };
   useEffect(() => {
     dispatch(getMaterials());
+    dispatch(fetchUsers());
+    dispatch(fetchEntities());
   }, [dispatch]);
 
   const materials = useSelector((state) => {
     return state.entitiesReducer.materials;
   });
+
+  const { entities } = useSelector((state) => state.entitiesReducer);
+  const { users } = useSelector((state) => state.usersReducer);
+
   const [errors, setErrors] = useState({
     name: { isError: false, errorMsg: '' },
     mail: { isError: false, errorMsg: '' },
@@ -52,7 +59,7 @@ const Form1 = ({ setProgressAndStep }) => {
   });
 
   const handlerBlur = (ev) => {
-    const errOjb = validate(form, ev.target.name);
+    const errOjb = validate(form, ev.target.name, users, entities);
     setErrors({ ...errors, [ev.target.name]: errOjb });
   };
 
@@ -64,7 +71,7 @@ const Form1 = ({ setProgressAndStep }) => {
   const handleNextClick = () => {
     let errorsObj = {};
     Object.keys(form).forEach((name) => {
-      const errOjb = { [name]: validate(form, name) };
+      const errOjb = { [name]: validate(form, name, users, entities) };
       errorsObj = { ...errorsObj, ...errOjb };
     });
     setErrors({ ...errors, ...errorsObj });
