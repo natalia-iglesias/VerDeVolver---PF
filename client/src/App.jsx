@@ -8,7 +8,6 @@ import Home from './pages/Home';
 import Map from './pages/Map';
 import Entities from './pages/Entities';
 import EntitieDetail from '../src/pages/EntitieDetail';
-import SingUpEntitie from './pages/signUpEntities/SingUpEntitie';
 import Login from './Components/Login';
 import UserProfile from './pages/userProfile/UserProfile';
 import EntityProfile from './pages/entityProfile/EntityProfile';
@@ -21,6 +20,7 @@ import ColorModeSwitcher from './Components/ColorModeSwitcher';
 import Footer from './Components/Footer';
 import ChatBox from './components/ChatBox';
 import { useSelector } from 'react-redux';
+import SingUpEntitie from './pages/SignUpEntities/SingUpEntitie';
 
 const App = () => {
   const { acount } = useSelector((state) => state.acountReducer);
