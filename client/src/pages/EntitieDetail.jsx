@@ -257,10 +257,9 @@ const EntityDetail = () => {
             </VStack>
           </Box>
         </GridItem>
-        <Box height={'1rem'}></Box>
+        <Box height={'28rem'}></Box>
       </Grid>
     </Box>
-
   );
 };
 
