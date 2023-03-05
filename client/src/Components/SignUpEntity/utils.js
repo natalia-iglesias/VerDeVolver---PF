@@ -19,12 +19,12 @@ export default function validate(form, name, users, entities) {
       errorMsg: 'Por favor ingresa un email válido.',
     };
 
-    const userMails = users?.filter(element => element.mail == form.mail); 
-    const vdvsMails = entities?.filter(element => element.mail == form.mail); 
+    const userMails = users?.filter((element) => element.mail == form.mail);
+    const vdvsMails = entities?.filter((element) => element.mail == form.mail);
 
-    if(userMails!==undefined && vdvsMails!==undefined){
+    if (userMails !== undefined && vdvsMails !== undefined) {
       isErrorObj = {
-        isError: (userMails.length>0 || vdvsMails.length>0),
+        isError: userMails.length > 0 || vdvsMails.length > 0,
         errorMsg: 'El mail ingresado se encuentra asociado a otra cuenta',
       };
     }
@@ -35,14 +35,14 @@ export default function validate(form, name, users, entities) {
         isError: form.cbu.length < 21 && form.cbu.length !== 0,
         errorMsg: 'El cbu debe ser de 22 digitos.',
       };
-      const vdvsCbus = entities?.filter(element => element.cbu == form.cbu);
-      if(vdvsCbus!==undefined){
+      const vdvsCbus = entities?.filter((element) => element.cbu == form.cbu);
+      if (vdvsCbus !== undefined) {
         isErrorObj = {
-          isError: (vdvsCbus.length>0),
+          isError: vdvsCbus.length > 0,
           errorMsg: 'El cbu ingresado se encuentra asociado a otra cuenta',
         };
-      }; 
-    }; 
+      }
+    }
   }
 
   if (name === 'description') {
@@ -51,8 +51,6 @@ export default function validate(form, name, users, entities) {
       errorMsg: 'La descripción debe contener entre 70 y 450 caracteres.',
     };
   }
-  // if (name === 'img') {
 
-  // }
   return isErrorObj;
 }
