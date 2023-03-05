@@ -165,7 +165,7 @@ const EntityDetail = () => {
             height="37vh"
             width="37vh"
             borderRadius="50%"
-            backgroundColor="#97FFA8"
+            backgroundColor="#6AF280"
             display="flex"
             alignItems="center"
             justifyContent="center"
