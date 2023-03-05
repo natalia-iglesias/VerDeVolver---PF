@@ -185,9 +185,9 @@ const autocompleteStyle = {
 };
 
 const containerStyle = {
-  width: '50vw',
+  margin: '0 auto',
+  borderRadius: '10px',
+  marginTop: '1rem',
+  maxWidth: '40vw',
   height: '50vh',
-  position: 'absolute',
-  right: '10vw',
-  top: '50vh',
 };
