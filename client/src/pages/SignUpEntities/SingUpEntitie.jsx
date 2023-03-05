@@ -5,7 +5,7 @@ import {
   createNewEntity,
   getMaterials,
 } from '../../redux/actions/entitiesActions';
-import validate from './utils';
+import validate from '../../Components/SignUpEntity/utils';
 import {
   FormControl,
   FormLabel,

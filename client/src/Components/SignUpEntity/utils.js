@@ -3,6 +3,7 @@ export default function validate(form, name) {
     isError: false,
     errorMsg: '',
   };
+  console.log('validate:', name);
   if (name !== 'cbu' && form[name].length === 0) {
     isErrorObj = {
       isError: true,
@@ -34,5 +35,8 @@ export default function validate(form, name) {
       errorMsg: 'La descripción debe contener entre 70 y 450 caracteres.',
     };
   }
+  // if (name === 'img') {
+
+  // }
   return isErrorObj;
 }
