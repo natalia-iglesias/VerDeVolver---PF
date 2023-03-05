@@ -24,10 +24,6 @@ import Footer from './Components/Footer';
 import ChatBox from './Components/ChatBox';
 import { useSelector } from 'react-redux';
 
-import axios from 'axios';
-axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
-//axios.defaults.baseURL = 'http://localhost:3001/'
-
 const App = () => {
   const { acount } = useSelector((state) => state.acountReducer);
   const dispatch = useDispatch();
