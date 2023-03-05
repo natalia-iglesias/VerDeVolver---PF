@@ -12,7 +12,6 @@ const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
   const { colorMode } = useColorMode();
 
   const handleClick = (e) => {
-    e.preventDefault();
     const newFilters = entities.filter((ent) =>
       ent.name.toUpperCase().includes(e.target.value.toUpperCase())
     );
@@ -45,12 +44,10 @@ const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
         mt={'1rem'}
         bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
       />
-
       <IconButton
-        value={search}
         colorScheme={'green'}
         icon={<SearchIcon />}
-        onClick={handleClick}
+        onClick={() => handleClick({ target: { value: search } })}
         mt={'1rem'}
         position={'absolute'}
         left={'77%'}
