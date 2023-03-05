@@ -16,24 +16,34 @@ import {
   Textarea,
   Button,
   Box,
+  useToast,
 } from '@chakra-ui/react';
 import UploadImage from '../../Components/Cloudinary';
 import Autocomplete from 'react-google-autocomplete';
 import { GoogleMap, Marker } from '@react-google-maps/api';
+import { fetchUsers } from '../../redux/actions/usersActions';
+import { fetchEntities } from '../../redux/actions/entitiesActions';
 
 const SingUpEntitie = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toast = useToast(); 
+
   const [mapCenter, setMapCenter] = useState({ lat: -39, lng: -64 });
   const [activeMarker, setActiveMarker] = useState(null);
   const [zoom, setZoom] = useState(5);
 
   useEffect(() => {
     dispatch(getMaterials());
+    dispatch(fetchUsers()); 
+    dispatch(fetchEntities()); 
   }, [dispatch]);
   const materials = useSelector((state) => {
     return state.entitiesReducer.materials;
   });
+
+  const { entities } = useSelector((state) => state.entitiesReducer);
+  const { users } = useSelector((state) => state.usersReducer);
 
   const [form, setForm] = useState({
     name: '',
@@ -88,7 +98,7 @@ const SingUpEntitie = () => {
     event.preventDefault();
     let errorsObj = {};
     Object.keys(form).forEach((name) => {
-      const errOjb = { [name]: validate(form, name) };
+      const errOjb = { [name]: validate(form, name, users, entities) };
       errorsObj = { ...errorsObj, ...errOjb };
     });
     setErrors({ ...errors, ...errorsObj });
@@ -98,10 +108,23 @@ const SingUpEntitie = () => {
     );
 
     if (isError) {
-      return;
+      return toast({
+        title: 'Error',
+        description: 'Por favor chequea que no haya errores en ningun campo',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
     }
-
+    
     dispatch(createNewEntity(form));
+    toast({
+      title: 'Éxito',
+      description: 'Muchas gracias por completar tus datos! Pronto nos pondremos en contacto vía email.',
+      status: 'success',
+      duration: 1600,
+      isClosable: true,
+    });
     navigate('/home');
   };
 

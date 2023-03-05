@@ -55,6 +55,7 @@ function UserProfile() {
 
   const [input, setInput] = useState({
     name: acount?.name,
+    last_name: acount?.last_name,
     mail: acount?.mail,
     password: acount?.password,
     image: acount?.image,
@@ -75,6 +76,7 @@ function UserProfile() {
   const handleCancelChanges = () => {
     setInput({
       name: acount?.name,
+      last_name: acount?.last_name,
       mail: acount?.mail,
       password: acount?.password,
       image: acount?.image,
@@ -103,6 +105,18 @@ function UserProfile() {
               type="text"
               name="name"
               value={input.name}
+              onChange={handleChange}
+            />
+          </InputGroup>
+        </Box>
+        <Box my="1rem">
+          <Text>Apellido</Text>
+          <InputGroup>
+            <InputLeftElement children={<BiUser />} />
+            <Input
+              type="text"
+              name="last_name"
+              value={input.last_name}
               onChange={handleChange}
             />
           </InputGroup>
@@ -247,7 +261,7 @@ function UserProfile() {
             )}
           </VStack>
         </Stack>
-        <Box height={'8rem'}></Box>
+        <Box height={'20rem'}></Box>
       </GridItem>
     </Grid>
   );
