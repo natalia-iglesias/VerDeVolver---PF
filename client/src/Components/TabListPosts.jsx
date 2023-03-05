@@ -14,6 +14,8 @@ import {
 import { EditIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+require('dotenv').config();
+const { BASE_URL } = process.env;
 
 function TabListPosts() {
   const [posts, setPosts] = useState();
@@ -21,13 +23,13 @@ function TabListPosts() {
   const [input, setInput] = useState('');
   const navigate = useNavigate();
   useEffect(() => {
-    axios.get('http://localhost:3001/instagram').then((res) => {
+    axios.get(`${BASE_URL}/instagram`).then((res) => {
       setPosts(res.data);
     });
   }, []);
 
   const updatePost = (id) => {
-    axios.put('http://localhost:3001/instagram', { url: input, id });
+    axios.put(`${BASE_URL}/instagram`, { url: input, id });
     navigate('/home');
   };
 

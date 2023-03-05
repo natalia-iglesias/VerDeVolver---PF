@@ -19,6 +19,8 @@ import {
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import PostsCarousel from '../Components/PostsCarousel';
 import axios from 'axios';
+require('dotenv').config();
+const { BASE_URL } = process.env;
 
 const Home = () => {
   const toast = useToast();
@@ -52,7 +54,7 @@ const Home = () => {
     if (amount && entity) {
       try {
         axios
-          .post('http://localhost:3001/donation', {
+          .post(`${BASE_URL}/donation`, {
             VdVId: entity,
             amount: amount,
             UserId: id,

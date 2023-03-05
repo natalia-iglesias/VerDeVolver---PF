@@ -21,6 +21,8 @@ import {
   useToast,
   useColorMode,
 } from '@chakra-ui/react';
+require('dotenv').config();
+const { BASE_URL } = process.env;
 import RankingStars from './RankingStars';
 import { useNavigate } from 'react-router-dom';
 
@@ -50,7 +52,7 @@ const EntityCard = ({ entity, acount }) => {
     if (inputMonto) {
       try {
         axios
-          .post('http://localhost:3001/donation', {
+          .post(`${BASE_URL}/donation`, {
             VdVId: entity.id,
             amount: inputMonto,
             UserId: id,

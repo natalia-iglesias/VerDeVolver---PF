@@ -12,6 +12,8 @@ import {
   InputRightElement,
   Text,
 } from '@chakra-ui/react';
+require('dotenv').config();
+const { BASE_URL } = process.env;
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { AiFillGoogleCircle } from 'react-icons/ai';
@@ -25,7 +27,7 @@ import axios from 'axios';
 import ForgotPassword from './ForgotPassword';
 
 const fetchUser = async (id) => {
-  const res = await axios.get(`http://localhost:3001/user/${id}`);
+  const res = await axios.get(`${BASE_URL}/user/${id}`);
   return res.data;
 };
 

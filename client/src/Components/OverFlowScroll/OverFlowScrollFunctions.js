@@ -1,5 +1,8 @@
 import axios from 'axios';
-const Axios = axios.create({ baseURL: 'http://localhost:3001' });
+require('dotenv').config();
+const { BASE_URL } = process.env;
+
+const Axios = axios.create(`${BASE_URL}`);
 
 const typeOfDataToRender = (
   type,

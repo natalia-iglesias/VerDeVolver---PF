@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+require('dotenv').config();
+const { BASE_URL } = process.env;
 import axios from 'axios';
 import {
   Flex,
@@ -17,7 +19,7 @@ import typeOfDataToRender from './OverFlowScrollFunctions';
 function DashboardScroll({ type, id }) {
   const [arrayToRender, setArrayToRender] = useState();
   const [deleteFeedbackIcon, setdeleteFeedbackIcon] = useState();
-  const Axios = axios.create({ baseURL: 'http://localhost:3001' });
+  const Axios = axios.create(`${BASE_URL}`);
 
   useEffect(() => {
     typeOfDataToRender(type, id, setArrayToRender, setdeleteFeedbackIcon);

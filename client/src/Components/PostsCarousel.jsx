@@ -4,13 +4,15 @@ import { IconButton } from '@chakra-ui/react';
 import ItemsCarousel from 'react-items-carousel';
 import { InstagramEmbed } from 'react-social-media-embed';
 import axios from 'axios';
+require('dotenv').config();
+const { BASE_URL } = process.env;
 
 const PostsCarousel = () => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
   const [posts, setPosts] = useState();
   useEffect(() => {
-    axios.get('http://localhost:3001/instagram').then((res) => {
+    axios.get(`${BASE_URL}/instagram`).then((res) => {
       setPosts(res.data);
     });
   }, []);

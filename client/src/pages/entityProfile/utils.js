@@ -1,4 +1,6 @@
 import axios from 'axios';
+require('dotenv').config();
+const { BASE_URL } = process.env;
 
 const deleteMaterial = (mat, materials, setInput, setSaveButton) => {
   setSaveButton(true);
@@ -20,7 +22,7 @@ const addMaterial = (e, materials, setInput, setSaveButton) => {
 
 const updateVdV = (id, input) => {
   try {
-    axios.get(`http://localhost:3001/material`).then((res) => {
+    axios.get(`${BASE_URL}/material`).then((res) => {
       let numArray = [];
       console.log(input.Materials);
       res.data.forEach((mat) => {
@@ -30,7 +32,7 @@ const updateVdV = (id, input) => {
       });
       input.materials = numArray;
       console.log(numArray);
-      axios.put(`http://localhost:3001/vdv/${id}`, input).then(() => {
+      axios.put(`${BASE_URL}/vdv/${id}`, input).then(() => {
         window.alert('Los cambios se han guardado exitosamente');
       });
     });
@@ -40,7 +42,7 @@ const updateVdV = (id, input) => {
 };
 
 const deleteVdV = (id, navigate) => {
-  axios.delete(`http://localhost:3001/vdv/${id}`).then(() => {
+  axios.delete(`${BASE_URL}/vdv/${id}`).then(() => {
     window.alert('La entidad a sido borrada');
     navigate('/home');
   });

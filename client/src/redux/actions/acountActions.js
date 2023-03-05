@@ -1,4 +1,6 @@
 import axios from 'axios';
+require('dotenv').config();
+const { BASE_URL } = process.env;
 
 export const AUTH_ACOUNT_LOCAL = 'AUTH_ACOUNT_LOCAL';
 export const AUTH_ACOUNT_GOOGLE = 'AUTH_ACOUNT_GOOGLE';
@@ -15,7 +17,7 @@ const { setSessionAcount, getSessionAcount, removeSessionAcount } =
 export const authAcountLocal = ({ mail, password, keepLogged }) => {
   return async (dispatch) => {
     try {
-      const auth = await axios.post('http://localhost:3001/login', {
+      const auth = await axios.post(`${BASE_URL}/login`, {
         mail: mail,
         password: password,
       });
@@ -32,10 +34,7 @@ export const authAcountLocal = ({ mail, password, keepLogged }) => {
         ? setLocalAcount({ mail, token })
         : setSessionAcount({ mail, token });
 
-      const acount = await axios.get(
-        `http://localhost:3001/login?mail=${mail}`,
-        config
-      );
+      const acount = await axios.get(`${BASE_URL}/login?mail=${mail}`, config);
 
       dispatch({ type: AUTH_ACOUNT_LOCAL, payload: acount.data });
     } catch (error) {
@@ -57,7 +56,7 @@ export const LogedUser = () => {
         };
 
         const res = await axios.get(
-          `http://localhost:3001/login?mail=${user?.mail}`,
+          `${BASE_URL}/login?mail=${user?.mail}`,
           config
         );
 
@@ -72,7 +71,7 @@ export const LogedUser = () => {
 };
 
 export const authAcountGoogle = () => {
-  window.location.href = 'http://localhost:3001/login/google';
+  window.location.href = `${BASE_URL}/login/google`;
 };
 
 export const logoutAcount = () => {

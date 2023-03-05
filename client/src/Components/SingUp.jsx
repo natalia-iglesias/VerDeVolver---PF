@@ -13,6 +13,8 @@ import {
   Text,
   FormLabel,
 } from '@chakra-ui/react';
+require('dotenv').config();
+const { BASE_URL } = process.env;
 import { Link, useNavigate } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
@@ -94,7 +96,7 @@ const SingUp = () => {
 
     if (!Object.keys(errors).length) {
       console.log(singUpData);
-      const res = await axios.post('http://localhost:3001/user', {
+      const res = await axios.post(`${BASE_URL}/user`, {
         ...singUpData,
       });
       res.status === 200 && dispatch(authAcountLocal(singUpData));

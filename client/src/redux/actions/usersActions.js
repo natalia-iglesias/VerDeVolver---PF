@@ -1,13 +1,14 @@
 import axios from 'axios';
-
+require('dotenv').config();
+const { BASE_URL } = process.env;
 export const FETCH_USERS = 'FETCH_USERS';
 export const CREATE_NEW_CONTACT = 'CREATE_NEW_CONTACT';
 export const GET_USER_DONATIONS = 'GET_USER_DONATIONS';
-export const GET_USER_FEEDBACKS = 'GET_USER_FEEDBACKS'; 
+export const GET_USER_FEEDBACKS = 'GET_USER_FEEDBACKS';
 
 export const fetchUsers = () => {
   return async (dispatch) => {
-    const res = await axios.get('http://localhost:3001/user');
+    const res = await axios.get(`${BASE_URL}/user`);
     const users = res.data;
 
     dispatch({ type: FETCH_USERS, payload: users });
@@ -17,7 +18,7 @@ export const fetchUsers = () => {
 export const createNewContact = (contact) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post('http://localhost:3001/contact', contact);
+      const res = await axios.post(`${BASE_URL}/contact`, contact);
       const message = res.data;
       let payload = {
         message,
@@ -34,7 +35,7 @@ export const createNewContact = (contact) => {
 
 export const getUserDonations = (id) => {
   return async (dispatch) => {
-    const res = await axios.get(`http://localhost:3001/donation/user/${id}`);
+    const res = await axios.get(`${BASE_URL}/donation/user/${id}`);
     const donations = res.data;
 
     dispatch({ type: GET_USER_DONATIONS, payload: donations });
@@ -43,7 +44,7 @@ export const getUserDonations = (id) => {
 
 export const getUserFeedbacks = (id) => {
   return async (dispatch) => {
-    const res = await axios.get(`http://localhost:3001/feedback/user/${id}`);
+    const res = await axios.get(`${BASE_URL}/feedback/user/${id}`);
     const feedbacks = res.data;
 
     dispatch({ type: GET_USER_FEEDBACKS, payload: feedbacks });

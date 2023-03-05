@@ -11,6 +11,8 @@ import {
   Textarea,
   Box,
 } from '@chakra-ui/react';
+require('dotenv').config();
+const { BASE_URL } = process.env;
 import OverflowScroll from '../../Components/OverFlowScroll/OverflowScroll.jsx';
 import InfoCardInput from '../../Components/InforCardInput.jsx';
 import axios from 'axios';
@@ -31,7 +33,7 @@ const EntityProfile = () => {
   });
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/vdv/${id}`).then((res) => {
+    axios.get(`${BASE_URL}/vdv/${id}`).then((res) => {
       setInput({
         ...res.data,
         image:

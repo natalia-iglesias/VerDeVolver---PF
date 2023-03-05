@@ -1,4 +1,6 @@
 import axios from 'axios';
+require('dotenv').config();
+const { BASE_URL } = process.env;
 import { VStack, Select, Badge, useColorMode } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -29,7 +31,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
   const handleRanking = (e) => {
     if (e.target.value === 'Ascendente') {
       axios
-        .post('http://localhost:3001/feedback/rating', {
+        .post(`${BASE_URL}/feedback/rating`, {
           order: 'Ascendente',
         })
         .then((res) => {
@@ -44,7 +46,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
         });
     } else {
       axios
-        .post('http://localhost:3001/feedback/rating', {
+        .post(`${BASE_URL}/feedback/rating`, {
           order: 'Descendente',
         })
         .then((res) => {

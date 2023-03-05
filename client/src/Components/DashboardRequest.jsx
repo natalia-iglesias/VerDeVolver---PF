@@ -10,10 +10,12 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { CheckIcon, DeleteIcon } from '@chakra-ui/icons';
+require('dotenv').config();
+const { BASE_URL } = process.env;
 import axios from 'axios';
 
 function DashboardRequest() {
-  const Axios = axios.create({ baseURL: 'http://localhost:3001' });
+  const Axios = axios.create(`${BASE_URL}`);
   const [requestArray, setRequestArray] = useState();
 
   useEffect(() => {
