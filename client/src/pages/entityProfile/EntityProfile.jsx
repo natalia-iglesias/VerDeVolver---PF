@@ -11,8 +11,8 @@ import {
   Textarea,
   Box,
 } from '@chakra-ui/react';
-import OverflowScroll from '../../Components/OverflowScroll/OverflowScroll';
-import InfoCardInput from '../../Components/InforCardInput';
+import OverflowScroll from '../../Components/OverFlowScroll/OverflowScroll.jsx';
+import InfoCardInput from '../../Components/InforCardInput.jsx';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { deleteMaterial, addMaterial, updateVdV, deleteVdV } from './utils';

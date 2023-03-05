@@ -5,8 +5,8 @@ const morgan = require('morgan');
 const passport = require('passport');
 require('dotenv').config();
 const { SECRET } = process.env;
-const googleStrategy = require('./authentication/strategies/GoogleStrategy.js');
-const localStrategy = require('./authentication/strategies/LocalStrategy.js');
+const GoogleStrategy = require('./authentication/strategies/GoogleStrategy.js');
+const LocalStrategy = require('./authentication/strategies/LocalStrategy.js');
 const { User } = require('./db.js');
 
 const routes = require('./routes/index.js');
@@ -47,8 +47,8 @@ server.use((req, res, next) => {
 });
 
 // Configuracion de Passport.js
-passport.use(googleStrategy);
-passport.use(localStrategy);
+passport.use(GoogleStrategy);
+passport.use(LocalStrategy);
 
 passport.serializeUser((user, done) => {
   done(null, user.id);

@@ -53,12 +53,6 @@ const validate = ({ name, last_name, mail, password, address, image }) => {
     errors.password = 'La contraseña debe tener entre 4 y 16 caracteres';
   }
 
-  if (!address) {
-    errors.address = 'La dirección es obligatoria';
-  } else if (address.length < 8 || address.length > 32) {
-    errors.address = 'La dirección debe tener entre 8 y 32 caracteres';
-  }
-
   if (
     !image.startsWith('https://') ||
     (!image.endsWith('.jpg') && !image.endsWith('.png'))
@@ -83,7 +77,6 @@ const SingUp = () => {
     last_name: '',
     mail: '',
     password: '',
-    address: '',
     image: '',
   });
   const [show, setShow] = useState(false);
@@ -100,9 +93,9 @@ const SingUp = () => {
     setErrors(errors);
 
     if (!Object.keys(errors).length) {
+      console.log(singUpData);
       const res = await axios.post('http://localhost:3001/user', {
         ...singUpData,
-        role: 1,
       });
       res.status === 200 && dispatch(authAcountLocal(singUpData));
     }
@@ -188,7 +181,7 @@ const SingUp = () => {
         )}
       </FormControl>
 
-      <FormControl isInvalid={errors.address}>
+      {/* <FormControl isInvalid={errors.address}>
         <InputGroup>
           <InputLeftElement pointerEvents="none" children={<BiDirections />} />
           <Input
@@ -202,7 +195,7 @@ const SingUp = () => {
         {errors.address && (
           <FormErrorMessage>{errors.address}</FormErrorMessage>
         )}
-      </FormControl>
+      </FormControl> */}
       <FormControl isInvalid={errors.image}>
         <FormLabel>Imagen</FormLabel>
         <UploadImage onUpload={handleUploadImage} value={singUpData.image} />
