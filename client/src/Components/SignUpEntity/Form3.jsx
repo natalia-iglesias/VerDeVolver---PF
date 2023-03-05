@@ -65,7 +65,7 @@ const Form3 = () => {
       })
     );
   };
-  const handleNextClick = () => {
+  const handleSubmit = () => {
     let errorsObj = {};
     Object.keys(form).forEach((name) => {
       const errOjb = { [name]: validate(form, name) };
@@ -153,13 +153,12 @@ const Form3 = () => {
             variant="solid"
             w="7rem"
             mr="5%"
-            isDisabled={true}
           >
             Anterior
           </Button>
           <Button
             w="7rem"
-            onClick={handleNextClick}
+            onClick={handleSubmit}
             colorScheme="green"
             variant="outline"
           >

@@ -157,7 +157,6 @@ const Form2 = ({ setProgressAndStep }) => {
             variant="solid"
             w="7rem"
             mr="5%"
-            isDisabled={true}
           >
             Anterior
           </Button>
