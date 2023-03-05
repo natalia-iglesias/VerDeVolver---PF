@@ -13,8 +13,7 @@ import {
   Text,
   FormLabel,
 } from '@chakra-ui/react';
-require('dotenv').config();
-const { BASE_URL } = process.env;
+
 import { Link, useNavigate } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
@@ -27,6 +26,9 @@ import {
 } from '../redux/actions/acountActions';
 import { useDispatch, useSelector } from 'react-redux';
 import UploadImage from '../Components/Cloudinary';
+import axios from 'axios';
+axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+//axios.defaults.baseURL = 'http://localhost:3001/'
 
 const validate = ({ name, last_name, mail, password, address, image }) => {
   const errors = {};
@@ -96,7 +98,7 @@ const SingUp = () => {
 
     if (!Object.keys(errors).length) {
       console.log(singUpData);
-      const res = await axios.post(`${BASE_URL}/user`, {
+      const res = await axios.post(`/user`, {
         ...singUpData,
       });
       res.status === 200 && dispatch(authAcountLocal(singUpData));

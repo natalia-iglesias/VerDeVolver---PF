@@ -11,11 +11,12 @@ import {
 } from '@chakra-ui/react';
 import { CheckIcon, DeleteIcon } from '@chakra-ui/icons';
 require('dotenv').config();
-const { BASE_URL } = process.env;
 import axios from 'axios';
+axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+//axios.defaults.baseURL = 'http://localhost:3001/'
 
 function DashboardRequest() {
-  const Axios = axios.create(`${BASE_URL}`);
+  const Axios = axios.create({ baseURL });
   const [requestArray, setRequestArray] = useState();
 
   useEffect(() => {

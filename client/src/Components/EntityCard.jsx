@@ -21,10 +21,12 @@ import {
   useToast,
   useColorMode,
 } from '@chakra-ui/react';
-require('dotenv').config();
-const { BASE_URL } = process.env;
+
 import RankingStars from './RankingStars';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+//axios.defaults.baseURL = 'http://localhost:3001/'
 
 const EntityCard = ({ entity, acount }) => {
   const [inputMonto, setInputMonto] = useState('');
@@ -52,7 +54,7 @@ const EntityCard = ({ entity, acount }) => {
     if (inputMonto) {
       try {
         axios
-          .post(`${BASE_URL}/donation`, {
+          .post(`/donation`, {
             VdVId: entity.id,
             amount: inputMonto,
             UserId: id,

@@ -1,6 +1,7 @@
 import axios from 'axios';
-require('dotenv').config();
-const { BASE_URL } = process.env;
+import axios from 'axios';
+axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+//axios.defaults.baseURL = 'http://localhost:3001/'
 
 export const FETCH_ENTITIES = 'FETCH_ENTITIES';
 export const SEARCH_ENTITIES = 'SEARCH_ENTITIES';
@@ -17,7 +18,7 @@ export const FILL_ENTITY_FORM = 'FILL_ENTITY_FORM';
 export const fetchEntities = () => {
   return async (dispatch) => {
     try {
-      const res = await axios.get(`${BASE_URL}/vdv`);
+      const res = await axios.get(`/vdv`);
       const entities = res.data;
 
       dispatch({ type: FETCH_ENTITIES, payload: entities });
@@ -27,7 +28,7 @@ export const fetchEntities = () => {
 
 export const searchEntities = (search) => {
   return async (dispatch) => {
-    const res = await axios.get(`${BASE_URL}/vdv?name=${search}`);
+    const res = await axios.get(`/vdv?name=${search}`);
     const entities = res.data;
 
     dispatch({ type: SEARCH_ENTITIES, payload: entities });
@@ -36,7 +37,7 @@ export const searchEntities = (search) => {
 
 export const getEntityById = (id) => {
   return async (dispatch) => {
-    const res = await axios.get(`${BASE_URL}/vdv/${id}`);
+    const res = await axios.get(`$/vdv/${id}`);
     const entity = res.data;
 
     dispatch({ type: GET_ENTITY_BY_ID, payload: entity });
@@ -45,7 +46,7 @@ export const getEntityById = (id) => {
 
 export const getEntityFeedbacks = (id) => {
   return async (dispatch) => {
-    const res = await axios.get(`${BASE_URL}/feedback/vdv/${id}`);
+    const res = await axios.get(`/feedback/vdv/${id}`);
     const feedbacks = res.data;
 
     dispatch({ type: GET_ENTITY_FEEDBACKS, payload: feedbacks });
@@ -60,7 +61,7 @@ export const createNewEntity = (entity) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(
-        ' ${BASE_URL}/vdv',
+        '/vdv',
 
         entity
       );
@@ -76,7 +77,7 @@ export const createNewEntity = (entity) => {
 export const getMaterials = () => {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`${BASE_URL}/material`);
+      const response = await axios.get(`/material`);
       //const materials = response.data.map((m) => m.name);---esto lo subio juan, lo dejamos comentado por si le servia para algo
 
       const materials = response.data;

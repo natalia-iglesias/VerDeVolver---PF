@@ -12,8 +12,7 @@ import {
   InputRightElement,
   Text,
 } from '@chakra-ui/react';
-require('dotenv').config();
-const { BASE_URL } = process.env;
+
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { AiFillGoogleCircle } from 'react-icons/ai';
@@ -25,9 +24,12 @@ import {
 } from '../redux/actions/acountActions';
 import axios from 'axios';
 import ForgotPassword from './ForgotPassword';
+import axios from 'axios';
+axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+//axios.defaults.baseURL = 'http://localhost:3001/'
 
 const fetchUser = async (id) => {
-  const res = await axios.get(`${BASE_URL}/user/${id}`);
+  const res = await axios.get(`/user/${id}`);
   return res.data;
 };
 

@@ -1,12 +1,14 @@
 import axios from 'axios';
-require('dotenv').config();
-const { BASE_URL } = process.env;
+
 import { VStack, Select, Badge, useColorMode } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   filterEntitiesByMaterial,
   listOfMaterialsToFilter,
 } from '../redux/actions/entitiesActions.js';
+import axios from 'axios';
+axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+//axios.defaults.baseURL = 'http://localhost:3001/'
 
 const AsideFilters = ({ filters, setPage, setInput }) => {
   const dispatch = useDispatch();
@@ -31,7 +33,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
   const handleRanking = (e) => {
     if (e.target.value === 'Ascendente') {
       axios
-        .post(`${BASE_URL}/feedback/rating`, {
+        .post(`/feedback/rating`, {
           order: 'Ascendente',
         })
         .then((res) => {
@@ -46,7 +48,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
         });
     } else {
       axios
-        .post(`${BASE_URL}/feedback/rating`, {
+        .post(`/feedback/rating`, {
           order: 'Descendente',
         })
         .then((res) => {

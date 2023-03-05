@@ -11,13 +11,15 @@ import {
   Textarea,
   Box,
 } from '@chakra-ui/react';
-require('dotenv').config();
-const { BASE_URL } = process.env;
+
 import OverflowScroll from '../../Components/OverFlowScroll/OverflowScroll.jsx';
 import InfoCardInput from '../../Components/InforCardInput.jsx';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { deleteMaterial, addMaterial, updateVdV, deleteVdV } from './utils';
+import axios from 'axios';
+axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+//axios.defaults.baseURL = 'http://localhost:3001/'
 
 const EntityProfile = () => {
   const { id } = useParams();
@@ -33,7 +35,7 @@ const EntityProfile = () => {
   });
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/vdv/${id}`).then((res) => {
+    axios.get(`/vdv/${id}`).then((res) => {
       setInput({
         ...res.data,
         image:

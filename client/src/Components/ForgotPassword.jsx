@@ -15,9 +15,11 @@ import {
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
-require('dotenv').config();
-const { BASE_URL } = process.env;
+
 import { FiMail } from 'react-icons/fi';
+import axios from 'axios';
+axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+//axios.defaults.baseURL = 'http://localhost:3001/'
 
 const ForgotPassword = () => {
   const toast = useToast();
@@ -31,7 +33,7 @@ const ForgotPassword = () => {
   const handleForgotPassword = async () => {
     if (forgottenPasswordEmail) {
       try {
-        await axios.get(`${BASE_URL}/user/password/${forgottenPasswordEmail}`);
+        await axios.get(`/user/password/${forgottenPasswordEmail}`);
         toast({
           title: 'Email enviado',
           description:

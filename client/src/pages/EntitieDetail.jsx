@@ -32,6 +32,9 @@ import {
   getEntityFeedbacks,
 } from '../redux/actions/entitiesActions';
 import CreateRating from '../Components/CreateRating';
+import axios from 'axios';
+axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+//axios.defaults.baseURL = 'http://localhost:3001/'
 
 const EntityDetail = () => {
   const { id } = useParams();
@@ -79,7 +82,7 @@ const EntityDetail = () => {
     if (inputMonto) {
       try {
         axios
-          .post('http://localhost:3001/donation', {
+          .post('/donation', {
             VdVId: id,
             amount: inputMonto,
             UserId: userId,
@@ -122,7 +125,7 @@ const EntityDetail = () => {
     }
     if (inputReview && userId) {
       try {
-        await axios.post('http://localhost:3001/feedback/create', {
+        await axios.post('/feedback/create', {
           comment: inputReview,
           rating: stars,
           UserId: userId,

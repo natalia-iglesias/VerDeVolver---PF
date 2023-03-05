@@ -1,6 +1,7 @@
 import axios from 'axios';
-require('dotenv').config();
-const { BASE_URL } = process.env;
+import axios from 'axios';
+axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+//axios.defaults.baseURL = 'http://localhost:3001/'
 
 export const AUTH_ACOUNT_LOCAL = 'AUTH_ACOUNT_LOCAL';
 export const AUTH_ACOUNT_GOOGLE = 'AUTH_ACOUNT_GOOGLE';
@@ -17,7 +18,7 @@ const { setSessionAcount, getSessionAcount, removeSessionAcount } =
 export const authAcountLocal = ({ mail, password, keepLogged }) => {
   return async (dispatch) => {
     try {
-      const auth = await axios.post(`${BASE_URL}/login`, {
+      const auth = await axios.post(`/login`, {
         mail: mail,
         password: password,
       });
@@ -34,7 +35,7 @@ export const authAcountLocal = ({ mail, password, keepLogged }) => {
         ? setLocalAcount({ mail, token })
         : setSessionAcount({ mail, token });
 
-      const acount = await axios.get(`${BASE_URL}/login?mail=${mail}`, config);
+      const acount = await axios.get(`/login?mail=${mail}`, config);
 
       dispatch({ type: AUTH_ACOUNT_LOCAL, payload: acount.data });
     } catch (error) {
@@ -55,10 +56,7 @@ export const LogedUser = () => {
           },
         };
 
-        const res = await axios.get(
-          `${BASE_URL}/login?mail=${user?.mail}`,
-          config
-        );
+        const res = await axios.get(`/login?mail=${user?.mail}`, config);
 
         const userData = res.data;
 
@@ -71,7 +69,7 @@ export const LogedUser = () => {
 };
 
 export const authAcountGoogle = () => {
-  window.location.href = `${BASE_URL}/login/google`;
+  window.location.href = `/login/google`;
 };
 
 export const logoutAcount = () => {

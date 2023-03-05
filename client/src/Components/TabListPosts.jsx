@@ -14,8 +14,9 @@ import {
 import { EditIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-require('dotenv').config();
-const { BASE_URL } = process.env;
+import axios from 'axios';
+axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+//axios.defaults.baseURL = 'http://localhost:3001/'
 
 function TabListPosts() {
   const [posts, setPosts] = useState();
@@ -23,13 +24,13 @@ function TabListPosts() {
   const [input, setInput] = useState('');
   const navigate = useNavigate();
   useEffect(() => {
-    axios.get(`${BASE_URL}/instagram`).then((res) => {
+    axios.get(`/instagram`).then((res) => {
       setPosts(res.data);
     });
   }, []);
 
   const updatePost = (id) => {
-    axios.put(`${BASE_URL}/instagram`, { url: input, id });
+    axios.put(`/instagram`, { url: input, id });
     navigate('/home');
   };
 
