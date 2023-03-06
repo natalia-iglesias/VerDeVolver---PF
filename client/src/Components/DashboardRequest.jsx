@@ -8,6 +8,7 @@ import {
   AccordionIcon,
   Button,
   Image,
+  useToast,
 } from '@chakra-ui/react';
 import { CheckIcon, DeleteIcon } from '@chakra-ui/icons';
 import axios from 'axios';
@@ -15,6 +16,7 @@ import axios from 'axios';
 function DashboardRequest() {
   const Axios = axios.create({ baseURL: 'http://localhost:3001' });
   const [requestArray, setRequestArray] = useState();
+  const toast = useToast();
 
   useEffect(() => {
     getDataBase();
@@ -29,31 +31,89 @@ function DashboardRequest() {
   };
 
   const changeStatus = (id) => {
-    Axios.put(`/vdv/status/${id}`).then(() => {
-      window.alert('Entidad aprobada');
-      getDataBase();
-    });
+    try {
+      Axios.put(`/vdv/status/${id}`).then(() => {
+        //window.alert('Entidad aprobada');
+        toast({
+          title: 'Aprovada',
+          description: 'La entidad ha sido aprovada',
+          status: 'success',
+          duration: 1500,
+          isClosable: true,
+        });
+        getDataBase();
+      });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Ha ocurrido un error al aprovar la entidad',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
+    }
   };
 
   const disapproveEntity = (id) => {
     Axios.delete(`/vdv/${id}`).then(() => {
-      window.alert('La entidad ha sido borrada');
-      getDataBase();
+      try {
+        //window.alert('La entidad ha sido borrada');
+        toast({
+          title: 'Borrado exitoso',
+          description: 'La entidad ha sido borrada exitosamente',
+          status: 'success',
+          duration: 1500,
+          isClosable: true,
+        });
+        getDataBase();
+      } catch (error) {
+        toast({
+          title: 'Error',
+          description: 'Ha ocurrido un error al borrar la entidad',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
+      }
     });
   };
 
   const approveCbu = (id, cbu, idVdV) => {
     Axios.put(`/vdv/${idVdV}`, { cbu }).then(() => {
       Axios.delete(`/cbuRequest/${id}`).then(() => {
-        window.alert('Cambio de CBU aprobado');
-        getDataBase();
+        try {
+          toast({
+            title: 'CBU aprovado',
+            description: 'el cambio de CBU ha sido aprobado',
+            status: 'success',
+            duration: 1500,
+            isClosable: true,
+          });
+          //window.alert('Cambio de CBU aprobado');
+          getDataBase();
+        } catch (error) {
+          toast({
+            title: 'Error',
+            description: 'Ha ocurrido un error al actualizar el CBU',
+            status: 'error',
+            duration: 1500,
+            isClosable: true,
+          });
+        }
       });
     });
   };
 
   const disapproveCbu = (id) => {
     Axios.delete(`/cbuRequest/${id}`).then(() => {
-      window.alert('Cambio de cbu NO fue aprobado');
+      toast({
+        title: 'CBU no aprovado',
+        description: 'el cambio de CBU NO ha sido aprobado',
+        status: 'success',
+        duration: 1500,
+        isClosable: true,
+      });
+      //window.alert('Cambio de cbu NO fue aprobado');
       getDataBase();
     });
   };
