@@ -64,14 +64,14 @@ const typeOfDataToRender = (
 
 const deleteFeedback = (id) => {
   Axios.delete(`/feedback/${id}/delete`).then(() => {
-    window.alert('La reseña fue borrada');
+    //window.alert('La reseña fue borrada');
     window.location.reload();
   });
 };
 
 const updateDonation = (id) => {
   Axios.put(`/donation/${id}`).then(() => {
-    window.alert('La donación fue entregada');
+    //window.alert('La donación fue entregada');
     window.location.reload();
   });
 };
