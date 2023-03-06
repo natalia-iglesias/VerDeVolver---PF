@@ -3,7 +3,7 @@ import axios from 'axios';
 export const FETCH_USERS = 'FETCH_USERS';
 export const CREATE_NEW_CONTACT = 'CREATE_NEW_CONTACT';
 export const GET_USER_DONATIONS = 'GET_USER_DONATIONS';
-export const GET_USER_FEEDBACKS = 'GET_USER_FEEDBACKS'; 
+export const GET_USER_FEEDBACKS = 'GET_USER_FEEDBACKS';
 
 export const fetchUsers = () => {
   return async (dispatch) => {
@@ -24,7 +24,6 @@ export const createNewContact = (contact) => {
         contact,
       };
       dispatch({ type: CREATE_NEW_CONTACT, payload: payload.contact });
-      alert('Muchas gracias! Nos pondremos en contacto vía email.');
     } catch (error) {
       alert('No pudimos enviar tu comentario.');
       dispatch({ type: CREATE_NEW_CONTACT, payload: error.message });

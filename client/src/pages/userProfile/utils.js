@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { logoutAcount } from '../../redux/actions/acountActions';
 
-
-
 const deleteUser = (id, navigate, dispatch) => {
   axios.delete(`http://localhost:3001/user/${id}`).then(() => {
     dispatch(logoutAcount());
@@ -10,13 +8,14 @@ const deleteUser = (id, navigate, dispatch) => {
   });
 };
 
-const updateUser = (id, input) => {
+const updateUser = async (id, input) => {
   try {
-    axios.put(`http://localhost:3001/user/${id}`, input).then(() => {
-      window.alert('Los cambios se han guardado exitosamente');
-    });
+    const res = await axios.put(`http://localhost:3001/user/${id}`, input);
+
+    return res.data.id;
   } catch (error) {
-    window.alert(error);
+    console.log(error);
+    return 'No se han actualizado los datos';
   }
 };
 

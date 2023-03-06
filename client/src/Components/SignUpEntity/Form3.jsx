@@ -88,14 +88,14 @@ const Form3 = () => {
     }
     dispatch(fillEntityForm(form));
     dispatch(createNewEntity(entityForm));
-    /* toast({
+    toast({
       title: 'Formulario creado correctamente.',
       description:
         'Muchas gracias por completar tus datos! Nos pondremos en contacto vía email.',
       status: 'success',
       duration: 3000,
       isClosable: true,
-    }); */
+    });
 
     navigate('/home');
   };

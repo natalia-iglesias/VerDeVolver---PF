@@ -29,6 +29,7 @@ import {
   Divider,
   StackDivider,
   Flex,
+  useToast,
 } from '@chakra-ui/react';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { BiUser, BiUserX } from 'react-icons/bi';
@@ -46,6 +47,7 @@ function UserProfile() {
   const { acount } = useSelector((state) => state.acountReducer);
   const { donations, feedbacks } = useSelector((state) => state.usersReducer);
   const navigate = useNavigate();
+  const toast = useToast();
 
   const userId = acount.id;
   useEffect(() => {
@@ -69,8 +71,30 @@ function UserProfile() {
   const handleShow = (e) => setShow(!show);
 
   const handleSaveChanges = () => {
-    updateUser(acount?.id, input);
     dispatch(authAcountLocal(acount));
+    const setUpdateuser = async () => {
+      const message = await updateUser(acount?.id, input);
+
+      if (message == acount.id) {
+        return toast({
+          title: 'Datos actualizados correctamente',
+          description: 'Los cambios han sido guardados satisfactoriamente',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        return toast({
+          title: 'Error',
+          description:
+            'Ha ocurrido algun error en alguno de los datos que se intentan actualizar',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
+      }
+    };
+    setUpdateuser();
   };
 
   const handleCancelChanges = () => {
@@ -85,6 +109,13 @@ function UserProfile() {
 
   const handleDeleteUser = () => {
     deleteUser(acount?.id, navigate, dispatch);
+    return toast({
+      title: 'Usuario Eliminado',
+      description: 'El usuario ha sido eliminado satisfactoriamente',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
   };
 
   const handleUploadImage = (url) => {
