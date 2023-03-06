@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, Heading, Select, Box } from '@chakra-ui/react';
+import { Flex, Heading, Select, Box, Button } from '@chakra-ui/react';
 import TabListPosts from '../../Components/TabListPosts';
 import OverflowScroll from '../../Components/OverFlowScroll/OverflowScroll';
 import DashboardRequest from '../../Components/DashboardRequest';
@@ -21,6 +21,7 @@ const Dashboard = () => {
   const [donationId, setDonationId] = useState(['all', 'all']);
   const [donationVdVFilters, setDonationVdVFilters] = useState();
   const [donationUsersFilters, setDonationUsersFilters] = useState();
+  const [pendingOrDelivered, setPendingOrDelivered] = useState('Pending');
 
   useEffect(() => {
     setDataToRender(
@@ -36,7 +37,17 @@ const Dashboard = () => {
   };
 
   const renderOverFlowDonation = () => {
-    return <OverflowScroll type={donationType} id={donationId} />;
+    return (
+      <OverflowScroll
+        type={donationType}
+        id={donationId}
+        pendingOrDelivered={pendingOrDelivered}
+      />
+    );
+  };
+
+  const viewStatusDonation = (status) => {
+    setPendingOrDelivered(status);
   };
 
   return (
@@ -92,10 +103,12 @@ const Dashboard = () => {
           <option value="none">Usuarios</option>
           {optionsSelectArray(donationUsersFilters)}
         </Select>
-        <Heading align="center" m="3vh">
-          Servicios
-        </Heading>
-        <OverflowScroll type="allServices" />
+        <Button onClick={() => viewStatusDonation('Pending')}>
+          Pendientes
+        </Button>
+        <Button onClick={() => viewStatusDonation('Delivered')}>
+          Entregadas
+        </Button>
       </Flex>
     </Flex>
   );
