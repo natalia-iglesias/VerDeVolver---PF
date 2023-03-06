@@ -14,22 +14,22 @@ import { StarIcon, DeleteIcon } from '@chakra-ui/icons';
 import { Link as ReachLink } from 'react-router-dom';
 import typeOfDataToRender from './OverFlowScrollFunctions';
 import axios from 'axios';
-Axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
-//axios.defaults.baseURL = 'http://localhost:3001/'
+//axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+axios.defaults.baseURL = 'http://localhost:3001/';
 
 function DashboardScroll({ type, id }) {
   const [arrayToRender, setArrayToRender] = useState();
   const [deleteFeedbackIcon, setdeleteFeedbackIcon] = useState();
-  const Axios = axios.create({ baseURL });
+  const axios = axios.create({ baseURL });
 
   useEffect(() => {
     typeOfDataToRender(type, id, setArrayToRender, setdeleteFeedbackIcon);
   }, [type, id]);
 
   const deleteFeedback = (id) => {
-    Axios.delete(`/feedback/${id}/delete`).then(() => {
+    axios.delete(`/feedback/${id}/delete`).then(() => {
       window.alert('La reseña fue borrada');
-      Axios.get(`/feedback`).then((res) => {
+      axios.get(`/feedback`).then((res) => {
         res.data.forEach((obj) => (obj.VdV = false));
         setdeleteFeedbackIcon(true);
         setArrayToRender(res.data);

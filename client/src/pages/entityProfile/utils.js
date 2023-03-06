@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-//axios.defaults.baseURL = 'http://localhost:3001/'
+//'http://localhost:3001/'
 
 const deleteMaterial = (mat, materials, setInput, setSaveButton) => {
   setSaveButton(true);
