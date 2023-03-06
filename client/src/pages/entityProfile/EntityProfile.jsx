@@ -73,7 +73,6 @@ function EntityProfile() {
   const [mapCenter, setMapCenter] = useState({ lat: -39, lng: -64 });
   const [activeMarker, setActiveMarker] = useState(null);
   const [zoom, setZoom] = useState(5);
-  const toast = useToast();
 
   const { acount } = useSelector((state) => state.acountReducer);
   // const idAcount = acount.id;
@@ -112,7 +111,8 @@ function EntityProfile() {
         .then(
           toast({
             title: 'Success',
-            description: 'Solicitud enviada',
+            description:
+              'Solicitud enviada. Recibirás un email de confirmación.',
             status: 'success',
             duration: 1500,
             isClosable: true,

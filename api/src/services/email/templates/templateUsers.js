@@ -37,7 +37,7 @@ const htmlChangePasswordEmailTemplate = (name, token) => `
               placeholder= "Nueva contraseña..."
               name="password"
               required />
-              <input type="hidden" name="token" value="${token}" />
+              <input type="hidden" name="token" value="${token}" />              
               <input type="submit" value="Aceptar" />              
               </form>              
               <p>Que tengas buen día!</p>
@@ -57,7 +57,8 @@ const htmlChangeCBUEmailTemplate = (name) => `
             </div>
             <div class="text_container">
               <h1>Hola ${name}, </h1>
-              <p>Por favor ingresa tu nuevo CBU.</p>              
+              <p>Recibimos tu solicitud</p>
+              <p>El número de CBU fue modificado en nuestra base de datos correctamente.</p>              
               <p>Que tengas buen día!</p>
               <p>Equipo de Verde Volver</p>
               <img alt="fondo-vdv" src="cid:vdv@Fondo" />
