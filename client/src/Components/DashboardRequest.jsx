@@ -16,7 +16,6 @@ Axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
 //axios.defaults.baseURL = 'http://localhost:3001/'
 
 function DashboardRequest() {
-  const Axios = axios.create({ baseURL });
   const [requestArray, setRequestArray] = useState();
 
   useEffect(() => {
