@@ -31,7 +31,7 @@ const htmlChangePasswordEmailTemplate = (name, token) => `
               <h1>Hola ${name}, </h1>
               <p>Por favor ingresa tu nueva contraseña y haz click en aceptar.</p>
               <p>La misma tendrá validez por las próximas 24 horas.</p>
-              <form action="http://localhost:3001/user/password"
+              <form action="http://localhost:3001/login/password"
               method="POST">
               <input type="password"
               placeholder= "Nueva contraseña..."
