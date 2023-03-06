@@ -3,10 +3,10 @@ const { conn } = require('./src/db.js');
 
 // Para Deploy
 require('dotenv').config();
-const { PORT } = process.env;
+const { DB_PORT } = process.env;
 
-conn.sync({ force: false }).then(() => {
-  server.listen(PORT, () => {
-    console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
+conn.sync({ force: true }).then(() => {
+  server.listen(DB_PORT, () => {
+    console.log(`%s listening at ${DB_PORT}`); // eslint-disable-line no-console
   });
 });
