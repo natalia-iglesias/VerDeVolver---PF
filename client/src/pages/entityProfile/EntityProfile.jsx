@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
 import { updateVdV, deleteVdV, addMaterial, deleteMaterial } from './utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -67,7 +66,6 @@ const materialsArray = [
 ];
 
 function EntityProfile() {
-  const toast = useToast();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [mapCenter, setMapCenter] = useState({ lat: -39, lng: -64 });

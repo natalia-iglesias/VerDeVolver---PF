@@ -1,5 +1,6 @@
 const { VdV, Material, Role, User } = require('../../db.js');
 const { Op } = require('sequelize');
+const bcrypt = require('bcrypt');
 
 const chargeDbVdVs = (array) => {
   const result = array.map(async (element) => {
@@ -28,14 +29,17 @@ const vdvCreate = async (body) => {
     !lng ||
     !materials
   )
-    throw Error('Debes completar todos los campos obligatorios');
+  throw Error('Debes completar todos los campos obligatorios');
+
+  const salt = 10;
+  const hash = bcrypt.hashSync(password, salt);
 
   const vdvCreate = await VdV.create({
     name: body.name,
     img: body.img,
     mail: body.mail,
     address: body.address,
-    password: body.password, 
+    password: hash,  
     description: body.description,
     cbu: body.cbu,
     lat: body.lat,
