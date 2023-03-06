@@ -47,7 +47,6 @@ import {
   getEntityDonation,
   getEntityFeedbacks,
 } from '../../redux/actions/entitiesActions';
-// import { authAcountLocal } from '../../redux/actions/acountActions';
 import RankingStars from '../../Components/RankingStars';
 
 const materialsArray = [
@@ -73,7 +72,6 @@ function EntityProfile() {
   const [zoom, setZoom] = useState(5);
 
   const { acount } = useSelector((state) => state.acountReducer);
-  // const idAcount = acount.id;
   const { id } = useParams();
   const { donations, feedbacks } = useSelector(
     (state) => state.entitiesReducer
@@ -171,8 +169,6 @@ function EntityProfile() {
       };
     });
   };
-
-  // if (!Object.entries(acount).length) return navigate('/login');
 
   return (
     <Grid templateColumns={'repeat(2, 1fr)'} gap="2rem">
