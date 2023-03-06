@@ -13,7 +13,9 @@ import {
 import { CheckIcon, DeleteIcon } from '@chakra-ui/icons';
 
 function DashboardRequest() {
-  const Axios = axios.create({ baseURL: 'http://localhost:3001/' });
+  /*  const axios = axios.create({
+    baseURL: 'https://verdevolver-pf-production.up.railway.app/',
+  }); */
   const [requestArray, setRequestArray] = useState();
 
   useEffect(() => {
@@ -21,30 +23,30 @@ function DashboardRequest() {
   }, []);
 
   const getDataBase = () => {
-    Axios.get('/vdv/pending').then((res) => {
-      Axios.get('/cbuRequest').then((res2) => {
+    axios.get('/vdv/pending').then((res) => {
+      axios.get('/cbuRequest').then((res2) => {
         setRequestArray([...res.data, ...res2.data]);
       });
     });
   };
 
   const changeStatus = (id) => {
-    Axios.put(`/vdv/status/${id}`).then(() => {
+    axios.put(`/vdv/status/${id}`).then(() => {
       window.alert('Entidad aprobada');
       getDataBase();
     });
   };
 
   const disapproveEntity = (id) => {
-    Axios.delete(`/vdv/${id}`).then(() => {
+    axios.delete(`/vdv/${id}`).then(() => {
       window.alert('La entidad ha sido borrada');
       getDataBase();
     });
   };
 
   const approveCbu = (id, cbu, idVdV) => {
-    Axios.put(`/vdv/${idVdV}`, { cbu }).then(() => {
-      Axios.delete(`/cbuRequest/${id}`).then(() => {
+    axios.put(`/vdv/${idVdV}`, { cbu }).then(() => {
+      axios.delete(`/cbuRequest/${id}`).then(() => {
         window.alert('Cambio de CBU aprobado');
         getDataBase();
       });
@@ -52,7 +54,7 @@ function DashboardRequest() {
   };
 
   const disapproveCbu = (id) => {
-    Axios.delete(`/cbuRequest/${id}`).then(() => {
+    axios.delete(`/cbuRequest/${id}`).then(() => {
       window.alert('Cambio de cbu NO fue aprobado');
       getDataBase();
     });
