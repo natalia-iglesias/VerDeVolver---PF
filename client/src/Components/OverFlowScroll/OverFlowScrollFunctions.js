@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-Axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
+axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
 
 const typeOfDataToRender = (
   type,
@@ -10,7 +10,7 @@ const typeOfDataToRender = (
 ) => {
   switch (type) {
     case 'userService':
-      Axios.get(`/service/user/${id}`).then((res) => {
+      axios.get(`/service/user/${id}`).then((res) => {
         res.data.forEach((obj) => (obj.User = false));
         setArrayToRender(res.data);
       });
@@ -18,11 +18,11 @@ const typeOfDataToRender = (
     case 'donation':
       Promise.all([
         id[0] === 'all'
-          ? Axios.get('/donation')
-          : Axios.get(`/donation/user/${id[0]}`),
+          ? axios.get('/donation')
+          : axios.get(`/donation/user/${id[0]}`),
         id[1] === 'all'
-          ? Axios.get('/donation')
-          : Axios.get(`/donation/vdv/${id[1]}`),
+          ? axios.get('/donation')
+          : axios.get(`/donation/vdv/${id[1]}`),
       ]).then(([res1, res2]) => {
         const render = [res1.data, res2.data];
         const toRender = render[0].filter((obj1) =>
@@ -35,11 +35,11 @@ const typeOfDataToRender = (
     case 'feedback':
       Promise.all([
         id[0] === 'all'
-          ? Axios.get('/feedback')
-          : Axios.get(`/feedback/user/${id[0]}`),
+          ? axios.get('/feedback')
+          : axios.get(`/feedback/user/${id[0]}`),
         id[1] === 'all'
-          ? Axios.get('/feedback')
-          : Axios.get(`/feedback/vdv/${id[1]}`),
+          ? axios.get('/feedback')
+          : axios.get(`/feedback/vdv/${id[1]}`),
       ]).then(([res1, res2]) => {
         const render = [res1.data, res2.data];
         const toRender = render[0].filter((obj1) =>
@@ -51,7 +51,7 @@ const typeOfDataToRender = (
 
       break;
     case 'allServices':
-      Axios.get(`/service`).then((res) => {
+      axios.get(`/service`).then((res) => {
         res.data.forEach((obj) => (obj.VdV = false));
         setArrayToRender(res.data);
       });
