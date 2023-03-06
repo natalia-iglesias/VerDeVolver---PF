@@ -8,6 +8,7 @@ import {
   Divider,
   Link,
   Button,
+  useToast,
 } from '@chakra-ui/react';
 import { StarIcon, DeleteIcon, CheckIcon } from '@chakra-ui/icons';
 import { Link as ReachLink } from 'react-router-dom';
@@ -21,6 +22,7 @@ function DashboardScroll({ type, id, pendingOrDelivered }) {
   const [arrayToRender, setArrayToRender] = useState();
   const [deleteFeedbackIcon, setdeleteFeedbackIcon] = useState();
   const [deliveredCheckIcon, setDeliveredCheckIcon] = useState();
+  const toast = useToast();
 
   useEffect(() => {
     typeOfDataToRender(
@@ -37,6 +39,48 @@ function DashboardScroll({ type, id, pendingOrDelivered }) {
     <Box w="40vw" h="40vh" overflow="auto">
       <Flex overflowY="scroll" flexDirection="column" gap={'1rem'}>
         {arrayToRender?.map((item, i) => {
+          const handleUpdateDonation = () => {
+            try {
+              toast({
+                title: 'Success',
+                description: 'La donación fue entregada',
+                status: 'success',
+                duration: 1800,
+                isClosable: true,
+              });
+              updateDonation(item.id);
+            } catch (error) {
+              toast({
+                title: 'Error',
+                description: 'No se pudo enviar la donacion',
+                status: 'error',
+                duration: 1800,
+                isClosable: true,
+              });
+            }
+          };
+
+          const handleDeleteFeedback = () => {
+            try {
+              toast({
+                title: 'Success',
+                description: 'El feedback fue eliminado exitosamente',
+                status: 'success',
+                duration: 1800,
+                isClosable: true,
+              });
+              deleteFeedback(item.id);
+            } catch (error) {
+              toast({
+                title: 'Error',
+                description: 'No se ha podido elimanar el feedback',
+                status: 'error',
+                duration: 1800,
+                isClosable: true,
+              });
+            }
+          };
+
           let stars;
           if (item.rating) {
             stars = new Array(item.rating)
@@ -71,12 +115,12 @@ function DashboardScroll({ type, id, pendingOrDelivered }) {
                   </CardBody>
                 </Card>
                 {deleteFeedbackIcon && (
-                  <Button onClick={() => deleteFeedback(item.id)}>
+                  <Button onClick={() => handleDeleteFeedback()}>
                     <DeleteIcon />
                   </Button>
                 )}
                 {deliveredCheckIcon && (
-                  <Button onClick={() => updateDonation(item.id)}>
+                  <Button onClick={() => handleUpdateDonation()}>
                     <CheckIcon />
                   </Button>
                 )}
