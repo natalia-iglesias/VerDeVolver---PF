@@ -67,15 +67,15 @@ const materialsArray = [
 ];
 
 function EntityProfile() {
+  const toast = useToast();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [mapCenter, setMapCenter] = useState({ lat: -39, lng: -64 });
   const [activeMarker, setActiveMarker] = useState(null);
   const [zoom, setZoom] = useState(5);
-  const toast = useToast();
 
-  // const { acount } = useSelector((state) => state.acountReducer);
-  // const id = acount.id;
+  const { acount } = useSelector((state) => state.acountReducer);
+  // const idAcount = acount.id;
   const { id } = useParams();
   const { donations, feedbacks } = useSelector(
     (state) => state.entitiesReducer
@@ -84,6 +84,8 @@ function EntityProfile() {
   const [showPassword, setShowPassword] = useState(false);
   const [showCBU, setShowCBU] = useState(false);
   const [input, setInput] = useState({});
+  const [CBU, setCBU] = useState(acount.cbu);
+  const [errorCBU, setErrorCBU] = useState('');
 
   useEffect(() => {
     axios.get(`http://localhost:3001/vdv/${id}`).then((res) => {
@@ -96,6 +98,36 @@ function EntityProfile() {
     dispatch(getEntityFeedbacks(id));
   }, [id]);
 
+  const handleCBU = (e) => {
+    const { value } = e.target;
+    value.length < 23 && setCBU(value);
+    value.length < 22 ? setErrorCBU('Faltan caracteres') : setErrorCBU('');
+  };
+
+  const handleButtonCBU = (e) => {
+    try {
+      axios
+        .post('http://localhost:3001/cbuRequest', { cbu: CBU, idVdV: id })
+        .then(
+          toast({
+            title: 'Success',
+            description: 'Solicitud enviada',
+            status: 'success',
+            duration: 1500,
+            isClosable: true,
+          })
+        );
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'No se pudo enviar la solicitud',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
+    }
+  };
+
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
@@ -106,7 +138,7 @@ function EntityProfile() {
 
   const handleShow = (event) => {
     const { name } = event.target;
-    name === 'password' ? setShowPassword(!showPassword) : setShowCBU(!showCBU);
+    name === 'cbu' ? setShowCBU(!showCBU) : setShowPassword(!showPassword);
   };
 
   const handleSaveChanges = () => {
@@ -114,13 +146,8 @@ function EntityProfile() {
   };
 
   const handleCancelChanges = () => {
-    setInput({
-      // name: acount?.name,
-      // last_name: acount?.last_name,
-      // mail: acount?.mail,
-      // password: acount?.password,
-      // image: acount?.image,
-    });
+    setInput(acount);
+    setCBU(acount.cbu);
   };
 
   const handleDeleteEntity = () => {
@@ -221,15 +248,16 @@ function EntityProfile() {
             </InputRightElement>
           </InputGroup>
         </Box>
-        <Box my="1rem">
-          <Text>CBU</Text>
+        <UploadImage onUpload={handleUploadImage} value={input.img} />
+        <Box my="1rem" mb={'3rem'}>
+          <Text>Solicitar el cambio del CBU</Text>
           <InputGroup>
             <InputLeftElement children={<LockIcon />} />
             <Input
               name="cbu"
               type={showCBU ? 'text' : 'password'}
-              value={input.cbu}
-              onChange={handleChange}
+              value={CBU}
+              onChange={handleCBU}
             />
             <InputRightElement>
               <IconButton
@@ -239,10 +267,24 @@ function EntityProfile() {
               />
             </InputRightElement>
           </InputGroup>
+          {errorCBU ? (
+            <Text color={'red'} fontFamily="unset">
+              {errorCBU}{' '}
+            </Text>
+          ) : (
+            <Button
+              // variant={'outline'}
+              colorScheme={'green'}
+              mt="0.3rem"
+              display={'flex'}
+              onClick={handleButtonCBU}
+            >
+              Enviar
+            </Button>
+          )}
         </Box>
-        <UploadImage onUpload={handleUploadImage} value={input.img} />
 
-        <GridItem>
+        <GridItem mb={'2rem'}>
           <Box my="1rem">
             <Text>Materiales</Text>
             {input.Materials?.map((mat, i) => {
@@ -276,10 +318,11 @@ function EntityProfile() {
             </Select>
           </Box>
         </GridItem>
+
         <GridItem>
           <ButtonGroup
             mb={'7rem'}
-            variant={'outline'}
+            // variant={'outline'}
             w="full"
             justifyContent={'center'}
             mt="1rem"
@@ -287,7 +330,7 @@ function EntityProfile() {
             <Button colorScheme={'green'} w="30%" onClick={handleSaveChanges}>
               Guardar
             </Button>
-            <Button colorScheme={'blue'} w="30%">
+            <Button colorScheme={'blue'} w="30%" onClick={handleCancelChanges}>
               Cancelar
             </Button>
             <Popover>
