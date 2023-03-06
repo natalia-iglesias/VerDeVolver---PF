@@ -138,7 +138,7 @@ function EntityProfile() {
 
   const handleShow = (event) => {
     const { name } = event.target;
-    name === 'password' ? setShowPassword(!showPassword) : setShowCBU(!showCBU);
+    name === 'cbu' ? setShowCBU(!showCBU) : setShowPassword(!showPassword);
   };
 
   const handleSaveChanges = () => {
@@ -147,6 +147,7 @@ function EntityProfile() {
 
   const handleCancelChanges = () => {
     setInput(acount);
+    setCBU(acount.cbu);
   };
 
   const handleDeleteEntity = () => {
