@@ -11,6 +11,7 @@ import {
   InputLeftElement,
   InputRightElement,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -23,25 +24,46 @@ import {
 } from '../redux/actions/acountActions';
 import axios from 'axios';
 import ForgotPassword from './ForgotPassword';
+import { fetchUsers } from '../redux/actions/usersActions';
+import { fetchEntities } from '../redux/actions/entitiesActions';
 
 const fetchUser = async (id) => {
   const res = await axios.get(`http://localhost:3001/user/${id}`);
   return res.data;
 };
 
-const validate = ({ mail, password }) => {
+const validate = ({ mail, password }, users, entities) => {
   const errors = {};
 
+  const userMails = users?.filter(element => element.mail == mail); 
+  const vdvsMails = entities?.filter(element => element.mail == mail);
   if (!mail) {
     errors.mail = 'El mail es obligatorio';
   } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(mail)) {
     errors.mail = 'Formato de mail invalido';
+  }else if (userMails!==undefined && vdvsMails!==undefined){
+    if(userMails.length==0 && vdvsMails.length==0){
+      errors.mail = 'El mail ingresado no se encuentra asociado a una cuenta';
+    }
   }
 
   if (!password) {
     errors.password = 'La contraseña es obligatoria';
   } else if (password.length < 4 || password.length > 16) {
     errors.password = 'La contraseña debe tener entre 4 y 16 caracteres';
+  }else if (userMails!==undefined && vdvsMails!==undefined){
+    if(userMails.length>0){
+      const userData = users?.filter((user) => user.mail === mail);
+      if(userData[0].password != password){
+        errors.password = 'Contraseña incorrecta';
+      }
+    };
+    if(vdvsMails.length>0){
+      const vdvData = entities?.filter((vdv) => vdv.mail === mail); 
+      if(vdvData[0].password != password){
+        errors.password = 'Contraseña incorrecta';
+      }
+    };
   }
 
   return errors;
@@ -50,7 +72,12 @@ const validate = ({ mail, password }) => {
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const toast = useToast();
+
   const { acount } = useSelector((state) => state.acountReducer);
+  const { entities } = useSelector((state) => state.entitiesReducer);
+  const { users } = useSelector((state) => state.usersReducer);
+
   const { googleId } = useParams();
 
   useEffect(() => {
@@ -65,6 +92,11 @@ const Login = () => {
       })();
   }, [googleId]);
 
+  useEffect(() => {
+    dispatch(fetchUsers()); 
+    dispatch(fetchEntities()); 
+  }, [dispatch]);
+
   const [logInData, setLogInData] = useState({
     mail: '',
     password: '',
@@ -77,7 +109,7 @@ const Login = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLogInData({ ...logInData, [name]: value });
-    setErrors(validate({ ...logInData, [name]: value }));
+    setErrors(validate({ ...logInData, [name]: value }, users, entities));
   };
 
   const handleCheck = (e) => {
@@ -87,6 +119,15 @@ const Login = () => {
   };
 
   const handleLogin = () => {
+    if (Object.keys(errors).length){
+      return toast({
+        title: 'Error',
+        description: 'Por favor chequea que no haya errores en ningun campo',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
+    };
     !Object.keys(errors).length && dispatch(authAcountLocal(logInData));
   };
 

@@ -11,6 +11,7 @@ import {
   GridItem,
   Heading,
   IconButton,
+  Image,
   Input,
   InputGroup,
   InputLeftElement,
@@ -29,6 +30,7 @@ import {
   Divider,
   StackDivider,
   Flex,
+  useToast,
 } from '@chakra-ui/react';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { BiUser, BiUserX } from 'react-icons/bi';
@@ -46,6 +48,7 @@ function UserProfile() {
   const { acount } = useSelector((state) => state.acountReducer);
   const { donations, feedbacks } = useSelector((state) => state.usersReducer);
   const navigate = useNavigate();
+  const toast = useToast();
 
   const userId = acount.id;
   useEffect(() => {
@@ -69,8 +72,30 @@ function UserProfile() {
   const handleShow = (e) => setShow(!show);
 
   const handleSaveChanges = () => {
-    updateUser(acount?.id, input);
     dispatch(authAcountLocal(acount));
+    const setUpdateuser = async () => {
+      const message = await updateUser(acount?.id, input);
+
+      if (message == acount.id) {
+        return toast({
+          title: 'Datos actualizados correctamente',
+          description: 'Los cambios han sido guardados satisfactoriamente',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        return toast({
+          title: 'Error',
+          description:
+            'Ha ocurrido algun error en alguno de los datos que se intentan actualizar',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
+      }
+    };
+    setUpdateuser();
   };
 
   const handleCancelChanges = () => {
@@ -85,6 +110,13 @@ function UserProfile() {
 
   const handleDeleteUser = () => {
     deleteUser(acount?.id, navigate, dispatch);
+    return toast({
+      title: 'Usuario Eliminado',
+      description: 'El usuario ha sido eliminado satisfactoriamente',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
   };
 
   const handleUploadImage = (url) => {
@@ -95,8 +127,22 @@ function UserProfile() {
 
   return (
     <Grid templateColumns={'repeat(2, 1fr)'} gap="2rem">
-      <GridItem ml="2rem" mt="1rem">
+      <GridItem ml="3rem" mt="1rem" mr={'3rem'}>
         <Heading mb={'1rem'}>Información del usuario</Heading>
+
+        <Box display={'flex'} justifyContent={'beetwen'} alignItems={'center'}>
+          <Text ml={'rem'} mb={'1rem'} w={'400px'} fontSize={'30px'}>
+            {input.name} {input.last_name}
+          </Text>
+          <Image
+            src={input.image}
+            borderRadius="full"
+            boxSize="200px"
+            mb="5vh"
+            border={' green solid 4px'}
+          />
+        </Box>
+
         <Box my="1rem">
           <Text>Nombre</Text>
           <InputGroup>
@@ -154,7 +200,7 @@ function UserProfile() {
         <UploadImage onUpload={handleUploadImage} value={input.image} />
 
         <ButtonGroup
-          variant={'outline'}
+          // variant={'outline'}
           w="full"
           justifyContent={'center'}
           mt="1rem"
@@ -190,7 +236,7 @@ function UserProfile() {
         </ButtonGroup>
       </GridItem>
 
-      <GridItem mr="1rem" mb="2rem">
+      <GridItem mt={'15rem'} mr="1rem" mb="2rem">
         <Stack mt="1rem" spacing={'1rem'}>
           <Heading mt="1rem">Donaciones</Heading>
           <Divider />

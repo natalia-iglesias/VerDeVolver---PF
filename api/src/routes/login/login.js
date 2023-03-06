@@ -80,11 +80,9 @@ router.get('/password/:mail', async (req, res) => {
         sign({ mail }, process.env.SECRET, { expiresIn: '24h' })
       )
     );
-    console.log('user:::', user);
-    console.log('res:::', res);
+
     res.status(200).send('Enviado con éxito');
   } catch (error) {
-    console.log('err::::', error);
     return res.status(404).send(error.message);
   }
 });
