@@ -38,12 +38,19 @@ const Profile = () => {
 
   return (
     <Menu>
-      <MenuButton>
+    {(acount.RoleId==1)?
+    (<MenuButton>
         <Avatar
           name={`${acount.name} ${acount.last_name}`}
           src={acount.image}
         />
-      </MenuButton>
+      </MenuButton>) :
+      (<MenuButton>
+        <Avatar
+          name={`${acount.name}`}
+          src={acount.img}
+        />
+      </MenuButton>)}
       <MenuList>
       {(acount.RoleId==1)?
         (<MenuItem
