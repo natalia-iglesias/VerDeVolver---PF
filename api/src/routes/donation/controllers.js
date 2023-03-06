@@ -60,8 +60,8 @@ const createDonation = async (body) => {
     // 'https://0b51-181-229-236-62.sa.ngrok.io/donation/confirmationDonation',
     //https://ver-de-volver-pf-nu.vercel.app/
     back_urls: {
-      success: 'https://verdevolver-pf-production.up.railway.app/home',
-      failure: 'https://verdevolver-pf-production.up.railway.app/home',
+      success: 'https://ver-de-volver-pf-psi.vercel.app//home',
+      failure: 'https://ver-de-volver-pf-psi.vercel.app//home',
       pending: '',
     },
     auto_return: 'approved',
