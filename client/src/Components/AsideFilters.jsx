@@ -21,39 +21,23 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
     if (newFilters.length == 0) return window.alert('No hubo coincidencias');
     listOfMaterialsToFilterState.push(e.target.value);
     dispatch(filterEntitiesByMaterial(newFilters));
+
     dispatch(listOfMaterialsToFilter(listOfMaterialsToFilterState));
     setPage(1);
     setInput(1);
   };
 
   const handleRanking = (e) => {
-    if (e.target.value === 'Ascendente') {
+    if (e.target.value !== 'none') {
       axios
         .post('http://localhost:3001/feedback/rating', {
-          order: 'Ascendente',
+          order: e.target.value,
         })
         .then((res) => {
-          const newFilters = res.data.filter((ent2) => {
-            return filters.some((ent1) => {
-              return ent1.name === ent2.name;
-            });
-          });
-          filters.forEach((vdv) => {
-            if (!vdv.rating) newFilters.push(vdv);
-          });
-          dispatch(filterEntitiesByMaterial(newFilters));
-          setPage(1);
-          setInput(1);
-        });
-    } else if (e.target.value === 'Descendente') {
-      axios
-        .post('http://localhost:3001/feedback/rating', {
-          order: 'Descendente',
-        })
-        .then((res) => {
-          const newFilters = res.data.filter((ent2) => {
-            return filters.some((ent1) => {
-              return ent1.name === ent2.name;
+          let newFilters = [];
+          res.data.forEach((ent2) => {
+            filters.forEach((ent1) => {
+              ent1.name === ent2.name && newFilters.push(ent1);
             });
           });
           filters.forEach((vdv) => {
@@ -64,6 +48,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
           setInput(1);
         });
     }
+
     document.getElementById('select_ranking').selectedIndex = 0;
   };
 
