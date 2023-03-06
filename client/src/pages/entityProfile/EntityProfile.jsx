@@ -111,7 +111,8 @@ function EntityProfile() {
         .then(
           toast({
             title: 'Success',
-            description: 'Solicitud enviada',
+            description:
+              'Solicitud enviada. Recibirás un email de confirmación.',
             status: 'success',
             duration: 1500,
             isClosable: true,
