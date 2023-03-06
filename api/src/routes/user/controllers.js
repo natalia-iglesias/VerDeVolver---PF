@@ -1,9 +1,5 @@
 const { Op } = require('sequelize');
 const { Role, User, VdV } = require('../../db.js');
-const { verify } = require('jsonwebtoken');
-const {
-  updatePassword,
-} = require('../../services/email/templates/templateUsers');
 
 async function chargeDbUsers() {
   const role = await Role.findByPk(1);
@@ -208,20 +204,6 @@ const findBymail = async (mail) => {
   return userMail;
 };
 
-const changePasswordByToken = async (token, password) => {
-  const { email } = verify(token, process.env.SECRET);
-
-  const userUpdate = await findBymail(email);
-
-  if (!userUpdate)
-    throw Error(`El usuario con mail ${email} no fue encontrado`);
-
-  userUpdate.password = password;
-  await userUpdate.save();
-
-  return updatePassword;
-};
-
 module.exports = {
   chargeDbUsers,
   postUser,
@@ -230,7 +212,5 @@ module.exports = {
   findId,
   updateUser,
   deleteUser,
-  findBymail,
   modifyUserRole,
-  changePasswordByToken,
 };

@@ -74,7 +74,7 @@ const ForgotPassword = () => {
               <InputLeftElement children={<FiMail />} pointerEvents="none" />
               <Input
                 placeholder="Escribe tu mail"
-                type="email"
+                type="mail"
                 name="forgottenPasswordEmail"
                 value={forgottenPasswordEmail}
                 onChange={handleChange}

@@ -6,6 +6,7 @@ export const FETCH_ENTITIES = 'FETCH_ENTITIES';
 export const SEARCH_ENTITIES = 'SEARCH_ENTITIES';
 export const GET_ENTITY_BY_ID = 'GET_ENTITY_BY_ID';
 export const GET_ENTITY_FEEDBACKS = 'GET_ENTITY_FEEDBACKS';
+export const GET_ENTITY_DONATION = 'GET_ENTITY_DONATION';
 export const CREATE_NEW_ENTITY = 'CREATE_NEW_ENTITY';
 export const GET_MATERIALS = 'GET_MATERIALS';
 // export const FILTER_BY_MATERIALS = 'FILTER_BY_MATERIALS';
@@ -51,6 +52,15 @@ export const getEntityFeedbacks = (id) => {
     dispatch({ type: GET_ENTITY_FEEDBACKS, payload: feedbacks });
   };
 };
+
+export const getEntityDonation = (id) => {
+  return async (dispatch) => {
+    const res = await axios.get(`http://localhost:3001/donation/vdv/${id}`);
+
+    dispatch({ type: GET_ENTITY_DONATION, payload: res.data });
+  };
+};
+
 export const fillEntityForm = (form) => {
   return (dispatch) => {
     dispatch({ type: FILL_ENTITY_FORM, payload: form });

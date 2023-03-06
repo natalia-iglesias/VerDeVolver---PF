@@ -25,7 +25,6 @@ export const createNewContact = (contact) => {
         contact,
       };
       dispatch({ type: CREATE_NEW_CONTACT, payload: payload.contact });
-      alert('Muchas gracias! Nos pondremos en contacto vía email.');
     } catch (error) {
       alert('No pudimos enviar tu comentario.');
       dispatch({ type: CREATE_NEW_CONTACT, payload: error.message });

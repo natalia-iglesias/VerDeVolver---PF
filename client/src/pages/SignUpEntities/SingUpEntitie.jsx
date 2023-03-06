@@ -40,6 +40,7 @@ const SingUpEntitiePrueba = () => {
           <Form3 setProgressAndStep={handleProgressAndStep} />
         )}
       </Box>
+      <Box h={'24rem'}></Box>
     </>
   );
 };

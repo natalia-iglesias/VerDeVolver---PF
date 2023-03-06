@@ -12,6 +12,7 @@ import {
   InputRightElement,
   Text,
   FormLabel,
+  useToast,
 } from '@chakra-ui/react';
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -26,10 +27,10 @@ import {
 } from '../redux/actions/acountActions';
 import { useDispatch, useSelector } from 'react-redux';
 import UploadImage from '../Components/Cloudinary';
+import { fetchUsers } from '../redux/actions/usersActions';
+import { fetchEntities } from '../redux/actions/entitiesActions';
 
-//axios.defaults.baseURL = 'http://localhost:3001/'
-
-const validate = ({ name, last_name, mail, password, address, image }) => {
+const validate = ({ name, last_name, mail, password }, users, entities) => {
   const errors = {};
 
   if (!name) {
@@ -44,10 +45,16 @@ const validate = ({ name, last_name, mail, password, address, image }) => {
     errors.last_name = 'El apellido debe tener entre 4 y 16 caracteres';
   }
 
+  const userMails = users?.filter((element) => element.mail == mail);
+  const vdvsMails = entities?.filter((element) => element.mail == mail);
   if (!mail) {
     errors.mail = 'El mail es obligatorio';
   } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(mail)) {
     errors.mail = 'Formato de mail invalido';
+  } else if (userMails !== undefined && vdvsMails !== undefined) {
+    if (userMails.length > 0 || vdvsMails.length > 0) {
+      errors.mail = 'El mail ingresado se encuentra asociado a otra cuenta';
+    }
   }
 
   if (!password) {
@@ -56,24 +63,25 @@ const validate = ({ name, last_name, mail, password, address, image }) => {
     errors.password = 'La contraseña debe tener entre 4 y 16 caracteres';
   }
 
-  if (
-    !image.startsWith('https://') ||
-    (!image.endsWith('.jpg') && !image.endsWith('.png'))
-  ) {
-    errors.image = 'Formato de imagen invalido';
-  }
-
   return errors;
 };
 
 const SingUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const toast = useToast();
+
   const { acount } = useSelector((state) => state.acountReducer);
+  const { entities } = useSelector((state) => state.entitiesReducer);
+  const { users } = useSelector((state) => state.usersReducer);
 
   useEffect(() => {
     Object.entries(acount).length && navigate('/home');
   }, [acount]);
+  useEffect(() => {
+    dispatch(fetchUsers());
+    dispatch(fetchEntities());
+  }, [dispatch]);
 
   const [singUpData, setSingUpData] = useState({
     name: '',
@@ -88,17 +96,33 @@ const SingUp = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSingUpData({ ...singUpData, [name]: value });
-    setErrors(validate({ ...singUpData, [name]: value }));
+    setErrors(validate({ ...singUpData, [name]: value }, users, entities));
   };
 
   const handleSubmit = async () => {
-    const errors = validate(singUpData);
+    const errors = validate(singUpData, users, entities);
     setErrors(errors);
 
-    if (!Object.keys(errors).length) {
+    if (Object.keys(errors).length > 0) {
+      return toast({
+        title: 'Error',
+        description: 'Por favor chequea que no haya errores en ningun campo',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
+    } else if (!Object.keys(errors).length) {
       console.log(singUpData);
       const res = await axios.post(`/user`, {
         ...singUpData,
+      });
+      toast({
+        title: 'Éxito',
+        description:
+          'Creación de usuario exitosa. Muchas gracias por registrarte!',
+        status: 'success',
+        duration: 1600,
+        isClosable: true,
       });
       res.status === 200 && dispatch(authAcountLocal(singUpData));
     }
@@ -184,29 +208,11 @@ const SingUp = () => {
         )}
       </FormControl>
 
-      {/* <FormControl isInvalid={errors.address}>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" children={<BiDirections />} />
-          <Input
-            type="text"
-            onChange={handleChange}
-            value={singUpData.address}
-            name="address"
-            placeholder="Escribe tu dirreción"
-          />
-        </InputGroup>
-        {errors.address && (
-          <FormErrorMessage>{errors.address}</FormErrorMessage>
-        )}
-      </FormControl> */}
-      <FormControl isInvalid={errors.image}>
+      <FormControl>
         <FormLabel>Imagen</FormLabel>
         <UploadImage onUpload={handleUploadImage} value={singUpData.image} />
-        {errors.image ? (
-          <FormHelperText>Sube tu imagen aqui.</FormHelperText>
-        ) : (
-          <FormErrorMessage>{errors.image}</FormErrorMessage>
-        )}
+
+        <FormHelperText>Sube tu imagen aqui.</FormHelperText>
       </FormControl>
 
       <Button onClick={handleSubmit}>Registrarse</Button>

@@ -9,13 +9,14 @@ const deleteUser = (id, navigate, dispatch) => {
   });
 };
 
-const updateUser = (id, input) => {
+const updateUser = async (id, input) => {
   try {
-    axios.put(`/user/${id}`, input).then(() => {
-      window.alert('Los cambios se han guardado exitosamente');
-    });
+    const res = await axios.put(`/user/${id}`, input);
+
+    return res.data.id;
   } catch (error) {
-    window.alert(error);
+    console.log(error);
+    return 'No se han actualizado los datos';
   }
 };
 

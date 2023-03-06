@@ -9,21 +9,33 @@ const chargeDbVdVs = (array) => {
 };
 
 const vdvCreate = async (body) => {
-  const { name, img, description, mail, address, cbu, materials, lat, lng } = body;
+  const { name, img, description, mail, address, cbu, materials, lat, lng, password } =
+    body;
 
   const check = await checkMail(mail);
-  if (check == false) throw Error('El mail ingresado ya pertenece a una cuenta'); 
+  if (check == false)
+    throw Error('El mail ingresado ya pertenece a una cuenta');
 
   const role = await Role.findByPk(4);
 
-  if (!name || !img || !description || !mail || !address || !lat || !lng || !materials)
+  if (
+    !name ||
+    !img ||
+    !description ||
+    !mail ||
+    !address ||
+    !lat ||
+    !lng ||
+    !materials
+  )
     throw Error('Debes completar todos los campos obligatorios');
-    
+
   const vdvCreate = await VdV.create({
     name: body.name,
     img: body.img,
     mail: body.mail,
     address: body.address,
+    password: body.password, 
     description: body.description,
     cbu: body.cbu,
     lat: body.lat,
@@ -37,21 +49,21 @@ const vdvCreate = async (body) => {
 };
 
 const checkMail = async (mail) => {
-  if (!mail) throw Error ('Debes ingresar un mail'); 
-  
+  if (!mail) throw Error('Debes ingresar un mail');
+
   const userMail = await User.findOne({
     where: { mail },
   });
 
   const vdvMail = await VdV.findOne({
     where: { mail },
-  }); 
+  });
 
-  if ( vdvMail || userMail) {
-    return false ; 
+  if (vdvMail || userMail) {
+    return false;
   }
 
-  return true ; 
+  return true;
 };
 
 const getVdV = async (name) => {
@@ -68,10 +80,11 @@ const getVdV = async (name) => {
         through: {
           attributes: [],
         },
-      }
+      },
     });
 
-    if (!allVdVquey) throw Error(`No fue posible encontrar una entidad con nombre ${name}`);
+    if (!allVdVquey)
+      throw Error(`No fue posible encontrar una entidad con nombre ${name}`);
 
     return allVdVquey;
   } else {
@@ -84,7 +97,10 @@ const getVdV = async (name) => {
         },
       },
     });
-    if (!allVdV) throw Error('No fue posible encontrar ninguna entidad en la base de datos');
+    if (!allVdV)
+      throw Error(
+        'No fue posible encontrar ninguna entidad en la base de datos'
+      );
 
     return allVdV;
   }
@@ -102,7 +118,8 @@ const getPending = async () => {
     },
   });
 
-  if (!allVdV) throw Error('No fue posible encontrar ninguna entidad con status pending'); 
+  if (!allVdV)
+    throw Error('No fue posible encontrar ninguna entidad con status pending');
 
   return allVdV;
 };
@@ -119,13 +136,16 @@ const getActive = async () => {
     },
   });
 
-  if (!allVdV) throw Error('No fue posible encontrar ninguna entidad con status active en la base de datos'); 
+  if (!allVdV)
+    throw Error(
+      'No fue posible encontrar ninguna entidad con status active en la base de datos'
+    );
 
   return allVdV;
 };
 
 const getByIdVdV = async (id) => {
-  if(!id) throw Error('Debes ingresar un id'); 
+  if (!id) throw Error('Debes ingresar un id');
 
   const VdVFind = await VdV.findByPk(id, {
     include: {
@@ -137,13 +157,14 @@ const getByIdVdV = async (id) => {
     },
   });
 
-  if (!VdVFind) throw Error(`No fue posible encontrar una entidad con id ${id}`);
+  if (!VdVFind)
+    throw Error(`No fue posible encontrar una entidad con id ${id}`);
 
   return VdVFind;
 };
 
 const upDateVdV = async (id, body) => {
-  if (!id) throw Error('Debes ingresar un id'); 
+  if (!id) throw Error('Debes ingresar un id');
   if (!body) throw Error('No se recibieron datos para modificar');
 
   if (body.materials) {
@@ -164,7 +185,7 @@ const upDateVdV = async (id, body) => {
 };
 
 const deleteVdV = (id) => {
-  if (!id) throw Error('Debes ingresar un id'); 
+  if (!id) throw Error('Debes ingresar un id');
 
   const VdVdelete = VdV.destroy({
     where: {
@@ -175,16 +196,16 @@ const deleteVdV = (id) => {
 };
 
 const functionRandom = () => {
-  return (random = Math.random() * 55.2);
+  return (random = Math.random() * 1);
 };
 
 const changeStatus = async (id) => {
-  if (!id) throw Error('Debes ingresar un id'); 
+  if (!id) throw Error('Debes ingresar un id');
 
   const randomPassword = functionRandom();
 
   await VdV.update(
-    { status: 'Active', password: `!dfg${randomPassword}` },
+    { status: 'Active', password: `vdv${randomPassword}`.slice(0, 10) },
     { where: { id } }
   );
 

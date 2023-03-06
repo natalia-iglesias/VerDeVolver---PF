@@ -1,5 +1,5 @@
 const { Strategy } = require('passport-local');
-const { findBymail } = require('../../routes/user/controllers');
+const { findByMail } = require('../../routes/login/controller');
 
 
 const LocalStrategy = new Strategy(
@@ -9,7 +9,7 @@ const LocalStrategy = new Strategy(
   },
   async (mail, password, done) => {
     try {
-      const user = await findBymail(mail);
+      const user = await findByMail(mail);
       if (!user) {
         done(null, false, {
           message: 'Correo electrónico incorrecto.',

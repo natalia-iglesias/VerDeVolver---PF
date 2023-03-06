@@ -48,10 +48,6 @@ const EntityDetail = () => {
   const { entity, feedbacks } = useSelector((state) => state.entitiesReducer);
   const { acount } = useSelector((state) => state.acountReducer);
 
-  //borra dp
-  console.log('estadoFeedbacks', feedbacks);
-  //
-
   if (!entity || !feedbacks) return <PropagateLoader color="#1c5738" />;
 
   const navigate = useNavigate();

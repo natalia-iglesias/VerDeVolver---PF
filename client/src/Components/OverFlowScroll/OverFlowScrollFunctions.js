@@ -6,7 +6,9 @@ const typeOfDataToRender = (
   type,
   id,
   setArrayToRender,
-  setdeleteFeedbackIcon
+  setdeleteFeedbackIcon,
+  setDeliveredCheckIcon,
+  pendingOrDelivered
 ) => {
   switch (type) {
     case 'userService':
@@ -28,8 +30,16 @@ const typeOfDataToRender = (
         const toRender = render[0].filter((obj1) =>
           render[1].some((obj2) => obj2.id === obj1.id)
         );
-        setdeleteFeedbackIcon(true);
-        setArrayToRender(toRender);
+        let toRender2;
+        if (pendingOrDelivered === 'Pending') {
+          toRender2 = toRender.filter((don) => don.status === 'Pending');
+          setDeliveredCheckIcon(true);
+        } else if (pendingOrDelivered === 'Delivered') {
+          toRender2 = toRender.filter((don) => don.status === 'Delivered');
+          setDeliveredCheckIcon(false);
+        }
+
+        setArrayToRender(toRender2);
       });
       break;
     case 'feedback':
@@ -50,13 +60,21 @@ const typeOfDataToRender = (
       });
 
       break;
-    case 'allServices':
-      axios.get(`/service`).then((res) => {
-        res.data.forEach((obj) => (obj.VdV = false));
-        setArrayToRender(res.data);
-      });
-      break;
   }
 };
 
-export default typeOfDataToRender;
+const deleteFeedback = (id) => {
+  axios.delete(`/feedback/${id}/delete`).then(() => {
+    window.alert('La reseña fue borrada');
+    window.location.reload();
+  });
+};
+
+const updateDonation = (id) => {
+  axios.put(`/donation/${id}`).then(() => {
+    window.alert('La donación fue entregada');
+    window.location.reload();
+  });
+};
+
+export { typeOfDataToRender, deleteFeedback, updateDonation };

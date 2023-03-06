@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import {
   Flex,
   Box,
@@ -10,32 +9,29 @@ import {
   Link,
   Button,
 } from '@chakra-ui/react';
-import { StarIcon, DeleteIcon } from '@chakra-ui/icons';
+import { StarIcon, DeleteIcon, CheckIcon } from '@chakra-ui/icons';
 import { Link as ReachLink } from 'react-router-dom';
-import typeOfDataToRender from './OverFlowScrollFunctions';
-import axios from 'axios';
-//axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
-/* axios.defaults.baseURL = 'http://localhost:3001/'; */
+import {
+  typeOfDataToRender,
+  deleteFeedback,
+  updateDonation,
+} from './OverFlowScrollFunctions';
 
-function DashboardScroll({ type, id }) {
+function DashboardScroll({ type, id, pendingOrDelivered }) {
   const [arrayToRender, setArrayToRender] = useState();
   const [deleteFeedbackIcon, setdeleteFeedbackIcon] = useState();
-  /*  const axios = axios.create({ baseURL }); */
+  const [deliveredCheckIcon, setDeliveredCheckIcon] = useState();
 
   useEffect(() => {
-    typeOfDataToRender(type, id, setArrayToRender, setdeleteFeedbackIcon);
-  }, [type, id]);
-
-  const deleteFeedback = (id) => {
-    axios.delete(`/feedback/${id}/delete`).then(() => {
-      window.alert('La reseña fue borrada');
-      axios.get(`/feedback`).then((res) => {
-        res.data.forEach((obj) => (obj.VdV = false));
-        setdeleteFeedbackIcon(true);
-        setArrayToRender(res.data);
-      });
-    });
-  };
+    typeOfDataToRender(
+      type,
+      id,
+      setArrayToRender,
+      setdeleteFeedbackIcon,
+      setDeliveredCheckIcon,
+      pendingOrDelivered
+    );
+  }, [type, id, pendingOrDelivered]);
 
   return (
     <Box w="40vw" h="40vh" overflow="auto">
@@ -66,6 +62,7 @@ function DashboardScroll({ type, id }) {
 
                       {item.serviceType && `${item.serviceType} /`}
                       {item.content && item.content}
+                      {item.status && `/ ${item.status}`}
                     </Text>
                     <Divider m="0.5rem" />
                     {item.comment && item.comment}
@@ -76,6 +73,11 @@ function DashboardScroll({ type, id }) {
                 {deleteFeedbackIcon && (
                   <Button onClick={() => deleteFeedback(item.id)}>
                     <DeleteIcon />
+                  </Button>
+                )}
+                {deliveredCheckIcon && (
+                  <Button onClick={() => updateDonation(item.id)}>
+                    <CheckIcon />
                   </Button>
                 )}
               </Flex>

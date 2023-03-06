@@ -4,6 +4,12 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const { SECRET } = process.env;
 const { findUser } = require('./controller.js');
+const { findByMail, changePasswordByToken } = require('../login/controller.js');
+const {
+  htmlChangePasswordEmailTemplate,
+} = require('../../services/email/templates/templateUsers');
+const { sendEmail } = require('../../services/email');
+const { sign } = require('jsonwebtoken');
 
 const router = Router();
 
@@ -39,7 +45,7 @@ router.get(
   async (req, res, next) => {
     try {
       const { mail } = req.query;
-      const user = await findUser(mail);
+      const user = await findByMail(mail);
       res.send(user);
     } catch (error) {
       console.log('error');
@@ -62,5 +68,32 @@ router.get(
   }
 );
 
+router.get('/password/:mail', async (req, res) => {
+  const { mail } = req.params;
+  try {
+    const user = await findByMail(mail);
+    sendEmail(
+      mail,
+      'Cambio de contraseña',
+      htmlChangePasswordEmailTemplate(
+        user.name,
+        sign({ mail }, process.env.SECRET, { expiresIn: '24h' })
+      )
+    );
+
+    res.status(200).send('Enviado con éxito');
+  } catch (error) {
+    return res.status(404).send(error.message);
+  }
+});
+
+router.post('/password', async (req, res) => {
+  const { token, password } = req.body;
+  try {
+    res.status(200).send(await changePasswordByToken(token, password));
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
 
 module.exports = router;
