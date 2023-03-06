@@ -11,6 +11,7 @@ const roleMiddle = require('./role/role.js');
 const chargeDbMiddle = require('./chargeDb/chargeDb.js');
 const contactMiddle = require('./contact/contact.js');
 const loginMiddle = require('./login/login.js');
+const loginVdvMiddle = require('./loginVdvs/loginVdvs.js');
 const instaMiddle = require('./instagramPosts/instagramPosts.js');
 const cbuRequestMiddle = require('./changeCbuRequest/changeCbuRequest.js');
 
@@ -23,6 +24,7 @@ router.use('/role', roleMiddle);
 router.use('/chargedb', chargeDbMiddle);
 router.use('/contact', contactMiddle);
 router.use('/login', loginMiddle);
+router.use('/loginVdv', loginVdvMiddle);
 router.use('/instagram', instaMiddle);
 router.use('/cbuRequest', cbuRequestMiddle);
 
