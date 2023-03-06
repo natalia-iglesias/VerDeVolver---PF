@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //axios.defaults.baseURL = 'http://localhost:3001/'
-const Axios = axios.create('https://verdevolver-pf-production.up.railway.app/');
+const axios = axios.create('https://verdevolver-pf-production.up.railway.app/');
 //https://verdevolver-pf-production.up.railway.app/
 
 const setDataToRender = (
@@ -12,7 +12,7 @@ const setDataToRender = (
 ) => {
   let feedbackVdVs = [];
   let feedbackUsers = [];
-  Axios.get(`/feedback`).then((res) => {
+  axios.get(`/feedback`).then((res) => {
     res.data.forEach((feed) => {
       if (!feedbackUsers.some((f) => f.User.name === feed.User.name))
         feedbackUsers.push(feed);
@@ -24,7 +24,7 @@ const setDataToRender = (
   });
   let donationVdVs = [];
   let donationUsers = [];
-  Axios.get(`/donation`).then((res) => {
+  axios.get(`/donation`).then((res) => {
     res.data.forEach((don) => {
       if (!donationUsers.some((f) => f.User.name === don.User.name))
         donationUsers.push(don);

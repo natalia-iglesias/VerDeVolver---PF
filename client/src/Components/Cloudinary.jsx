@@ -6,10 +6,10 @@ const UploadImage = ({ onUpload }) => {
   const [image, setImage] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const apiKey = '733373445746211';
+  /*  const apiKey = '733373445746211';
   const secretKey = '5EQKnIBW3RsNTlut0oy6y6IJgAc';
   // const apiKey = '733373445746211';
-  // const secretKey = '5EQKnIBW3RsNTlut0oy6y6IJgAc';
+  // const secretKey = '5EQKnIBW3RsNTlut0oy6y6IJgAc'; */
 
   const upImages = async (e) => {
     const files = e.target.files;
