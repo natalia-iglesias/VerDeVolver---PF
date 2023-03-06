@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
   Box,
   Accordion,
@@ -10,8 +11,6 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { CheckIcon, DeleteIcon } from '@chakra-ui/icons';
-import axios from 'Axios';
-//Axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
 
 function DashboardRequest() {
   const Axios = axios.create({ baseURL: 'http://localhost:3001/' });
