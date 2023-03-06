@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const { SECRET } = process.env;
 const { findUser } = require('./controller.js');
+const {findByMail} = require('../login/controller.js'); 
 
 const router = Router();
 
@@ -39,7 +40,7 @@ router.get(
   async (req, res, next) => {
     try {
       const { mail } = req.query;
-      const user = await findUser(mail);
+      const user = await findByMail(mail);
       res.send(user);
     } catch (error) {
       console.log('error');

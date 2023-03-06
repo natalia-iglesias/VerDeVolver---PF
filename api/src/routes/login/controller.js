@@ -1,4 +1,3 @@
-const { use } = require('passport');
 const { User, Role, VdV } = require('../../db.js');
 
 const findUser = async (mail) => {
@@ -24,15 +23,13 @@ const findByMail = async (mail) => {
 
   let loginmail ; 
 
-  const userMail = User.findOne({
+  const userMail = await  User.findOne({
     where: { mail },
   });
-  console.log('usermail', userMail)
 
-  const vdvMail = VdV.findOne({
+  const vdvMail = await VdV.findOne({
     where: { mail },
   });
-  console.log('vdvmail', vdvMail)
 
   if (!userMail && !vdvMail) throw Error(`No se encontraron usuarios o entidades con el mail ${mail}`);
   if(!userMail){
@@ -41,7 +38,6 @@ const findByMail = async (mail) => {
   if(!vdvMail){
     loginmail = userMail;
   };
-  console.log('loginmail', loginmail)
 
   return loginmail;
 };
