@@ -171,7 +171,7 @@ const Form1 = ({ setProgressAndStep }) => {
           <Button
             onClick={handleBackClick}
             colorScheme="green"
-            variant="solid"
+            variant="outline"
             w="7rem"
             mr="5%"
             isDisabled={true}
@@ -182,7 +182,7 @@ const Form1 = ({ setProgressAndStep }) => {
             w="7rem"
             onClick={handleNextClick}
             colorScheme="green"
-            variant="outline"
+            variant="solid"
           >
             Siguiente
           </Button>

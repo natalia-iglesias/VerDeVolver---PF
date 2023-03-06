@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { VStack, Select, Badge, useColorMode } from '@chakra-ui/react';
+import { VStack, Select, Badge, useColorMode, Button } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   filterEntitiesByMaterial,
@@ -10,7 +10,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
   const dispatch = useDispatch();
   const { colorMode } = useColorMode();
 
-  const { materials, listOfMaterialsToFilterState } = useSelector(
+  const { materials, listOfMaterialsToFilterState, entities } = useSelector(
     (state) => state.entitiesReducer
   );
 
@@ -48,8 +48,20 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
           setInput(1);
         });
     }
-
     document.getElementById('select_ranking').selectedIndex = 0;
+  };
+
+  const deleteMaterialFilter = (e) => {
+    const otherFilters = listOfMaterialsToFilterState.filter(
+      (mat) => mat !== e.target.value
+    );
+    const newFilters = entities.filter((ent) => {
+      return otherFilters.every((mat) =>
+        ent.Materials.some((ent2) => ent2.name === mat)
+      );
+    });
+    dispatch(listOfMaterialsToFilter(otherFilters));
+    dispatch(filterEntitiesByMaterial(newFilters));
   };
 
   return (
@@ -72,9 +84,16 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
       </Select>
       {listOfMaterialsToFilterState?.map((mat, i) => {
         return (
-          <Badge key={i} variant="solid" colorScheme="green">
+          // <Badge key={i} variant="solid" colorScheme="green">
+          //   {mat}
+          // </Badge>
+          <Button
+            key={i + 54618641635}
+            value={mat}
+            onClick={deleteMaterialFilter}
+          >
             {mat}
-          </Badge>
+          </Button>
         );
       })}
       <Select
