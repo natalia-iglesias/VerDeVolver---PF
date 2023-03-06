@@ -21,43 +21,35 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
     if (newFilters.length == 0) return window.alert('No hubo coincidencias');
     listOfMaterialsToFilterState.push(e.target.value);
     dispatch(filterEntitiesByMaterial(newFilters));
+
     dispatch(listOfMaterialsToFilter(listOfMaterialsToFilterState));
     setPage(1);
     setInput(1);
   };
 
   const handleRanking = (e) => {
-    if (e.target.value === 'Ascendente') {
+    if (e.target.value !== 'none') {
       axios
         .post('http://localhost:3001/feedback/rating', {
-          order: 'Ascendente',
+          order: e.target.value,
         })
         .then((res) => {
           let newFilters = [];
-          res.data.forEach((ent1) => {
-            filters.forEach((ent2) => {
-              if (ent1.name === ent2.name) newFilters.push(ent2);
+          res.data.forEach((ent2) => {
+            filters.forEach((ent1) => {
+              ent1.name === ent2.name && newFilters.push(ent1);
             });
           });
-
-          dispatch(filterEntitiesByMaterial(newFilters));
-        });
-    } else {
-      axios
-        .post('http://localhost:3001/feedback/rating', {
-          order: 'Descendente',
-        })
-        .then((res) => {
-          let newFilters = [];
-          res.data.forEach((ent1) => {
-            filters.forEach((ent2) => {
-              if (ent1.name === ent2.name) newFilters.push(ent2);
-            });
+          filters.forEach((vdv) => {
+            if (!vdv.rating) newFilters.push(vdv);
           });
-
           dispatch(filterEntitiesByMaterial(newFilters));
+          setPage(1);
+          setInput(1);
         });
     }
+
+    document.getElementById('select_ranking').selectedIndex = 0;
   };
 
   return (
@@ -86,22 +78,17 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
         );
       })}
       <Select
-        placeholder="Puntuación"
+        id="select_ranking"
         borderWidth="0.2rem"
         borderColor="gray.300"
         bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
         onClick={(e) => {
-          console.log(e.target.value);
-          if (
-            e.target.value === 'Ascendente' ||
-            e.target.value === 'Descendente'
-          ) {
-            handleRanking(e);
-          }
+          handleRanking(e);
         }}
         //width="-moz-fit-content"
         width="14vw"
       >
+        <option value="none">Puntuación</option>
         <option value="Ascendente">Ascendente</option>
         <option value="Descendente">Descendente</option>
       </Select>

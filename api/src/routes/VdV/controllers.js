@@ -9,7 +9,7 @@ const chargeDbVdVs = (array) => {
 };
 
 const vdvCreate = async (body) => {
-  const { name, img, description, mail, address, cbu, materials, lat, lng } =
+  const { name, img, description, mail, address, cbu, materials, lat, lng, password } =
     body;
 
   const check = await checkMail(mail);
@@ -35,6 +35,7 @@ const vdvCreate = async (body) => {
     img: body.img,
     mail: body.mail,
     address: body.address,
+    password: body.password, 
     description: body.description,
     cbu: body.cbu,
     lat: body.lat,
