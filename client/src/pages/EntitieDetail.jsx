@@ -130,7 +130,8 @@ const EntityDetail = () => {
           UserId: userId,
           VdVId: id,
         });
-        location.reload();
+        //location.reload();
+        navigate(`/entitie/${id}`);
         toast({
           title: 'Éxito',
           description: 'Creación de reseña exitosa',
