@@ -10,7 +10,6 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { CheckIcon, DeleteIcon } from '@chakra-ui/icons';
-
 import axios from 'Axios';
 //Axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
 
