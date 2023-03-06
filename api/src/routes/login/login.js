@@ -3,7 +3,6 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const { SECRET } = process.env;
-const { findUser } = require('./controller.js');
 const {findByMail} = require('../login/controller.js'); 
 
 const router = Router();

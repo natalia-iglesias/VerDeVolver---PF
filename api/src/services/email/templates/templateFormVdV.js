@@ -39,7 +39,7 @@ ${templateHeader}
               `;
 
 // TODO ENDPOINT + LINK
-const htmlVdVConfirmationEmailTemplate = (name) => ` 
+const htmlVdVConfirmationEmailTemplate = (name, password) => ` 
 ${templateHeader}     
       <body>
         <div class="main_container">
@@ -48,8 +48,10 @@ ${templateHeader}
           </div>
           <div class="text_container">
             <h1>Hola ${name}, </h1>
-            <h2>Con alegría te anunciamos que tu solicitud fue aceptada!</h2>
-            <p>Por favor ingresa en el siguiente link para continuar tu proceso de admisión y disfrutar ser parte de Verde Volver.</p>
+            <h2>Con alegría te anunciamos que tu solicitud fue aceptada.</h2>
+            <p>Podrás loguearte con la siguiente contraseña provisoria para iniciar sesión.</p>
+            <p>${password}</p>
+            <p>Bienvenid@ a VerdeVolver!</p>
             <img alt="fondo-vdv" src="cid:vdv@Fondo" />
           </div>
         </div>

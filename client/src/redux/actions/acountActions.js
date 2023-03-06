@@ -40,7 +40,7 @@ export const authAcountLocal = ({ mail, password, keepLogged }) => {
 
       dispatch({ type: AUTH_ACOUNT_LOCAL, payload: acount.data });
     } catch (error) {
-      alert(error.message);
+      alert('Contraseña o mail incorrectos')
     }
   };
 };

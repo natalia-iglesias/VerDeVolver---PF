@@ -155,7 +155,7 @@ const Form3 = () => {
           <Button
             onClick={handleBackClick}
             colorScheme="green"
-            variant="solid"
+            variant="outline"
             w="7rem"
             mr="5%"
           >
@@ -165,7 +165,7 @@ const Form3 = () => {
             w="7rem"
             onClick={handleSubmit}
             colorScheme="green"
-            variant="outline"
+            variant="solid"
           >
             Enviar
           </Button>
