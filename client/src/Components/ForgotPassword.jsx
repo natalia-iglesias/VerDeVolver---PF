@@ -30,7 +30,7 @@ const ForgotPassword = () => {
     if (forgottenPasswordEmail) {
       try {
         await axios.get(
-          `http://localhost:3001/user/password/${forgottenPasswordEmail}`
+          `http://localhost:3001/login/password/${forgottenPasswordEmail}`
         );
         toast({
           title: 'Email enviado',
@@ -73,7 +73,7 @@ const ForgotPassword = () => {
               <InputLeftElement children={<FiMail />} pointerEvents="none" />
               <Input
                 placeholder="Escribe tu mail"
-                type="email"
+                type="mail"
                 name="forgottenPasswordEmail"
                 value={forgottenPasswordEmail}
                 onChange={handleChange}

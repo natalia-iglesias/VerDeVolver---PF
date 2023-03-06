@@ -1,9 +1,4 @@
 const { Router } = require('express');
-const { sendEmail } = require('../../services/email');
-const { sign } = require('jsonwebtoken');
-const {
-  htmlChangePasswordEmailTemplate,
-} = require('../../services/email/templates/templateUsers');
 const {
   chargeDbUsers,
   postUser,
@@ -12,8 +7,6 @@ const {
   findId,
   updateUser,
   deleteUser,
-  findBymail,
-  changePasswordByToken,
   modifyUserRole,
 } = require('./controllers.js');
 const router = Router();
@@ -49,7 +42,7 @@ router.get('/', async (req, res) => {
       res.status(200).send(userbyName);
     }
   } catch (error) {
-     res.status(404).send(error.message);
+    res.status(404).send(error.message);
   }
 });
 
@@ -93,38 +86,11 @@ router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     await deleteUser(id);
-      return res
+    return res
       .status(200)
       .send(`El usuario con id ${id}, fue eliminado satisfactoriamente`);
   } catch (error) {
     return res.status(404).send(error.message);
-  }
-});
-
-router.get('/password/:email', async (req, res) => {
-  const { email } = req.params;
-  try {
-    const user = await findBymail(email);
-    sendEmail(
-      email,
-      'Cambio de contraseña',
-      htmlChangePasswordEmailTemplate(
-        user.name,
-        sign({ email }, process.env.SECRET, { expiresIn: '24h' })
-      )
-    );
-    res.status(200).send('Enviado con éxito');
-  } catch (error) {
-    return res.status(404).send(error.message);
-  }
-});
-
-router.post('/password', async (req, res) => {
-  const { token, password } = req.body;
-  try {
-    res.status(200).send(await changePasswordByToken(token, password));
-  } catch (error) {
-    res.status(404).send(error.message);
   }
 });
 
