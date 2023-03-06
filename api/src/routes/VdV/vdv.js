@@ -4,6 +4,7 @@ const { sendEmail } = require('../../services/email');
 const {
   htmlFormVdVEmailTemplate,
   htmlAdminFormVdVEmailTemplate,
+  htmlVdVConfirmationEmailTemplate,
 } = require('../../services/email/templates/templateFormVdV');
 const {
   chargeDbVdVs,
@@ -79,18 +80,18 @@ router.post('/chargeDb', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const result = await vdvCreate(req.body);
-    res.status(200).send(result);
     sendEmail(
       req.body.mail,
       'Gracias por completar el formulario 💚',
       htmlFormVdVEmailTemplate(req.body.name)
     );
-    // TODO DASHBOARD
+
     sendEmail(
       EMAIL,
       'Tienes una nueva solicitud 🌱',
       htmlAdminFormVdVEmailTemplate(req.body.name)
     );
+    res.status(200).send(result);
   } catch (error) {
     res.status(404).json({ error: error.message });
   }
@@ -165,11 +166,15 @@ router.delete('/:id', async (req, res) => {
 // TODAS LOS REGISTROS DE CREACION DE VDV ARRANCAN EN PENDING - TENERLO EN CUENTA PARA EL PRIMER SPRINT
 router.put('/status/:id', async (req, res) => {
   const { id } = req.params;
-  const { body } = req;
+
   try {
-    const result = await changeStatus(id, body);
+    const result = await changeStatus(id);
+    sendEmail(
+      result.mail,
+      'Tu solicitud fue aceptada.',
+      htmlVdVConfirmationEmailTemplate(result.name, result.password)
+    );
     res.status(200).send(result);
-    /* res.status(200).send('Solicitud aprobada. Se te ha creado una contrasena provisoria'); */
   } catch (error) {
     res.status(404).send(error - message);
   }
