@@ -175,6 +175,4 @@ router.put('/status/:id', async (req, res) => {
   }
 });
 
-// Agregar ruta CBU -> modificacion de CBU
-
 module.exports = router;
