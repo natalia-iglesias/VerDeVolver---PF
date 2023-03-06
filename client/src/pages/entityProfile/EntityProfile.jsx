@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
 import { updateVdV, deleteVdV, addMaterial, deleteMaterial } from './utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -48,7 +47,6 @@ import {
   getEntityDonation,
   getEntityFeedbacks,
 } from '../../redux/actions/entitiesActions';
-// import { authAcountLocal } from '../../redux/actions/acountActions';
 import RankingStars from '../../Components/RankingStars';
 
 const materialsArray = [
@@ -73,10 +71,8 @@ function EntityProfile() {
   const [mapCenter, setMapCenter] = useState({ lat: -39, lng: -64 });
   const [activeMarker, setActiveMarker] = useState(null);
   const [zoom, setZoom] = useState(5);
-  const toast = useToast();
 
   const { acount } = useSelector((state) => state.acountReducer);
-  // const idAcount = acount.id;
   const { id } = useParams();
   const { donations, feedbacks } = useSelector(
     (state) => state.entitiesReducer
@@ -173,8 +169,6 @@ function EntityProfile() {
       };
     });
   };
-
-  // if (!Object.entries(acount).length) return navigate('/login');
 
   return (
     <Grid templateColumns={'repeat(2, 1fr)'} gap="2rem">
