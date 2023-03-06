@@ -13,7 +13,7 @@ import { CheckIcon, DeleteIcon } from '@chakra-ui/icons';
 
 import axios from 'Axios';
 //Axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
-const Axios = (axios.defaults.baseURL = 'http://localhost:3001/');
+const Axios = axios.create({ baseURL: 'http://localhost:3001/' });
 
 function DashboardRequest() {
   const [requestArray, setRequestArray] = useState();
