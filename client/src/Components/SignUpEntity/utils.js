@@ -2,6 +2,7 @@ export default function validate(form, name, users, entities) {
   let isErrorObj = {
     isError: false,
     errorMsg: '',
+    errorMsgName: '',
   };
 
   if (name !== 'cbu' && form[name].length === 0) {
@@ -25,10 +26,19 @@ export default function validate(form, name, users, entities) {
     if (userMails !== undefined && vdvsMails !== undefined) {
       isErrorObj = {
         isError: userMails.length > 0 || vdvsMails.length > 0,
-        errorMsg: 'El mail ingresado se encuentra asociado a otra cuenta',
+        errorMsg: 'Este dato ya se encuentra asociado a otra cuenta',
       };
     }
   }
+
+  const vdvsNames = entities?.filter((element) => element.name == form.name);
+  if (vdvsNames !== undefined) {
+    isErrorObj = {
+      isError: vdvsNames.length > 0,
+      errorMsg: 'Este dato ya se encuentra asociado a otra cuenta',
+    };
+  }
+
   if (name === 'cbu') {
     if (form.cbu !== undefined) {
       isErrorObj = {

@@ -33,6 +33,7 @@ import {
   Divider,
   Flex,
   Image,
+  useToast,
 } from '@chakra-ui/react';
 import {
   AtSignIcon,
@@ -71,6 +72,7 @@ function EntityProfile() {
   const [mapCenter, setMapCenter] = useState({ lat: -39, lng: -64 });
   const [activeMarker, setActiveMarker] = useState(null);
   const [zoom, setZoom] = useState(5);
+  const toast = useToast();
 
   // const { acount } = useSelector((state) => state.acountReducer);
   // const id = acount.id;

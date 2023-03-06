@@ -14,6 +14,7 @@ import {
   Flex,
   FormHelperText,
   FormErrorMessage,
+  useToast,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { LogedUser } from '../../redux/actions/acountActions';
@@ -21,6 +22,7 @@ import { LogedUser } from '../../redux/actions/acountActions';
 const Contact = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toast = useToast();
 
   const [form, setForm] = useState({
     name: '',
@@ -64,10 +66,23 @@ const Contact = () => {
       (error) => errorsObj[error].isError
     );
     if (isError) {
-      return;
+      return toast({
+        title: 'Error',
+        description: 'Por favor chequea que no haya ningun campo sin llenar',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
     }
     dispatch(createNewContact(form));
     navigate('/home');
+    toast({
+      title: 'Email Enviado Exitosamente',
+      description: 'Muchas gracias! Nos pondremos en contacto vía email.',
+      status: 'success',
+      duration: 1500,
+      isClosable: true,
+    });
   };
 
   return (
