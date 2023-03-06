@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchEntities, getMaterials } from '../redux/actions/entitiesActions';
 import Autocomplete from 'react-google-autocomplete';
 import AsideMap from '../Components/AsideMap';
+import axios from 'axios';
 
 const containerStyle = {
   width: '99vw',
@@ -26,6 +27,7 @@ const Map = () => {
   useEffect(() => {
     dispatch(fetchEntities());
     dispatch(getMaterials());
+
     filters = entities;
   }, []);
 
@@ -85,13 +87,17 @@ const Map = () => {
         center={mapCenter}
         zoom={zoom}
       >
-        {filters?.map((marker) => (
-          <Marker
-            key={marker.id}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            onMouseOver={() => handleMarkerMouseOver(marker)}
-          />
-        ))}
+        {filters?.map((marker) => {
+          if (marker.status === 'Active') {
+            return (
+              <Marker
+                key={marker.id}
+                position={{ lat: marker.lat, lng: marker.lng }}
+                onMouseOver={() => handleMarkerMouseOver(marker)}
+              />
+            );
+          }
+        })}
 
         {activeMarker && (
           <InfoWindow

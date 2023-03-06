@@ -2,6 +2,9 @@ import { HStack, Text } from '@chakra-ui/react';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 const RankingStars = ({ stars, setStars }) => {
+  if (!stars) {
+    return <Text>Sin reseñas</Text>;
+  }
   return (
     <HStack spacing={'2'}>
       {[...Array(5)].map((n, i) =>
