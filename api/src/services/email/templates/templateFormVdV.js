@@ -31,14 +31,13 @@ ${templateHeader}
           <div class="text_container">
             <h1>Querido Admin, </h1>
             <h2>Recibiste una solicitud de ${name}, para publicar su punto de reciclaje en la web.</h2>
-            <p>Puedes revisarla aquí.</p>
+            <a href="http://localhost:5173/dashboard">Puedes revisarla aquí</a>
             <img alt="fondo-vdv" src="cid:vdv@Fondo" />
           </div>
         </div>
       </body>      
               `;
 
-// TODO ENDPOINT + LINK
 const htmlVdVConfirmationEmailTemplate = (name, password) => ` 
 ${templateHeader}     
       <body>
