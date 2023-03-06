@@ -16,7 +16,6 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
 
   const handleClikMaterials = (e) => {
     const newFilters = filters.filter((ent) => {
-      console.log(ent);
       return ent.Materials.some((mat) => mat.name === e.target.value);
     });
     if (newFilters.length == 0) return window.alert('No hubo coincidencias');
