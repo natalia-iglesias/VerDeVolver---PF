@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 //axios.defaults.baseURL = 'http://localhost:3001/'
-const Axios = axios.create({ baseURL });
+const Axios = axios.create('https://verdevolver-pf-production.up.railway.app/');
+//https://verdevolver-pf-production.up.railway.app/
 
 const setDataToRender = (
   setDonationUsersFilters,
