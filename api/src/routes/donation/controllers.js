@@ -24,10 +24,11 @@ async function chargeDbDonation() {
   return bulkCreateDonations;
 }
 
-const createDonation = async (body) => {
+const setMp = async (body) => {
   const { amount, UserId, VdVId } = body;
 
-  if(!amount || !UserId || !VdVId) throw Error('Debes ingresar todos los campos obligatorios'); 
+  if (!amount || !UserId || !VdVId)
+    throw Error('Debes ingresar todos los campos obligatorios');
 
   const checkUsers = await User.findAll({
     where: { id: UserId },
@@ -53,10 +54,12 @@ const createDonation = async (body) => {
         unit_price: Number(amount),
         description: `Gracias por su donacion a la entidad ${name}`,
         picture_url: img,
+        id: UserId,
+        category_id: VdVId,
       },
     ],
-    // notification_url:
-    // 'https://0b51-181-229-236-62.sa.ngrok.io/donation/confirmationDonation',
+    notification_url:
+      'https://00fb-190-139-91-88.sa.ngrok.io/donation/confirmationDonation',
 
     back_urls: {
       success: 'http://localhost:5173/home',
@@ -67,34 +70,41 @@ const createDonation = async (body) => {
     binary_mode: true,
   };
 
-  await Donation.create({
-    amount,
-    UserId,
-    VdVId,
-  });
-
-  sendEmail(
-    userDetail.mail,
-    `Confirmacion de donación a la entidad ${name}`,
-    htmlDonationOkEmailTemplate(userDetail.name, name)
-  );
+  // sendEmail(
+  //   userDetail.mail,
+  //   `Confirmacion de donación a la entidad ${name}`,
+  //   htmlDonationOkEmailTemplate(userDetail.name, name)
+  // );
 
   return preference;
 };
 
-const getAll = async () => {
-    const result = Donation.findAll({
-      include: [
-        { model: User, attributes: ['name', 'last_name', 'image'] },
-        { model: VdV, attributes: ['name', 'img'] },
-      ],
+const createDonation = async (amount, UserId, VdVId, mpId) => {
+  try {
+    await Donation.create({
+      amount,
+      UserId,
+      VdVId,
+      mpId,
     });
+  } catch (error) {
+    throw Error(error.message);
+  }
+};
 
-    return result;
+const getAll = async () => {
+  const result = Donation.findAll({
+    include: [
+      { model: User, attributes: ['name', 'last_name', 'image'] },
+      { model: VdV, attributes: ['name', 'img'] },
+    ],
+  });
+
+  return result;
 };
 
 const updateDonations = async (id) => {
-  if(!id) throw Error('Debes ingresar un id'); 
+  if (!id) throw Error('Debes ingresar un id');
 
   await Donation.update(
     {
@@ -113,59 +123,65 @@ const updateDonations = async (id) => {
 };
 
 const getDonationsById = async (id) => {
-    if (!id) throw Error('Debes ingresar un id');
+  if (!id) throw Error('Debes ingresar un id');
 
-    const donation = await Donation.findByPk(id, {
-      include: [
-        { model: User, attributes: ['name', 'last_name'] },
-        { model: VdV, attributes: ['name'] },
-      ],
-    });
+  const donation = await Donation.findByPk(id, {
+    include: [
+      { model: User, attributes: ['name', 'last_name'] },
+      { model: VdV, attributes: ['name'] },
+    ],
+  });
 
-    if (!donation) throw Error('La donacion no existe');
+  if (!donation) throw Error('La donacion no existe');
 
-    const result = await Donation.findByPk(id);
-    return result;
+  const result = await Donation.findByPk(id);
+  return result;
 };
 
 const getByUserId = async (id) => {
-    if (!id) throw Error('Debes ingresar un id');
+  if (!id) throw Error('Debes ingresar un id');
 
-    const checkuser = await User.findAll({ where: { id: id } });
-    if (!checkuser) throw Error('El usuario no existe');
+  const checkuser = await User.findAll({ where: { id: id } });
+  if (!checkuser) throw Error('El usuario no existe');
 
-    const result = await Donation.findAll({
-      where: {
-        UserId: id,
-      },
-      include: [
-        { model: User, attributes: ['name', 'last_name', 'image'] },
-        { model: VdV, attributes: ['name', 'img'] },
-      ],
-    });
-    if (!result) throw Error(`No fue posible en contrar donaciones del usuario con id ${id}`);
+  const result = await Donation.findAll({
+    where: {
+      UserId: id,
+    },
+    include: [
+      { model: User, attributes: ['name', 'last_name', 'image'] },
+      { model: VdV, attributes: ['name', 'img'] },
+    ],
+  });
+  if (!result)
+    throw Error(
+      `No fue posible en contrar donaciones del usuario con id ${id}`
+    );
 
-    return result;
+  return result;
 };
 
 const getByVdVId = async (id) => {
-    if (!id) throw Error('Debes ingresar un id');
+  if (!id) throw Error('Debes ingresar un id');
 
-    const checkVdV = await VdV.findAll({ where: { id: id } });
-    if (!checkVdV) throw Error('La VdV no existe');
+  const checkVdV = await VdV.findAll({ where: { id: id } });
+  if (!checkVdV) throw Error('La VdV no existe');
 
-    const result = await Donation.findAll({
-      where: {
-        VdVId: id,
-      },
-      include: [
-        { model: User, attributes: ['name', 'last_name', 'image'] },
-        { model: VdV, attributes: ['name', 'img'] },
-      ],
-    });
-    if (!result) throw Error(`No fue posible encontrar donaciones para la entidad de id ${id}`);
+  const result = await Donation.findAll({
+    where: {
+      VdVId: id,
+    },
+    include: [
+      { model: User, attributes: ['name', 'last_name', 'image'] },
+      { model: VdV, attributes: ['name', 'img'] },
+    ],
+  });
+  if (!result)
+    throw Error(
+      `No fue posible encontrar donaciones para la entidad de id ${id}`
+    );
 
-    return result;
+  return result;
 };
 
 module.exports = {
@@ -176,4 +192,5 @@ module.exports = {
   createDonation,
   getAll,
   getDonationsById,
+  setMp,
 };

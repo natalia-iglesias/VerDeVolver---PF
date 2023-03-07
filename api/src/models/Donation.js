@@ -16,6 +16,10 @@ module.exports = (sequelize) => {
         type: DataTypes.ENUM('Delivered', 'Pending'),
         defaultValue: 'Pending',
       },
+      mpId: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
       date: {
         type: DataTypes.DATEONLY,
         defaultValue: DataTypes.NOW,
@@ -24,4 +28,3 @@ module.exports = (sequelize) => {
     { timestamps: false }
   );
 };
-
