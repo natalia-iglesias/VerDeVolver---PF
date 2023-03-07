@@ -67,6 +67,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
   return (
     <VStack>
       <Select
+        borderRadius="1rem"
         id="select_materials"
         borderWidth="0.2rem"
         borderColor="gray.300"
@@ -97,6 +98,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
         );
       })}
       <Select
+        borderRadius="1rem"
         id="select_ranking"
         borderWidth="0.2rem"
         borderColor="gray.300"
