@@ -1,6 +1,6 @@
 const { VdV, Material, Role, User } = require('../../db.js');
 const { Op } = require('sequelize');
-
+const bcrypt = require('bcrypt');
 const chargeDbVdVs = (array) => {
   const result = array.map(async (element) => {
     return await vdvCreate(element);
@@ -9,7 +9,7 @@ const chargeDbVdVs = (array) => {
 };
 
 const vdvCreate = async (body) => {
-  const { name, img, description, mail, address, cbu, materials, lat, lng} =
+  const { name, img, description, mail, address, cbu, materials, lat, lng } =
     body;
 
   const check = await checkMail(mail);
@@ -28,8 +28,7 @@ const vdvCreate = async (body) => {
     !lng ||
     !materials
   )
-  throw Error('Debes completar todos los campos obligatorios');
-
+    throw Error('Debes completar todos los campos obligatorios');
 
   const vdvCreate = await VdV.create({
     name: body.name,
@@ -194,22 +193,35 @@ const deleteVdV = (id) => {
   return VdVdelete;
 };
 
-const functionRandom = () => {
-  return (random = Math.random() * 1);
-};
+function generatePassword(length, type) {
+  characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  var pass = '';
+  for (i = 0; i < length; i++) {
+    if (type == 'rand') {
+      pass += String.fromCharCode((Math.floor(Math.random() * 100) % 94) + 33);
+    } else {
+      pass += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+  }
+  return pass;
+}
 
 const changeStatus = async (id) => {
   if (!id) throw Error('Debes ingresar un id');
 
-  const randomPassword = functionRandom();
+  const randomPassword = generatePassword(9);
+
+  const salt = 10;
+
+  const hashedPassword = bcrypt.hashSync(randomPassword, salt);
 
   await VdV.update(
-    { status: 'Active', password: `vdv${randomPassword}`.slice(0, 10) },
+    { status: 'Active', password: hashedPassword },
     { where: { id } }
   );
 
-  const result = await getByIdVdV(id);
-  return result;
+  return randomPassword;
 };
 
 module.exports = {

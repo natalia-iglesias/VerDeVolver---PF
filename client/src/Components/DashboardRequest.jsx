@@ -33,10 +33,9 @@ function DashboardRequest() {
   const changeStatus = (id) => {
     try {
       Axios.put(`/vdv/status/${id}`).then(() => {
-        //window.alert('Entidad aprobada');
         toast({
-          title: 'Aprovada',
-          description: 'La entidad ha sido aprovada',
+          title: 'Aprobada',
+          description: 'La entidad ha sido aprobada',
           status: 'success',
           duration: 1500,
           isClosable: true,
@@ -46,7 +45,7 @@ function DashboardRequest() {
     } catch (error) {
       toast({
         title: 'Error',
-        description: 'Ha ocurrido un error al aprovar la entidad',
+        description: 'Ha ocurrido un error al aprobar la entidad',
         status: 'error',
         duration: 1500,
         isClosable: true,
@@ -57,7 +56,6 @@ function DashboardRequest() {
   const disapproveEntity = (id) => {
     Axios.delete(`/vdv/${id}`).then(() => {
       try {
-        //window.alert('La entidad ha sido borrada');
         toast({
           title: 'Borrado exitoso',
           description: 'La entidad ha sido borrada exitosamente',
@@ -89,7 +87,7 @@ function DashboardRequest() {
             duration: 1500,
             isClosable: true,
           });
-          //window.alert('Cambio de CBU aprobado');
+
           getDataBase();
         } catch (error) {
           toast({
@@ -113,7 +111,7 @@ function DashboardRequest() {
         duration: 1500,
         isClosable: true,
       });
-      //window.alert('Cambio de cbu NO fue aprobado');
+
       getDataBase();
     });
   };
