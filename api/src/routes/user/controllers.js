@@ -1,5 +1,6 @@
 const { Op } = require('sequelize');
 const { Role, User, VdV } = require('../../db.js');
+const bcrypt = require('bcrypt');
 
 async function chargeDbUsers() {
   const role = await Role.findByPk(1);
@@ -80,13 +81,16 @@ const postUser = async (body) => {
       },
     });
 
+    const salt = 10;
+    const hash = bcrypt.hashSync(password, salt);
+
     if (existUser) throw Error(`El usuario con mail ${body.mail}, ya existe`);
     else {
       const newUser = await User.create({
         name: body.name,
         last_name: body.last_name,
         mail: body.mail,
-        password: body.password,
+        password: hash, 
         RoleId: role.id,
         image: body.image,
       });
