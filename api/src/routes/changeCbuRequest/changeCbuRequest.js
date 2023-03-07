@@ -18,8 +18,9 @@ router.post('/', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
+  const { idVdV, cbu } = req.query;
   try {
-    await deleteCbuRequest(id);
+    await deleteCbuRequest(id, idVdV, cbu);
     res.status(200).send('Solicitud borrada');
   } catch (error) {
     res.status(404).send(error.message);
