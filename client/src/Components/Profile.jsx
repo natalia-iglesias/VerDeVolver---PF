@@ -63,7 +63,7 @@ const Profile = () => {
         ) : (
           <MenuItem
             as={ReachLink}
-            to={`/entityprofile/${acount.id}`}
+            to={`/entityprofile`}
             fontWeight={'700'}
             color={colorMode === 'light' ? 'green' : '#68D391'}
           >

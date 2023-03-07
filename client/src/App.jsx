@@ -60,7 +60,7 @@ const App = () => {
             }
           />
           <Route
-            path="/entityprofile/:id"
+            path="/entityprofile"
             element={
               <ProtectedRoute cond={acount?.RoleId === 4}>
                 <EntityProfile />
