@@ -80,17 +80,17 @@ router.post('/chargeDb', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const result = await vdvCreate(req.body);
-    sendEmail(
-      req.body.mail,
-      'Gracias por completar el formulario 💚',
-      htmlFormVdVEmailTemplate(req.body.name)
-    );
+    // sendEmail(
+    //   req.body.mail,
+    //   'Gracias por completar el formulario 💚',
+    //   htmlFormVdVEmailTemplate(req.body.name)
+    // );
 
-    sendEmail(
-      EMAIL,
-      'Tienes una nueva solicitud 🌱',
-      htmlAdminFormVdVEmailTemplate(req.body.name)
-    );
+    // sendEmail(
+    //   EMAIL,
+    //   'Tienes una nueva solicitud 🌱',
+    //   htmlAdminFormVdVEmailTemplate(req.body.name)
+    // );
     res.status(200).send(result);
   } catch (error) {
     res.status(404).json({ error: error.message });
@@ -176,7 +176,7 @@ router.put('/status/:id', async (req, res) => {
     );
     res.status(200).send(result);
   } catch (error) {
-    res.status(404).send(error - message);
+    res.status(404).send(error.message);
   }
 });
 

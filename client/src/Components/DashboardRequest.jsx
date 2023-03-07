@@ -35,7 +35,7 @@ function DashboardRequest() {
       Axios.put(`/vdv/status/${id}`).then(() => {
         //window.alert('Entidad aprobada');
         toast({
-          title: 'Aprovada',
+          title: 'Aprobada',
           description: 'La entidad ha sido aprobada',
           status: 'success',
           duration: 1500,
