@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-//axios.defaults.baseURL = 'http://localhost:3001/'
-
 export const FETCH_ENTITIES = 'FETCH_ENTITIES';
 export const SEARCH_ENTITIES = 'SEARCH_ENTITIES';
 export const GET_ENTITY_BY_ID = 'GET_ENTITY_BY_ID';
@@ -55,7 +53,7 @@ export const getEntityFeedbacks = (id) => {
 
 export const getEntityDonation = (id) => {
   return async (dispatch) => {
-    const res = await axios.get(`http://localhost:3001/donation/vdv/${id}`);
+    const res = await axios.get(`/donation/vdv/${id}`);
 
     dispatch({ type: GET_ENTITY_DONATION, payload: res.data });
   };

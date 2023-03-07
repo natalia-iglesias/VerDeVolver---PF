@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-//axios.defaults.baseURL = 'http://localhost:3001/'
 export const FETCH_USERS = 'FETCH_USERS';
 export const CREATE_NEW_CONTACT = 'CREATE_NEW_CONTACT';
 export const GET_USER_DONATIONS = 'GET_USER_DONATIONS';

@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-//axios.defaults.baseURL = 'http://localhost:3001/'
-
 export const AUTH_ACOUNT_LOCAL = 'AUTH_ACOUNT_LOCAL';
 export const AUTH_ACOUNT_GOOGLE = 'AUTH_ACOUNT_GOOGLE';
 export const LOGOUT_ACOUNT = 'LOGOUT_ACOUNT';
@@ -39,7 +37,7 @@ export const authAcountLocal = ({ mail, password, keepLogged }) => {
 
       dispatch({ type: AUTH_ACOUNT_LOCAL, payload: acount.data });
     } catch (error) {
-      alert('Contraseña o mail incorrectos')
+      alert('Contraseña o mail incorrectos');
     }
   };
 };

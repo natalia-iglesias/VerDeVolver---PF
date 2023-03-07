@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-// https://verdevolver-pf-production.up.railway
-
 const setDataToRender = (
   setDonationUsersFilters,
   setDonationVdVFilters,

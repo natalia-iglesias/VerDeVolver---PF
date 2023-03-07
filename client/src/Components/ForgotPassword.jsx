@@ -18,8 +18,6 @@ import {
 
 import { FiMail } from 'react-icons/fi';
 
-//axios.defaults.baseURL = 'http://localhost:3001/'
-
 const ForgotPassword = () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();

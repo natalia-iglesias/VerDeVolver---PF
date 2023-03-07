@@ -126,8 +126,7 @@ const EntityDetail = () => {
           UserId: userId,
           VdVId: id,
         });
-        //window.location.reload();
-        //navigate(`https://ver-de-volver-pf-psi.vercel.app/entitie/${id}`);
+
         toast({
           title: 'Éxito',
           description: 'Creación de reseña exitosa',

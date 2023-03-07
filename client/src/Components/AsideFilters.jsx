@@ -6,8 +6,6 @@ import {
   listOfMaterialsToFilter,
 } from '../redux/actions/entitiesActions.js';
 
-//axios.defaults.baseURL = 'http://localhost:3001/'
-
 const AsideFilters = ({ filters, setPage, setInput }) => {
   const dispatch = useDispatch();
   const { colorMode } = useColorMode();
@@ -32,7 +30,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
   const handleRanking = (e) => {
     if (e.target.value !== 'none') {
       axios
-        .post('http://localhost:3001/feedback/rating', {
+        .post('/feedback/rating', {
           order: 'Ascendente',
         })
         .then((res) => {
@@ -47,7 +45,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
         });
     } else {
       axios
-        .post('http://localhost:3001/feedback/rating', {
+        .post('/feedback/rating', {
           order: 'Descendente',
         })
         .then((res) => {

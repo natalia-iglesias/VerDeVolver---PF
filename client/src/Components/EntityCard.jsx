@@ -25,8 +25,6 @@ import {
 import RankingStars from './RankingStars';
 import { useNavigate } from 'react-router-dom';
 
-//axios.defaults.baseURL = 'http://localhost:3001/'
-
 const EntityCard = ({ entity, acount }) => {
   const [inputMonto, setInputMonto] = useState('');
   const navigate = useNavigate();

@@ -15,8 +15,6 @@ import { EditIcon } from '@chakra-ui/icons';
 
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-//axios.defaults.baseURL = 'https://verdevolver-pf-production.up.railway.app/';
-//axios.defaults.baseURL = 'http://localhost:3001/'
 
 function TabListPosts() {
   const [posts, setPosts] = useState();

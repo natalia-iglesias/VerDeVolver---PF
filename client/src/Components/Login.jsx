@@ -28,8 +28,6 @@ import ForgotPassword from './ForgotPassword';
 import { fetchUsers } from '../redux/actions/usersActions';
 import { fetchEntities } from '../redux/actions/entitiesActions';
 
-//axios.defaults.baseURL = 'http://localhost:3001/'
-
 const fetchUser = async (id) => {
   const res = await axios.get(`/user/${id}`);
   return res.data;
@@ -38,14 +36,14 @@ const fetchUser = async (id) => {
 const validate = ({ mail, password }, users, entities) => {
   const errors = {};
 
-  const userMails = users?.filter(element => element.mail == mail); 
-  const vdvsMails = entities?.filter(element => element.mail == mail);
+  const userMails = users?.filter((element) => element.mail == mail);
+  const vdvsMails = entities?.filter((element) => element.mail == mail);
   if (!mail) {
     errors.mail = 'El mail es obligatorio';
   } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(mail)) {
     errors.mail = 'Formato de mail invalido';
-  }else if (userMails!==undefined && vdvsMails!==undefined){
-    if(userMails.length==0 && vdvsMails.length==0){
+  } else if (userMails !== undefined && vdvsMails !== undefined) {
+    if (userMails.length == 0 && vdvsMails.length == 0) {
       errors.mail = 'El mail ingresado no se encuentra asociado a una cuenta';
     }
   }
@@ -54,19 +52,19 @@ const validate = ({ mail, password }, users, entities) => {
     errors.password = 'La contraseña es obligatoria';
   } else if (password.length < 4 || password.length > 16) {
     errors.password = 'La contraseña debe tener entre 4 y 16 caracteres';
-  }else if (userMails!==undefined && vdvsMails!==undefined){
-    if(userMails.length>0){
+  } else if (userMails !== undefined && vdvsMails !== undefined) {
+    if (userMails.length > 0) {
       const userData = users?.filter((user) => user.mail === mail);
-      if(userData[0].password != password){
+      if (userData[0].password != password) {
         errors.password = 'Contraseña incorrecta';
       }
-    };
-    if(vdvsMails.length>0){
-      const vdvData = entities?.filter((vdv) => vdv.mail === mail); 
-      if(vdvData[0].password != password){
+    }
+    if (vdvsMails.length > 0) {
+      const vdvData = entities?.filter((vdv) => vdv.mail === mail);
+      if (vdvData[0].password != password) {
         errors.password = 'Contraseña incorrecta';
       }
-    };
+    }
   }
 
   return errors;
@@ -96,8 +94,8 @@ const Login = () => {
   }, [googleId]);
 
   useEffect(() => {
-    dispatch(fetchUsers()); 
-    dispatch(fetchEntities()); 
+    dispatch(fetchUsers());
+    dispatch(fetchEntities());
   }, [dispatch]);
 
   const [logInData, setLogInData] = useState({
@@ -122,7 +120,7 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    if (Object.keys(errors).length){
+    if (Object.keys(errors).length) {
       return toast({
         title: 'Error',
         description: 'Por favor chequea que no haya errores en ningun campo',
@@ -130,7 +128,7 @@ const Login = () => {
         duration: 1500,
         isClosable: true,
       });
-    };
+    }
     !Object.keys(errors).length && dispatch(authAcountLocal(logInData));
   };
 

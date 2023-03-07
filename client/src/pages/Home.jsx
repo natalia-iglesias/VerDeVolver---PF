@@ -20,8 +20,6 @@ import { MdOutlineAttachMoney } from 'react-icons/md';
 import PostsCarousel from '../Components/PostsCarousel';
 import axios from 'axios';
 
-//axios.defaults.baseURL = 'http://localhost:3001/'
-
 const Home = () => {
   const toast = useToast();
   const navigate = useNavigate();
