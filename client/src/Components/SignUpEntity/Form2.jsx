@@ -55,7 +55,7 @@ const Form2 = ({ setProgressAndStep }) => {
     if (name === 'cbu') {
       if (form.cbu !== undefined) {
         setMsg(value.length);
-        if (name === 'cbu' && value.length === 22) {
+        if (name === 'cbu' && value.length === 23) {
           return;
         }
       }
@@ -145,7 +145,9 @@ const Form2 = ({ setProgressAndStep }) => {
           value={form.cbu}
         />
         {form.cbu !== undefined && !errors.cbu.isError ? (
-          <FormHelperText>Debes ingresar 22 números y vas {msg}</FormHelperText>
+          <FormHelperText>
+            Debes ingresar 22 números y vas {msg === 23 ? 22 : msg}
+          </FormHelperText>
         ) : (
           ''
         )}
