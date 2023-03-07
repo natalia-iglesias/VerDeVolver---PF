@@ -76,9 +76,29 @@ ${templateHeader}
       </body>      
               `;
 
+const htmlVdVAprrovedCBUTemplate = (name, cbu) => ` 
+${templateHeader}     
+      <body>
+        <div class="main_container">
+          <div class="image_container">
+            <img alt="logo-vdv" src="cid:vdv@Logo" class="header" />
+          </div>
+          <div class="text_container">
+            <h1>Hola ${name}, </h1>
+            <h2>Te comunicamos que tu solicitud  de cambio de CBU ha sido aprovada</h2>
+            <p>Ahora tu CBU es ${cbu}</p>
+            <p>Saludos cordiales, </p>
+            <p>Equipo de Verde Volver</p>
+            <img alt="fondo-vdv" src="cid:vdv@Fondo" />
+          </div>
+        </div>
+      </body>      
+              `;
+
 module.exports = {
   htmlFormVdVEmailTemplate,
   htmlAdminFormVdVEmailTemplate,
   htmlVdVConfirmationEmailTemplate,
   htmlVdVRejectEmailTemplate,
+  htmlVdVAprrovedCBUTemplate,
 };

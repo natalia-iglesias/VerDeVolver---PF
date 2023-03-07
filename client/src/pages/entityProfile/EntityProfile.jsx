@@ -121,7 +121,7 @@ function EntityProfile() {
     } catch (error) {
       toast({
         title: 'Error',
-        description: 'No se pudo enviar la solicitud',
+        description: 'El CBU ya se encuentra asociado a un punto de reciclaje',
         status: 'error',
         duration: 1500,
         isClosable: true,
