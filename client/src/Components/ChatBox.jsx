@@ -19,6 +19,7 @@ import {
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { AiOutlineMessage, AiOutlineSend } from 'react-icons/ai';
+import { BiTrash } from 'react-icons/bi';
 
 const qa = [
   {
@@ -107,6 +108,15 @@ const ChatBox = () => {
     }
   };
 
+  const handleClear = () =>
+    setMessages([
+      {
+        from: 'I A',
+        message:
+          'Hola, estoy aquí para responder tus preguntas ¿Qué te gustaría saber?',
+      },
+    ]);
+
   return (
     <Popover>
       <PopoverTrigger>
@@ -135,7 +145,7 @@ const ChatBox = () => {
                 <VStack>
                   <Text>{message}</Text>
                   {from === 'I A' &&
-                    generateOptions().map(({ q, a }) => (
+                    generateOptions().map(({ q }) => (
                       <Button onClick={() => handleSendMessage(q)} w="full">
                         {q}
                       </Button>
@@ -145,7 +155,7 @@ const ChatBox = () => {
             ))}
           </VStack>
         </PopoverBody>
-        <PopoverFooter>
+        <PopoverFooter display="inline-flex">
           <InputGroup>
             <Input
               placeholder="Ingresa tu consulta"
@@ -161,6 +171,7 @@ const ChatBox = () => {
               />
             </InputRightElement>
           </InputGroup>
+          <IconButton icon={<BiTrash />} ml={2} onClick={handleClear} />
         </PopoverFooter>
       </PopoverContent>
     </Popover>
