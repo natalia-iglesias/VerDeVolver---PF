@@ -11,9 +11,13 @@ const postCbuRequest = async (cbu, idVdV) => {
         cbu,
       },
     });
-    !vdvWithCBU.length
-      ? await CbuRequest.create({ cbu, idVdV })
-      : Error('El CBU ya se encuentra asociada a un Punto de Reciclaje');
+    if (!vdvWithCBU.length) {
+      await CbuRequest.create({ cbu, idVdV });
+    } else {
+      throw new Error(
+        'El CBU ya se encuentra asociada a un Punto de Reciclaje'
+      );
+    }
   } catch (error) {
     throw Error(error.message);
   }
