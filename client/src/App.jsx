@@ -8,9 +8,7 @@ import Home from './pages/Home';
 import Map from './pages/Map';
 import Entities from './pages/Entities';
 import EntitieDetail from '../src/pages/EntitieDetail';
-
 import SingUpEntitie from './pages/SignUpEntities/SingUpEntitie';
-
 import Login from './Components/Login';
 import UserProfile from './pages/userProfile/UserProfile';
 import EntityProfile from './pages/entityProfile/EntityProfile';
@@ -23,6 +21,7 @@ import ColorModeSwitcher from './Components/ColorModeSwitcher';
 import Footer from './Components/Footer';
 import ChatBox from './Components/ChatBox';
 import { useSelector } from 'react-redux';
+import ProtectedRoute from './Components/ProtectedRoute';
 
 const App = () => {
   const { acount } = useSelector((state) => state.acountReducer);
@@ -48,11 +47,32 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/login/:googleId" element={<Login />} />
           <Route path="/singup" element={<SingUp />} />
-          <Route path="/userprofile" element={<UserProfile />} />
-          <Route path="/entityprofile/:id" element={<EntityProfile />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/userprofile"
+            element={
+              <ProtectedRoute cond={acount?.RoleId === 1}>
+                <UserProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/entityprofile/:id"
+            element={
+              <ProtectedRoute cond={acount?.RoleId === 4}>
+                <EntityProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute cond={acount?.RoleId === 2}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <ChatBox />
         <ColorModeSwitcher />

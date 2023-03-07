@@ -15,7 +15,7 @@ const pepe = [
     name: 'Economía Circular',
     img: 'https://i.pinimg.com/564x/0e/60/c7/0e60c7fcd2d898873fc7d1a5060cc232.jpg',
     mail: 'ra@mail.com',
-    password:"12345", 
+    password: '12345',
     address: 'calle 1',
     description:
       'Entidad privada cuya actividad se centra en mejorar la calidad de vida de las personas optimizando el aprovechamiento de recursos.',
@@ -30,7 +30,7 @@ const pepe = [
     name: 'Amigos de la Tierra',
     img: 'https://i.pinimg.com/564x/4e/db/10/4edb108418125c6085492f82349de7b2.jpg',
     mail: 'jxec@mail.com',
-    password:"123456", 
+    password: '123456',
     address: 'calle 2',
     description:
       'Somos una asociación ecologista que fomenta el cambio local y global hacia una sociedad respetuosa con el medio ambiente, justa y solidaria.',
@@ -313,7 +313,10 @@ async function chargeDbRoles() {
 }
 //2
 async function chargeDbUsers() {
-  const role = await Role.findByPk(1);
+  const user = await Role.findByPk(1);
+  const admin = await Role.findByPk(2);
+  const owner = await Role.findByPk(3);
+
   const bulkCreateUsers = await User.bulkCreate([
     {
       name: 'Nathan',
@@ -321,8 +324,9 @@ async function chargeDbUsers() {
       mail: 'seb@mail.com',
       password: '12345',
       address: 'calle 10',
-      RoleId: role.id,
-      image: 'https://res.cloudinary.com/verdevolver/image/upload/v1677727979/images/rxsjmrsq2wqrzfiw44tt.jpg'
+      RoleId: user.id,
+      image:
+        'https://res.cloudinary.com/verdevolver/image/upload/v1677727979/images/rxsjmrsq2wqrzfiw44tt.jpg',
     },
     {
       name: 'Jack',
@@ -330,7 +334,7 @@ async function chargeDbUsers() {
       mail: 'jack@mail.com',
       password: '12345',
       address: 'calle 20',
-      RoleId: role.id,
+      RoleId: user.id,
     },
     {
       name: 'John',
@@ -338,7 +342,7 @@ async function chargeDbUsers() {
       mail: 'john@mail.com',
       password: '12345',
       address: 'calle 30',
-      RoleId: role.id,
+      RoleId: user.id,
     },
     {
       name: 'Marco',
@@ -346,7 +350,7 @@ async function chargeDbUsers() {
       mail: 'marco@mail.com',
       password: '12345',
       address: 'calle 40',
-      RoleId: role.id,
+      RoleId: user.id,
     },
     {
       name: 'Matias',
@@ -354,8 +358,29 @@ async function chargeDbUsers() {
       mail: 'mati@mail.com',
       password: '12345',
       address: 'calle 40',
-      RoleId: role.id,
-      image: 'https://res.cloudinary.com/verdevolver/image/upload/v1677854021/images/letjinjszswjgkb7waul.jpg'
+      RoleId: user.id,
+      image:
+        'https://res.cloudinary.com/verdevolver/image/upload/v1677854021/images/letjinjszswjgkb7waul.jpg',
+    },
+    {
+      name: 'Admin',
+      last_name: '',
+      mail: 'admin@verdevolver.com',
+      password: 'admin',
+      address: '',
+      RoleId: admin.id,
+      image:
+        'https://i.pinimg.com/originals/d0/53/f2/d053f2394d420d8d3712046f4e8f80cc.jpg',
+    },
+    {
+      name: 'Owner',
+      last_name: '',
+      mail: 'owner@verdevolver.com',
+      password: 'owner',
+      address: '',
+      RoleId: owner.id,
+      image:
+        'https://i.pinimg.com/originals/d0/53/f2/d053f2394d420d8d3712046f4e8f80cc.jpg',
     },
   ]);
 
@@ -387,27 +412,27 @@ const vdvCreate = async (body) => {
     img,
     description,
     mail,
-    password, 
+    password,
     address,
     cbu,
     materials,
     lat,
     lng,
     status,
-    RoleId
+    RoleId,
   } = body;
   const vdvCreate = await VdV.create({
     name,
     img,
     mail,
     address,
-    password, 
+    password,
     description,
     cbu,
     lat,
     lng,
     status,
-    RoleId, 
+    RoleId,
   });
 
   await vdvCreate.addMaterials(materials);
@@ -424,14 +449,34 @@ const chargeDbVdVs = (array) => {
 const chargeDbFeedback = async () => {
   try {
     const bulkCreateFeedbacks = await Feedback.bulkCreate([
-      { comment: 'Muy malo, me trataron re mal', rating: '1', UserId: '1', VdVId: '1' },
-      { comment: 'Muy bueno. Mejoraron su atencion al cliente', rating: '5', UserId: '1', VdVId: '1' },
-      { comment: 'Muy bueno, me encanto', rating: '5', UserId: '1', VdVId: '2' },
+      {
+        comment: 'Muy malo, me trataron re mal',
+        rating: '1',
+        UserId: '1',
+        VdVId: '1',
+      },
+      {
+        comment: 'Muy bueno. Mejoraron su atencion al cliente',
+        rating: '5',
+        UserId: '1',
+        VdVId: '1',
+      },
+      {
+        comment: 'Muy bueno, me encanto',
+        rating: '5',
+        UserId: '1',
+        VdVId: '2',
+      },
       { comment: 'Muy malo', rating: '1', UserId: '2', VdVId: '1' },
       { comment: 'Horrible todo', rating: '1', UserId: '3', VdVId: '3' },
       { comment: 'Super bien toy feliz', rating: '4', UserId: '4', VdVId: '4' },
       { comment: 'Me encanto todo', rating: '5', UserId: '1', VdVId: '3' },
-      { comment: 'Amoooo te atienden super bien, no tengo ninguna queja', rating: '5', UserId: '1', VdVId: '5' },
+      {
+        comment: 'Amoooo te atienden super bien, no tengo ninguna queja',
+        rating: '5',
+        UserId: '1',
+        VdVId: '5',
+      },
     ]);
 
     return bulkCreateFeedbacks;
