@@ -168,11 +168,16 @@ router.put('/status/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await changeStatus(id);
+    const result = await getByIdVdV(id);
+    console.log('resultVdv:::', result);
+    console.log('resultVdvName:::', result.name);
+    console.log('resultVdvMail:::', result.mail);
+
+    const resultPass = await changeStatus(id);
     sendEmail(
       result.mail,
       'Tu solicitud fue aceptada.',
-      htmlVdVConfirmationEmailTemplate(result)
+      htmlVdVConfirmationEmailTemplate(result.name, resultPass)
     );
     res.status(200).send(result);
   } catch (error) {
