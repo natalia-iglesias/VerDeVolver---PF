@@ -36,7 +36,6 @@ const Form2 = ({ setProgressAndStep }) => {
     cbu: { isError: false, errorMsg: '' },
   });
 
-  const [msg, setMsg] = useState('');
   const [descMsg, setdescMsg] = useState('');
 
   const handleUploadImage = (url) => {
@@ -52,12 +51,9 @@ const Form2 = ({ setProgressAndStep }) => {
     const { name, value } = e.target;
     setErrors({ ...errors, [name]: { isError: false, errorMsg: '' } });
 
-    if (name === 'cbu') {
-      if (form.cbu !== undefined) {
-        setMsg(value.length);
-        if (name === 'cbu' && value.length === 23) {
-          return;
-        }
+    if (form.cbu !== undefined) {
+      if (name === 'cbu' && value.length === 23) {
+        return;
       }
     }
 
@@ -145,9 +141,7 @@ const Form2 = ({ setProgressAndStep }) => {
           value={form.cbu}
         />
         {form.cbu !== undefined && !errors.cbu.isError ? (
-          <FormHelperText>
-            Debes ingresar 22 números y vas {msg === 23 ? 22 : msg}
-          </FormHelperText>
+          <FormHelperText>Debes ingresar 22 números.</FormHelperText>
         ) : (
           ''
         )}

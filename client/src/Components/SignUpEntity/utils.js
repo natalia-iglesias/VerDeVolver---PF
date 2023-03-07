@@ -46,19 +46,20 @@ export default function validate(form, name, users, entities) {
     }
   }
 
-  if (name === 'cbu') {
-    if (form.cbu !== undefined) {
+  if (name === 'cbu' && form[name] !== undefined) {
+    isErrorObj = {
+      isError: form.cbu.length < 21 && form.cbu.length !== 0,
+      errorMsg: 'El cbu debe ser de 22 digitos.',
+    };
+    console.log('isErrorObj::::', isErrorObj);
+    console.log('cbu:::', form.cbu.length);
+
+    const vdvsCbus = entities?.filter((element) => element.cbu == form.cbu);
+    if (vdvsCbus !== undefined && form[name].length === 22) {
       isErrorObj = {
-        isError: form.cbu.length < 21 && form.cbu.length !== 0,
-        errorMsg: 'El cbu debe ser de 22 digitos.',
+        isError: vdvsCbus.length > 0,
+        errorMsg: 'El cbu ingresado se encuentra asociado a otra cuenta',
       };
-      const vdvsCbus = entities?.filter((element) => element.cbu == form.cbu);
-      if (vdvsCbus !== undefined) {
-        isErrorObj = {
-          isError: vdvsCbus.length > 0,
-          errorMsg: 'El cbu ingresado se encuentra asociado a otra cuenta',
-        };
-      }
     }
   }
 
