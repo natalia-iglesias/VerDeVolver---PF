@@ -221,7 +221,7 @@ const changeStatus = async (id) => {
     { where: { id } }
   );
 
-  const result = await getByIdVdV(id);
+  // const result = await getByIdVdV(id);
 
   return randomPassword;
 };

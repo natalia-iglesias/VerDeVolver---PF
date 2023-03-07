@@ -172,7 +172,7 @@ router.put('/status/:id', async (req, res) => {
     sendEmail(
       result.mail,
       'Tu solicitud fue aceptada.',
-      htmlVdVConfirmationEmailTemplate(result.name, result.password)
+      htmlVdVConfirmationEmailTemplate(result)
     );
     res.status(200).send(result);
   } catch (error) {
