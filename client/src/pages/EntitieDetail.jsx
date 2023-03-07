@@ -23,6 +23,8 @@ import {
   Textarea,
   VStack,
   useToast,
+  useColorMode,
+  DarkMode,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
@@ -37,6 +39,7 @@ const EntityDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const toast = useToast();
+  const { colorMode } = useColorMode();
 
   useEffect(() => {
     dispatch(getEntityById(id));
@@ -138,124 +141,163 @@ const EntityDetail = () => {
     }
   };
 
+  const lightModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
+
+  const darkModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
+
   return (
-    <Box>
-      <Box
-        width="100%"
-        height="40vh"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        margin="5vh"
-      >
+    <Box bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}>
+      <Box mr="10%" ml="10%" pt={'5%'} paddingBottom="5rem">
         <Box
-          backgroundColor="#97FFA8"
-          width="60%"
-          height="65%"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          borderRadius="1vh"
+          boxShadow="dark-lg"
+          p="6"
+          rounded="md"
+          h="85vh"
+          // marginBottom="11vh"
+          backgroundColor={colorMode === 'light' ? '#f5f2ebef' : '#2d3748ef'}
         >
           <Box
-            height="37vh"
-            width="37vh"
-            borderRadius="50%"
-            backgroundColor="#6AF280"
+            width="100%"
+            height="20vh"
             display="flex"
-            alignItems="center"
             justifyContent="center"
+            alignItems="center"
+            marginTop="6vh"
           >
-            <Image
-              src={entity.img}
-              height="35vh"
-              width="35vh"
-              borderRadius="50%"
-            />
-            {console.log(entity.img)}
+            <Box
+              backgroundColor="#b4c4ac"
+              width="55%"
+              height="85%"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius="1vh"
+              transition="2s"
+              _hover={{ height: '87%', width: '87%' }}
+            >
+              <Box
+                height="28vh"
+                width="28vh"
+                borderRadius="50%"
+                backgroundColor="#b4c4ac"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                boxShadow="dark-lg"
+                transition="2s"
+                _hover={{ height: '30vh', width: '30vh' }}
+              >
+                <Image
+                  src={entity.img}
+                  height="26vh"
+                  width="26vh"
+                  borderRadius="50%"
+                  transition="2s"
+                  _hover={{ height: '28vh', width: '28vh' }}
+                />
+                {console.log(entity.img)}
+              </Box>
+            </Box>
           </Box>
+          <Grid templateColumns="repeat(2, 1fr)" gap={'1rem'}>
+            <GridItem>
+              <Box margin="5vh">
+                <Heading>{entity.name}</Heading>
+                <HStack my="1rem">
+                  {entity.Materials?.map(({ name }, i) => (
+                    <Badge key={i} variant="solid" colorScheme="green">
+                      {name}
+                    </Badge>
+                  ))}
+                </HStack>
+                <Text fontSize={'lg'} lineHeight="8">
+                  {entity.description}
+                </Text>
+                <Stack mt="1rem" spacing={'1rem'}>
+                  <Heading fontSize={'lg'}>Reseñas</Heading>
+                  <Divider />
+                  <VStack
+                    alignItems="flex-start"
+                    overflowY={'scroll'}
+                    maxH="25vh"
+                    divider={<StackDivider />}
+                  >
+                    {feedbacks?.map(({ User, comment, rating }) => (
+                      <Box key={User + comment}>
+                        <HStack spacing="1rem">
+                          {User.image == null ? (
+                            <Avatar name={User.name} size="sm" />
+                          ) : (
+                            <Avatar src={User.image} size="sm" />
+                          )}
+                          <Text>{User.name}</Text>
+                          <RankingStars stars={rating} />
+                        </HStack>
+                        <Text>{comment}</Text>
+                      </Box>
+                    ))}
+                  </VStack>
+                </Stack>
+              </Box>
+            </GridItem>
+            <GridItem>
+              <Box margin="5vh">
+                <Heading marginBottom="2vh">Deja tu Reseña</Heading>
+                <Box>
+                  <CreateRating stars={stars} setStars={setStars} />
+                </Box>
+                <VStack
+                  marginBottom="3vh"
+                  display="flex"
+                  alignItems="flex-start"
+                >
+                  <Textarea
+                    name="Review"
+                    placeholder="Deja tu reseña"
+                    type={'text'}
+                    onChange={handleInputs}
+                    borderRadius="1rem"
+                    borderColor="black"
+                  />
+                  <Button
+                    onClick={handleComment}
+                    w="30%"
+                    colorScheme="green"
+                    transition="1s"
+                  >
+                    Comentar
+                  </Button>
+                </VStack>
+                <VStack ml="1rem" display="flex" alignItems="flex-start">
+                  <InputGroup>
+                    <InputLeftElement children={<MdOutlineAttachMoney />} />
+                    <Input
+                      name="Monto"
+                      placeholder="Monto"
+                      type={'number'}
+                      onChange={handleInputs}
+                      borderRadius="1rem"
+                      borderColor="black"
+                      width="15vw"
+                      color="white"
+                    />
+                    <Button
+                      onClick={handleDonate}
+                      colorScheme="green"
+                      marginLeft="1vw"
+                      transition="1s"
+                    >
+                      Donar
+                    </Button>
+                  </InputGroup>
+                </VStack>
+              </Box>
+            </GridItem>
+          </Grid>
         </Box>
       </Box>
-      <Grid templateColumns="repeat(2, 1fr)" gap={'1rem'}>
-        <GridItem>
-          <Box margin="5vh">
-            <Heading>{entity.name}</Heading>
-            <HStack my="1rem">
-              {entity.Materials?.map(({ name }, i) => (
-                <Badge key={i} variant="solid" colorScheme="green">
-                  {name}
-                </Badge>
-              ))}
-            </HStack>
-            <Text fontSize={'lg'} lineHeight="8">
-              {entity.description}
-            </Text>
-            <Stack mt="1rem" spacing={'1rem'}>
-              <Heading fontSize={'lg'}>Reseñas</Heading>
-              <Divider />
-              <VStack
-                alignItems="flex-start"
-                overflowY={'scroll'}
-                maxH="25vh"
-                divider={<StackDivider />}
-              >
-                {feedbacks?.map(({ User, comment, rating }) => (
-                  <Box key={User + comment}>
-                    <HStack spacing="1rem">
-                      {User.image == null ? (
-                        <Avatar name={User.name} size="sm" />
-                      ) : (
-                        <Avatar src={User.image} size="sm" />
-                      )}
-                      <Text>{User.name}</Text>
-                      <RankingStars stars={rating} />
-                    </HStack>
-                    <Text>{comment}</Text>
-                  </Box>
-                ))}
-              </VStack>
-            </Stack>
-          </Box>
-        </GridItem>
-        <GridItem>
-          <Box margin="5vh">
-            <Heading marginBottom="2vh">Deja tu Reseña</Heading>
-            <Box>
-              <CreateRating stars={stars} setStars={setStars} />
-            </Box>
-            <VStack marginBottom="3vh">
-              <Textarea
-                name="Review"
-                placeholder="Deja tu reseña"
-                type={'text'}
-                onChange={handleInputs}
-              />
-              <Button onClick={handleComment} w="30%" backgroundColor="#97FFA8">
-                Comentar
-              </Button>
-            </VStack>
-            <VStack ml="1rem">
-              <InputGroup>
-                <InputLeftElement children={<MdOutlineAttachMoney />} />
-                <Input
-                  name="Monto"
-                  placeholder="Monto"
-                  type={'number'}
-                  onChange={handleInputs}
-                />
-                <Button
-                  onClick={handleDonate}
-                  backgroundColor="#97FFA8"
-                  marginLeft="1vw"
-                >
-                  Donar
-                </Button>
-              </InputGroup>
-            </VStack>
-          </Box>
-        </GridItem>
-        <Box height={'28rem'}></Box>
-      </Grid>
     </Box>
   );
 };
