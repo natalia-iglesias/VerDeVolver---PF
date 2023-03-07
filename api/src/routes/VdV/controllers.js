@@ -33,6 +33,7 @@ const vdvCreate = async (body) => {
 
   const salt = 10;
   const hash = bcrypt.hashSync(password, salt);
+  
 
   const vdvCreate = await VdV.create({
     name: body.name,

@@ -127,19 +127,19 @@ function UserProfile() {
 
   return (
     <Grid templateColumns={'repeat(2, 1fr)'} gap="2rem">
-      <GridItem ml="3rem" mt="1rem" mr={'3rem'}>
+      <GridItem ml="3rem" mt="1rem" mr={'1rem'}>
         <Heading mb={'1rem'}>Información del usuario</Heading>
 
-        <Box display={'flex'} justifyContent={'beetwen'} alignItems={'center'}>
-          <Text ml={'rem'} mb={'1rem'} w={'400px'} fontSize={'30px'}>
+        <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
+          <Text ml={'1rem'} mb={'1rem'} w={'400px'} fontSize={'30px'}>
             {input.name} {input.last_name}
           </Text>
-          <Image
+          <Avatar
             src={input.image}
+            name={`${input.name}${input.last_name}`}
             borderRadius="full"
-            boxSize="200px"
+            size='xl'
             mb="5vh"
-            border={' green solid 4px'}
           />
         </Box>
 
