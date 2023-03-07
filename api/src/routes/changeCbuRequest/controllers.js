@@ -2,7 +2,14 @@ const { CbuRequest, VdV } = require('../../db.js');
 
 const postCbuRequest = async (cbu, idVdV) => {
   try {
-    await CbuRequest.create({ cbu, idVdV });
+    const vdvWithCBU = await VdV.findAll({
+      where: {
+        cbu,
+      },
+    });
+    !vdvWithCBU.length
+      ? await CbuRequest.create({ cbu, idVdV })
+      : Error('El CBU ya se encuentra asociada a un Punto de Reciclaje');
   } catch (error) {
     throw Error(error.message);
   }
