@@ -1,11 +1,12 @@
 import {
   Avatar,
+  Button,
   Flex,
   IconButton,
   Input,
   InputGroup,
   InputRightElement,
-  Link,
+  Text,
   Popover,
   PopoverBody,
   PopoverCloseButton,
@@ -18,6 +19,7 @@ import {
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { AiOutlineMessage, AiOutlineSend } from 'react-icons/ai';
+import { BiTrash } from 'react-icons/bi';
 
 const qa = [
   {
@@ -61,11 +63,26 @@ const iaResponse = (message) => {
   return `No encontré un respuesta a tu pregunta en mi base de datos, puedes ir a la sección de contacto y completar el formulario para enviar tu consulta y que un administrador pueda responderte!`;
 };
 
+const generateOptions = () => {
+  const res = [];
+
+  for (let i = 0; i < 3; i++) {
+    const opt = Math.floor(Math.random() * qa.length);
+    res.push(qa[opt]);
+  }
+
+  return res;
+};
+
 const ChatBox = () => {
   const { acount } = useSelector((state) => state.acountReducer);
 
   const [messages, setMessages] = useState([
-    { from: 'I A', message: 'Hola, estoy aquí para responder tus preguntas!' },
+    {
+      from: 'I A',
+      message:
+        'Hola, estoy aquí para responder tus preguntas ¿Qué te gustaría saber?',
+    },
   ]);
   const [newMessage, setNewMessage] = useState('');
 
@@ -73,14 +90,14 @@ const ChatBox = () => {
     setNewMessage(e.target.value);
   };
 
-  const handleSendMessage = () => {
-    if (newMessage) {
-      const iaRes = iaResponse(newMessage);
+  const handleSendMessage = (answer) => {
+    if (newMessage || answer) {
+      const iaRes = iaResponse(answer ?? newMessage);
       setMessages([
         ...messages,
         {
           from: acount.name ?? 'Default',
-          message: newMessage,
+          message: answer ?? newMessage,
         },
         {
           from: 'I A',
@@ -90,6 +107,15 @@ const ChatBox = () => {
       setNewMessage('');
     }
   };
+
+  const handleClear = () =>
+    setMessages([
+      {
+        from: 'I A',
+        message:
+          'Hola, estoy aquí para responder tus preguntas ¿Qué te gustaría saber?',
+      },
+    ]);
 
   return (
     <Popover>
@@ -103,7 +129,7 @@ const ChatBox = () => {
         />
       </PopoverTrigger>
 
-      <PopoverContent m="1rem">
+      <PopoverContent m="1rem" w="50vw">
         <PopoverHeader>Chat VDV</PopoverHeader>
         <PopoverCloseButton />
         <PopoverBody h={'20vh'} overflowY="scroll">
@@ -116,12 +142,20 @@ const ChatBox = () => {
                 key={`${from} says: ${message}`}
               >
                 <Avatar name={from} size="xs" />
-                {message}
+                <VStack>
+                  <Text>{message}</Text>
+                  {from === 'I A' &&
+                    generateOptions().map(({ q }) => (
+                      <Button onClick={() => handleSendMessage(q)} w="full">
+                        {q}
+                      </Button>
+                    ))}
+                </VStack>
               </Flex>
             ))}
           </VStack>
         </PopoverBody>
-        <PopoverFooter>
+        <PopoverFooter display="inline-flex">
           <InputGroup>
             <Input
               placeholder="Ingresa tu consulta"
@@ -137,6 +171,7 @@ const ChatBox = () => {
               />
             </InputRightElement>
           </InputGroup>
+          <IconButton icon={<BiTrash />} ml={2} onClick={handleClear} />
         </PopoverFooter>
       </PopoverContent>
     </Popover>
