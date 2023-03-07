@@ -36,7 +36,7 @@ function DashboardRequest() {
         //window.alert('Entidad aprobada');
         toast({
           title: 'Aprovada',
-          description: 'La entidad ha sido aprovada',
+          description: 'La entidad ha sido aprobada',
           status: 'success',
           duration: 1500,
           isClosable: true,
@@ -46,7 +46,7 @@ function DashboardRequest() {
     } catch (error) {
       toast({
         title: 'Error',
-        description: 'Ha ocurrido un error al aprovar la entidad',
+        description: 'Ha ocurrido un error al aprobar la entidad',
         status: 'error',
         duration: 1500,
         isClosable: true,
