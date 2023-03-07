@@ -9,6 +9,7 @@ const {
   createDonation,
   getAll,
   getDonationsById,
+  setMp,
 } = require('./controllers.js');
 
 const router = Router();
@@ -25,7 +26,7 @@ router.post('/chargeDb', async (req, res) => {
 router.post('/', async (req, res) => {
   const { body } = req;
   try {
-    const newDonation = await createDonation(body);
+    const newDonation = await setMp(body);
 
     mercadopago.preferences
       .create(newDonation)
@@ -38,9 +39,14 @@ router.post('/', async (req, res) => {
 router.post('/confirmationDonation', (req, res) => {
   const { body, query } = req;
   mercadopago.merchant_orders
-    .findById(body.resource.slice(45))
-    .then((res) => console.log(res.body));
-  console.log(body);
+    .findById(body.resource?.slice(45))
+    .then(async (res) => {
+      const amount = res.body.payments[0].transaction_amount;
+      const UserId = res.body.items[0].id;
+      const VdVId = res.body.items[0].category_id;
+      const mpId = res.body.id.toString();
+      await createDonation(amount, UserId, VdVId, mpId);
+    });
   res.send();
 });
 

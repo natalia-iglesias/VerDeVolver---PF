@@ -65,7 +65,6 @@ const materialsArray = [
 ];
 
 function EntityProfile() {
-  const toast = useToast();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [mapCenter, setMapCenter] = useState({ lat: -39, lng: -64 });
@@ -102,28 +101,27 @@ function EntityProfile() {
   };
 
   const handleButtonCBU = (e) => {
-    try {
-      axios
-        .post('http://localhost:3001/cbuRequest', { cbu: CBU, idVdV: id })
-        .then(
-          toast({
-            title: 'Success',
-            description:
-              'Solicitud enviada. Recibirás un email de confirmación.',
-            status: 'success',
-            duration: 1500,
-            isClosable: true,
-          })
-        );
-    } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'El CBU ya se encuentra asociado a un punto de reciclaje',
-        status: 'error',
-        duration: 1500,
-        isClosable: true,
-      });
-    }
+    const res = axios
+      .post('http://localhost:3001/cbuRequest', { cbu: CBU, idVdV: id })
+      .then(
+        toast({
+          title: 'Success',
+          description: 'Solicitud enviada. Recibirás un email de confirmación.',
+          status: 'success',
+          duration: 1500,
+          isClosable: true,
+        })
+      )
+      .catch(
+        toast({
+          title: 'Error',
+          description:
+            'El CBU ya se encuentra asociado a un punto de reciclaje',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        })
+      );
   };
 
   const handleChange = (e) => {
@@ -134,10 +132,8 @@ function EntityProfile() {
     setInput({ ...input, img: url });
   };
 
-  const handleShow = (event) => {
-    const { name } = event.target;
-    name === 'cbu' ? setShowCBU(!showCBU) : setShowPassword(!showPassword);
-  };
+  const handleShowPassword = () => setShowPassword(!showPassword);
+  const handleShowCBU = () => setShowCBU(!showCBU);
 
   const handleSaveChanges = () => {
     updateVdV(id, input);
@@ -239,7 +235,7 @@ function EntityProfile() {
               <IconButton
                 name="password"
                 icon={showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                onClick={handleShow}
+                onClick={handleShowPassword}
               />
             </InputRightElement>
           </InputGroup>
@@ -259,7 +255,7 @@ function EntityProfile() {
               <IconButton
                 name="cbu"
                 icon={showCBU ? <ViewIcon /> : <ViewOffIcon />}
-                onClick={handleShow}
+                onClick={handleShowCBU}
               />
             </InputRightElement>
           </InputGroup>

@@ -1,6 +1,6 @@
 const { Strategy } = require('passport-local');
 const { findByMail } = require('../../routes/login/controller');
-
+const bcrypt = require('bcrypt');
 
 const LocalStrategy = new Strategy(
   {
@@ -15,7 +15,11 @@ const LocalStrategy = new Strategy(
           message: 'Correo electrónico incorrecto.',
         });
       }
-      if (password !== user.password) {
+      const checkpass = bcrypt.compareSync(password, user.password);
+      ///////////
+      console.log('localStrategyCheckpass', checkpass)
+      //////
+      if (checkpass == false) {
         return done(null, false, { message: 'Contraseña incorrecta.' });
       }
       return done(null, user);

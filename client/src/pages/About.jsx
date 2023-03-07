@@ -94,7 +94,7 @@ const About = () => {
         </Text>
       </Box>
 
-      <Flex flexWrap="wrap" align="center" w="100%" ml="30vh">
+      <Flex flexWrap="wrap" align="center" w="100%" justifyContent="center">
         {devList.map((dev, indx) => (
           <RenderDevCard key={`${dev.name}+${indx}`} dev={dev} />
         ))}
