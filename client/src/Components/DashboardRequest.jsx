@@ -9,6 +9,7 @@ import {
   AccordionIcon,
   Button,
   Image,
+  useToast,
 } from '@chakra-ui/react';
 import { CheckIcon, DeleteIcon } from '@chakra-ui/icons';
 
@@ -17,6 +18,7 @@ function DashboardRequest() {
     baseURL: 'https://verdevolver-pf-production.up.railway.app/',
   }); */
   const [requestArray, setRequestArray] = useState();
+  const toast = useToast();
 
   useEffect(() => {
     getDataBase();
@@ -45,17 +47,41 @@ function DashboardRequest() {
   };
 
   const approveCbu = (id, cbu, idVdV) => {
-    axios.put(`/vdv/${idVdV}`, { cbu }).then(() => {
-      axios.delete(`/cbuRequest/${id}`).then(() => {
-        window.alert('Cambio de CBU aprobado');
-        getDataBase();
+    Axios.put(`/vdv/${idVdV}`, { cbu }).then(() => {
+      Axios.delete(`/cbuRequest/${id}?idVdV=${idVdV}&cbu=${cbu}`).then(() => {
+        try {
+          toast({
+            title: 'CBU aprovado',
+            description: 'el cambio de CBU ha sido aprobado',
+            status: 'success',
+            duration: 1500,
+            isClosable: true,
+          });
+          //window.alert('Cambio de CBU aprobado');
+          getDataBase();
+        } catch (error) {
+          toast({
+            title: 'Error',
+            description: 'Ha ocurrido un error al actualizar el CBU',
+            status: 'error',
+            duration: 1500,
+            isClosable: true,
+          });
+        }
       });
     });
   };
 
   const disapproveCbu = (id) => {
-    axios.delete(`/cbuRequest/${id}`).then(() => {
-      window.alert('Cambio de cbu NO fue aprobado');
+    Axios.delete(`/cbuRequest/${id}?status=disapproved`).then(() => {
+      toast({
+        title: 'CBU no aprovado',
+        description: 'el cambio de CBU NO ha sido aprobado',
+        status: 'success',
+        duration: 1500,
+        isClosable: true,
+      });
+      //window.alert('Cambio de cbu NO fue aprobado');
       getDataBase();
     });
   };

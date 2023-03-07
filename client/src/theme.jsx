@@ -1,5 +1,5 @@
 import { extendTheme } from '@chakra-ui/react';
-import { Global } from "@emotion/react"
+import { Global } from '@emotion/react';
 const colors = {
   brands: {
     facebook: '#1877f2',
@@ -9,7 +9,7 @@ const colors = {
   vdv: {
     main: '#e4ebed',
     black: '#191a21',
-    green: '#1c5738',
+    green: '#7BA05B',
     'light-green': '#8f9f5a',
   },
 };
@@ -83,12 +83,12 @@ const Fonts = () => (
 }
       `}
   />
-)
+);
 
 const fonts = {
   fonts: {
-    heading: "Exo 2",
-    body: "Lato",
+    heading: 'Exo 2',
+    body: 'Lato',
   },
 };
 

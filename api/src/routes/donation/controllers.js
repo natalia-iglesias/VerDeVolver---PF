@@ -24,7 +24,7 @@ async function chargeDbDonation() {
   return bulkCreateDonations;
 }
 
-const createDonation = async (body) => {
+const setMp = async (body) => {
   const { amount, UserId, VdVId } = body;
 
   if (!amount || !UserId || !VdVId)
@@ -54,11 +54,13 @@ const createDonation = async (body) => {
         unit_price: Number(amount),
         description: `Gracias por su donacion a la entidad ${name}`,
         picture_url: img,
+        id: UserId,
+        category_id: VdVId,
       },
     ],
-    // notification_url:
-    // 'https://0b51-181-229-236-62.sa.ngrok.io/donation/confirmationDonation',
-    //https://ver-de-volver-pf-nu.vercel.app/
+    notification_url:
+      'https://00fb-190-139-91-88.sa.ngrok.io/donation/confirmationDonation',
+
     back_urls: {
       success: 'https://ver-de-volver-pf-psi.vercel.app/',
       // https://ver-de-volver-pf-psi.vercel.app/
@@ -69,19 +71,26 @@ const createDonation = async (body) => {
     binary_mode: true,
   };
 
-  await Donation.create({
-    amount,
-    UserId,
-    VdVId,
-  });
-
-  sendEmail(
-    userDetail.mail,
-    `Confirmacion de donación a la entidad ${name}`,
-    htmlDonationOkEmailTemplate(userDetail.name, name)
-  );
+  // sendEmail(
+  //   userDetail.mail,
+  //   `Confirmacion de donación a la entidad ${name}`,
+  //   htmlDonationOkEmailTemplate(userDetail.name, name)
+  // );
 
   return preference;
+};
+
+const createDonation = async (amount, UserId, VdVId, mpId) => {
+  try {
+    await Donation.create({
+      amount,
+      UserId,
+      VdVId,
+      mpId,
+    });
+  } catch (error) {
+    throw Error(error.message);
+  }
 };
 
 const getAll = async () => {
@@ -184,4 +193,5 @@ module.exports = {
   createDonation,
   getAll,
   getDonationsById,
+  setMp,
 };

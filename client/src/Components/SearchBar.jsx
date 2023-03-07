@@ -32,6 +32,7 @@ const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
   return (
     <InputGroup>
       <Input
+        borderRadius="1rem"
         placeholder="Punto de reciclaje"
         width={'50%'}
         mx="auto"

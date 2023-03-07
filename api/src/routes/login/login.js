@@ -3,7 +3,6 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const { SECRET } = process.env;
-const { findUser } = require('./controller.js');
 const { findByMail, changePasswordByToken } = require('../login/controller.js');
 const {
   htmlChangePasswordEmailTemplate,
@@ -64,7 +63,7 @@ router.get(
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     const { user } = req;
-    res.redirect(`http://localhost:5174/login/${user.id}`);
+    res.redirect(`/login/${user.id}`);
   }
 );
 

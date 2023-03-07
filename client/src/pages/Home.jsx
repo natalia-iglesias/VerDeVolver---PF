@@ -98,6 +98,8 @@ const Home = () => {
           m="0.7rem"
           fontSize="xl"
           fontFamily="lato"
+          display={'flex'}
+          alignItems={'center'}
         >
           Te brindamos información sobre los distintos lugares dedicados al
           reciclaje en todo el país. Encontrá los más cercanos y hacé que tu

@@ -174,6 +174,7 @@ const EntityDetail = () => {
               width="35vh"
               borderRadius="50%"
             />
+            {console.log(entity.img)}
           </Box>
         </Box>
       </Box>

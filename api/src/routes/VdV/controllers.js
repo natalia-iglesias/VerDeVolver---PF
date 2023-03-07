@@ -9,7 +9,7 @@ const chargeDbVdVs = (array) => {
 };
 
 const vdvCreate = async (body) => {
-  const { name, img, description, mail, address, cbu, materials, lat, lng, password } =
+  const { name, img, description, mail, address, cbu, materials, lat, lng} =
     body;
 
   const check = await checkMail(mail);
@@ -28,14 +28,14 @@ const vdvCreate = async (body) => {
     !lng ||
     !materials
   )
-    throw Error('Debes completar todos los campos obligatorios');
+  throw Error('Debes completar todos los campos obligatorios');
+
 
   const vdvCreate = await VdV.create({
     name: body.name,
     img: body.img,
     mail: body.mail,
     address: body.address,
-    password: body.password, 
     description: body.description,
     cbu: body.cbu,
     lat: body.lat,
@@ -44,7 +44,6 @@ const vdvCreate = async (body) => {
   });
 
   await vdvCreate.addMaterials(materials);
-  console.log(vdvCreate);
   return vdvCreate;
 };
 

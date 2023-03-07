@@ -77,8 +77,8 @@ const Entities = () => {
             setInput={setInput}
           />
         </GridItem>
-        <GridItem>
-          <VStack spacing="4">
+        <GridItem pt="2rem">
+          <VStack spacing="10">
             {isLoading ? (
               <PropagateLoader color="#1c5738" />
             ) : (

@@ -46,12 +46,17 @@ const deleteMaterial = async (name) => {
 
 const chargeDbMaterial = async () => {
   const bulkCreateMaterial = await Material.bulkCreate([
-    { name: 'Madera' },
+    { name: 'Plástico' },
     { name: 'Vidrio' },
+    { name: 'Metal' },
+    { name: 'Tapitas' },
+    { name: 'Cartón' },
+    { name: 'Aceite' },
+    { name: 'Aluminio' },
+    { name: 'Madera' },
+    { name: 'Textiles' },
+    { name: 'Baterias' },
     { name: 'Papel' },
-    { name: 'Plastico' },
-    { name: 'Chapa' },
-    { name: 'Hierro' },
   ]);
 
   return bulkCreateMaterial;

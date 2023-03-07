@@ -21,13 +21,17 @@ function RenderDevCard({ dev }) {
   return (
     <Card
       bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
-      border="solid 3px"
-      borderColor={colorMode === 'light' ? 'black' : '#2c835b'}
+      //border="solid 3px"
+      boxShadow="2xl"
       fontFamily="lato"
       w="20%"
       m="1vh"
       h="45vh"
       p="0.5rem"
+      _hover={{
+        transform: 'scale(1.02)',
+        transition: 'transform 0.3s ease-in-out',
+      }}
     >
       <Image
         src={img}

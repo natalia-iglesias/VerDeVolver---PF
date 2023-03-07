@@ -77,9 +77,13 @@ const EntityCard = ({ entity, acount }) => {
       justifyContent="center"
       pos={'relative'}
       py="1.5rem"
-      borderWidth="0.2rem"
-      borderColor="gray.300"
       bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+      boxShadow="dark-lg"
+      _hover={{
+        transform: 'scale(1.02)',
+        transition: 'transform 0.3s ease-in-out',
+      }}
+      borderRadius="1rem"
     >
       <Box pos="absolute" top="0" right="0" m="1rem">
         <RankingStars stars={entity?.rating} />
@@ -89,7 +93,7 @@ const EntityCard = ({ entity, acount }) => {
           src={entity.img}
           maxHeight="30vh"
           maxWidth="40vw"
-          borderRadius={'md'}
+          borderRadius={'1rem'}
         />
 
         <VStack alignItems="flex-start">
