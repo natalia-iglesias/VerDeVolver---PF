@@ -4,6 +4,8 @@ async function chargeDbRoles() {
   const bulkCreateRoles = await Role.bulkCreate([
     { name: 'User' },
     { name: 'Admin' },
+    { name: 'Owner' },
+    { name: 'Entity' },
   ]);
 
   return bulkCreateRoles;

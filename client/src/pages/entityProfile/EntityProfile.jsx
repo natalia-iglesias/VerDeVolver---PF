@@ -65,7 +65,6 @@ const materialsArray = [
 ];
 
 function EntityProfile() {
-  const toast = useToast();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [mapCenter, setMapCenter] = useState({ lat: -39, lng: -64 });
