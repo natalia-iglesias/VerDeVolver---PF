@@ -7,7 +7,7 @@ import {
   MenuItem,
   useColorMode,
 } from '@chakra-ui/react';
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Link as ReachLink } from 'react-router-dom';
@@ -22,15 +22,15 @@ const Profile = () => {
   const { colorMode } = useColorMode();
 
   useEffect(() => {
-    dispatch(fetchUsers()); 
-    dispatch(fetchEntities());   
+    dispatch(fetchUsers());
+    dispatch(fetchEntities());
   }, [dispatch]);
 
   if (!Object.entries(acount).length)
     return (
       <Button
-      bg={colorMode === 'light' ? '#F5F2EB' : '#68D391'}
-      onClick={() => navigate('/login')}
+        bg={colorMode === 'light' ? '#F5F2EB' : '#68D391'}
+        onClick={() => navigate('/login')}
       >
         Iniciar Sesión
       </Button>
@@ -38,38 +38,49 @@ const Profile = () => {
 
   return (
     <Menu>
-    {(acount.RoleId==1)?
-    (<MenuButton>
-        <Avatar
-          name={`${acount.name} ${acount.last_name}`}
-          src={acount.image}
-        />
-      </MenuButton>) :
-      (<MenuButton>
-        <Avatar
-          name={`${acount.name}`}
-          src={acount.img}
-        />
-      </MenuButton>)}
+      {acount.RoleId == 1 ? (
+        <MenuButton>
+          <Avatar
+            name={`${acount.name} ${acount.last_name}`}
+            src={acount.image}
+          />
+        </MenuButton>
+      ) : (
+        <MenuButton>
+          <Avatar name={`${acount.name}`} src={acount.img} />
+        </MenuButton>
+      )}
       <MenuList>
-      {(acount.RoleId==1)?
-        (<MenuItem
+        {acount.RoleId == 1 ? (
+          <MenuItem
             as={ReachLink}
             to={`/userprofile`}
             fontWeight={'700'}
             color={colorMode === 'light' ? 'green' : '#68D391'}
           >
             Mi perfil
-          </MenuItem>) :
-        (<MenuItem
+          </MenuItem>
+        ) : (
+          <MenuItem
             as={ReachLink}
             to={`/entityprofile/${acount.id}`}
             fontWeight={'700'}
             color={colorMode === 'light' ? 'green' : '#68D391'}
-         >
+          >
             Mi perfil
-        </MenuItem>)}
-        
+          </MenuItem>
+        )}
+        {(acount?.RoleId === 2 || acount?.RoleId === 3) && (
+          <MenuItem
+            as={ReachLink}
+            to={`/dashboard`}
+            fontWeight={'700'}
+            color={colorMode === 'light' ? 'green' : '#68D391'}
+          >
+            Dashboard
+          </MenuItem>
+        )}
+
         <MenuItem
           as={ReachLink}
           to="/home"
