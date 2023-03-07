@@ -51,20 +51,7 @@ const validate = ({ mail, password }, users, entities) => {
     errors.password = 'La contraseña es obligatoria';
   } else if (password.length < 4 || password.length > 16) {
     errors.password = 'La contraseña debe tener entre 4 y 16 caracteres';
-  }/* else if (userMails!==undefined && vdvsMails!==undefined){
-    if(userMails.length>0){
-      const userData = users?.filter((user) => user.mail === mail);
-      if(userData[0].password != password){
-        errors.password = 'Contraseña incorrecta';
-      }
-    };
-    if(vdvsMails.length>0){
-      const vdvData = entities?.filter((vdv) => vdv.mail === mail); 
-      if(vdvData[0].password != password){
-        errors.password = 'Contraseña incorrecta';
-      }
-    };
-  } */
+  }
 
   return errors;
 };
@@ -128,18 +115,8 @@ const Login = () => {
         isClosable: true,
       });
     };
-    if(!Object.keys(errors).length && dispatch(authAcountLocal(logInData))){
-      return;
-    }else{
-      return toast({
-        title: 'Error',
-        description: 'Contraseña incorrecta',
-        status: 'error',
-        duration: 1500,
-        isClosable: true,
-      })
-    }
-  };
+    (!Object.keys(errors).length && dispatch(authAcountLocal(logInData)))
+  }; 
 
   return (
     <Box
