@@ -12,6 +12,7 @@ export default function validate(form, name, users, entities) {
     };
     return isErrorObj;
   }
+
   if (name === 'mail') {
     const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
@@ -23,20 +24,26 @@ export default function validate(form, name, users, entities) {
     const userMails = users?.filter((element) => element.mail == form.mail);
     const vdvsMails = entities?.filter((element) => element.mail == form.mail);
 
-    if (userMails !== undefined && vdvsMails !== undefined) {
+    if (
+      userMails !== undefined &&
+      vdvsMails !== undefined &&
+      !isErrorObj.isError
+    ) {
       isErrorObj = {
         isError: userMails.length > 0 || vdvsMails.length > 0,
-        errorMsg: 'Este dato ya se encuentra asociado a otra cuenta',
+        errorMsg: 'Este email ya se encuentra asociado a otra cuenta',
       };
     }
   }
 
-  const vdvsNames = entities?.filter((element) => element.name == form.name);
-  if (vdvsNames !== undefined) {
-    isErrorObj = {
-      isError: vdvsNames.length > 0,
-      errorMsg: 'Este dato ya se encuentra asociado a otra cuenta',
-    };
+  if (name === 'name') {
+    const vdvsNames = entities?.filter((element) => element.name == form.name);
+    if (vdvsNames !== undefined && !isErrorObj.isError) {
+      isErrorObj = {
+        isError: vdvsNames.length > 0,
+        errorMsg: 'Este nombre ya se encuentra asociado a otra cuenta',
+      };
+    }
   }
 
   if (name === 'cbu') {
