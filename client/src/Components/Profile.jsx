@@ -51,7 +51,7 @@ const Profile = () => {
         </MenuButton>
       )}
       <MenuList>
-        {acount.RoleId == 1 ? (
+        {acount.RoleId !== 4 ? (
           <MenuItem
             as={ReachLink}
             to={`/userprofile`}
