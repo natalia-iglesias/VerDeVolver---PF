@@ -51,8 +51,6 @@ export default function validate(form, name, users, entities) {
       isError: form.cbu.length < 21 && form.cbu.length !== 0,
       errorMsg: 'El cbu debe ser de 22 digitos.',
     };
-    console.log('isErrorObj::::', isErrorObj);
-    console.log('cbu:::', form.cbu.length);
 
     const vdvsCbus = entities?.filter((element) => element.cbu == form.cbu);
     if (vdvsCbus !== undefined && form[name].length === 22) {
