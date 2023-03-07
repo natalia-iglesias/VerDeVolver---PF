@@ -15,6 +15,7 @@ import {
   PopoverHeader,
   PopoverTrigger,
   VStack,
+  useColorMode,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -90,6 +91,8 @@ const ChatBox = () => {
     setNewMessage(e.target.value);
   };
 
+  const { colorMode } = useColorMode();
+
   const handleSendMessage = (answer) => {
     if (newMessage || answer) {
       const iaRes = iaResponse(answer ?? newMessage);
@@ -121,6 +124,7 @@ const ChatBox = () => {
     <Popover>
       <PopoverTrigger>
         <IconButton
+          bg={colorMode === 'light' ? '#F5F2EB' : '#68D391'}
           icon={<AiOutlineMessage />}
           pos="fixed"
           left="1rem"
