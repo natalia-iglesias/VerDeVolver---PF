@@ -20,41 +20,60 @@ const About = () => {
   const devList = [
     {
       name: 'Solana Rocio Gomez',
-      img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730208/sol_qut1t5.jpg',
+      img: 'https://res.cloudinary.com/verdevolver/image/upload/v1678293311/1667237905925_odq127.jpg',
+      linkedin: 'https://www.linkedin.com/in/solana-g%C3%B3mez-2b2204220/',
+      github: 'https://github.com/SolanaG',
+      mail: 'gomez.solanarocio@gmail.com',
+
     },
     {
       name: 'Milton Amelino',
       img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677875983/images/bcdspw6rvhwxnxszvduc.jpg',
       linkedin: 'https://www.linkedin.com/in/milton-amelino-6987a1192/',
-      ig: 'https://www.instagram.com/tateuer/',
+      github: 'https://github.com/Tateuer',
       mail: 'tateuer@gmail.com',
     },
     {
       name: 'Diana Atobe',
       img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730798/dini_vcji6w.png',
       linkedin: 'https://www.linkedin.com/in/diana-atobe/',
-      ig: 'https://www.instagram.com/dianaatobe/',
+      github: 'https://github.com/diniat',
       mail: 'dianatobe@gmail.com',
     },
     {
       name: 'Juan Cruz Toloy',
-      img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730200/juan_c7r7qq.jpg',
+      img: 'https://res.cloudinary.com/verdevolver/image/upload/v1678292856/85139223_bvarjx.jpg',
+      linkedin: 'https://www.linkedin.com/in/juan-cruz-toloy-85610223b/',
+      github: 'https://github.com/toleZ',
+      mail: 'toloyjc@gmail.com',
     },
     {
       name: 'Cristian Mauricio Ortiz',
       img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730219/cris_zwqoxn.jpg',
+      linkedin: 'https://www.linkedin.com/in/cristian-mauricio-ortiz-cano-3115a2211/',
+      github: 'https://github.com/MauricioOrtizCano',
+      mail: 'cmoc1493@gmail.com',
     },
     {
       name: 'Rodrigo Jorge Figari',
       img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730168/rodri_qg9lw6.jpg',
+      linkedin: 'https://www.linkedin.com/in/rodrigo-figari-809736244/',
+      github: 'https://github.com/Rodrigofigari',
+      mail: 'rodrifiga@gmail.com',
     },
     {
       name: 'Natalia  Iglesias Gonzalez',
-      img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730233/naty_gktztr.jpg',
+      img: 'https://res.cloudinary.com/verdevolver/image/upload/v1678292018/13cd2dfa-7145-47a0-a574-52213905e487_rh7itj.jpg',
+      linkedin: 'https://www.linkedin.com/in/natalia-iglesias-94a3bb231/',
+      github: 'https://github.com/natalia-iglesias',
+      mail: 'iglesiasn63@gmail.com',
     },
     {
       name: 'Damián García Abreu',
-      img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730241/dami_sa1vpt.jpg',
+      img: 'https://res.cloudinary.com/verdevolver/image/upload/v1678310667/4c07630d-020f-4979-9de7-ea1b44998fbc_zi363t.jpg',
+      linkedin: 'https://www.linkedin.com/in/damian-garcia-381236255/',
+      github: 'https://github.com/DamGarA',
+      mail: 'damiangarciaabreu@gmail.com',
     },
   ];
   return (
