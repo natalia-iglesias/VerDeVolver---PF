@@ -46,18 +46,10 @@ const EntityCard = ({ entity, acount }) => {
         duration: 1500,
         isClosable: true,
       });
-      throw error('Debes iniciar sesión para poder donar');
+      throw new Error('Debes iniciar sesión para poder donar');
     }
     if (inputMonto) {
       try {
-        console.log(
-          'entityid:::::',
-          entity.id,
-          'inputMonto::::::',
-          inputMonto,
-          'Userid:::::::::',
-          id
-        );
         axios
           .post(`/donation`, {
             VdVId: entity.id,
