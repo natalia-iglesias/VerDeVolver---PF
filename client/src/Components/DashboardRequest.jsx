@@ -104,8 +104,8 @@ function DashboardRequest() {
     });
   };
 
-  const disapproveCbu = (id) => {
-    axios.delete(`/cbuRequest/${id}?status=disapproved`).then(() => {
+  const disapproveCbu = (id, cbu, idVdV) => {
+    axios.delete(`/cbuRequest/${id}?idVdV=${idVdV}&cbu=${cbu}`).then(() => {
       toast({
         title: 'CBU no aprovado',
         description: 'el cambio de CBU NO ha sido aprobado',
