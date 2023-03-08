@@ -20,9 +20,8 @@ function RenderDevCard({ dev }) {
   const { name, img, linkedin, ig, mail } = dev;
   return (
     <Card
-      bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
-      //border="solid 3px"
-      boxShadow="2xl"
+      bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+      boxShadow="dark-lg"
       fontFamily="lato"
       w="20%"
       m="1vh"
