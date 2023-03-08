@@ -30,7 +30,7 @@ const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
         duration: 3000,
         isClosable: true,
       });
-    //window.alert('No se encontró ninguna entidad con ese nombre');
+
     dispatch(filterEntitiesByMaterial(newFilters));
     setInput(1);
     setPage(1);
