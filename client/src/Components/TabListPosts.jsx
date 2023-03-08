@@ -27,8 +27,8 @@ function TabListPosts() {
     });
   }, []);
 
-  const updatePost = async (id) => {
-    await axios.put(`/instagram`, { url: input, id });
+  const updatePost = (id) => {
+    axios.put(`/instagram`, { url: input, id });
     navigate('/home');
   };
 
