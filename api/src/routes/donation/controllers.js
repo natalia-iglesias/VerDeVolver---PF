@@ -63,7 +63,7 @@ const setMp = async (body) => {
 
     back_urls: {
       success: 'https://ver-de-volver-pf-psi.vercel.app/',
-      // https://ver-de-volver-pf-psi.vercel.app/
+      
       failure: 'https://ver-de-volver-pf-psi.vercel.app/',
       pending: '',
     },
