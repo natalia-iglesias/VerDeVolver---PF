@@ -115,12 +115,24 @@ function DashboardScroll({ type, id, pendingOrDelivered }) {
                   </CardBody>
                 </Card>
                 {deleteFeedbackIcon && (
-                  <Button onClick={() => handleDeleteFeedback()}>
+                  <Button
+                    bg={'transpant'}
+                    border={'solid 2px grey'}
+                    m="0.5rem"
+                    shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+                    onClick={() => handleDeleteFeedback()}
+                  >
                     <DeleteIcon />
                   </Button>
                 )}
                 {deliveredCheckIcon && (
-                  <Button onClick={() => handleUpdateDonation()}>
+                  <Button
+                    bg={'transpant'}
+                    m="0.5rem"
+                    shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+                    border={'solid 2px grey'}
+                    onClick={() => handleUpdateDonation()}
+                  >
                     <CheckIcon />
                   </Button>
                 )}

@@ -50,8 +50,18 @@ const Entities = () => {
 
   const max = Math.ceil(numberEntitiesActives / byPage);
 
+  const lightModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
+
+  const darkModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
+
   return (
-    <VStack bg={colorMode === 'light' ? '#b4c4ac' : '#212933'} pr={'3rem'}>
+    <VStack
+      bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}
+      // bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+      pr={'3rem'}
+    >
       <SearchBar
         entities={entities}
         setPage={setPage}
