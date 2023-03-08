@@ -47,7 +47,7 @@ const Dashboard = () => {
       setFeedbackVdVFilters
     );
     // /role
-    axios.get('http://localhost:3001/role').then((res) => setRoles(res.data));
+    axios.get('/role').then((res) => setRoles(res.data));
   }, []);
 
   const renderOverFlowFeedback = () => {
@@ -80,7 +80,7 @@ const Dashboard = () => {
     if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(emailUser)) {
       const result = await axios.get(
         // /user/getByEmail/${emailUser}`
-        `http://localhost:3001/user/getByEmail/${emailUser}`
+        `/user/getByEmail/${emailUser}`
       );
       const userEnv = result.data[0];
       console.log(roleSelect);
@@ -88,7 +88,7 @@ const Dashboard = () => {
         ? await axios
             .put(
               //  /user/toowner/${userEnv.id}?roleId=${roleSelect}`
-              `http://localhost:3001/user/toowner/${userEnv.id}?roleId=${roleSelect}`
+              `/user/toowner/${userEnv.id}?roleId=${roleSelect}`
             )
             .then(
               toast({
