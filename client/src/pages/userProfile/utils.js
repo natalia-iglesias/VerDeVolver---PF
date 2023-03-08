@@ -22,7 +22,7 @@ const updateUser = async (id, input) => {
 
 const updateUserPassword = async (id, password) => {
   try {
-    const res = await axios.put(`http://localhost:3001/user/password/${id}`, password);
+    const res = await axios.put(`/user/password/${id}`, password);
     console.log(res)
     /* console.log(((res.data.id), (res.status)))
     return ((res.data.id), (res.status)); */
