@@ -16,6 +16,7 @@ const {
   changeStatus,
   getPending,
   getActive,
+  updateVdvPassword, 
 } = require('./controllers.js');
 
 const router = Router();
@@ -136,6 +137,17 @@ router.put('/:id', async (req, res) => {
   const { body } = req;
   try {
     const result = await upDateVdV(id, body);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+router.put('/password/:id', async (req, res) => {
+  const { id } = req.params;
+  const { body } = req;
+  try {
+    const result = await updateVdvPassword(id, body);
     res.status(200).send(result);
   } catch (error) {
     res.status(404).send(error.message);
