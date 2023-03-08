@@ -71,11 +71,11 @@ const setMp = async (body) => {
     binary_mode: true,
   };
 
-  // sendEmail(
-  //   userDetail.mail,
-  //   `Confirmacion de donación a la entidad ${name}`,
-  //   htmlDonationOkEmailTemplate(userDetail.name, name)
-  // );
+   sendEmail(
+     userDetail.mail,
+     `Confirmacion de donación a la entidad ${name}`,
+     htmlDonationOkEmailTemplate(userDetail.name, name)
+   );
 
   return preference;
 };

@@ -42,7 +42,7 @@ const updateVdV = (id, input) => {
 
 const updatePassword = async (id, password) => {
   try {
-    const res = await axios.put(`http://localhost:3001/vdv/password/${id}`, password);
+    const res = await axios.put(`/vdv/password/${id}`, password);
     return ((res.data.id), (res.status));
   } catch (error) {
     return 'No se ha actualizado la contraseña';
