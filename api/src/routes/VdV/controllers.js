@@ -182,6 +182,16 @@ const upDateVdV = async (id, body) => {
   }
 };
 
+const updateVdvPassword = async (id, password) => {
+  if (!id) throw Error('Debes ingresar un id');
+
+  const passwordToUd = password.password;
+  const salt = 10;
+  const hash = bcrypt.hashSync(passwordToUd, salt);
+
+  await VdV.update({ password: hash }, { where: { id } });
+};
+
 const deleteVdV = (id) => {
   if (!id) throw Error('Debes ingresar un id');
 
@@ -234,4 +244,5 @@ module.exports = {
   changeStatus,
   getPending,
   getActive,
+  updateVdvPassword,
 };

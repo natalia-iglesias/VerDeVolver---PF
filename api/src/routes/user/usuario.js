@@ -9,6 +9,7 @@ const {
   deleteUser,
   modifyUserRole,
   findBymail,
+  updateUserPassword,
 } = require('./controllers.js');
 const router = Router();
 
@@ -64,6 +65,21 @@ router.put('/:id', async (req, res) => {
   try {
     await findId(id);
     await updateUser(userSent, id);
+
+    const result = await findId(id);
+    return res.status(200).send(result);
+  } catch (error) {
+    return res.status(404).send(error.message);
+  }
+});
+
+router.put('/password/:id', async (req, res) => {
+  const { id } = req.params;
+  const passwordToUd = req.body;
+
+  try {
+    await findId(id);
+    await updateUserPassword(passwordToUd, id);
 
     const result = await findId(id);
     return res.status(200).send(result);

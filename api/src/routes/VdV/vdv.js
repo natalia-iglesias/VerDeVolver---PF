@@ -16,6 +16,7 @@ const {
   changeStatus,
   getPending,
   getActive,
+  updateVdvPassword, 
 } = require('./controllers.js');
 
 const router = Router();
@@ -72,17 +73,17 @@ router.post('/chargeDb', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const result = await vdvCreate(req.body);
-    // sendEmail(
-    //   req.body.mail,
-    //   'Gracias por completar el formulario 💚',
-    //   htmlFormVdVEmailTemplate(req.body.name)
-    // );
+    sendEmail(
+      req.body.mail,
+      'Gracias por completar el formulario 💚',
+      htmlFormVdVEmailTemplate(req.body.name)
+    );
 
-    // sendEmail(
-    //   EMAIL,
-    //   'Tienes una nueva solicitud 🌱',
-    //   htmlAdminFormVdVEmailTemplate(req.body.name)
-    // );
+    sendEmail(
+      EMAIL,
+      'Tienes una nueva solicitud 🌱',
+      htmlAdminFormVdVEmailTemplate(req.body.name)
+    );
     res.status(200).send(result);
   } catch (error) {
     res.status(404).json({ error: error.message });
@@ -142,6 +143,17 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+router.put('/password/:id', async (req, res) => {
+  const { id } = req.params;
+  const { body } = req;
+  try {
+    const result = await updateVdvPassword(id, body);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
 // deleteVdV
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
@@ -159,9 +171,6 @@ router.put('/status/:id', async (req, res) => {
 
   try {
     const result = await getByIdVdV(id);
-    console.log('resultVdv:::', result);
-    console.log('resultVdvName:::', result.name);
-    console.log('resultVdvMail:::', result.mail);
 
     const resultPass = await changeStatus(id);
     sendEmail(

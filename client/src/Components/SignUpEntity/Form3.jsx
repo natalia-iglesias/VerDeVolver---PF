@@ -20,7 +20,7 @@ import {
   createNewEntity,
 } from '../../redux/actions/entitiesActions';
 import { useNavigate } from 'react-router-dom';
-const Form3 = () => {
+const Form3 = ({ setProgressAndStep }) => {
   const toast = useToast();
   const navigate = useNavigate();
   const dispatch = useDispatch();

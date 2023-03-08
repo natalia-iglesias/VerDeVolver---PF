@@ -47,7 +47,6 @@ router.get(
       const user = await findByMail(mail);
       res.send(user);
     } catch (error) {
-      console.log('error');
       next(error);
     }
   }

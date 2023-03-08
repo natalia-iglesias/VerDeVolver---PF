@@ -17,25 +17,38 @@ export const authAcountLocal = ({ mail, password, keepLogged }) => {
       const auth = await axios.post(`/login`, {
         mail: mail,
         password: password,
+      })
+      .catch(function (error) {
+        if (error.response) {
+          return((error.response.data, error.response.status));
+        } 
       });
+      if(auth !== 401){
+        const { token } = await auth.data;
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
 
-      const { token } = await auth.data;
+        keepLogged
+          ? setLocalAcount({ mail, token })
+          : setSessionAcount({ mail, token });
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
+        const acount = await axios.get(
+          `http://localhost:3001/login?mail=${mail}`,
+          config
+        )
+        .catch(function (error) {
+          if (error.response) {
+            return((error.response.data,error.response.status));
+          } 
+        });
 
-      keepLogged
-        ? setLocalAcount({ mail, token })
-        : setSessionAcount({ mail, token });
-
-      const acount = await axios.get(`/login?mail=${mail}`, config);
-
-      dispatch({ type: AUTH_ACOUNT_LOCAL, payload: acount.data });
+        dispatch({ type: AUTH_ACOUNT_LOCAL, payload: acount.data });
+      }
     } catch (error) {
-      alert('Contraseña incorrecta');
+      throw Error(error);
     }
   };
 };

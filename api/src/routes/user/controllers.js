@@ -165,6 +165,19 @@ const updateUser = async (userToUD, id) => {
   });
 };
 
+const updateUserPassword = async (password, id) => {
+  if (!id) throw Error('Debes ingresar un id');
+
+  const passwordToUd = password.password;
+  console.log('passwordToUd', passwordToUd)
+  const salt = 10;
+  const hash = bcrypt.hashSync(passwordToUd, salt);
+
+  await User.update(
+    { password: hash }, 
+    { where: { id } });
+};
+
 const modifyUserRole = async (id, roleId) => {
   if (!id) throw Error('Debes ingresar un id valido');
   try {
@@ -219,4 +232,5 @@ module.exports = {
   deleteUser,
   modifyUserRole,
   findBymail,
+  updateUserPassword,
 };
