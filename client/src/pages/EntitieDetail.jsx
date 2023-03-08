@@ -148,7 +148,7 @@ const EntityDetail = () => {
           boxShadow="dark-lg"
           p="6"
           rounded="md"
-          h="92vh"
+          minH="92vh"
           // marginBottom="11vh"
           backgroundColor={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
         >
