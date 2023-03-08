@@ -133,7 +133,7 @@ const ChatBox = () => {
         />
       </PopoverTrigger>
 
-      <PopoverContent m="1rem" w="50vw">
+      <PopoverContent m="1rem" w="50vw" h="80vh">
         <PopoverHeader>Chat VDV</PopoverHeader>
         <PopoverCloseButton />
         <PopoverBody h={'20vh'} overflowY="scroll">
