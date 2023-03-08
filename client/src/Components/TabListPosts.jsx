@@ -28,8 +28,7 @@ function TabListPosts() {
   }, []);
 
   const updatePost = (id) => {
-    axios.put(`/instagram`, { url: input, id });
-    navigate('/home');
+    axios.put(`/instagram`, { url: input, id }).then(() => navigate('/home'));
   };
 
   const txtOrInputChange = () => {
