@@ -1,4 +1,5 @@
 const { User, Role, VdV } = require('../../db.js');
+const bcrypt = require('bcrypt');
 const { verify } = require('jsonwebtoken');
 const {
   updatePassword,
@@ -54,7 +55,9 @@ const changePasswordByToken = async (token, password) => {
 
   if (!userUpdate) throw Error(`El usuario con mail ${mail} no fue encontrado`);
 
-  userUpdate.password = password;
+  const salt = 10;
+  userUpdate.password = bcrypt.hashSync(password, salt);
+
   await userUpdate.save();
 
   return updatePassword;

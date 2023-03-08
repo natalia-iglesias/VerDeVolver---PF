@@ -13,6 +13,9 @@ import {
   Text,
   FormLabel,
   useToast,
+  useColorMode,
+  Flex,
+  Image,
 } from '@chakra-ui/react';
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -70,6 +73,7 @@ const SingUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const toast = useToast();
+  const { colorMode } = useColorMode();
 
   const { acount } = useSelector((state) => state.acountReducer);
   const { entities } = useSelector((state) => state.entitiesReducer);
@@ -134,101 +138,177 @@ const SingUp = () => {
 
   return (
     <Box
-      m={'1rem'}
-      display="flex"
-      flexDir={'column'}
-      gap={'1rem'}
-      overflow={'hidden'}
+      h="80rem"
+      p={'6rem'}
+      bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
     >
-      <FormControl isInvalid={errors.name}>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" children={<BiUser />} />
-
-          <Input
-            type="text"
-            onChange={handleChange}
-            value={singUpData.name}
-            name="name"
-            placeholder="Escribe tu nombre"
+      <Box
+        height="72rem"
+        w="60%"
+        bg={colorMode === 'light' ? '#F5F2EB' : '#333C49'}
+        margin="0 auto"
+        borderRadius="1rem"
+        boxShadow="dark-lg"
+      >
+        <Flex
+          pt={'3rem'}
+          flexDir={'column'}
+          gap={'1rem'}
+          alignItems="center"
+          justifyContent={'center'}
+        >
+          <Image
+            src="https://res.cloudinary.com/verdevolver/image/upload/v1678234115/My_project-1_1_dmqtx2.png"
+            w="10rem"
+            style={{ transform: 'scale(2.3)' }}
           />
-        </InputGroup>
-        {errors.name && <FormErrorMessage>{errors.name}</FormErrorMessage>}
-      </FormControl>
+          <Text
+            fontWeight={'bold'}
+            fontSize="6xl"
+            fontFamily={'Tilt Prism'}
+            marginBot="5rem"
+            textColor={colorMode === 'light' ? '#b4c4ac' : '#68D391'}
+          >
+            VerdeVolver
+          </Text>
+          <FormControl isInvalid={errors.name}>
+            <InputGroup pl={'10rem'} pr="10rem" pb={'1rem'}>
+              <InputLeftElement
+                ml={'10rem'}
+                pointerEvents="none"
+                children={<BiUser />}
+              />
 
-      <FormControl isInvalid={errors.last_name}>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" children={<BiUser />} />
+              <Input
+                borderWidth={'0.1rem'}
+                borderColor="black"
+                type="text"
+                onChange={handleChange}
+                value={singUpData.name}
+                name="name"
+                placeholder="Escribe tu nombre"
+              />
+            </InputGroup>
+            {errors.name && (
+              <FormErrorMessage pl={'10rem'} pr="10rem">
+                {errors.name}
+              </FormErrorMessage>
+            )}
+          </FormControl>
 
-          <Input
-            type="text"
-            onChange={handleChange}
-            value={singUpData.last_name}
-            name="last_name"
-            placeholder="Escribe tu apellido"
-          />
-        </InputGroup>
-        {errors.last_name && (
-          <FormErrorMessage>{errors.last_name}</FormErrorMessage>
-        )}
-      </FormControl>
+          <FormControl isInvalid={errors.last_name}>
+            <InputGroup pl={'10rem'} pr="10rem" pb={'1rem'}>
+              <InputLeftElement
+                ml={'10rem'}
+                pointerEvents="none"
+                children={<BiUser />}
+              />
 
-      <FormControl isInvalid={errors.mail}>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" children={<AtSignIcon />} />
-          <Input
-            type="text"
-            onChange={handleChange}
-            value={singUpData.mail}
-            name="mail"
-            placeholder="Escribe tu mail"
-          />
-        </InputGroup>
-        {errors.mail && <FormErrorMessage>{errors.mail}</FormErrorMessage>}
-      </FormControl>
+              <Input
+                borderWidth={'0.1rem'}
+                borderColor="black"
+                type="text"
+                onChange={handleChange}
+                value={singUpData.last_name}
+                name="last_name"
+                placeholder="Escribe tu apellido"
+              />
+            </InputGroup>
+            {errors.last_name && (
+              <FormErrorMessage pl={'10rem'} pr="10rem">
+                {errors.last_name}
+              </FormErrorMessage>
+            )}
+          </FormControl>
 
-      <FormControl isInvalid={errors.password}>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" children={<LockIcon />} />
-          <Input
-            type={show ? 'text' : 'password'}
-            onChange={handleChange}
-            value={singUpData.password}
-            name="password"
-            placeholder="Escribe tu contraseña"
-          />
-          <InputRightElement>
-            <IconButton
-              icon={show ? <ViewOffIcon /> : <ViewIcon />}
-              onClick={() => setShow(!show)}
+          <FormControl isInvalid={errors.mail}>
+            <InputGroup pl={'10rem'} pr="10rem" pb={'1rem'}>
+              <InputLeftElement
+                ml={'10rem'}
+                pointerEvents="none"
+                children={<AtSignIcon />}
+              />
+              <Input
+                borderWidth={'0.1rem'}
+                borderColor="black"
+                type="text"
+                onChange={handleChange}
+                value={singUpData.mail}
+                name="mail"
+                placeholder="Escribe tu mail"
+              />
+            </InputGroup>
+            {errors.mail && (
+              <FormErrorMessage pl={'10rem'} pr="10rem">
+                {errors.mail}
+              </FormErrorMessage>
+            )}
+          </FormControl>
+
+          <FormControl isInvalid={errors.password}>
+            <InputGroup pl={'10rem'} pr="10rem" pb={'1rem'}>
+              <InputLeftElement
+                ml={'10rem'}
+                pointerEvents="none"
+                children={<LockIcon />}
+              />
+              <Input
+                borderWidth={'0.1rem'}
+                borderColor="black"
+                type={show ? 'text' : 'password'}
+                onChange={handleChange}
+                value={singUpData.password}
+                name="password"
+                placeholder="Escribe tu contraseña"
+              />
+              <InputRightElement>
+                <IconButton
+                  mr={'13rem'}
+                  bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+                  icon={show ? <ViewOffIcon /> : <ViewIcon />}
+                  onClick={() => setShow(!show)}
+                />
+              </InputRightElement>
+            </InputGroup>
+            {errors.password && (
+              <FormErrorMessage pl={'10rem'} pr="10rem">
+                {errors.password}
+              </FormErrorMessage>
+            )}
+          </FormControl>
+
+          <FormControl pl={'15rem'} pb={'1rem'}>
+            <FormLabel>Imagen</FormLabel>
+            <UploadImage
+              onUpload={handleUploadImage}
+              value={singUpData.image}
             />
-          </InputRightElement>
-        </InputGroup>
-        {errors.password && (
-          <FormErrorMessage>{errors.password}</FormErrorMessage>
-        )}
-      </FormControl>
+          </FormControl>
 
-      <FormControl>
-        <FormLabel>Imagen</FormLabel>
-        <UploadImage onUpload={handleUploadImage} value={singUpData.image} />
+          <Button
+            bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+            onClick={handleSubmit}
+          >
+            Registrarse
+          </Button>
 
-        <FormHelperText>Sube tu imagen aqui.</FormHelperText>
-      </FormControl>
+          <Button
+            bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+            color={colorMode === 'light' ? 'black' : 'white'}
+            rightIcon={<AiFillGoogleCircle />}
+            onClick={() => dispatch(authAcountGoogle())}
+          >
+            Continúa con Google
+          </Button>
 
-      <Button onClick={handleSubmit}>Registrarse</Button>
+          <Divider />
 
-      <IconButton
-        icon={<AiFillGoogleCircle />}
-        color="brands.google"
-        onClick={() => dispatch(authAcountGoogle())}
-      />
-
-      <Divider />
-
-      <Text textAlign={'center'}>
-        Ya estas registrado? <Link to="/login">Inicia sesión</Link>
-      </Text>
-      <Box h={'25rem'}></Box>
+          <Text textAlign={'center'} as="u">
+            Ya estas registrado? <Link to="/login">Inicia sesión</Link>
+          </Text>
+          {/* <Box h={'25rem'}></Box> */}
+        </Flex>
+      </Box>
     </Box>
   );
 };

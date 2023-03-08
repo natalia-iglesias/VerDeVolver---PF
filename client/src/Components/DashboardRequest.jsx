@@ -33,16 +33,48 @@ function DashboardRequest() {
   };
 
   const changeStatus = (id) => {
-    axios.put(`/vdv/status/${id}`).then(() => {
-      window.alert('Entidad aprobada');
-      getDataBase();
-    });
+    try {
+      axios.put(`/vdv/status/${id}`).then(() => {
+        toast({
+          title: 'Aprobada',
+          description: 'La entidad ha sido aprobada',
+          status: 'success',
+          duration: 1500,
+          isClosable: true,
+        });
+        getDataBase();
+      });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Ha ocurrido un error al aprobar la entidad',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
+    }
   };
 
   const disapproveEntity = (id) => {
     axios.delete(`/vdv/${id}`).then(() => {
-      window.alert('La entidad ha sido borrada');
-      getDataBase();
+      try {
+        toast({
+          title: 'Borrado exitoso',
+          description: 'La entidad ha sido borrada exitosamente',
+          status: 'success',
+          duration: 1500,
+          isClosable: true,
+        });
+        getDataBase();
+      } catch (error) {
+        toast({
+          title: 'Error',
+          description: 'Ha ocurrido un error al borrar la entidad',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
+      }
     });
   };
 
@@ -57,7 +89,7 @@ function DashboardRequest() {
             duration: 1500,
             isClosable: true,
           });
-          //window.alert('Cambio de CBU aprobado');
+
           getDataBase();
         } catch (error) {
           toast({
@@ -81,7 +113,7 @@ function DashboardRequest() {
         duration: 1500,
         isClosable: true,
       });
-      //window.alert('Cambio de cbu NO fue aprobado');
+
       getDataBase();
     });
   };

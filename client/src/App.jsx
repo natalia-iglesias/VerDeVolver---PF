@@ -32,13 +32,11 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    /*  !Object.keys(acount).length && dispatch(LogedUser());
-    dispatch(fetchEntities()); */
-    if (!Object.keys(acount).length) {
-      dispatch(LogedUser());
-    }
+    !Object.keys(acount).length && dispatch(LogedUser());
     dispatch(fetchEntities());
-  }, [acount]);
+  }, []);
+
+  console.log(acount?.RoleId !== 4);
 
   return (
     <div style={{ minHeight: '100vh' }}>
@@ -60,13 +58,13 @@ const App = () => {
           <Route
             path="/userprofile"
             element={
-              <ProtectedRoute cond={acount?.RoleId === 1}>
+              <ProtectedRoute cond={acount?.RoleId !== 4}>
                 <UserProfile />
               </ProtectedRoute>
             }
           />
           <Route
-            path="/entityprofile/:id"
+            path="/entityprofile"
             element={
               <ProtectedRoute cond={acount?.RoleId === 4}>
                 <EntityProfile />
@@ -76,7 +74,9 @@ const App = () => {
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute cond={acount?.RoleId === 2}>
+              <ProtectedRoute
+                cond={acount?.RoleId === 2 || acount?.RoleId === 3}
+              >
                 <Dashboard />
               </ProtectedRoute>
             }

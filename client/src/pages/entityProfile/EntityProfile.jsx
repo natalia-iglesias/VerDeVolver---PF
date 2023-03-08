@@ -72,7 +72,6 @@ function EntityProfile() {
   const [zoom, setZoom] = useState(5);
 
   const { acount } = useSelector((state) => state.acountReducer);
-  const { id } = useParams();
   const { donations, feedbacks } = useSelector(
     (state) => state.entitiesReducer
   );
@@ -84,15 +83,15 @@ function EntityProfile() {
   const [errorCBU, setErrorCBU] = useState('');
 
   useEffect(() => {
-    axios.get(`/vdv/${id}`).then((res) => {
+    axios.get(`/vdv/${acount?.RoleId}`).then((res) => {
       setInput({
         ...res.data,
       });
       // );
     });
-    dispatch(getEntityDonation(id));
-    dispatch(getEntityFeedbacks(id));
-  }, [id]);
+    dispatch(getEntityDonation(acount?.RoleId));
+    dispatch(getEntityFeedbacks(acount?.RoleId));
+  }, [acount]);
 
   const handleCBU = (e) => {
     const { value } = e.target;
@@ -102,7 +101,10 @@ function EntityProfile() {
 
   const handleButtonCBU = (e) => {
     const res = axios
-      .post('/cbuRequest', { cbu: CBU, idVdV: id })
+      .post('/cbuRequest', {
+        cbu: CBU,
+        idVdV: acount?.RoleId,
+      })
       .then(
         toast({
           title: 'Success',
@@ -136,7 +138,7 @@ function EntityProfile() {
   const handleShowCBU = () => setShowCBU(!showCBU);
 
   const handleSaveChanges = () => {
-    updateVdV(id, input);
+    updateVdV(acount?.RoleId, input);
   };
 
   const handleCancelChanges = () => {
@@ -145,7 +147,7 @@ function EntityProfile() {
   };
 
   const handleDeleteEntity = () => {
-    deleteVdV(id, navigate);
+    deleteVdV(acount?.RoleId, navigate);
   };
 
   const handlePlaceSelected = (e) => {

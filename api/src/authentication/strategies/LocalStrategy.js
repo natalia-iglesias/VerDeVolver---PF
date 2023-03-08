@@ -16,9 +16,7 @@ const LocalStrategy = new Strategy(
         });
       }
       const checkpass = bcrypt.compareSync(password, user.password);
-      ///////////
-      console.log('localStrategyCheckpass', checkpass)
-      //////
+
       if (checkpass == false) {
         return done(null, false, { message: 'Contraseña incorrecta.' });
       }

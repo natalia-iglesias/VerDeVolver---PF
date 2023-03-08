@@ -12,6 +12,9 @@ import {
   InputRightElement,
   Text,
   useToast,
+  Image,
+  useColorMode,
+  Flex,
 } from '@chakra-ui/react';
 
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -50,9 +53,22 @@ const validate = ({ mail, password }, users, entities) => {
 
   if (!password) {
     errors.password = 'La contraseña es obligatoria';
-  } else if (password.length < 4 || password.length > 16) {
-    errors.password = 'La contraseña debe tener entre 4 y 16 caracteres';
-  }
+  } else if (password.length < 4) {
+    errors.password = 'La contraseña debe tener mínimo 4 caracteres';
+  } /* else if (userMails!==undefined && vdvsMails!==undefined){
+    if(userMails.length>0){
+      const userData = users?.filter((user) => user.mail === mail);
+      if(userData[0].password != password){
+        errors.password = 'Contraseña incorrecta';
+      }
+    };
+    if(vdvsMails.length>0){
+      const vdvData = entities?.filter((vdv) => vdv.mail === mail); 
+      if(vdvData[0].password != password){
+        errors.password = 'Contraseña incorrecta';
+      }
+    };
+  } */
 
   return errors;
 };
@@ -65,6 +81,7 @@ const Login = () => {
   const { acount } = useSelector((state) => state.acountReducer);
   const { entities } = useSelector((state) => state.entitiesReducer);
   const { users } = useSelector((state) => state.usersReducer);
+  const { colorMode } = useColorMode();
 
   const { googleId } = useParams();
 
@@ -131,72 +148,211 @@ const Login = () => {
 
   return (
     <Box
-      m={'1rem'}
-      display="flex"
-      flexDir={'column'}
-      gap={'1rem'}
-      overflow={'hidden'}
+      h="60rem"
+      p={'6rem'}
+      bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
     >
-      <FormControl isInvalid={errors.mail}>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" children={<AtSignIcon />} />
-          <Input
-            type="text"
-            onChange={handleChange}
-            value={logInData.mail}
-            name="mail"
-            placeholder="Escribe tu mail"
+      <Box
+        height="50rem"
+        w="50%"
+        bg={colorMode === 'light' ? '#F5F2EB' : '#333C49'}
+        margin="0 auto"
+        borderRadius="1rem"
+        boxShadow="dark-lg"
+      >
+        <Flex
+          pt={'3rem'}
+          flexDir={'column'}
+          gap={'1rem'}
+          alignItems="center"
+          justifyContent={'center'}
+        >
+          <Image
+            src="https://res.cloudinary.com/verdevolver/image/upload/v1678234115/My_project-1_1_dmqtx2.png"
+            w="10rem"
+            style={{ transform: 'scale(1.9)' }}
           />
-        </InputGroup>
-        {errors.mail && <FormErrorMessage>{errors.mail}</FormErrorMessage>}
-      </FormControl>
+          <Text
+            fontWeight={'bold'}
+            fontSize="6xl"
+            fontFamily={'Tilt Prism'}
+            marginBot="5rem"
+            textColor={colorMode === 'light' ? '#b4c4ac' : '#68D391'}
+          >
+            VerdeVolver
+          </Text>
+          <FormControl isInvalid={errors.mail}>
+            <InputGroup pl={'10rem'} pr="10rem" pb={'1rem'}>
+              <InputLeftElement
+                pl={'11rem'}
+                pointerEvents="none"
+                children={<AtSignIcon />}
+              />
+              <Input
+                borderWidth={'0.1rem'}
+                borderColor="black"
+                type="text"
+                onChange={handleChange}
+                value={logInData.mail}
+                name="mail"
+                placeholder="Escribe tu mail"
+              />
+            </InputGroup>
+            {errors.mail && (
+              <FormErrorMessage pl={'10rem'} pr="10rem">
+                {errors.mail}
+              </FormErrorMessage>
+            )}
+          </FormControl>
 
-      <FormControl isInvalid={errors.password}>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" children={<LockIcon />} />
-          <Input
-            type={showPassword ? 'text' : 'password'}
-            onChange={handleChange}
-            value={logInData.password}
-            name="password"
-            placeholder="Escribe tu contraseña"
-          />
-          <InputRightElement>
-            <IconButton
-              icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
-              onClick={() => setShowPassword(!showPassword)}
-            />
-          </InputRightElement>
-        </InputGroup>
-        {errors.password && (
-          <FormErrorMessage>{errors.password}</FormErrorMessage>
-        )}
-      </FormControl>
+          <FormControl isInvalid={errors.password}>
+            <InputGroup pl={'10rem'} pr="10rem">
+              <InputLeftElement
+                pl={'11rem'}
+                pointerEvents="none"
+                children={<LockIcon />}
+              />
+              <Input
+                borderWidth={'0.1rem'}
+                borderColor="black"
+                type={showPassword ? 'text' : 'password'}
+                onChange={handleChange}
+                value={logInData.password}
+                name="password"
+                placeholder="Escribe tu contraseña"
+              />
+              <InputRightElement pr={'8rem'}>
+                <IconButton
+                  bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+                  icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              </InputRightElement>
+            </InputGroup>
+            {errors.password && (
+              <FormErrorMessage pl={'10rem'} pr="10rem">
+                {errors.password}
+              </FormErrorMessage>
+            )}
+          </FormControl>
 
-      <Checkbox name="logged" isChecked={logged} onChange={handleCheck}>
-        Mantener sesión
-      </Checkbox>
+          <Checkbox name="logged" isChecked={logged} onChange={handleCheck}>
+            Mantener sesión
+          </Checkbox>
 
-      <Button onClick={handleLogin}>Iniciar sesión</Button>
+          <Button
+            bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+            onClick={handleLogin}
+          >
+            Iniciar sesión
+          </Button>
 
-      <IconButton
-        icon={<AiFillGoogleCircle />}
-        color="brands.google"
-        onClick={() => dispatch(authAcountGoogle())}
-      />
+          {/* <IconButton
+            bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+            icon={<AiFillGoogleCircle />}
+            color="brands.google"
+            onClick={() => dispatch(authAcountGoogle())}
+          /> */}
+          <Button
+            bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+            color={colorMode === 'light' ? 'black' : 'white'}
+            rightIcon={<AiFillGoogleCircle />}
+            onClick={() => dispatch(authAcountGoogle())}
+          >
+            Continúa con Google
+          </Button>
 
-      <Text alignSelf={'flex-end'}>
-        <ForgotPassword />
-      </Text>
+          <Text alignSelf={'flex-end'} as="u" pr={'1rem'}>
+            <ForgotPassword />
+          </Text>
 
-      <Divider />
+          <Divider />
 
-      <Text textAlign={'center'}>
-        ¿Necesitas una cuenta? <Link to="/singup">Registrate</Link>
-      </Text>
-      <Box height={'30rem'}></Box>
+          <Text textAlign={'center'} as="u">
+            ¿Necesitas una cuenta? <Link to="/singup">Registrate acá</Link>
+          </Text>
+        </Flex>
+      </Box>
     </Box>
   );
 };
 
 export default Login;
+
+{
+  /* <Card
+bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+w="40rem"
+h="40rem"
+pt="1rem"
+mx={'auto'}
+>
+<Box
+  m={'1rem'}
+  display="flex"
+  flexDir={'column'}
+  gap={'1rem'}
+  overflow={'hidden'}
+>
+  <FormControl isInvalid={errors.mail}>
+    <InputGroup>
+      <InputLeftElement pointerEvents="none" children={<AtSignIcon />} />
+      <Input
+        type="text"
+        onChange={handleChange}
+        value={logInData.mail}
+        name="mail"
+        placeholder="Escribe tu mail"
+      />
+    </InputGroup>
+    {errors.mail && <FormErrorMessage>{errors.mail}</FormErrorMessage>}
+  </FormControl>
+
+  <FormControl isInvalid={errors.password}>
+    <InputGroup>
+      <InputLeftElement pointerEvents="none" children={<LockIcon />} />
+      <Input
+        type={showPassword ? 'text' : 'password'}
+        onChange={handleChange}
+        value={logInData.password}
+        name="password"
+        placeholder="Escribe tu contraseña"
+      />
+      <InputRightElement>
+        <IconButton
+          icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+          onClick={() => setShowPassword(!showPassword)}
+        />
+      </InputRightElement>
+    </InputGroup>
+    {errors.password && (
+      <FormErrorMessage>{errors.password}</FormErrorMessage>
+    )}
+  </FormControl>
+
+  <Checkbox name="logged" isChecked={logged} onChange={handleCheck}>
+    Mantener sesión
+  </Checkbox>
+
+  <Button onClick={handleLogin}>Iniciar sesión</Button>
+
+  <IconButton
+    icon={<AiFillGoogleCircle />}
+    color="brands.google"
+    onClick={() => dispatch(authAcountGoogle())}
+  />
+
+  <Text alignSelf={'flex-end'}>
+    <ForgotPassword />
+  </Text>
+
+  <Divider />
+
+  <Text textAlign={'center'}>
+    ¿Necesitas una cuenta? <Link to="/singup">Registrate</Link>
+  </Text>
+</Box>
+</Card>
+);
+}; */
+}
