@@ -20,7 +20,7 @@ const pepe = [
     address: 'calle 1',
     description:
       'Entidad privada cuya actividad se centra en mejorar la calidad de vida de las personas optimizando el aprovechamiento de recursos.',
-    cbu: '345678987772356789121',
+    cbu: '3456789877723567891212',
     lat: -34.1,
     lng: -68.2,
     materials: [1, 2], // este no se pasa a la creacion de la VdV , este dato se usa para relacionar las tablas
@@ -35,7 +35,7 @@ const pepe = [
     address: 'calle 2',
     description:
       'Somos una asociación ecologista que fomenta el cambio local y global hacia una sociedad respetuosa con el medio ambiente, justa y solidaria.',
-    cbu: '545670987772356789132',
+    cbu: '5456709877723567891321',
     lat: -34.3,
     lng: -68.4,
     materials: [3, 4],

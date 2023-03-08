@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 //import OverflowScroll from '../../Components/OverFlowScroll/OverflowScroll.jsx';
-import { deleteUser, updateUser } from './utils';
+import { deleteUser, updateUser, updateUserPassword } from './utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -60,30 +60,37 @@ function UserProfile() {
     name: acount?.name,
     last_name: acount?.last_name,
     mail: acount?.mail,
-    password: acount?.password,
     image: acount?.image,
   });
-  const [show, setShow] = useState(false);
+/*   const [show, setShow] = useState(false); */
+
+  const [inputPassword, setInputPassword] = useState({
+    password: '', 
+  });
+
+  const handleChangePassword = (e) => {
+    setInputPassword({[e.target.name]: e.target.value });
+  };
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleShow = (e) => setShow(!show);
+  /* const handleShow = (e) => setShow(!show); */
 
   const handleSaveChanges = () => {
-    dispatch(authAcountLocal(acount));
     const setUpdateuser = async () => {
       const message = await updateUser(acount?.id, input);
 
       if (message == acount.id) {
-        return toast({
+        toast({
           title: 'Datos actualizados correctamente',
           description: 'Los cambios han sido guardados satisfactoriamente',
           status: 'success',
           duration: 3000,
           isClosable: true,
         });
+        return dispatch(authAcountLocal(acount));
       } else {
         return toast({
           title: 'Error',
@@ -98,12 +105,15 @@ function UserProfile() {
     setUpdateuser();
   };
 
+  const handleSaveChangePassword = async () => {
+      await updateUserPassword(acount?.id, inputPassword)
+  };
+
   const handleCancelChanges = () => {
     setInput({
       name: acount?.name,
       last_name: acount?.last_name,
       mail: acount?.mail,
-      password: acount?.password,
       image: acount?.image,
     });
   };
@@ -180,21 +190,18 @@ function UserProfile() {
           </InputGroup>
         </Box>
         <Box my="1rem">
-          <Text>Contraseña</Text>
+          <Text>Cambiar contraseña</Text>
           <InputGroup>
             <InputLeftElement children={<LockIcon />} />
             <Input
-              type={show ? 'text' : 'password'}
+              type='text'
               name="password"
-              value={input.password}
-              onChange={handleChange}
+              value={inputPassword.password}
+              onChange={handleChangePassword}
             />
-            <InputRightElement>
-              <IconButton
-                icon={show ? <ViewIcon /> : <ViewOffIcon />}
-                onClick={handleShow}
-              />
-            </InputRightElement>
+          <Button colorScheme={'green'} w="40%" onClick={handleSaveChangePassword}>
+            Actualizar
+          </Button>
           </InputGroup>
         </Box>
         <UploadImage onUpload={handleUploadImage} value={input.image} />
