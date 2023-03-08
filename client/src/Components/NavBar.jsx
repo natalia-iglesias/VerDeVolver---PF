@@ -46,13 +46,14 @@ const Navbar = () => {
           color={colorMode === 'light' ? 'green' : '#68D391'}
           fontWeight="semibold"
           fontSize="xl"
+          fontFamily={'Tilt Prism'}
         >
           Mapa
         </ListItem>
 
         <ListItem color={colorMode === 'light' ? 'green' : '#68D391'}>
           <Menu>
-            <MenuButton fontWeight="semibold" fontSize="xl">
+            <MenuButton fontWeight="semibold" fontSize="xl" fontFamily={'Tilt Prism'}>
               Puntos de reciclaje
             </MenuButton>
             <MenuList>
@@ -62,6 +63,7 @@ const Navbar = () => {
                 color={colorMode === 'light' ? 'green' : '#68D391'}
                 fontWeight="semibold"
                 fontSize="xl"
+                fontFamily={'Tilt Prism'}
               >
                 Ver todos
               </MenuItem>
@@ -71,6 +73,7 @@ const Navbar = () => {
                 color={colorMode === 'light' ? 'green' : '#68D391'}
                 fontWeight="semibold"
                 fontSize="xl"
+                fontFamily={'Tilt Prism'}
               >
                 Publica tu punto de reciclaje
               </MenuItem>
@@ -84,6 +87,7 @@ const Navbar = () => {
               color={colorMode === 'light' ? 'green' : '#68D391'}
               fontWeight="semibold"
               fontSize="xl"
+              fontFamily={'Tilt Prism'}
             >
               Contactanos
             </MenuButton>
@@ -94,6 +98,7 @@ const Navbar = () => {
                 color={colorMode === 'light' ? 'green' : '#68D391'}
                 fontWeight="semibold"
                 fontSize="xl"
+                fontFamily={'Tilt Prism'}
               >
                 Quienes somos
               </MenuItem>
@@ -103,6 +108,7 @@ const Navbar = () => {
                 color={colorMode === 'light' ? 'green' : '#68D391'}
                 fontWeight="semibold"
                 fontSize="xl"
+                fontFamily={'Tilt Prism'}
               >
                 Contacto
               </MenuItem>
