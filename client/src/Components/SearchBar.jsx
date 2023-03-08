@@ -1,6 +1,12 @@
 import { useDispatch } from 'react-redux';
 import { SearchIcon } from '@chakra-ui/icons';
-import { IconButton, Input, InputGroup, useColorMode } from '@chakra-ui/react';
+import {
+  IconButton,
+  Input,
+  InputGroup,
+  useColorMode,
+  useToast,
+} from '@chakra-ui/react';
 import {
   searchEntities,
   filterEntitiesByMaterial,
@@ -10,13 +16,21 @@ const SearchBar = ({ entities, setPage, setInput, setSearch, search }) => {
   let dispatch = useDispatch();
 
   const { colorMode } = useColorMode();
+  const toast = useToast();
 
   const handleClick = (e) => {
     const newFilters = entities.filter((ent) =>
       ent.name.toUpperCase().includes(e.target.value.toUpperCase())
     );
     if (newFilters.length === 0)
-      return window.alert('No se encontró ninguna entidad con ese nombre');
+      return toast({
+        title: 'Error',
+        description: 'No se encontró ningún punto de reciclaje con ese nombre',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    //window.alert('No se encontró ninguna entidad con ese nombre');
     dispatch(filterEntitiesByMaterial(newFilters));
     setInput(1);
     setPage(1);
