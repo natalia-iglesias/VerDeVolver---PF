@@ -54,7 +54,6 @@ const EntityCard = ({ entity, acount }) => {
         duration: 1500,
         isClosable: true,
       });
-      throw new Error('Debes iniciar sesión para poder donar');
     }
     if (inputMonto) {
       try {
