@@ -20,7 +20,7 @@ const pepe = [
     address: 'calle 1',
     description:
       'Entidad privada cuya actividad se centra en mejorar la calidad de vida de las personas optimizando el aprovechamiento de recursos.',
-    cbu: '345678987772356789121',
+    cbu: '3456789877723567891212',
     lat: -34.1,
     lng: -68.2,
     materials: [1, 2], // este no se pasa a la creacion de la VdV , este dato se usa para relacionar las tablas
@@ -35,7 +35,7 @@ const pepe = [
     address: 'calle 2',
     description:
       'Somos una asociación ecologista que fomenta el cambio local y global hacia una sociedad respetuosa con el medio ambiente, justa y solidaria.',
-    cbu: '545670987772356789132',
+    cbu: '5456709877723567891325',
     lat: -34.3,
     lng: -68.4,
     materials: [3, 4],
@@ -46,7 +46,8 @@ const pepe = [
     name: 'Greenpeace',
     img: 'https://i.pinimg.com/564x/10/81/8c/10818c11b7bf2f08a743ab31bec6273c.jpg',
     mail: 'tam@mail.com',
-    password:"12345", address: 'calle 3',
+    password: '12345',
+    address: 'calle 3',
     description:
       'Organización ecologista y pacifista políticamente independiente.',
     cbu: '445670987772356789135',
@@ -60,7 +61,8 @@ const pepe = [
     name: 'DemoVerde',
     img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
     mail: 'sep@mail.com',
-    password:"12345", address: 'calle 4',
+    password: '12345',
+    address: 'calle 4',
     description:
       'ONG sin fines de lucro para la gestión de los recursos y los residuos',
     cbu: '145670987772356789137',
@@ -74,7 +76,8 @@ const pepe = [
     name: 'Reciclamos muchisimo',
     img: 'https://www.faber-castell.com.ar/-/media/Faber-Castell-new/Corporate/sustainability/2020/image-content-sustainability-trees.ashx?sc_lang=es-AR&la=es-AR&h=1004&w=1074&mw=1280&hash=B6319CBBB0647F5C29A738D155FDDDA5',
     mail: 'recimuchisimo@mail.com',
-    password:"12345", address: 'calle 6',
+    password: '12345',
+    address: 'calle 6',
     description:
       'Empresa gigante que va y busca todo lo que tires.Empresa gigante que va y busca todo lo que tires.Empresa gigante que va y busca todo lo que tires.',
     cbu: '945670987772356789138',
@@ -88,7 +91,8 @@ const pepe = [
     name: 'Verde que te quiero verde',
     img: 'https://cdn-icons-png.flaticon.com/512/4396/4396133.png',
     mail: 'verdeymasverde@mail.com',
-    password:"12345", address: 'calle 6',
+    password: '12345',
+    address: 'calle 6',
     description:
       'Somos una entidad recicladora que recicla cosas reciclables y las reciclamos',
     lat: -34.4,
@@ -101,7 +105,7 @@ const pepe = [
     name: 'Agua clara',
     img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsWWi7DjPdRzvtAi1cD6HX5N-6Afg33xr_Uw&usqp=CAU',
     mail: 'aguaclara@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 6',
     description:
       'Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.',
@@ -115,7 +119,7 @@ const pepe = [
     name: 'Tierra Verde',
     img: 'https://cdn-icons-png.flaticon.com/512/4396/4396133.png',
     mail: 'tierraverde@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 8',
     description:
       'Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.',
@@ -130,7 +134,7 @@ const pepe = [
     name: 'Aire Puro',
     img: 'https://cdn-icons-png.flaticon.com/512/4396/4396133.png',
     mail: 'airepuro@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 5',
     description:
       'Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.',
@@ -145,7 +149,7 @@ const pepe = [
     name: 'Fuego Nuevo',
     img: 'https://cdn-icons-png.flaticon.com/512/4396/4396133.png',
     mail: 'fuegonuevo@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 7',
     description:
       'Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.',
@@ -159,7 +163,7 @@ const pepe = [
     name: 'Luz Clara',
     img: 'https://cdn-icons-png.flaticon.com/512/4396/4396133.png',
     mail: 'luzclara@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 10',
     description:
       'Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.',
@@ -173,7 +177,7 @@ const pepe = [
     name: 'Mar Limpio',
     img: 'https://cdn-icons-png.flaticon.com/512/4396/4396133.png',
     mail: 'marlimpio@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 3',
     description:
       'Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.',
@@ -188,7 +192,7 @@ const pepe = [
     name: 'Asociacionn de Jovenes Emprendedores',
     img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
     mail: 'jb@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 2',
     description:
       'Organización sin fines de lucro que busca impulsar el emprendimiento en jóvenes de bajos recursos.',
@@ -202,7 +206,7 @@ const pepe = [
     name: 'Fundación para la Conservación del Medio Ambiente',
     img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
     mail: 'kd@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 3',
     description:
       'Fundación cuyo objetivo es la conservación y restauración de los ecosistemas del planeta.',
@@ -217,7 +221,7 @@ const pepe = [
     name: 'Red de Bibliotecas Públicas',
     img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
     mail: 'pa@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 4',
     description:
       'Red de bibliotecas públicas que busca fomentar la lectura y el acceso a la cultura en comunidades marginadas.',
@@ -231,7 +235,7 @@ const pepe = [
     name: 'Fundación para la Educación y el Desarrollo',
     img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
     mail: 'ls@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 5',
     description:
       'Organización que busca mejorar la calidad de vida de las personas a través de la educación y el desarrollo personal.',
@@ -246,7 +250,7 @@ const pepe = [
     name: 'Asociación de Agricultores Familiares',
     img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
     mail: 'cw@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 6',
     description:
       'Asociación que busca promover y defender la agricultura familiar y la soberanía alimentaria.',
@@ -260,7 +264,7 @@ const pepe = [
     name: 'Fundación para la Investigación Científica',
     img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
     mail: 'mq@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 7',
     description:
       'Fundación que financia investigaciones científicas en diferentes áreas del conocimiento.',
@@ -275,7 +279,7 @@ const pepe = [
     name: 'Asociación de Mujeres Empresarias',
     img: 'https://i.pinimg.com/564x/46/bd/d6/46bdd6d84a58e40513f9883be77a30e1.jpg',
     mail: 'hn@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 8',
     description:
       'Asociación que busca fomentar el emprendimiento y el liderazgo de las mujeres en el ámbito empresarial.',
@@ -289,7 +293,7 @@ const pepe = [
     name: 'Fundación para la Lucha contra el Cáncer',
     img: 'https://i.pinimg.com/564x/10/81/8c/10818c11b7bf2f08a743ab31bec6273c.jpg',
     mail: 'yx@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 9',
     description:
       'Fundación que brinda apoyo a pacientes con cáncer y financia investigaciones para encontrar curas y tratamientos efectivos.',
@@ -303,7 +307,7 @@ const pepe = [
     name: 'Asociación de Vecinos Unidos',
     img: 'https://i.pinimg.com/564x/10/81/8c/10818c11b7bf2f08a743ab31bec6273c.jpg',
     mail: 'zl@mail.com',
-    password:"12345",
+    password: '12345',
     address: 'calle 10',
     description:
       'Asociación que busca mejorar la calidad de vida de los vecinos y promover la participación ciudadana en la gestión pública.',
@@ -377,17 +381,16 @@ async function userCreate(body) {
   const salt = 10;
   const hash = bcrypt.hashSync(password, salt);
 
-  
   const newUser = await User.create({
-      name: body.name,
-      last_name: body.last_name,
-      mail: body.mail,
-      password: hash, 
-      RoleId: user.id,
-      image: body.image,
+    name: body.name,
+    last_name: body.last_name,
+    mail: body.mail,
+    password: hash,
+    RoleId: user.id,
+    image: body.image,
   });
   return newUser;
-};
+}
 const chargeDbUsers = (array) => {
   const result = array.map(async (element) => {
     return await userCreate(element);
@@ -411,17 +414,17 @@ async function chargeDbAdmin(body) {
 
   const salt = 10;
   const hash = bcrypt.hashSync(password, salt);
- 
+
   const newAdmin = await User.create({
-      name: body.name,
-      last_name: body.last_name,
-      mail: body.mail,
-      password: hash, 
-      RoleId: user.id,
-      image: body.image,
+    name: body.name,
+    last_name: body.last_name,
+    mail: body.mail,
+    password: hash,
+    RoleId: user.id,
+    image: body.image,
   });
   return newAdmin;
-};
+}
 
 //4
 const owner = {
@@ -441,17 +444,17 @@ async function chargeDbOwner(body) {
 
   const salt = 10;
   const hash = bcrypt.hashSync(password, salt);
- 
+
   const newOwner = await User.create({
-      name: body.name,
-      last_name: body.last_name,
-      mail: body.mail,
-      password: hash, 
-      RoleId: user.id,
-      image: body.image,
+    name: body.name,
+    last_name: body.last_name,
+    mail: body.mail,
+    password: hash,
+    RoleId: user.id,
+    image: body.image,
   });
   return newOwner;
-};
+}
 
 //5
 const chargeDbMaterial = async () => {
@@ -473,22 +476,32 @@ const chargeDbMaterial = async () => {
 
 //6
 const vdvCreate = async (body) => {
-  const { name, img, description, mail, address, cbu, materials, lat, lng, password, status } =
-    body;
+  const {
+    name,
+    img,
+    description,
+    mail,
+    address,
+    cbu,
+    materials,
+    lat,
+    lng,
+    password,
+    status,
+  } = body;
 
   const role = await Role.findByPk(4);
 
   const salt = 10;
   const hash = bcrypt.hashSync(password, salt);
-  
 
   const vdvCreate = await VdV.create({
     name: body.name,
     img: body.img,
     mail: body.mail,
     address: body.address,
-    password: hash,  
-    status: body.status, 
+    password: hash,
+    status: body.status,
     description: body.description,
     cbu: body.cbu,
     lat: body.lat,
@@ -581,8 +594,7 @@ async function chargeInstagramPosts() {
   posts.forEach(async (post) => {
     await postInsta(post.url);
   });
-};
-
+}
 
 router.post('/', async (req, res) => {
   try {

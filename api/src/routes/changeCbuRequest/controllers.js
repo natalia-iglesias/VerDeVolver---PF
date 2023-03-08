@@ -5,6 +5,7 @@ const {
 } = require('../../services/email/templates/templateFormVdV.js');
 
 const postCbuRequest = async (cbu, idVdV) => {
+  console.log(cbu, idVdV);
   try {
     const vdvWithCBU = await VdV.findAll({
       where: {
@@ -15,7 +16,7 @@ const postCbuRequest = async (cbu, idVdV) => {
       await CbuRequest.create({ cbu, idVdV });
     } else {
       throw new Error(
-        'El CBU ya se encuentra asociada a un Punto de Reciclaje'
+        'El CBU ya se encuentra asociado a un Punto de Reciclaje'
       );
     }
   } catch (error) {

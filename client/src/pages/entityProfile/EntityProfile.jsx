@@ -71,6 +71,8 @@ function EntityProfile() {
   const [activeMarker, setActiveMarker] = useState(null);
   const [zoom, setZoom] = useState(5);
 
+  const toast = useToast();
+
   const { acount } = useSelector((state) => state.acountReducer);
   const { donations, feedbacks } = useSelector(
     (state) => state.entitiesReducer
@@ -83,14 +85,14 @@ function EntityProfile() {
   const [errorCBU, setErrorCBU] = useState('');
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/vdv/${acount?.RoleId}`).then((res) => {
+    axios.get(`http://localhost:3001/vdv/${acount?.id}`).then((res) => {
       setInput({
         ...res.data,
       });
       // );
     });
-    dispatch(getEntityDonation(acount?.RoleId));
-    dispatch(getEntityFeedbacks(acount?.RoleId));
+    dispatch(getEntityDonation(acount?.id));
+    dispatch(getEntityFeedbacks(acount?.id));
   }, [acount]);
 
   const handleCBU = (e) => {
@@ -99,13 +101,16 @@ function EntityProfile() {
     value.length < 22 ? setErrorCBU('Faltan caracteres') : setErrorCBU('');
   };
 
+  // CBU repetido no me genera una nueva solicitud -> bien / Pero me manda los dos alert Mal
+  // CBU  no repetido -> hace post de soliciutd y cambio en el check del dashboard
+
   const handleButtonCBU = (e) => {
     const res = axios
       .post('http://localhost:3001/cbuRequest', {
         cbu: CBU,
-        idVdV: acount?.RoleId,
+        idVdV: acount?.id,
       })
-      .then(
+      .then((res) =>
         toast({
           title: 'Success',
           description: 'Solicitud enviada. Recibirás un email de confirmación.',
@@ -114,7 +119,7 @@ function EntityProfile() {
           isClosable: true,
         })
       )
-      .catch(
+      .catch((res) =>
         toast({
           title: 'Error',
           description:
@@ -138,7 +143,7 @@ function EntityProfile() {
   const handleShowCBU = () => setShowCBU(!showCBU);
 
   const handleSaveChanges = () => {
-    updateVdV(acount?.RoleId, input);
+    updateVdV(acount?.id, input);
   };
 
   const handleCancelChanges = () => {
@@ -147,7 +152,7 @@ function EntityProfile() {
   };
 
   const handleDeleteEntity = () => {
-    deleteVdV(acount?.RoleId, navigate);
+    deleteVdV(acount?.id, navigate);
   };
 
   const handlePlaceSelected = (e) => {
