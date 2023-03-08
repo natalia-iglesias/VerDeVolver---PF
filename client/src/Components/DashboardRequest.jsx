@@ -9,6 +9,7 @@ import {
   Button,
   Image,
   useToast,
+  useColorMode,
 } from '@chakra-ui/react';
 import { CheckIcon, DeleteIcon } from '@chakra-ui/icons';
 import axios from 'axios';
@@ -17,6 +18,7 @@ function DashboardRequest() {
   const Axios = axios.create({ baseURL: 'http://localhost:3001' });
   const [requestArray, setRequestArray] = useState();
   const toast = useToast();
+  const { colorMode } = useColorMode();
 
   useEffect(() => {
     getDataBase();
@@ -120,7 +122,21 @@ function DashboardRequest() {
     return (
       <AccordionItem key={i + 5648}>
         <h2>
-          <AccordionButton>
+          <AccordionButton
+            pos={'relative'}
+            py="1.5rem"
+            px="2rem"
+            bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+            boxShadow="0 2px 5px rgba(0, 0, 0, 0.5)"
+            direction="column"
+            borderRadius={'1rem'}
+            align={'center'}
+            mt="0.5rem"
+            _hover={{
+              transform: 'scale(1.06)',
+              transition: 'transform 0.3s ease-in-out',
+            }}
+          >
             <Box as="span" flex="1" textAlign="left" fontWeight="bold">
               {req.vdvName ? (
                 <p>Solicitud de cambio de cbu</p>
@@ -171,11 +187,14 @@ function DashboardRequest() {
           )}
           {req.img && (
             <>
-              <Image src={req.img} />
+              <Image w={'10rem'} borderRadius={'2rem'} src={req.img} />
               <br />
             </>
           )}
           <Button
+            border={'solid 2px grey'}
+            boxShadow="0 2px 5px rgba(0, 0, 0, 0.5)"
+            bg={'transparent'}
             onClick={
               req.vdvName
                 ? () => approveCbu(req.id, req.cbu, req.idVdV)
@@ -185,6 +204,10 @@ function DashboardRequest() {
             <CheckIcon />
           </Button>
           <Button
+            border={'solid 2px grey'}
+            bg={'transparent'}
+            ml="0.5rem"
+            boxShadow="0 2px 5px rgba(0, 0, 0, 0.5)"
             onClick={
               req.vdvName
                 ? () => disapproveCbu(req.id)
