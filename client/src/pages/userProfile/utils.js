@@ -23,11 +23,8 @@ const updateUser = async (id, input) => {
 const updateUserPassword = async (id, password) => {
   try {
     const res = await axios.put(`/user/password/${id}`, password);
-    console.log(res)
-    /* console.log(((res.data.id), (res.status)))
-    return ((res.data.id), (res.status)); */
+    return ((res.data.id), (res.status));
   } catch (error) {
-    console.log(error);
     return 'No se ha actualizado la contraseña';
   }
 };

@@ -111,8 +111,8 @@ const EntityCard = ({ entity, acount }) => {
         </VStack>
       </CardBody>
 
-      <CardFooter>
-        <InputGroup size="md">
+      <CardFooter justifyContent="right">
+        <InputGroup size="md" w={'40%'}>
           <InputLeftAddon
             children="$"
             borderWidth="0.2rem"
@@ -123,7 +123,7 @@ const EntityCard = ({ entity, acount }) => {
             borderColor="gray.300"
             pr="4.5rem"
             type="number"
-            placeholder="Amout"
+            placeholder="Monto"
             name="amount"
             onChange={handleInputs}
           />
