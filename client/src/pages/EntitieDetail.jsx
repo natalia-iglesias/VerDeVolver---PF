@@ -56,7 +56,23 @@ const EntityDetail = () => {
   const [inputReview, setInputReview] = useState('');
   const [stars, setStars] = useState(0);
 
+  function containsBadWord(text) {
+    for (let i = 0; i < badWords.length; i++) {
+      if (text.includes(badWords[i])) {
+        console.log('contiene');
+        return true;
+      }
+    }
+    return false;
+  }
   const handleInputs = (event) => {
+    if (event.target.name === 'Review') {
+      const contains = containsBadWord(event.target.value);
+      if (contains) {
+        alert('no seas tan puto');
+        return;
+      }
+    }
     event.target.name === 'Monto'
       ? setInputMonto(event.target.value)
       : setInputReview(event.target.value);
@@ -140,6 +156,47 @@ const EntityDetail = () => {
       }
     }
   };
+
+  const badWords = [
+    'forro',
+    'forros',
+    'forra',
+    'forras',
+    'puto',
+    'putos',
+    'puta',
+    'putas',
+    'viejo',
+    'vieja',
+    'bobos',
+    'bobas',
+    'bobo',
+    'boba',
+    'mierda',
+    'pija',
+    'poronga',
+    'choto',
+    'chota',
+    'porquería',
+    'verga',
+    'culo',
+    'cheto',
+    'grasa',
+    'chetos',
+    'grasas',
+    'concha',
+    'tarado',
+    'tarados',
+    'tarada',
+    'taradas',
+    'idiota',
+    'idiotas',
+    'orto',
+    'trola',
+    'trolas',
+    'trolos',
+    'trolo',
+  ];
 
   return (
     <Box bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}>
