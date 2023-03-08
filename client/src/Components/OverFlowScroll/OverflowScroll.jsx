@@ -48,7 +48,7 @@ function DashboardScroll({ type, id, pendingOrDelivered }) {
                 duration: 1800,
                 isClosable: true,
               });
-              updateDonation(item.id);
+              updateDonation(item.id, setArrayToRender);
             } catch (error) {
               toast({
                 title: 'Error',
