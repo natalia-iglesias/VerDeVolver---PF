@@ -9,6 +9,7 @@ import {
   Button,
   Image,
   useToast,
+  useColorMode,
 } from '@chakra-ui/react';
 import { CheckIcon, DeleteIcon } from '@chakra-ui/icons';
 import axios from 'axios';
@@ -17,6 +18,7 @@ function DashboardRequest() {
   const Axios = axios.create({ baseURL: 'http://localhost:3001' });
   const [requestArray, setRequestArray] = useState();
   const toast = useToast();
+  const { colorMode } = useColorMode();
 
   useEffect(() => {
     getDataBase();
@@ -120,7 +122,17 @@ function DashboardRequest() {
     return (
       <AccordionItem key={i + 5648}>
         <h2>
-          <AccordionButton>
+          <AccordionButton
+            pos={'relative'}
+            py="1.5rem"
+            px="2rem"
+            bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+            boxShadow="dark-lg"
+            direction="column"
+            borderRadius={'1rem'}
+            align={'center'}
+            mt="0.5rem"
+          >
             <Box as="span" flex="1" textAlign="left" fontWeight="bold">
               {req.vdvName ? (
                 <p>Solicitud de cambio de cbu</p>

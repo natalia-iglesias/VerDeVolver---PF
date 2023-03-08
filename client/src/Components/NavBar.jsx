@@ -23,9 +23,13 @@ const Navbar = () => {
   return (
     <HStack
       bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+      // bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+      boxShadow="0 5px 7px rgba(0, 0, 0, 0.5)"
       justifyContent="space-between"
       alignItems="center"
       pr="1rem"
+      zIndex="999"
+      // mb={'0.8rem'}
     >
       <Link as={ReachLink} to="/home">
         <Image

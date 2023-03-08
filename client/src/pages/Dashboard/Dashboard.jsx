@@ -8,6 +8,7 @@ import {
   Input,
   Text,
   useToast,
+  useColorMode,
 } from '@chakra-ui/react';
 import TabListPosts from '../../Components/TabListPosts';
 import OverflowScroll from '../../Components/OverFlowScroll/OverflowScroll';
@@ -38,6 +39,7 @@ const Dashboard = () => {
   const [roleSelect, setRoleSelect] = useState();
 
   const toast = useToast();
+  const { colorMode } = useColorMode();
 
   useEffect(() => {
     setDataToRender(
@@ -117,9 +119,31 @@ const Dashboard = () => {
     }
   };
 
+  const lightModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
+
+  const darkModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
+
   return (
-    <Flex direction="row" justify="space-evenly" mb={'5rem'}>
-      <Flex direction="column">
+    <Flex
+      pt="2rem"
+      pb="2rem"
+      direction="row"
+      justify="space-evenly"
+      // mb={'5rem'}
+      bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}
+    >
+      <Flex
+        align={'center'}
+        px="2rem"
+        pos={'relative'}
+        py="1.5rem"
+        bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+        boxShadow="dark-lg"
+        direction="column"
+        borderRadius={'1rem'}
+      >
         <Heading align="center" m="3vh">
           Reseñas
         </Heading>
@@ -149,7 +173,16 @@ const Dashboard = () => {
         </Heading>
         <DashboardRequest />
       </Flex>
-      <Flex direction="column">
+      <Flex
+        pos={'relative'}
+        py="1.5rem"
+        px="2rem"
+        bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+        boxShadow="dark-lg"
+        direction="column"
+        borderRadius={'1rem'}
+        align={'center'}
+      >
         <Heading align="center" m="3vh">
           Donaciones
         </Heading>
