@@ -159,6 +159,7 @@ const EntityDetail = () => {
             justifyContent="center"
             alignItems="center"
             marginTop="6vh"
+            marginBottom="4vh"
           >
             <Box
               backgroundColor="#b4c4ac"
