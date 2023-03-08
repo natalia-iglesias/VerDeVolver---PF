@@ -133,10 +133,10 @@ const ChatBox = () => {
         />
       </PopoverTrigger>
 
-      <PopoverContent m="1rem" w="50vw" h="80vh">
+      <PopoverContent m="1rem" w="50vw" h="60vh">
         <PopoverHeader>Chat VDV</PopoverHeader>
         <PopoverCloseButton />
-        <PopoverBody h={'20vh'} overflowY="scroll">
+        <PopoverBody h={'50vh'} overflowY="scroll">
           <VStack spacing={4}>
             {messages.map(({ from, message }) => (
               <Flex
