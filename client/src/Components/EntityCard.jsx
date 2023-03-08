@@ -50,6 +50,14 @@ const EntityCard = ({ entity, acount }) => {
     }
     if (inputMonto) {
       try {
+        console.log(
+          'entityid:::::',
+          entity.id,
+          'inputMonto::::::',
+          inputMonto,
+          'Userid:::::::::',
+          id
+        );
         axios
           .post(`/donation`, {
             VdVId: entity.id,
