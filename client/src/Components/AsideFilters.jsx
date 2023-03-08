@@ -30,7 +30,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
   const handleRanking = (e) => {
     if (e.target.value !== 'none') {
       axios
-        .post('http://localhost:3001/feedback/rating', {
+        .post('/feedback/rating', {
           order: e.target.value,
         })
         .then((res) => {
