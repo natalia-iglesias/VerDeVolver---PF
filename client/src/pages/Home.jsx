@@ -85,57 +85,13 @@ const Home = () => {
       bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}
       padding="6rem"
     >
-      <Flex justifyContent="space-between">
+      <Flex justifyContent="center">
         <Box
-          p="0.7rem"
-          bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
-          w="42%"
-          h="65rem"
-          borderRadius="1rem"
-          boxShadow="dark-lg"
-          _hover={{
-            transform: 'scale(1.02)',
-            transition: 'transform 0.3s ease-in-out',
-          }}
-          textAlign={'center'}
-          display={'flex'}
-          flexDirection={'column'}
-          justifyContent={'center'}
-        >
-          <Text
-            top="0"
-            as="em"
-            textShadow={'1px 1px black'}
-            fontSize={'7xl'}
-            fontWeight={'bold'}
-            fontFamily={'Tilt Prism'}
-            textColor={colorMode === 'light' ? 'green' : '#68D391'}
-          >
-            VerdeVolver
-          </Text>
-          <Text
-            fontSize={'3xl'}
-            fontWeight={'bold'}
-            p="5%"
-            margin="auto"
-            textAlign="justify"
-          >
-            {' '}
-            ¡Bienvenido/a a nuestro sitio web! Nuestra aplicación está diseñada
-            para el territorio argentino y te ayudará a encontrar soluciones
-            prácticas para la gestión de residuos. Podrás encontrar información
-            sobre los distintos lugares dedicados al reciclaje en toda
-            Argentina, incluyendo los más cercanos a tu ubicación actual.
-            ¡Gracias por cuidar el planeta junto a nosotros!
-          </Text>
-        </Box>
-        <Box
-          justify="center"
           align="center"
           mb="0.8rem"
           p="0.7rem"
           bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
-          w="42%"
+          w="90%"
           h="65rem"
           borderRadius="1rem"
           boxShadow="dark-lg"
@@ -144,60 +100,89 @@ const Home = () => {
             transition: 'transform 0.3s ease-in-out',
           }}
         >
-          <Stack p={'8'}>
-            <HStack flexDir={'column'} gap="4">
-              <Text
-                fontSize={'3xl'}
-                fontWeight={'bold'}
-                fontFamily={'Tilt Prism'}
-                textColor={colorMode === 'light' ? 'green' : '#68D391'}
-              >
-                Colaborá con tu punto favorito!
-              </Text>
-              <Select
-                placeholder="Puntos de reciclaje"
-                onChange={handleInputs}
-                name="entity"
-                borderWidth="0.2rem"
-                borderColor="gray.300"
-              >
-                {entities?.map(({ id, name }) => (
-                  <option value={id} key={id}>
-                    {name}
-                  </option>
-                ))}
-              </Select>
-              <InputGroup justifyContent={'center'} pl="30%" pr="30%">
-                <InputLeftElement
-                  ml={'30%'}
-                  children={<MdOutlineAttachMoney />}
-                />
-                <Input
-                  textAlign={'center'}
+          <Box width="45%" float="left">
+            <Text
+              top="0"
+              as="em"
+              textShadow={'1px 1px black'}
+              fontSize={'7xl'}
+              fontWeight={'bold'}
+              fontFamily={'Tilt Prism'}
+              textColor={colorMode === 'light' ? 'green' : '#68D391'}
+            >
+              VerdeVolver
+            </Text>
+            <Text
+              fontSize={'3xl'}
+              fontWeight={'bold'}
+              p="10%"
+              textAlign={'justify'}
+            >
+              {' '}
+              ¡Bienvenido/a a nuestro sitio web! Nuestra aplicación está
+              diseñada para el territorio argentino y te ayudará a encontrar
+              soluciones prácticas para la gestión de residuos. Podrás encontrar
+              información sobre los distintos lugares dedicados al reciclaje en
+              toda Argentina, incluyendo los más cercanos a tu ubicación actual.
+              ¡Gracias por cuidar el planeta junto a nosotros!
+            </Text>
+          </Box>
+          <Box width="45%" float="right">
+            <Stack p={'8'}>
+              <HStack flexDir={'column'} gap="4">
+                <Text
+                  fontSize={'3xl'}
+                  fontWeight={'bold'}
+                  fontFamily={'Tilt Prism'}
+                  textColor={colorMode === 'light' ? 'green' : '#68D391'}
+                >
+                  Colaborá con tu punto favorito!
+                </Text>
+                <Select
+                  placeholder="Puntos de reciclaje"
+                  onChange={handleInputs}
+                  name="entity"
                   borderWidth="0.2rem"
                   borderColor="gray.300"
-                  name="amount"
-                  placeholder="Monto"
-                  type="number"
-                  onChange={handleInputs}
-                />
-              </InputGroup>
-            </HStack>
-            <Grid placeItems="center">
-              <Button
-                //bg={colorMode === 'light' ? '#2c835b' : '#212933'}
-                color="vdv.main"
-                colorScheme="green"
-                width="30%"
-                onClick={handleDonate}
-                mt="0.3rem"
-              >
-                Donar
-              </Button>
-            </Grid>
-          </Stack>
+                >
+                  {entities?.map(({ id, name }) => (
+                    <option value={id} key={id}>
+                      {name}
+                    </option>
+                  ))}
+                </Select>
+                <InputGroup justifyContent={'center'} pl="30%" pr="30%">
+                  <InputLeftElement
+                    ml={'30%'}
+                    children={<MdOutlineAttachMoney />}
+                  />
+                  <Input
+                    textAlign={'center'}
+                    borderWidth="0.2rem"
+                    borderColor="gray.300"
+                    name="amount"
+                    placeholder="Monto"
+                    type="number"
+                    onChange={handleInputs}
+                  />
+                </InputGroup>
+              </HStack>
+              <Grid placeItems="center">
+                <Button
+                  //bg={colorMode === 'light' ? '#2c835b' : '#212933'}
+                  color="vdv.main"
+                  colorScheme="green"
+                  width="30%"
+                  onClick={handleDonate}
+                  mt="0.3rem"
+                >
+                  Donar
+                </Button>
+              </Grid>
+            </Stack>
 
-          <PostsCarousel />
+            <PostsCarousel />
+          </Box>
         </Box>
       </Flex>
     </Box>

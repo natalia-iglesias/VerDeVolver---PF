@@ -190,7 +190,7 @@ function UserProfile() {
               mb="2vh"
               //pt="5vh"
             >
-              <Image
+              <Avatar
                 src={input.image}
                 name={`${input.name}${input.last_name}`}
                 borderRadius="full"

@@ -110,7 +110,7 @@ const EntityCard = ({ entity, acount }) => {
         </VStack>
       </CardBody>
 
-      <CardFooter justifyContent="right">
+      {/* <CardFooter justifyContent="right">
         <InputGroup size="md" w={'40%'}>
           <InputLeftAddon
             children="$"
@@ -138,7 +138,7 @@ const EntityCard = ({ entity, acount }) => {
             </Button>
           </InputRightElement>
         </InputGroup>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 };
