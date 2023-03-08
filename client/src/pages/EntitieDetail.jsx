@@ -141,22 +141,16 @@ const EntityDetail = () => {
     }
   };
 
-  const lightModeBG =
-    'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
-
-  const darkModeBG =
-    'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
-
   return (
-    <Box bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}>
+    <Box bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}>
       <Box mr="10%" ml="10%" pt={'5%'} paddingBottom="5rem">
         <Box
           boxShadow="dark-lg"
           p="6"
           rounded="md"
-          h="85vh"
+          minH="92vh"
           // marginBottom="11vh"
-          backgroundColor={colorMode === 'light' ? '#f5f2ebef' : '#2d3748ef'}
+          backgroundColor={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
         >
           <Box
             width="100%"
@@ -165,6 +159,7 @@ const EntityDetail = () => {
             justifyContent="center"
             alignItems="center"
             marginTop="6vh"
+            marginBottom="4vh"
           >
             <Box
               backgroundColor="#b4c4ac"
@@ -222,6 +217,7 @@ const EntityDetail = () => {
                     alignItems="flex-start"
                     overflowY={'scroll'}
                     maxH="25vh"
+                    paddingBottom="2vh"
                     divider={<StackDivider />}
                   >
                     {feedbacks?.map(({ User, comment, rating }) => (
