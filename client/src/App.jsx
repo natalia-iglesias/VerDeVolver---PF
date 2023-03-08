@@ -32,9 +32,13 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    !Object.keys(acount).length && dispatch(LogedUser());
+    /*  !Object.keys(acount).length && dispatch(LogedUser());
+    dispatch(fetchEntities()); */
+    if (!Object.keys(acount).length) {
+      dispatch(LogedUser());
+    }
     dispatch(fetchEntities());
-  }, []);
+  }, [acount]);
 
   return (
     <div style={{ minHeight: '100vh' }}>
