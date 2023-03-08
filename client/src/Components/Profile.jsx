@@ -32,6 +32,8 @@ const Profile = () => {
         bg={colorMode === 'light' ? '#F5F2EB' : '#68D391'}
         onClick={() => navigate('/login')}
         fontFamily={'Tilt Prism'}
+        fontSize="xl"
+        color={colorMode === 'light' ? '#68D391' : '#F5F2EB'}
       >
         Iniciar Sesión
       </Button>
@@ -57,7 +59,7 @@ const Profile = () => {
             as={ReachLink}
             to={`/userprofile`}
             fontWeight={'700'}
-            color={colorMode === 'light' ? 'green' : '#68D391'}
+            color={colorMode === 'light' ? '#235B53' : '#68D391'}
             fontFamily={'Tilt Prism'}
           >
             Mi perfil
@@ -67,7 +69,7 @@ const Profile = () => {
             as={ReachLink}
             to={`/entityprofile`}
             fontWeight={'700'}
-            color={colorMode === 'light' ? 'green' : '#68D391'}
+            color={colorMode === 'light' ? '#235B53' : '#68D391'}
             fontFamily={'Tilt Prism'}
           >
             Mi perfil
@@ -78,7 +80,7 @@ const Profile = () => {
             as={ReachLink}
             to={`/dashboard`}
             fontWeight={'700'}
-            color={colorMode === 'light' ? 'green' : '#68D391'}
+            color={colorMode === 'light' ? '#235B53' : '#68D391'}
             fontFamily={'Tilt Prism'}
           >
             Dashboard
@@ -89,7 +91,7 @@ const Profile = () => {
           as={ReachLink}
           to="/home"
           fontWeight={'700'}
-          color={colorMode === 'light' ? 'green' : '#68D391'}
+          color={colorMode === 'light' ? '#235B53' : '#68D391'}
           onClick={() => dispatch(logoutAcount())}
           fontFamily={'Tilt Prism'}
         >
