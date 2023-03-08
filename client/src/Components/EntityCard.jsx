@@ -36,14 +36,6 @@ const EntityCard = ({ entity, acount }) => {
   };
 
   const handleButton = () => {
-    console.log(
-      'entityid:::::',
-      entity.id,
-      'inputMonto::::::',
-      inputMonto,
-      'Userid:::::::::',
-      id
-    );
     const { id } = acount;
     if (!id) {
       navigate('/login');
@@ -57,17 +49,9 @@ const EntityCard = ({ entity, acount }) => {
     }
     if (inputMonto) {
       try {
-        console.log(
-          'entityid:::::',
-          entity.id,
-          'inputMonto::::::',
-          inputMonto,
-          'Userid:::::::::',
-          id
-        );
         axios
           .post(`/donation`, {
-            VdVId: entity.id,
+            VdVId: entity.id.toString(),
             amount: inputMonto,
             UserId: id,
           })
