@@ -261,7 +261,7 @@ const Login = () => {
             Continúa con Google
           </Button>
 
-          <Text alignSelf={'flex-end'} as="u" pr={'1rem'}>
+          <Text textAlign={'center'} as="u">
             <ForgotPassword />
           </Text>
 
