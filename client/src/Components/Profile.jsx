@@ -38,7 +38,7 @@ const Profile = () => {
 
   return (
     <Menu>
-      {acount.RoleId == 1 ? (
+      {acount.RoleId !== 4 ? (
         <MenuButton>
           <Avatar
             name={`${acount.name} ${acount.last_name}`}
