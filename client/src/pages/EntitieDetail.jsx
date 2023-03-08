@@ -23,8 +23,8 @@ import {
   Textarea,
   VStack,
   useToast,
-  useColorMode,
   DarkMode,
+  useColorMode,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
@@ -56,7 +56,29 @@ const EntityDetail = () => {
   const [inputReview, setInputReview] = useState('');
   const [stars, setStars] = useState(0);
 
+  function containsBadWord(text) {
+    for (let i = 0; i < badWords.length; i++) {
+      if (text.includes(badWords[i])) {
+        return true;
+      }
+    }
+    return false;
+  }
   const handleInputs = (event) => {
+    if (event.target.name === 'Review') {
+      const contains = containsBadWord(event.target.value);
+      if (contains) {
+        toast({
+          title: 'Error',
+          description: 'No se permiten palabras ofensivas en las reseñas',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
+        setInputReview(undefined);
+        return;
+      }
+    }
     event.target.name === 'Monto'
       ? setInputMonto(event.target.value)
       : setInputReview(event.target.value);
@@ -110,6 +132,7 @@ const EntityDetail = () => {
         isClosable: true,
       });
     }
+
     if (!inputReview) {
       toast({
         title: 'Error',
@@ -141,8 +164,59 @@ const EntityDetail = () => {
     }
   };
 
+  const badWords = [
+    'forro',
+    'forros',
+    'forra',
+    'forras',
+    'puto',
+    'putos',
+    'puta',
+    'putas',
+    'viejo',
+    'vieja',
+    'bobos',
+    'bobas',
+    'bobo',
+    'boba',
+    'mierda',
+    'mierdas',
+    'pija',
+    'poronga',
+    'choto',
+    'chota',
+    'porquería',
+    'verga',
+    'culo',
+    'cheto',
+    'grasa',
+    'chetos',
+    'grasas',
+    'concha',
+    'tarado',
+    'tarados',
+    'tarada',
+    'taradas',
+    'idiota',
+    'idiotas',
+    'orto',
+    'trola',
+    'trolas',
+    'trolos',
+    'trolo',
+    'garca',
+    'garcas',
+    'chupala',
+    'chupenla',
+  ];
+  const lightModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
+
+  const darkModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
+
   return (
-    <Box bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}>
+    <Box bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}>
       <Box mr="10%" ml="10%" pt={'5%'} paddingBottom="5rem">
         <Box
           boxShadow="dark-lg"
@@ -150,7 +224,7 @@ const EntityDetail = () => {
           rounded="md"
           minH="92vh"
           // marginBottom="11vh"
-          backgroundColor={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+          backgroundColor={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
         >
           <Box
             width="100%"
@@ -192,7 +266,6 @@ const EntityDetail = () => {
                   transition="2s"
                   _hover={{ height: '28vh', width: '28vh' }}
                 />
-                {console.log(entity.img)}
               </Box>
             </Box>
           </Box>
