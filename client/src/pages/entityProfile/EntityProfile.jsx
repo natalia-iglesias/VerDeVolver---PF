@@ -182,9 +182,8 @@ function EntityProfile() {
     setInput(acount);
     setCBU(acount.cbu);
   };
-
   const handleDeleteEntity = () => {
-    deleteVdV(acount?.id, navigate);
+    deleteVdV(acount?.id, navigate, dispatch);
   };
 
   const handlePlaceSelected = (e) => {

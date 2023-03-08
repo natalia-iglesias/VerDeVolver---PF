@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {logoutAcount} from '../../redux/actions/acountActions';
 
 const deleteMaterial = (mat, materials, setInput) => {
   const newMaterials = materials.filter((eachMat) => eachMat.name !== mat);
@@ -49,9 +50,10 @@ const updatePassword = async (id, password) => {
   }
 };
 
-const deleteVdV = (id, navigate) => {
+const deleteVdV = (id, navigate, dispatch) => {
   axios.delete(`/vdv/${id}`).then(() => {
-    window.alert('La entidad a sido borrada');
+    window.alert('La entidad ha sido borrada');
+    dispatch(logoutAcount());
     navigate('/home');
   });
 };
