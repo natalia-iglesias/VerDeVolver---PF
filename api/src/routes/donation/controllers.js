@@ -59,11 +59,7 @@ const setMp = async (body) => {
       },
     ],
     notification_url:
-<<<<<<< HEAD
       'https://verdevolver-pf-production.up.railway.app/donation/confirmationDonation',
-=======
-      'https://6bb4-181-166-141-30.sa.ngrok.io/donation/confirmationDonation',
->>>>>>> origin/develop
 
     back_urls: {
       success: 'https://ver-de-volver-pf-psi.vercel.app/',
