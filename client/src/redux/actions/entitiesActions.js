@@ -35,7 +35,7 @@ export const searchEntities = (search) => {
 
 export const getEntityById = (id) => {
   return async (dispatch) => {
-    const res = await axios.get(`$/vdv/${id}`);
+    const res = await axios.get(`/vdv/${id}`);
     const entity = res.data;
 
     dispatch({ type: GET_ENTITY_BY_ID, payload: entity });
