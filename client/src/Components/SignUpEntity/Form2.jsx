@@ -104,7 +104,7 @@ const Form2 = ({ setProgressAndStep }) => {
           value={form.description}
         />
         {form.description.length !== 0 && !errors.description.isError ? (
-          <FormHelperText>Caracteres {descMsg} de 70 hasta 450</FormHelperText>
+          <FormHelperText>Caracteres {descMsg} de 450</FormHelperText>
         ) : (
           ''
         )}
