@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { updateVdV, deleteVdV, addMaterial, deleteMaterial, updatePassword } from './utils';
+import {
+  updateVdV,
+  deleteVdV,
+  addMaterial,
+  deleteMaterial,
+  updatePassword,
+} from './utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import Autocomplete from 'react-google-autocomplete';
@@ -65,12 +71,13 @@ const materialsArray = [
 ];
 
 function EntityProfile() {
-  const toast = useToast();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [mapCenter, setMapCenter] = useState({ lat: -39, lng: -64 });
   const [activeMarker, setActiveMarker] = useState(null);
   const [zoom, setZoom] = useState(5);
+
+  const toast = useToast();
 
   const { acount } = useSelector((state) => state.acountReducer);
   const { donations, feedbacks } = useSelector(
@@ -102,13 +109,16 @@ function EntityProfile() {
     value.length < 22 ? setErrorCBU('Faltan caracteres') : setErrorCBU('');
   };
 
+  // CBU repetido no me genera una nueva solicitud -> bien / Pero me manda los dos alert Mal
+  // CBU  no repetido -> hace post de soliciutd y cambio en el check del dashboard
+
   const handleButtonCBU = (e) => {
     const res = axios
       .post('http://localhost:3001/cbuRequest', {
         cbu: CBU,
         idVdV: acount?.id,
       })
-      .then(
+      .then((res) =>
         toast({
           title: 'Success',
           description: 'Solicitud enviada. Recibirás un email de confirmación.',
@@ -117,8 +127,8 @@ function EntityProfile() {
           isClosable: true,
         })
       )
-      .catch(
-         toast({
+      .catch((res) =>
+        toast({
           title: 'Error',
           description:
             'El CBU ya se encuentra asociado a un punto de reciclaje',
@@ -134,7 +144,7 @@ function EntityProfile() {
   };
 
   const handleChangePassword = (e) => {
-    setInputPassword({[e.target.name]: e.target.value });
+    setInputPassword({ [e.target.name]: e.target.value });
   };
 
   const handleSavePassword = () => {
@@ -145,7 +155,7 @@ function EntityProfile() {
     setInput({ ...input, img: url });
   };
 
-/*   const handleShowPassword = () => setShowPassword(!showPassword); */
+  /*   const handleShowPassword = () => setShowPassword(!showPassword); */
   const handleShowCBU = () => setShowCBU(!showCBU);
 
   const handleSaveChanges = () => {
@@ -275,12 +285,17 @@ function EntityProfile() {
             <InputLeftElement children={<LockIcon />} />
             <Input
               name="password"
-              type='text'
+              type="text"
               value={inputPassword.password}
               onChange={handleChangePassword}
             />
           </InputGroup>
-          <Button colorScheme={'green'} w="40%" onClick={handleSavePassword} mt={'1rem'}>
+          <Button
+            colorScheme={'green'}
+            w="40%"
+            onClick={handleSavePassword}
+            mt={'1rem'}
+          >
             Actualizar
           </Button>
         </Box>

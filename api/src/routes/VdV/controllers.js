@@ -165,8 +165,6 @@ const upDateVdV = async (id, body) => {
   if (!id) throw Error('Debes ingresar un id');
   if (!body) throw Error('No se recibieron datos para modificar');
 
-  console.log('bodyvdvupdate', body)
-
   if (body.materials) {
     await VdV.update(body, {
       where: { id },
@@ -191,9 +189,7 @@ const updateVdvPassword = async (id, password) => {
   const salt = 10;
   const hash = bcrypt.hashSync(passwordToUd, salt);
 
-  await VdV.update(
-    { password: hash }, 
-    { where: { id } });
+  await VdV.update({ password: hash }, { where: { id } });
 };
 
 const deleteVdV = (id) => {
