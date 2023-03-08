@@ -51,7 +51,7 @@ const Profile = () => {
         </MenuButton>
       )}
       <MenuList>
-        {acount.RoleId == 1 ? (
+        {acount.RoleId !== 4 ? (
           <MenuItem
             as={ReachLink}
             to={`/userprofile`}
@@ -63,7 +63,7 @@ const Profile = () => {
         ) : (
           <MenuItem
             as={ReachLink}
-            to={`/entityprofile/${acount.id}`}
+            to={`/entityprofile`}
             fontWeight={'700'}
             color={colorMode === 'light' ? 'green' : '#68D391'}
           >
