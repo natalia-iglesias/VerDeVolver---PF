@@ -79,7 +79,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
   };
 
   return (
-    <VStack position={'fixed'} zIndex="10">
+    <VStack zIndex="10">
       <Select
         borderRadius="1rem"
         id="select_materials"
