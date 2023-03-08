@@ -3,7 +3,7 @@ import axios from 'axios';
 import { logoutAcount } from '../../redux/actions/acountActions';
 
 const deleteUser = (id, navigate, dispatch) => {
-  axios.delete(`$/user/${id}`).then(() => {
+  axios.delete(`/user/${id}`).then(() => {
     dispatch(logoutAcount());
     navigate('/home');
   });
