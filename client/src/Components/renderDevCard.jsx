@@ -17,7 +17,7 @@ import { ExternalLinkIcon, CopyIcon } from '@chakra-ui/icons';
 
 function RenderDevCard({ dev }) {
   const { colorMode } = useColorMode();
-  const { name, img, linkedin, ig, mail } = dev;
+  const { name, img, linkedin, github, mail } = dev;
   return (
     <Card
       bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
@@ -45,14 +45,14 @@ function RenderDevCard({ dev }) {
 
       <CardBody mt="1px">
         <Stack divider={<StackDivider />} spacing="1">
-          <Link href={ig} isExternal m="auto">
-            Instagram <ExternalLinkIcon mx="2px" />
+          <Link href={github} isExternal m="auto">
+            Github <ExternalLinkIcon mx="2px" />
           </Link>
           <Link href={linkedin} isExternal m="auto">
             LinkedIn <ExternalLinkIcon mx="2px" />
           </Link>
           <Text pt="2" fontSize="md" m="auto">
-            {mail} <CopyIcon mx="2px" />
+            {mail} 
           </Text>
         </Stack>
       </CardBody>
