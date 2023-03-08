@@ -189,7 +189,7 @@ function DashboardRequest() {
           <Button
             onClick={
               req.vdvName
-                ? () => disapproveCbu(req.id)
+                ? () => disapproveCbu(req.id, req.cbu, req.idVdV)
                 : () => disapproveEntity(req.id)
             }
           >
