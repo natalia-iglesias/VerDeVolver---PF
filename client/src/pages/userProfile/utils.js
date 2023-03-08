@@ -30,3 +30,4 @@ const updateUserPassword = async (id, password) => {
 };
 
 export { deleteUser, updateUser, updateUserPassword };
+
