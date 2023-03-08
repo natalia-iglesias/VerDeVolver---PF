@@ -14,9 +14,6 @@ import {
 import { CheckIcon, DeleteIcon } from '@chakra-ui/icons';
 
 function DashboardRequest() {
-  /*  const axios = axios.create({
-    baseURL: 'https://verdevolver-pf-production.up.railway.app/',
-  }); */
   const [requestArray, setRequestArray] = useState();
   const toast = useToast();
 
