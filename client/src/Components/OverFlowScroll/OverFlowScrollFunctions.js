@@ -63,7 +63,6 @@ const typeOfDataToRender = (
 
 const deleteFeedback = (id, setArrayToRender) => {
   axios.delete(`/feedback/${id}/delete`).then(() => {
-    //window.alert('La reseña fue borrada');
     //window.location.reload();
     axios.get('/feedback').then((res) => setArrayToRender(res.data));
   });
