@@ -47,6 +47,7 @@ function UserProfile() {
 
   const { acount } = useSelector((state) => state.acountReducer);
   const { donations, feedbacks } = useSelector((state) => state.usersReducer);
+
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -62,7 +63,6 @@ function UserProfile() {
     mail: acount?.mail,
     image: acount?.image,
   });
-/*   const [show, setShow] = useState(false); */
 
   const [inputPassword, setInputPassword] = useState({
     password: '', 
@@ -75,8 +75,6 @@ function UserProfile() {
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
-
-  /* const handleShow = (e) => setShow(!show); */
 
   const handleSaveChanges = () => {
     const setUpdateuser = async () => {
@@ -106,7 +104,25 @@ function UserProfile() {
   };
 
   const handleSaveChangePassword = async () => {
-      await updateUserPassword(acount?.id, inputPassword)
+      const res = await updateUserPassword(acount?.id, inputPassword);
+      if((res) !== 200){
+        return toast({
+          title: 'Error',
+          description:
+            'Ha ocurrido un error en el proceso de actualización de contraseña',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
+      }else{
+        return toast({
+          title: 'Contraseña actualizada correctamente',
+          description: 'Contraseña actualizada',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
+      }
   };
 
   const handleCancelChanges = () => {
@@ -199,7 +215,7 @@ function UserProfile() {
               value={inputPassword.password}
               onChange={handleChangePassword}
             />
-          <Button colorScheme={'green'} w="40%" onClick={handleSaveChangePassword}>
+          <Button colorScheme={'green'} w="40%" onClick={handleSaveChangePassword} ml={'1rem'}>
             Actualizar
           </Button>
           </InputGroup>
