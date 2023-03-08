@@ -338,7 +338,6 @@ const EntityDetail = () => {
                       borderRadius="1rem"
                       borderColor="black"
                       width="15vw"
-                      color="white"
                     />
                     <Button
                       onClick={handleDonate}
