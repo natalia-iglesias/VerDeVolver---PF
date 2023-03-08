@@ -199,7 +199,7 @@ const EntityDetail = () => {
                   transition="2s"
                   _hover={{ height: '28vh', width: '28vh' }}
                 />
-                {console.log(entity.img)}
+                {console.log(entity)}
               </Box>
             </Box>
           </Box>
