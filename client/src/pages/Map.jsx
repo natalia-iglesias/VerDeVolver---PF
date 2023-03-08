@@ -67,6 +67,7 @@ const Map = () => {
         h={'90vh'}
         bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
         boxShadow={'dark-lg'}
+        borderRadius="1rem"
       >
           <Stack>
             <VStack spacing={'0.9rem'} pt={'1rem'}>
