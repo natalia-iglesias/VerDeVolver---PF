@@ -33,7 +33,7 @@ const Profile = () => {
         onClick={() => navigate('/login')}
         fontFamily={'Tilt Prism'}
         fontSize="xl"
-        color={colorMode === 'light' ? '#68D391' : '#F5F2EB'}
+        color={colorMode === 'light' ? '#63d18d' : '#F5F2EB'}
       >
         Iniciar Sesión
       </Button>
