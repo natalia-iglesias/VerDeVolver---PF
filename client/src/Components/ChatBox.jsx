@@ -150,7 +150,11 @@ const ChatBox = () => {
                   <Text>{message}</Text>
                   {from === 'I A' &&
                     generateOptions().map(({ q }) => (
-                      <Button onClick={() => handleSendMessage(q)} w="full">
+                      <Button
+                        onClick={() => handleSendMessage(q)}
+                        w="full"
+                        key={q + index}
+                      >
                         {q}
                       </Button>
                     ))}

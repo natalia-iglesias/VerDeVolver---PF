@@ -14,16 +14,17 @@ const { setSessionAcount, getSessionAcount, removeSessionAcount } =
 export const authAcountLocal = ({ mail, password, keepLogged }) => {
   return async (dispatch) => {
     try {
-      const auth = await axios.post('http://localhost:3001/login', {
-        mail: mail,
-        password: password,
-      })
-      .catch(function (error) {
-        if (error.response) {
-          return((error.response.data, error.response.status));
-        } 
-      });
-      if(auth !== 401){
+      const auth = await axios
+        .post('http://localhost:3001/login', {
+          mail: mail,
+          password: password,
+        })
+        .catch(function (error) {
+          if (error.response) {
+            return error.response.data, error.response.status;
+          }
+        });
+      if (auth !== 401) {
         const { token } = await auth.data;
         const config = {
           headers: {
@@ -35,15 +36,13 @@ export const authAcountLocal = ({ mail, password, keepLogged }) => {
           ? setLocalAcount({ mail, token })
           : setSessionAcount({ mail, token });
 
-        const acount = await axios.get(
-          `http://localhost:3001/login?mail=${mail}`,
-          config
-        )
-        .catch(function (error) {
-          if (error.response) {
-            return((error.response.data,error.response.status));
-          } 
-        });
+        const acount = await axios
+          .get(`http://localhost:3001/login?mail=${mail}`, config)
+          .catch(function (error) {
+            if (error.response) {
+              return error.response.data, error.response.status;
+            }
+          });
 
         dispatch({ type: AUTH_ACOUNT_LOCAL, payload: acount.data });
       }
@@ -82,7 +81,8 @@ export const LogedUser = () => {
 };
 
 export const authAcountGoogle = () => {
-  window.location.href = 'http://localhost:3001/login/google';
+  window.location.href =
+    'https://verdevolver-pf-production.up.railway.app/login/google';
 };
 
 export const logoutAcount = () => {
