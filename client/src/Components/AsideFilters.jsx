@@ -30,8 +30,8 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
   const handleRanking = (e) => {
     if (e.target.value !== 'none') {
       axios
-        .post('/feedback/rating', {
-          order: 'Ascendente',
+        .post('http://localhost:3001/feedback/rating', {
+          order: e.target.value,
         })
         .then((res) => {
           let newFilters = [];
@@ -40,20 +40,8 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
               ent1.name === ent2.name && newFilters.push(ent1);
             });
           });
-
-          dispatch(filterEntitiesByMaterial(newFilters));
-        });
-    } else {
-      axios
-        .post('/feedback/rating', {
-          order: 'Descendente',
-        })
-        .then((res) => {
-          let newFilters = [];
-          res.data.forEach((ent1) => {
-            filters.forEach((ent2) => {
-              if (ent1.name === ent2.name) newFilters.push(ent2);
-            });
+          filters.forEach((vdv) => {
+            if (!vdv.rating) newFilters.push(vdv);
           });
           dispatch(filterEntitiesByMaterial(newFilters));
           setPage(1);
