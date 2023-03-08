@@ -56,7 +56,29 @@ const EntityDetail = () => {
   const [inputReview, setInputReview] = useState('');
   const [stars, setStars] = useState(0);
 
+  function containsBadWord(text) {
+    for (let i = 0; i < badWords.length; i++) {
+      if (text.includes(badWords[i])) {
+        return true;
+      }
+    }
+    return false;
+  }
   const handleInputs = (event) => {
+    if (event.target.name === 'Review') {
+      const contains = containsBadWord(event.target.value);
+      if (contains) {
+        toast({
+          title: 'Error',
+          description: 'No se permiten palabras ofensivas en las reseñas',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
+        setInputReview(undefined);
+        return;
+      }
+    }
     event.target.name === 'Monto'
       ? setInputMonto(event.target.value)
       : setInputReview(event.target.value);
@@ -110,6 +132,7 @@ const EntityDetail = () => {
         isClosable: true,
       });
     }
+
     if (!inputReview) {
       toast({
         title: 'Error',
@@ -141,6 +164,51 @@ const EntityDetail = () => {
     }
   };
 
+  const badWords = [
+    'forro',
+    'forros',
+    'forra',
+    'forras',
+    'puto',
+    'putos',
+    'puta',
+    'putas',
+    'viejo',
+    'vieja',
+    'bobos',
+    'bobas',
+    'bobo',
+    'boba',
+    'mierda',
+    'mierdas',
+    'pija',
+    'poronga',
+    'choto',
+    'chota',
+    'porquería',
+    'verga',
+    'culo',
+    'cheto',
+    'grasa',
+    'chetos',
+    'grasas',
+    'concha',
+    'tarado',
+    'tarados',
+    'tarada',
+    'taradas',
+    'idiota',
+    'idiotas',
+    'orto',
+    'trola',
+    'trolas',
+    'trolos',
+    'trolo',
+    'garca',
+    'garcas',
+    'chupala',
+    'chupenla',
+  ];
   const lightModeBG =
     'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
 
