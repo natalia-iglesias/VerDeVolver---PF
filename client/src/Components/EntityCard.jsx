@@ -35,7 +35,15 @@ const EntityCard = ({ entity, acount }) => {
     setInputMonto(event.target.value);
   };
 
-  const handleButton = async (event) => {
+  const handleButton = () => {
+    console.log(
+      'entityid:::::',
+      entity.id,
+      'inputMonto::::::',
+      inputMonto,
+      'Userid:::::::::',
+      id
+    );
     const { id } = acount;
     if (!id) {
       navigate('/login');
@@ -46,10 +54,17 @@ const EntityCard = ({ entity, acount }) => {
         duration: 1500,
         isClosable: true,
       });
-      throw new Error('Debes iniciar sesión para poder donar');
     }
     if (inputMonto) {
       try {
+        console.log(
+          'entityid:::::',
+          entity.id,
+          'inputMonto::::::',
+          inputMonto,
+          'Userid:::::::::',
+          id
+        );
         axios
           .post(`/donation`, {
             VdVId: entity.id,
