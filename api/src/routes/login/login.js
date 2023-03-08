@@ -62,7 +62,7 @@ router.get(
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     const { user } = req;
-    res.redirect(`/login/${user.id}`);
+    res.redirect(`https://ver-de-volver-pf-psi.vercel.app/login/${user.id}`);
   }
 );
 

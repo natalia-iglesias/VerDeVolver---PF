@@ -241,19 +241,15 @@ const Login = () => {
           </Checkbox>
 
           <Button
+            w="2xs"
             bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
             onClick={handleLogin}
           >
             Iniciar sesión
           </Button>
 
-          {/* <IconButton
-            bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
-            icon={<AiFillGoogleCircle />}
-            color="brands.google"
-            onClick={() => dispatch(authAcountGoogle())}
-          /> */}
           <Button
+            w="2xs"
             bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
             color={colorMode === 'light' ? 'black' : 'white'}
             rightIcon={<AiFillGoogleCircle />}
@@ -278,81 +274,3 @@ const Login = () => {
 };
 
 export default Login;
-
-{
-  /* <Card
-bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
-w="40rem"
-h="40rem"
-pt="1rem"
-mx={'auto'}
->
-<Box
-  m={'1rem'}
-  display="flex"
-  flexDir={'column'}
-  gap={'1rem'}
-  overflow={'hidden'}
->
-  <FormControl isInvalid={errors.mail}>
-    <InputGroup>
-      <InputLeftElement pointerEvents="none" children={<AtSignIcon />} />
-      <Input
-        type="text"
-        onChange={handleChange}
-        value={logInData.mail}
-        name="mail"
-        placeholder="Escribe tu mail"
-      />
-    </InputGroup>
-    {errors.mail && <FormErrorMessage>{errors.mail}</FormErrorMessage>}
-  </FormControl>
-
-  <FormControl isInvalid={errors.password}>
-    <InputGroup>
-      <InputLeftElement pointerEvents="none" children={<LockIcon />} />
-      <Input
-        type={showPassword ? 'text' : 'password'}
-        onChange={handleChange}
-        value={logInData.password}
-        name="password"
-        placeholder="Escribe tu contraseña"
-      />
-      <InputRightElement>
-        <IconButton
-          icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
-          onClick={() => setShowPassword(!showPassword)}
-        />
-      </InputRightElement>
-    </InputGroup>
-    {errors.password && (
-      <FormErrorMessage>{errors.password}</FormErrorMessage>
-    )}
-  </FormControl>
-
-  <Checkbox name="logged" isChecked={logged} onChange={handleCheck}>
-    Mantener sesión
-  </Checkbox>
-
-  <Button onClick={handleLogin}>Iniciar sesión</Button>
-
-  <IconButton
-    icon={<AiFillGoogleCircle />}
-    color="brands.google"
-    onClick={() => dispatch(authAcountGoogle())}
-  />
-
-  <Text alignSelf={'flex-end'}>
-    <ForgotPassword />
-  </Text>
-
-  <Divider />
-
-  <Text textAlign={'center'}>
-    ¿Necesitas una cuenta? <Link to="/singup">Registrate</Link>
-  </Text>
-</Box>
-</Card>
-);
-}; */
-}
