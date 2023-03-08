@@ -59,7 +59,6 @@ const EntityDetail = () => {
   function containsBadWord(text) {
     for (let i = 0; i < badWords.length; i++) {
       if (text.includes(badWords[i])) {
-        console.log('contiene');
         return true;
       }
     }
@@ -69,7 +68,14 @@ const EntityDetail = () => {
     if (event.target.name === 'Review') {
       const contains = containsBadWord(event.target.value);
       if (contains) {
-        alert('no seas tan puto');
+        toast({
+          title: 'Error',
+          description: 'No se permiten palabras ofensivas en las reseñas',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
+        setInputReview(undefined);
         return;
       }
     }
@@ -126,6 +132,7 @@ const EntityDetail = () => {
         isClosable: true,
       });
     }
+
     if (!inputReview) {
       toast({
         title: 'Error',
@@ -173,6 +180,7 @@ const EntityDetail = () => {
     'bobo',
     'boba',
     'mierda',
+    'mierdas',
     'pija',
     'poronga',
     'choto',
@@ -196,6 +204,10 @@ const EntityDetail = () => {
     'trolas',
     'trolos',
     'trolo',
+    'garca',
+    'garcas',
+    'chupala',
+    'chupenla',
   ];
 
   return (
