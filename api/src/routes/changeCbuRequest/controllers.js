@@ -31,7 +31,7 @@ const deleteCbuRequest = async (id, idVdV, cbu) => {
     const entity = await VdV.findByPk(idVdV);
     sendEmail(
       entity.mail,
-      'Tu solicitud  de cambio de CBU ha sido aprovada',
+      'Tu solicitud  de cambio de CBU ha sido aprobada',
       htmlVdVAprrovedCBUTemplate(entity.name, cbu)
     );
   } catch (error) {

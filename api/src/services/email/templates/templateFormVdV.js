@@ -85,7 +85,7 @@ ${templateHeader}
           </div>
           <div class="text_container">
             <h1>Hola ${name}, </h1>
-            <h2>Te comunicamos que tu solicitud  de cambio de CBU ha sido aprovada</h2>
+            <h2>Te comunicamos que tu solicitud  de cambio de CBU ha sido aprobada</h2>
             <p>Ahora tu CBU es ${cbu}</p>
             <p>Saludos cordiales, </p>
             <p>Equipo de Verde Volver</p>
