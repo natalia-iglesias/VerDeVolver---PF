@@ -105,7 +105,9 @@ const Form1 = ({ setProgressAndStep }) => {
             value={form.name}
           />
           {!errors.name.isError && form.name.length === 0 ? (
-            <FormHelperText>Ingresa el nombre de tu proyecto.</FormHelperText>
+            <FormHelperText>
+              Ingresa el nombre de tu proyecto residente en Argentina.
+            </FormHelperText>
           ) : (
             <FormErrorMessage>{errors.name.errorMsg}</FormErrorMessage>
           )}
