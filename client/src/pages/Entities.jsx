@@ -1,4 +1,4 @@
-import { Grid, GridItem, VStack } from '@chakra-ui/react';
+import { Grid, GridItem, VStack, Box } from '@chakra-ui/react';
 import SearchBar from '../Components/SearchBar';
 import { useSelector, useDispatch } from 'react-redux';
 import EntityCard from '../Components/EntityCard';
@@ -51,7 +51,7 @@ const Entities = () => {
   const max = Math.ceil(numberEntitiesActives / byPage);
 
   return (
-    <VStack bg={colorMode === 'light' ? '#b4c4ac' : '#212933'} pr={'1rem'}>
+    <VStack bg={colorMode === 'light' ? '#b4c4ac' : '#212933'} pr={'3rem'}>
       <SearchBar
         entities={entities}
         setPage={setPage}
@@ -99,6 +99,7 @@ const Entities = () => {
             setInput={setInput}
           />
         </GridItem>
+        <Box h="10rem"></Box>
       </Grid>
     </VStack>
   );
