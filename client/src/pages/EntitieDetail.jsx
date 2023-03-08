@@ -192,7 +192,7 @@ const EntityDetail = () => {
                 _hover={{ height: '30vh', width: '30vh' }}
               >
                 <Image
-                  src={entity.img}
+                  src={entity.img && entity.img}
                   height="26vh"
                   width="26vh"
                   borderRadius="50%"
