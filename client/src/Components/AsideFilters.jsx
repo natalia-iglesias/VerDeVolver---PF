@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { VStack, Select, Badge, useColorMode, Button } from '@chakra-ui/react';
+import {
+  VStack,
+  Select,
+  useToast,
+  useColorMode,
+  Button,
+} from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   filterEntitiesByMaterial,
@@ -9,6 +15,7 @@ import {
 const AsideFilters = ({ filters, setPage, setInput }) => {
   const dispatch = useDispatch();
   const { colorMode } = useColorMode();
+  const toast = useToast();
 
   const { materials, listOfMaterialsToFilterState, entities } = useSelector(
     (state) => state.entitiesReducer
@@ -18,7 +25,14 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
     const newFilters = filters.filter((ent) => {
       return ent.Materials.some((mat) => mat.name === e.target.value);
     });
-    if (newFilters.length == 0) return window.alert('No hubo coincidencias');
+    if (newFilters.length == 0)
+      return toast({
+        title: 'Error',
+        description: 'No se encontraron coincidencias',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
     listOfMaterialsToFilterState.push(e.target.value);
     dispatch(filterEntitiesByMaterial(newFilters));
 
