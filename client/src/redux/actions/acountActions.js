@@ -14,7 +14,7 @@ const { setSessionAcount, getSessionAcount, removeSessionAcount } =
 export const authAcountLocal = ({ mail, password, keepLogged }) => {
   return async (dispatch) => {
     try {
-      const auth = await axios.post(`/login`, {
+      const auth = await axios.post('/login', {
         mail: mail,
         password: password,
       })
@@ -36,7 +36,7 @@ export const authAcountLocal = ({ mail, password, keepLogged }) => {
           : setSessionAcount({ mail, token });
 
         const acount = await axios.get(
-          `http://localhost:3001/login?mail=${mail}`,
+          `/login?mail=${mail}`,
           config
         )
         .catch(function (error) {
@@ -66,7 +66,10 @@ export const LogedUser = () => {
           },
         };
 
-        const res = await axios.get(`/login?mail=${user?.mail}`, config);
+        const res = await axios.get(
+          `/login?mail=${user?.mail}`,
+          config
+        );
 
         const userData = res.data;
 
@@ -79,7 +82,7 @@ export const LogedUser = () => {
 };
 
 export const authAcountGoogle = () => {
-  window.location.href = `/login/google`;
+  window.location.href = '/login/google';
 };
 
 export const logoutAcount = () => {
