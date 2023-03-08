@@ -2,14 +2,14 @@ import axios from 'axios';
 
 import { logoutAcount } from '../../redux/actions/acountActions';
 
-//const deleteUser = (id, navigate, dispatch) => {
-  //axios.delete(`/user/${id}`).then(() => {
-    //dispatch(logoutAcount());
-    //navigate('/home');
-  //});
-//};
-
 const deleteUser = (id, navigate, dispatch) => {
+  axios.delete(`/user/${id}`).then(() => {
+    dispatch(logoutAcount());
+    navigate('/home');
+  });
+};
+
+/*const deleteUser = (id, navigate, dispatch) => {
   axios({
       method: 'delete',   
       url: `https://verdevolver-pf-production.up.railway.app/user/${id}`, 
@@ -18,7 +18,7 @@ const deleteUser = (id, navigate, dispatch) => {
       dispatch(logoutAcount());
       navigate('/home');
     });
-};
+};*/
 
 const updateUser = async (id, input) => {
   try {
