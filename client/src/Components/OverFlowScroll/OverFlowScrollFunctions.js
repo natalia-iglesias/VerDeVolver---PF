@@ -61,17 +61,18 @@ const typeOfDataToRender = (
   }
 };
 
-const deleteFeedback = (id) => {
+const deleteFeedback = (id, setArrayToRender) => {
   axios.delete(`/feedback/${id}/delete`).then(() => {
     //window.alert('La reseña fue borrada');
-    window.location.reload();
+    //window.location.reload();
+    axios.get('/feedback').then((res) => setArrayToRender(res.data));
   });
 };
 
 const updateDonation = (id) => {
   axios.put(`/donation/${id}`).then(() => {
     //window.alert('La donación fue entregada');
-    window.location.reload();
+    //window.location.reload();
   });
 };
 

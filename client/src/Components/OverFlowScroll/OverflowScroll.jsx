@@ -69,7 +69,7 @@ function DashboardScroll({ type, id, pendingOrDelivered }) {
                 duration: 1800,
                 isClosable: true,
               });
-              deleteFeedback(item.id);
+              deleteFeedback(item.id, setArrayToRender);
             } catch (error) {
               toast({
                 title: 'Error',

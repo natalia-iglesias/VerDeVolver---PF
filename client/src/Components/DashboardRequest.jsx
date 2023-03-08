@@ -47,8 +47,8 @@ function DashboardRequest() {
   };
 
   const approveCbu = (id, cbu, idVdV) => {
-    Axios.put(`/vdv/${idVdV}`, { cbu }).then(() => {
-      Axios.delete(`/cbuRequest/${id}?idVdV=${idVdV}&cbu=${cbu}`).then(() => {
+    axios.put(`/vdv/${idVdV}`, { cbu }).then(() => {
+      axios.delete(`/cbuRequest/${id}?idVdV=${idVdV}&cbu=${cbu}`).then(() => {
         try {
           toast({
             title: 'CBU aprovado',
@@ -73,7 +73,7 @@ function DashboardRequest() {
   };
 
   const disapproveCbu = (id) => {
-    Axios.delete(`/cbuRequest/${id}?status=disapproved`).then(() => {
+    axios.delete(`/cbuRequest/${id}?status=disapproved`).then(() => {
       toast({
         title: 'CBU no aprovado',
         description: 'el cambio de CBU NO ha sido aprobado',
