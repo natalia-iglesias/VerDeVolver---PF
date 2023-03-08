@@ -127,11 +127,15 @@ function DashboardRequest() {
             py="1.5rem"
             px="2rem"
             bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
-            boxShadow="dark-lg"
+            boxShadow="0 2px 5px rgba(0, 0, 0, 0.5)"
             direction="column"
             borderRadius={'1rem'}
             align={'center'}
             mt="0.5rem"
+            _hover={{
+              transform: 'scale(1.06)',
+              transition: 'transform 0.3s ease-in-out',
+            }}
           >
             <Box as="span" flex="1" textAlign="left" fontWeight="bold">
               {req.vdvName ? (
@@ -183,11 +187,14 @@ function DashboardRequest() {
           )}
           {req.img && (
             <>
-              <Image src={req.img} />
+              <Image w={'10rem'} borderRadius={'2rem'} src={req.img} />
               <br />
             </>
           )}
           <Button
+            border={'solid 2px grey'}
+            boxShadow="0 2px 5px rgba(0, 0, 0, 0.5)"
+            bg={'transparent'}
             onClick={
               req.vdvName
                 ? () => approveCbu(req.id, req.cbu, req.idVdV)
@@ -197,6 +204,10 @@ function DashboardRequest() {
             <CheckIcon />
           </Button>
           <Button
+            border={'solid 2px grey'}
+            bg={'transparent'}
+            ml="0.5rem"
+            boxShadow="0 2px 5px rgba(0, 0, 0, 0.5)"
             onClick={
               req.vdvName
                 ? () => disapproveCbu(req.id)

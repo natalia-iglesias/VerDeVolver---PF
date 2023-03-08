@@ -23,8 +23,8 @@ import {
   Textarea,
   VStack,
   useToast,
-  useColorMode,
   DarkMode,
+  useColorMode,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
@@ -141,8 +141,14 @@ const EntityDetail = () => {
     }
   };
 
+  const lightModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
+
+  const darkModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
+
   return (
-    <Box bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}>
+    <Box bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}>
       <Box mr="10%" ml="10%" pt={'5%'} paddingBottom="5rem">
         <Box
           boxShadow="dark-lg"
@@ -150,7 +156,7 @@ const EntityDetail = () => {
           rounded="md"
           minH="92vh"
           // marginBottom="11vh"
-          backgroundColor={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+          backgroundColor={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
         >
           <Box
             width="100%"
@@ -192,7 +198,6 @@ const EntityDetail = () => {
                   transition="2s"
                   _hover={{ height: '28vh', width: '28vh' }}
                 />
-                {console.log(entity.img)}
               </Box>
             </Box>
           </Box>

@@ -53,16 +53,22 @@ const Dashboard = () => {
   }, []);
 
   const renderOverFlowFeedback = () => {
-    return <OverflowScroll type={feedbackType} id={feedbackId} />;
+    return (
+      <Box p="2rem" shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}>
+        <OverflowScroll type={feedbackType} id={feedbackId} />
+      </Box>
+    );
   };
 
   const renderOverFlowDonation = () => {
     return (
-      <OverflowScroll
-        type={donationType}
-        id={donationId}
-        pendingOrDelivered={pendingOrDelivered}
-      />
+      <Box p="2rem" shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}>
+        <OverflowScroll
+          type={donationType}
+          id={donationId}
+          pendingOrDelivered={pendingOrDelivered}
+        />
+      </Box>
     );
   };
 
@@ -131,15 +137,15 @@ const Dashboard = () => {
       pb="2rem"
       direction="row"
       justify="space-evenly"
-      // mb={'5rem'}
       bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}
     >
       <Flex
+        backgroundColor={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
         align={'center'}
         px="2rem"
         pos={'relative'}
         py="1.5rem"
-        bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+        // bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
         boxShadow="dark-lg"
         direction="column"
         borderRadius={'1rem'}
@@ -147,27 +153,33 @@ const Dashboard = () => {
         <Heading align="center" m="3vh">
           Reseñas
         </Heading>
-        {renderOverFlowFeedback()}
-        <Select
-          onClick={(event) =>
-            vdvSearchFeedback(event, setFeedbackType, setFeedbackId)
-          }
-        >
-          <option value="none">Entidades</option>
-          {optionsSelectArray(feedbackVdVFilters, 'vdv')}
-        </Select>
-        <Select
-          onClick={(event) =>
-            userSearchFeedback(event, setFeedbackType, setFeedbackId)
-          }
-        >
-          <option value="none">Usuarios</option>
-          {optionsSelectArray(feedbackUsersFilters)}
-        </Select>
-        <Heading align="center" m="3vh">
-          Posts
-        </Heading>
-        <TabListPosts />
+        <Flex shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'} borderRadius="3 rem">
+          {renderOverFlowFeedback()}
+        </Flex>
+        <Flex mb={'2rem'} mt={'2rem'} justifyContent="space-around">
+          <Select
+            shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+            w="10rem"
+            onClick={(event) =>
+              vdvSearchFeedback(event, setFeedbackType, setFeedbackId)
+            }
+          >
+            <option value="none">Entidades</option>
+            {optionsSelectArray(feedbackVdVFilters, 'vdv')}
+          </Select>
+          <Select
+            w="10rem"
+            ml="1rem"
+            shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+            onClick={(event) =>
+              userSearchFeedback(event, setFeedbackType, setFeedbackId)
+            }
+          >
+            <option value="none">Usuarios</option>
+            {optionsSelectArray(feedbackUsersFilters)}
+          </Select>
+        </Flex>
+
         <Heading align="center" m="3vh">
           Solicitudes
         </Heading>
@@ -177,8 +189,9 @@ const Dashboard = () => {
         pos={'relative'}
         py="1.5rem"
         px="2rem"
-        bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
-        boxShadow="dark-lg"
+        backgroundColor={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
+        // bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+        boxShadow="0 2px 5px rgba(0, 0, 0, 0.5)"
         direction="column"
         borderRadius={'1rem'}
         align={'center'}
@@ -187,44 +200,97 @@ const Dashboard = () => {
           Donaciones
         </Heading>
         {renderOverFlowDonation()}
-        <Select
-          onClick={(event) =>
-            vdvSearchDonation(event, setDonationType, setDonationId)
-          }
+        <Flex justifyContent={'center'} mt="1rem" ml="10rem">
+          <Flex direction={'column'} mt={'1rem'} align="center" w={'120%'}>
+            <Select
+              w="10rem"
+              shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+              onClick={(event) =>
+                vdvSearchDonation(event, setDonationType, setDonationId)
+              }
+            >
+              <option value="none">Entidades</option>
+              {optionsSelectArray(donationVdVFilters, 'vdv')}
+            </Select>
+            <Select
+              w="10rem"
+              mt={'1rem'}
+              shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+              onClick={(event) =>
+                userSearchDonation(event, setDonationType, setDonationId)
+              }
+            >
+              <option value="none">Usuarios</option>
+              {optionsSelectArray(donationUsersFilters)}
+            </Select>
+          </Flex>
+          <Flex
+            direction={'column'}
+            mr={'10rem'}
+            ml="2rem"
+            mt="1rem"
+            w={'100%'}
+            h={'140%'}
+          >
+            <Button
+              bg={'greyLight'}
+              shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+              w="10rem"
+              mb="1rem"
+              onClick={() => viewStatusDonation('Pending')}
+            >
+              Pendientes
+            </Button>
+            <Button
+              shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+              bg={'greyLight'}
+              w="10rem"
+              onClick={() => viewStatusDonation('Delivered')}
+            >
+              Entregadas
+            </Button>
+          </Flex>
+        </Flex>
+
+        <Flex
+          boxShadow="0 2px 5px rgba(0, 0, 0, 0.5)"
+          p="2rem"
+          borderRadius={'2rem'}
+          direction={'column'}
+          mt={'10rem'}
+          // mb={'5rem'}
+          align="center"
         >
-          <option value="none">Entidades</option>
-          {optionsSelectArray(donationVdVFilters, 'vdv')}
-        </Select>
-        <Select
-          onClick={(event) =>
-            userSearchDonation(event, setDonationType, setDonationId)
-          }
-        >
-          <option value="none">Usuarios</option>
-          {optionsSelectArray(donationUsersFilters)}
-        </Select>
-        <Button onClick={() => viewStatusDonation('Pending')}>
-          Pendientes
-        </Button>
-        <Button onClick={() => viewStatusDonation('Delivered')}>
-          Entregadas
-        </Button>
-        <Flex direction={'column'} mt={'8rem'} align="center">
-          <Heading align="center" mb="1rem">
+          <Heading fontWeight="bold" align="center" mb="1rem">
             Creacion de administradores
           </Heading>
-          <Text w={'18rem'} fontSize="15px" mb={'2rem'}>
+          <Text
+            fontWeight="bold"
+            boxShadow="0 2px 5px rgba(0, 0, 0, 0.5)"
+            p="1rem"
+            borderRadius={'2rem'}
+            w={'30rem'}
+            align="center"
+            fontSize="15px"
+            mb={'2rem'}
+          >
             Ingrese el mail del usuario al quiere modificarle el rol
           </Text>
           <Flex>
             <Input
+              border={'grey solid 2px'}
+              bg={'greyYellow'}
               mr={'1rem'}
               onChange={handleInput}
               align={'center'}
               w={'20rem'}
               placeholder="Ingrese mail..."
             />
-            <Select w={'6rem'} onClick={handleSelectRole}>
+            <Select
+              boxShadow="0 2px 5px rgba(0, 0, 0, 0.5)"
+              w={'6rem'}
+              onClick={handleSelectRole}
+            >
               <option value="none">Roles</option>
               {roles.map((role) => (
                 <option value={role} key={`${role}roles`}>
@@ -233,15 +299,25 @@ const Dashboard = () => {
               ))}
             </Select>
           </Flex>
-          <Button mt={'2rem'} onClick={getUser}>
+          <Button
+            boxShadow="0 2px 5px rgba(0, 0, 0, 0.5)"
+            bg={'transparente'}
+            mt={'2rem'}
+            onClick={getUser}
+          >
             Enviar
           </Button>
-          {/* {userState.length ? (
-            <Text>
-              Se econtro al ususario {(userState[0].name, userState[0].name)}.
-              Seguro quiere modificar el rol del usuario seleccionado?{' '}
-            </Text>
-          ) : null} */}
+        </Flex>
+        <Flex
+          // m="2rem"
+          mt={'6rem'}
+          shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+          borderRadius="1rem"
+        >
+          <Heading align="center" m="3vh">
+            Posts
+          </Heading>
+          <TabListPosts />
         </Flex>
       </Flex>
     </Flex>
