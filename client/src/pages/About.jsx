@@ -62,44 +62,61 @@ const About = () => {
       flexDirection="column"
       align="center"
       bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
-      padding="1rem"
+      pb="1rem"
+      pt={'2rem'}
     >
-      <Box
-        borderRadius="lg"
-        mb="0.8rem"
-        p="0.7rem"
-        bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
-      >
-        <Heading align="center" fontFamily="Exo 2" mb="0.8rem">
-          Proyecto final Henry
-        </Heading>
-        <Text
-          align="center"
-          width="90vw"
-          m="0.7rem"
-          fontSize="xl"
-          fontFamily="lato"
+    <Box
+      bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+      boxShadow={'dark-lg'}
+      borderRadius="lg"
+      w={'90vw'}
+      p={'2rem'}
+      alignItems={'center'}
+      justifyContent={'center'}
+    >
+        <Box
+          borderRadius="lg"
+          mb="2rem"
+          p="0.7rem"
+          bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+          boxShadow={'lg'}
         >
-          VerDeVolver es un sitio web sin fines de lucro, que busca promover e
-          informar sobre el reciclaje y gestión de residuos a nivel nacional en
-          Argentina, a través de una interfaz de usuario intuitiva y amigable.
-          Ofrecemos una guía simple sobre los materiales reciclables (qué son,
-          qué hacer con ellos, cuánto dañan el medio ambiente) y un mapa
-          georreferenciado que muestra los lugares (entidades VdV) cercanos
-          donde puedes entregar tus residuos. Las entidades VdV son
-          organizaciones, cooperativas, emprendimientos, empresas o particulares
-          que reciben, reciclan y/o reutilizan determinados residuos.
-          VerDeVolver no está involucrada ni participa directamente con ninguno
-          de los puntos de reciclaje en el mapa.
-        </Text>
-      </Box>
+          <Heading align="center" fontFamily="Exo 2" mb="0.8rem">
+            Proyecto final Henry
+          </Heading>
+          <Text
+            align="center"
+            width="80vw"
+            m="0.7rem"
+            fontSize="xl"
+            fontFamily="lato"
+          >
+            VerDeVolver es un sitio web sin fines de lucro, que busca promover e
+            informar sobre el reciclaje y gestión de residuos a nivel nacional en
+            Argentina, a través de una interfaz de usuario intuitiva y amigable.
+            Ofrecemos una guía simple sobre los materiales reciclables (qué son,
+            qué hacer con ellos, cuánto dañan el medio ambiente) y un mapa
+            georreferenciado que muestra los lugares (entidades VdV) cercanos
+            donde puedes entregar tus residuos. Las entidades VdV son
+            organizaciones, cooperativas, emprendimientos, empresas o particulares
+            que reciben, reciclan y/o reutilizan determinados residuos.
+            VerDeVolver no está involucrada ni participa directamente con ninguno
+            de los puntos de reciclaje en el mapa.
+          </Text>
+        </Box>
 
-      <Flex flexWrap="wrap" align="center" w="100%" justifyContent="center">
-        {devList.map((dev, indx) => (
-          <RenderDevCard key={`${dev.name}+${indx}`} dev={dev} />
-        ))}
-      </Flex>
-      <Box height={'2rem'}></Box>
+        <Flex 
+        flexWrap="wrap" 
+        align={'center'} 
+        gap={'3rem'}
+        justifyContent="center" 
+        >
+          {devList.map((dev, indx) => (
+            <RenderDevCard key={`${dev.name}+${indx}`} dev={dev} />
+          ))}
+        </Flex>
+    </Box>
+      
     </Flex>
   );
 };
