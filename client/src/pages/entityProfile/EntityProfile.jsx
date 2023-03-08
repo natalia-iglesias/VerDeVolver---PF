@@ -84,7 +84,6 @@ function EntityProfile() {
     (state) => state.entitiesReducer
   );
 
-  const [showPassword, setShowPassword] = useState(false);
   const [showCBU, setShowCBU] = useState(false);
   const [input, setInput] = useState({});
   const [inputPassword, setInputPassword] = useState({
@@ -147,15 +146,32 @@ function EntityProfile() {
     setInputPassword({ [e.target.name]: e.target.value });
   };
 
-  const handleSavePassword = () => {
-    updatePassword(acount?.id, inputPassword);
+  const handleSavePassword = async () => {
+    const res = await updatePassword(acount?.id, inputPassword);
+    if((res) !== 200){
+      return toast({
+        title: 'Error',
+        description:
+          'Ha ocurrido un error en el proceso de actualización de contraseña',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
+    }else{
+      return toast({
+        title: 'Contraseña actualizada correctamente',
+        description: 'Contraseña actualizada',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   const handleUploadImage = (url) => {
     setInput({ ...input, img: url });
   };
 
-  /*   const handleShowPassword = () => setShowPassword(!showPassword); */
   const handleShowCBU = () => setShowCBU(!showCBU);
 
   const handleSaveChanges = () => {
