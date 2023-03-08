@@ -31,6 +31,7 @@ import {
   StackDivider,
   Flex,
   useToast,
+  useColorMode,
 } from '@chakra-ui/react';
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { BiUser, BiUserX } from 'react-icons/bi';
@@ -50,6 +51,7 @@ function UserProfile() {
 
   const navigate = useNavigate();
   const toast = useToast();
+  const { colorMode } = useColorMode();
 
   const userId = acount.id;
   useEffect(() => {
@@ -65,11 +67,11 @@ function UserProfile() {
   });
 
   const [inputPassword, setInputPassword] = useState({
-    password: '', 
+    password: '',
   });
 
   const handleChangePassword = (e) => {
-    setInputPassword({[e.target.name]: e.target.value });
+    setInputPassword({ [e.target.name]: e.target.value });
   };
 
   const handleChange = (e) => {
@@ -104,25 +106,25 @@ function UserProfile() {
   };
 
   const handleSaveChangePassword = async () => {
-      const res = await updateUserPassword(acount?.id, inputPassword);
-      if((res) !== 200){
-        return toast({
-          title: 'Error',
-          description:
-            'Ha ocurrido un error en el proceso de actualización de contraseña',
-          status: 'error',
-          duration: 1500,
-          isClosable: true,
-        });
-      }else{
-        return toast({
-          title: 'Contraseña actualizada correctamente',
-          description: 'Contraseña actualizada',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-        });
-      }
+    const res = await updateUserPassword(acount?.id, inputPassword);
+    if (res !== 200) {
+      return toast({
+        title: 'Error',
+        description:
+          'Ha ocurrido un error en el proceso de actualización de contraseña',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
+    } else {
+      return toast({
+        title: 'Contraseña actualizada correctamente',
+        description: 'Contraseña actualizada',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   const handleCancelChanges = () => {
@@ -151,188 +153,278 @@ function UserProfile() {
 
   if (!Object.entries(acount).length) return navigate('/login');
 
+  const lightModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
+
+  const darkModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
+
   return (
-    <Grid templateColumns={'repeat(2, 1fr)'} gap="2rem">
-      <GridItem ml="3rem" mt="1rem" mr={'1rem'}>
-        <Heading mb={'1rem'}>Información del usuario</Heading>
-
-        <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
-          <Text ml={'1rem'} mb={'1rem'} w={'400px'} fontSize={'30px'}>
-            {input.name} {input.last_name}
-          </Text>
-          <Avatar
-            src={input.image}
-            name={`${input.name}${input.last_name}`}
-            borderRadius="full"
-            size='xl'
-            mb="5vh"
-          />
-        </Box>
-
-        <Box my="1rem">
-          <Text>Nombre</Text>
-          <InputGroup>
-            <InputLeftElement children={<BiUser />} />
-            <Input
-              type="text"
-              name="name"
-              value={input.name}
-              onChange={handleChange}
-            />
-          </InputGroup>
-        </Box>
-        <Box my="1rem">
-          <Text>Apellido</Text>
-          <InputGroup>
-            <InputLeftElement children={<BiUser />} />
-            <Input
-              type="text"
-              name="last_name"
-              value={input.last_name}
-              onChange={handleChange}
-            />
-          </InputGroup>
-        </Box>
-        <Box my="1rem">
-          <Text>Mail</Text>
-          <InputGroup>
-            <InputLeftElement children={<AtSignIcon />} />
-            <Input
-              type="email"
-              name="mail"
-              value={input.mail}
-              onChange={handleChange}
-            />
-          </InputGroup>
-        </Box>
-        <Box my="1rem">
-          <Text>Cambiar contraseña</Text>
-          <InputGroup>
-            <InputLeftElement children={<LockIcon />} />
-            <Input
-              type='text'
-              name="password"
-              value={inputPassword.password}
-              onChange={handleChangePassword}
-            />
-          <Button colorScheme={'green'} w="40%" onClick={handleSaveChangePassword} ml={'1rem'}>
-            Actualizar
-          </Button>
-          </InputGroup>
-        </Box>
-        <UploadImage onUpload={handleUploadImage} value={input.image} />
-
-        <ButtonGroup
-          // variant={'outline'}
-          w="full"
-          justifyContent={'center'}
-          mt="1rem"
+    <Box bgImage={colorMode === 'light' ? lightModeBG : darkModeBG}>
+      <Box mr="5%" ml="5%" pt={'5%'} paddingBottom="5rem" paddingTop="15vh">
+        <Box
+          borderRadius="3rem"
+          boxShadow="dark-lg"
+          p="6"
+          minH="92vh"
+          backgroundColor={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
         >
-          <Button colorScheme={'green'} w="40%" onClick={handleSaveChanges}>
-            Guardar
-          </Button>
-          <Button colorScheme={'blue'} w="40%" onClick={handleCancelChanges}>
-            Cancelar
-          </Button>
-          <Popover>
-            <PopoverTrigger>
-              <Button colorScheme={'red'} w="40%" leftIcon={<BiUserX />}>
-                Eliminar usuario
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverHeader fontWeight="bold" pr={'2rem'}>
-                Estas seguro de que deseas eliminar tu usuario de forma
-                definitiva?
-              </PopoverHeader>
-              <PopoverCloseButton />
-              <PopoverBody>
-                ⚠️ Una vez que elimines tu usuario todos tus datos seran
-                eliminados de nuestra base de datos sin posibildad de ser
-                recuperados
-              </PopoverBody>
-              <Button colorScheme={'red'} onClick={handleDeleteUser}>
-                Confirmar
-              </Button>
-            </PopoverContent>
-          </Popover>
-        </ButtonGroup>
-      </GridItem>
-
-      <GridItem mt={'15rem'} mr="1rem" mb="2rem">
-        <Stack mt="1rem" spacing={'1rem'}>
-          <Heading mt="1rem">Donaciones</Heading>
-          <Divider />
-          <VStack
-            alignItems="flex-start"
-            maxH="25vh"
-            overflowY={'scroll'}
-            divider={<StackDivider />}
+          <Flex
+            width="100%"
+            minH="31vh"
+            justifyContent="center"
+            alignItems="center"
+            marginTop="-13vh"
+            marginBottom="10vh"
+            flexDirection="column"
           >
-            {donations.length !== 0 ? (
-              donations.map(({ amount, date, VdV }) => (
-                <Box>
-                  <HStack spacing="1rem">
-                    <Avatar src={VdV.img} name={VdV.name} size="sm" />
-                    <Flex justifyContent="start" width="24vw">
-                      <Text>{VdV.name}</Text>
-                    </Flex>
-                    <Flex justifyContent="start" width="10vw" ml="2rem">
-                      <Text>{amount}</Text>
-                    </Flex>
-                    <Flex justifyContent="flex-start" width="9vw">
-                      <Text>{date}</Text>
-                    </Flex>
-                  </HStack>
-                </Box>
-              ))
-            ) : (
-              <Box display="flex" h="20vh" alignItems="center">
-                <Text fontSize="lg" as="b" ml="1rem">
-                  {' '}
-                  No se encontraron donaciones pertenecientes a este usuario{' '}
-                </Text>
-              </Box>
-            )}
-          </VStack>
+            <Box
+              bg="#F5F2EB"
+              borderRadius="full"
+              height="22vh"
+              width="22vh"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              boxShadow="dark-lg"
+              mb="2vh"
+              //pt="5vh"
+            >
+              <Image
+                src={input.image}
+                name={`${input.name}${input.last_name}`}
+                borderRadius="full"
+                height="20vh"
+                width="20vh"
+              />
+            </Box>
+            <Box
+              width="100%"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Heading fontSize={'3rem'}>
+                {input.name} {input.last_name}
+              </Heading>
+            </Box>
+          </Flex>
+          <Grid templateColumns="repeat(2, 1fr)" gap={'2rem'}>
+            {/* <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+            > */}
+            <GridItem>
+              <Flex
+                flexDirection="column"
+                justifyContent="center"
+                width="100%"
+                boxShadow="2xl"
+                padding="2rem"
+                borderRadius="2rem"
+                minHeight="45rem"
+              >
+                <Heading mb={'1rem'}>Información del usuario</Heading>
 
-          <Heading>Reseñas</Heading>
-          <Divider></Divider>
-          <VStack
-            alignItems="flex-start"
-            maxH="25vh"
-            overflowY={'scroll'}
-            divider={<StackDivider />}
-          >
-            {feedbacks.length !== 0 ? (
-              feedbacks.map(({ comment, rating, date, VdV }) => (
-                <Box>
-                  <HStack spacing="1rem">
-                    <Avatar src={VdV.img} name={VdV.name} size="sm" />
-                    <RankingStars stars={rating}></RankingStars>
-                    <Flex justifyContent="start" width="22vw">
-                      <Text>{comment}</Text>
-                    </Flex>
-                    <Flex justifyContent="flex-end" width="9vw">
-                      <Text>{date}</Text>
-                    </Flex>
-                  </HStack>
-                  <Text>{VdV.name}</Text>
+                <Box my="1rem">
+                  <Text>Nombre</Text>
+                  <InputGroup>
+                    <InputLeftElement children={<BiUser />} />
+                    <Input
+                      type="text"
+                      name="name"
+                      value={input.name}
+                      onChange={handleChange}
+                    />
+                  </InputGroup>
                 </Box>
-              ))
-            ) : (
-              <Box display="flex" h="20vh" alignItems="center">
-                <Text fontSize="lg" as="b" ml="1rem">
-                  {' '}
-                  No se encontraron reseñas pertenecientes a este usuario{' '}
-                </Text>
-              </Box>
-            )}
-          </VStack>
-        </Stack>
-        <Box height={'20rem'}></Box>
-      </GridItem>
-    </Grid>
+                <Box my="1rem">
+                  <Text>Apellido</Text>
+                  <InputGroup>
+                    <InputLeftElement children={<BiUser />} />
+                    <Input
+                      type="text"
+                      name="last_name"
+                      value={input.last_name}
+                      onChange={handleChange}
+                    />
+                  </InputGroup>
+                </Box>
+                <Box my="1rem">
+                  <Text>Mail</Text>
+                  <InputGroup>
+                    <InputLeftElement children={<AtSignIcon />} />
+                    <Input
+                      type="email"
+                      name="mail"
+                      value={input.mail}
+                      onChange={handleChange}
+                    />
+                  </InputGroup>
+                </Box>
+                <Box my="1rem">
+                  <Text>Cambiar contraseña</Text>
+                  <InputGroup>
+                    <InputLeftElement children={<LockIcon />} />
+                    <Input
+                      type="text"
+                      name="password"
+                      value={inputPassword.password}
+                      onChange={handleChangePassword}
+                    />
+                    <Button
+                      colorScheme={'green'}
+                      ml="1rem"
+                      w="40%"
+                      onClick={handleSaveChangePassword}
+                    >
+                      Actualizar
+                    </Button>
+                  </InputGroup>
+                </Box>
+                <UploadImage onUpload={handleUploadImage} value={input.image} />
+
+                <ButtonGroup
+                  // variant={'outline'}
+                  w="full"
+                  justifyContent={'center'}
+                  mt="1rem"
+                >
+                  <Button
+                    colorScheme={'green'}
+                    w="40%"
+                    onClick={handleSaveChanges}
+                  >
+                    Guardar
+                  </Button>
+                  <Button
+                    colorScheme={'blue'}
+                    w="40%"
+                    onClick={handleCancelChanges}
+                  >
+                    Cancelar
+                  </Button>
+                  <Popover>
+                    <PopoverTrigger>
+                      <Button
+                        colorScheme={'red'}
+                        w="40%"
+                        leftIcon={<BiUserX />}
+                      >
+                        Eliminar usuario
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <PopoverHeader fontWeight="bold" pr={'2rem'}>
+                        Estas seguro de que deseas eliminar tu usuario de forma
+                        definitiva?
+                      </PopoverHeader>
+                      <PopoverCloseButton />
+                      <PopoverBody>
+                        ⚠️ Una vez que elimines tu usuario todos tus datos seran
+                        eliminados de nuestra base de datos sin posibildad de
+                        ser recuperados
+                      </PopoverBody>
+                      <Button colorScheme={'red'} onClick={handleDeleteUser}>
+                        Confirmar
+                      </Button>
+                    </PopoverContent>
+                  </Popover>
+                </ButtonGroup>
+              </Flex>
+            </GridItem>
+            <GridItem>
+              <Flex
+                justifyContent="center"
+                alignItems="center"
+                width="100%"
+                boxShadow="2xl"
+                padding="2rem"
+                borderRadius="2rem"
+                minHeight="45rem"
+              >
+                <Stack mt="1rem" spacing={'1rem'} width="100%">
+                  <Heading mt="1rem">Donaciones</Heading>
+                  <Divider />
+                  <VStack
+                    alignItems="flex-start"
+                    maxH="25vh"
+                    overflowY={'scroll'}
+                    divider={<StackDivider />}
+                  >
+                    {donations.length !== 0 ? (
+                      donations.map(({ amount, date, VdV }) => (
+                        <Box>
+                          <HStack spacing="1rem">
+                            <Avatar src={VdV.img} name={VdV.name} size="sm" />
+                            <Flex justifyContent="start" width="24vw">
+                              <Text>{VdV.name}</Text>
+                            </Flex>
+                            <Flex justifyContent="start" width="10vw" ml="2rem">
+                              <Text>{amount}</Text>
+                            </Flex>
+                            <Flex justifyContent="flex-start" width="9vw">
+                              <Text>{date}</Text>
+                            </Flex>
+                          </HStack>
+                        </Box>
+                      ))
+                    ) : (
+                      <Box display="flex" h="20vh" alignItems="center">
+                        <Text fontSize="lg" as="b" ml="1rem">
+                          {' '}
+                          No se encontraron donaciones pertenecientes a este
+                          usuario{' '}
+                        </Text>
+                      </Box>
+                    )}
+                  </VStack>
+
+                  <Heading>Reseñas</Heading>
+                  <Divider></Divider>
+                  <VStack
+                    alignItems="flex-start"
+                    maxH="25vh"
+                    overflowY={'scroll'}
+                    divider={<StackDivider />}
+                  >
+                    {feedbacks.length !== 0 ? (
+                      feedbacks.map(({ comment, rating, date, VdV }) => (
+                        <Box>
+                          <HStack spacing="1rem">
+                            <Avatar src={VdV.img} name={VdV.name} size="sm" />
+                            <RankingStars stars={rating}></RankingStars>
+                            <Flex justifyContent="start" width="22vw">
+                              <Text>{comment}</Text>
+                            </Flex>
+                            <Flex justifyContent="flex-end" width="9vw">
+                              <Text>{date}</Text>
+                            </Flex>
+                          </HStack>
+                          <Text>{VdV.name}</Text>
+                        </Box>
+                      ))
+                    ) : (
+                      <Box display="flex" h="20vh" alignItems="center">
+                        <Text fontSize="lg" as="b" ml="1rem">
+                          {' '}
+                          No se encontraron reseñas pertenecientes a este
+                          usuario{' '}
+                        </Text>
+                      </Box>
+                    )}
+                  </VStack>
+                </Stack>
+                <Box height={'20rem'}></Box>
+              </Flex>
+            </GridItem>
+            {/* </Box> */}
+          </Grid>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 
