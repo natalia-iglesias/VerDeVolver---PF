@@ -148,7 +148,7 @@ function EntityProfile() {
 
   const handleSavePassword = async () => {
     const res = await updatePassword(acount?.id, inputPassword);
-    if((res) !== 200){
+    if (res !== 200) {
       return toast({
         title: 'Error',
         description:
@@ -157,7 +157,7 @@ function EntityProfile() {
         duration: 1500,
         isClosable: true,
       });
-    }else{
+    } else {
       return toast({
         title: 'Contraseña actualizada correctamente',
         description: 'Contraseña actualizada',
@@ -182,9 +182,8 @@ function EntityProfile() {
     setInput(acount);
     setCBU(acount.cbu);
   };
-
   const handleDeleteEntity = () => {
-    deleteVdV(acount?.id, navigate);
+    deleteVdV(acount?.id, navigate, dispatch);
   };
 
   const handlePlaceSelected = (e) => {

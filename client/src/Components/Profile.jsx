@@ -31,6 +31,7 @@ const Profile = () => {
       <Button
         bg={colorMode === 'light' ? '#F5F2EB' : '#68D391'}
         onClick={() => navigate('/login')}
+        fontFamily={'Tilt Prism'}
       >
         Iniciar Sesión
       </Button>
@@ -57,6 +58,7 @@ const Profile = () => {
             to={`/userprofile`}
             fontWeight={'700'}
             color={colorMode === 'light' ? 'green' : '#68D391'}
+            fontFamily={'Tilt Prism'}
           >
             Mi perfil
           </MenuItem>
@@ -66,6 +68,7 @@ const Profile = () => {
             to={`/entityprofile`}
             fontWeight={'700'}
             color={colorMode === 'light' ? 'green' : '#68D391'}
+            fontFamily={'Tilt Prism'}
           >
             Mi perfil
           </MenuItem>
@@ -76,6 +79,7 @@ const Profile = () => {
             to={`/dashboard`}
             fontWeight={'700'}
             color={colorMode === 'light' ? 'green' : '#68D391'}
+            fontFamily={'Tilt Prism'}
           >
             Dashboard
           </MenuItem>
@@ -87,6 +91,7 @@ const Profile = () => {
           fontWeight={'700'}
           color={colorMode === 'light' ? 'green' : '#68D391'}
           onClick={() => dispatch(logoutAcount())}
+          fontFamily={'Tilt Prism'}
         >
           Cerrar Sesión
         </MenuItem>

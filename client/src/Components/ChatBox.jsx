@@ -129,7 +129,7 @@ const ChatBox = () => {
           pos="fixed"
           left="1rem"
           m="1rem"
-          bottom="4rem"
+          bottom="5rem"
         />
       </PopoverTrigger>
 

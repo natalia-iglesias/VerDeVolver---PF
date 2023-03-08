@@ -38,8 +38,8 @@ const validate = ({ name, last_name, mail, password }, users, entities) => {
 
   if (!name) {
     errors.name = 'El nombre es obligatorio';
-  } else if (name.length < 4 || name.length > 16) {
-    errors.name = 'El nombre debe tener entre 4 y 16 caracteres';
+  } else if (name.length < 3 || name.length > 16) {
+    errors.name = 'El nombre debe tener entre 3 y 16 caracteres';
   }
 
   if (!last_name) {

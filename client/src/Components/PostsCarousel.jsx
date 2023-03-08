@@ -31,7 +31,7 @@ const PostsCarousel = () => {
         <InstagramEmbed
           url={pos.url}
           key={pos.id}
-          style={{ maxHeight: '70vh', maxWidth: '50vh', overflowY: 'scroll' }}
+          style={{ maxHeight: '60vh', maxWidth: '47vh', overflowY: 'scroll' }}
         />
       ))}
     </ItemsCarousel>

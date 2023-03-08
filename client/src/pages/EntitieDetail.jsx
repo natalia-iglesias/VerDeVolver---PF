@@ -168,46 +168,34 @@ const EntityDetail = () => {
 
   const badWords = [
     'forro',
-    'forros',
     'forra',
-    'forras',
     'puto',
-    'putos',
     'puta',
-    'putas',
     'viejo',
     'vieja',
-    'bobos',
-    'bobas',
     'bobo',
     'boba',
     'mierda',
-    'mierdas',
     'pija',
     'poronga',
     'choto',
     'chota',
+    'conchudo',
+    'conchuda',
     'porquería',
     'verga',
     'culo',
     'cheto',
     'grasa',
-    'chetos',
-    'grasas',
     'concha',
     'tarado',
-    'tarados',
     'tarada',
-    'taradas',
+    'pajera',
     'idiota',
-    'idiotas',
     'orto',
     'trola',
-    'trolas',
-    'trolos',
     'trolo',
     'garca',
-    'garcas',
     'chupala',
     'chupenla',
   ];
@@ -352,7 +340,6 @@ const EntityDetail = () => {
                       borderRadius="1rem"
                       borderColor="black"
                       width="15vw"
-                      color="white"
                     />
                     <Button
                       onClick={handleDonate}
