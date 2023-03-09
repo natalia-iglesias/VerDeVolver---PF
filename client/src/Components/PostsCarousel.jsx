@@ -42,10 +42,12 @@ const PostsCarousel = () => {
           url={pos.url}
           key={pos.id}
           style={{
-            maxHeight: '70%',
-            maxWidth: '55%',
+            maxHeight: '49vh',
+            maxWidth: '40vh',
             overflowY: 'scroll',
+            overflowY: 'hidden',
             borderRadius: '1.5rem',
+            boxShadow: '0 5px 7px rgba(0, 0, 0, 0.5)',
           }}
         />
       ))}

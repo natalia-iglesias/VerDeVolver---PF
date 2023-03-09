@@ -60,6 +60,12 @@ const Map = () => {
     }
   };
 
+  const lightModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
+
+  const darkModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
+
   return (
     <Box
       pos="relative"
@@ -67,13 +73,14 @@ const Map = () => {
       display={'flex'}
       alignItems={'center'}
       justifyContent={'center'}
-      bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+      bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}
     >
       <Box
-        w={'98vw'}
-        h={'90vh'}
-        bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+        w={'90vw'}
+        h={'88vh'}
+        bg={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
         boxShadow={'dark-lg'}
+        borderRadius="1rem"
       >
         <Stack>
           <VStack spacing={'0.9rem'} pt={'1rem'}>
@@ -93,7 +100,13 @@ const Map = () => {
                 }}
               />
               <AsideMap filters={filters} />
-              <Button onClick={() => userUbication()} colorScheme={'green'}>
+              <Button
+                onClick={() => userUbication()}
+                colorScheme={'green'}
+                pb="0.2rem"
+                h="2.4rem"
+                w="10rem"
+              >
                 Mi ubicación
               </Button>
             </HStack>
