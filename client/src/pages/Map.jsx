@@ -100,7 +100,13 @@ const Map = () => {
                 }}
               />
               <AsideMap filters={filters} />
-              <Button onClick={() => userUbication()} colorScheme={'green'}>
+              <Button
+                onClick={() => userUbication()}
+                colorScheme={'green'}
+                pb="0.2rem"
+                h="2.4rem"
+                w="10rem"
+              >
                 Mi ubicación
               </Button>
             </HStack>

@@ -24,14 +24,14 @@ const updateVdV = (id, input) => {
   try {
     axios.get(`/material`).then((res) => {
       let numArray = [];
-      console.log(input.Materials);
+
       res.data.forEach((mat) => {
         input.Materials.forEach((mat2) => {
           if (mat.name == mat2.name) numArray.push(mat.id);
         });
       });
       input.materials = numArray;
-      console.log(numArray);
+
       axios.put(`/vdv/${id}`, input).then(() => {
         window.alert('Los cambios se han guardado exitosamente');
       });
@@ -43,8 +43,11 @@ const updateVdV = (id, input) => {
 
 const updatePassword = async (id, password) => {
   try {
-    const res = await axios.put(`/vdv/password/${id}`, password);
-    return ((res.data.id), (res.status));
+    const res = await axios.put(
+      `/vdv/password/${id}`,
+      password
+    );
+    return res.data.id, res.status;
   } catch (error) {
     return 'No se ha actualizado la contraseña';
   }

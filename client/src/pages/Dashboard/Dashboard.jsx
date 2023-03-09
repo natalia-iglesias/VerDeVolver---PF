@@ -274,7 +274,7 @@ const Dashboard = () => {
             fontSize="15px"
             mb={'2rem'}
           >
-            Ingrese el mail del usuario al quiere modificarle el rol
+            Ingrese email del usuario a modificar rol
           </Text>
           <Flex>
             <Input
