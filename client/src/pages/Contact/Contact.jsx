@@ -16,6 +16,7 @@ import {
   FormErrorMessage,
   useToast,
   useColorMode,
+  Heading,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { LogedUser } from '../../redux/actions/acountActions';
@@ -99,7 +100,7 @@ const Contact = () => {
         >
           <VStack as="form" spacing={4}>
             <Box fontWeight={'700'} fontSize="1.8em">
-              <h1>Contáctate con nosotros!</h1>
+              <Heading>Contáctate con nosotros!</Heading>
             </Box>
             <Flex w="100%" justifyContent="space-between" pr="5%" pl="5%">
               <FormControl
@@ -114,6 +115,7 @@ const Contact = () => {
                 pl={'5%'}
                 boxShadow="2xl"
                 p="6"
+                shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
               >
                 <FormLabel textAlign={'center'}>Nombre</FormLabel>
                 <Input
@@ -191,6 +193,7 @@ const Contact = () => {
                 id="descripcion"
                 p="6"
                 boxShadow="2xl"
+                // shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
               >
                 <FormLabel textAlign={'center'}>Descripción:</FormLabel>
                 <Textarea

@@ -15,6 +15,7 @@ import {
   useToast,
   Text,
   useColorMode,
+  Image,
 } from '@chakra-ui/react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import PostsCarousel from '../Components/PostsCarousel';
@@ -88,35 +89,49 @@ const Home = () => {
       <Flex justifyContent="center">
         <Box
           align="center"
-          mb="0.8rem"
+          // mb="0.8rem"
           p="0.7rem"
-          bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
+          bg={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
           w="90%"
           h="65rem"
           borderRadius="1rem"
           boxShadow="dark-lg"
-          _hover={{
-            transform: 'scale(1.02)',
-            transition: 'transform 0.3s ease-in-out',
-          }}
         >
-          <Box width="45%" float="left">
+          <Box ml="1rem" width="45%" float="left" mt={'5rem'} h="100%">
+            <Image
+              src="https://res.cloudinary.com/verdevolver/image/upload/v1678234115/My_project-1_1_dmqtx2.png"
+              w="8rem"
+              style={{ transform: 'scale(2.1)' }}
+            />
+
             <Text
               top="0"
               as="em"
+              h="100%"
               textShadow={'1px 1px black'}
               fontSize={'7xl'}
-              fontWeight={'bold'}
-              fontFamily={'Tilt Prism'}
-              textColor={colorMode === 'light' ? 'green' : '#68D391'}
+              // fontWeight={'bold'}
+              fontWeight={'bold harine'}
+              color="green"
+              mt="10rem"
+
+              // textColor={colorMode === 'light' ? 'green' : '#68D391'}
             >
               VerdeVolver
             </Text>
             <Text
               fontSize={'3xl'}
-              fontWeight={'bold'}
+              fontWeight={'hairline bold'}
               p="10%"
               textAlign={'justify'}
+              boxShadow="dark-lg"
+              borderRadius={'3rem'}
+              shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+              _hover={{
+                transform: 'scale(1.02)',
+                transition: 'transform 0.3s ease-in-out',
+              }}
+              mt="5rem"
             >
               {' '}
               ¡Bienvenido/a a nuestro sitio web! Nuestra aplicación está
@@ -127,45 +142,80 @@ const Home = () => {
               ¡Gracias por cuidar el planeta junto a nosotros!
             </Text>
           </Box>
-          <Box width="45%" float="right">
-            <Stack p={'8'}>
+          <Box
+            width="45%"
+            float="right"
+            mt={'3rem'}
+            h="100%"
+            // border={'solid 2px red'}
+          >
+            <Stack
+              mt="2rem"
+              p={'8'}
+              shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+              borderRadius="2rem"
+              mr="1rem"
+              mb="3rem"
+            >
               <HStack flexDir={'column'} gap="4">
                 <Text
-                  fontSize={'3xl'}
-                  fontWeight={'bold'}
-                  fontFamily={'Tilt Prism'}
+                  fontSize={'4xl'}
+                  fontWeight={'bold harine'}
+                  // fontFamily={'Tilt Prism'}
                   textColor={colorMode === 'light' ? 'green' : '#68D391'}
                 >
                   Colaborá con tu punto favorito!
                 </Text>
-                <Select
-                  placeholder="Puntos de reciclaje"
-                  onChange={handleInputs}
-                  name="entity"
-                  borderWidth="0.2rem"
-                  borderColor="gray.300"
+                <Flex
+                  // gap={'40%'}
+                  mr="5rem"
+                  direction={'column'}
+                  align="center"
+                  // border={'2px solid red'}
+                  w="35rem"
+                  // justifyContent={'center'}
                 >
-                  {entities?.map(({ id, name }) => (
-                    <option value={id} key={id}>
-                      {name}
-                    </option>
-                  ))}
-                </Select>
-                <InputGroup justifyContent={'center'} pl="30%" pr="30%">
-                  <InputLeftElement
-                    ml={'30%'}
-                    children={<MdOutlineAttachMoney />}
-                  />
-                  <Input
-                    textAlign={'center'}
-                    borderWidth="0.2rem"
-                    borderColor="gray.300"
-                    name="amount"
-                    placeholder="Monto"
-                    type="number"
+                  {/* <InputGroup
+                    justifyContent={'center'}
+                    // pl="30%"
+                    // pr="30%"
+                  > */}
+                  <Select
+                    shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+                    placeholder="Puntos de reciclaje"
                     onChange={handleInputs}
-                  />
-                </InputGroup>
+                    name="entity"
+                    // borderWidth="0.2rem"
+                    w={'35%'}
+                    // mr="10rem"
+
+                    // borderColor="gray.300"
+                  >
+                    {entities?.map(({ id, name }) => (
+                      <option value={id} key={id}>
+                        {name}
+                      </option>
+                    ))}
+                  </Select>
+                  <InputGroup justifyContent="center" mt={'1rem'}>
+                    <InputLeftElement
+                      ml={'40%'}
+                      children={<MdOutlineAttachMoney />}
+                    />
+                    <Input
+                      shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+                      textAlign={'center'}
+                      // borderWidth="0.2rem"
+                      // borderColor="gray.300"
+                      name="amount"
+                      placeholder="Monto"
+                      type="number"
+                      onChange={handleInputs}
+                      w="10rem"
+                    />
+                  </InputGroup>
+                  {/* </InputGroup> */}
+                </Flex>
               </HStack>
               <Grid placeItems="center">
                 <Button
@@ -175,6 +225,11 @@ const Home = () => {
                   width="30%"
                   onClick={handleDonate}
                   mt="0.3rem"
+                  shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+                  _hover={{
+                    transform: 'scale(1.05)',
+                    transition: 'transform 0.3s ease-in-out',
+                  }}
                 >
                   Donar
                 </Button>
