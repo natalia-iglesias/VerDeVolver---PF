@@ -52,6 +52,7 @@ router.get(
   }
 );
 
+
 router.get(
   '/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
@@ -61,8 +62,7 @@ router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    res.redirect(`https://ver-de-volver-pf-98gc.vercel.app/login`);
-    
+    res.redirect(`https://ver-de-volver-pf-98gc.vercel.app/login`);   
   }
 );
 
