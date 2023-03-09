@@ -332,7 +332,14 @@ const EntityDetail = () => {
                     Comentar
                   </Button>
                 </VStack>
-                <VStack display="flex" alignItems="flex-start" mt={'10%'}>
+                <VStack
+                  display="flex"
+                  alignItems="flex-start"
+                  mt={'10%'}
+                  shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+                  p="4%"
+                  borderRadius={'1rem'}
+                >
                   <InputGroup>
                     <InputLeftElement children={<MdOutlineAttachMoney />} />
                     <Input
