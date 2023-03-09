@@ -58,7 +58,7 @@ const EntityDetail = () => {
 
   function containsBadWord(text) {
     for (let i = 0; i < badWords.length; i++) {
-      if (text.includes(badWords[i])) {
+      if (text.toUpperCase().includes(badWords[i].toUpperCase())) {
         return true;
       }
     }
@@ -183,7 +183,7 @@ const EntityDetail = () => {
     'porquería',
     'verga',
     'culo',
-    'cheto',
+    'garcha',
     'grasa',
     'concha',
     'tarado',
