@@ -135,6 +135,12 @@ const SingUp = () => {
     setSingUpData({ ...singUpData, image: url });
   };
 
+  const lightModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
+
+  const darkModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
+
   return (
     <Box
       h="80rem"

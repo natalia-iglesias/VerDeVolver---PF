@@ -79,58 +79,56 @@ const Home = () => {
   const darkModeBG =
     'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
 
-    return (
-      <Box
-        align="center"
-        bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}
-        padding="3rem"
-      >
-        <Box w={'95vw'} justifyContent="center" alignSelf={'center'}>
-          <Stack>
-            <HStack spacing={'2.5rem'}
+  return (
+    <Box
+      bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}
+      padding="3rem"
+    >
+      <Box w={'94vw'} justifyContent="center" alignSelf={'center'}>
+        <Stack>
+          <HStack spacing={'2.5rem'} justifyContent="center">
+            <Box
+              align="center"
+              mb="0.8rem"
+              pt={'16rem'}
+              //p="0.7rem"
+              w={'28vw'}
+              bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+              h="50rem"
+              borderRadius="1rem"
+              boxShadow="dark-lg"
+              _hover={{
+                transform: 'scale(1.02)',
+                transition: 'transform 0.3s ease-in-out',
+              }}
             >
-
-          <Box
-            align="center"
-            mb="0.8rem"
-            pt={'8rem'}
-            //p="0.7rem"
-            w={'30vw'}
-            bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
-            h="40rem"
-            borderRadius="1rem"
-            boxShadow="dark-lg"
-            _hover={{
-              transform: 'scale(1.02)',
-              transition: 'transform 0.3s ease-in-out',
-            }}
-          >
-            <Box  >
-              <Text
-                //top="0"
-                as="em"
-                fontSize={'4xl'}
-                fontWeight={'bold'}
-                fontFamily={'Tilt Prism'}
-                textColor={colorMode === 'light' ? '#b4c4ac' : '#b4c4ac'}
-              >
-                VerdeVolver
-              </Text>
-              <Text
-                fontSize={'lg'}
-                pt={'0.6rem'}
-                pr="10%"
-                pl="10%"
-                textAlign={'justify'}
-              >
-                {' '}
-                ¡Bienvenido/a a nuestro sitio web! Nuestra aplicación está
-                diseñada para el territorio argentino y te ayudará a encontrar
-                soluciones prácticas para la gestión de residuos. Podrás encontrar
-                información sobre los distintos lugares dedicados al reciclaje en
-                toda Argentina, incluyendo los más cercanos a tu ubicación actual.
-                ¡Gracias por cuidar el planeta junto a nosotros!
-              </Text>
+              <Box>
+                <Text
+                  //top="0"
+                  as="em"
+                  fontSize={'4xl'}
+                  fontWeight={'bold'}
+                  fontFamily={'Tilt Prism'}
+                  textColor={colorMode === 'light' ? '#b4c4ac' : '#b4c4ac'}
+                >
+                  VerdeVolver
+                </Text>
+                <Text
+                  fontSize={'lg'}
+                  pt={'0.6rem'}
+                  pr="10%"
+                  pl="10%"
+                  textAlign={'justify'}
+                >
+                  {' '}
+                  ¡Bienvenido/a a nuestro sitio web! Nuestra aplicación está
+                  diseñada para el territorio argentino y te ayudará a encontrar
+                  soluciones prácticas para la gestión de residuos. Podrás
+                  encontrar información sobre los distintos lugares dedicados al
+                  reciclaje en toda Argentina, incluyendo los más cercanos a tu
+                  ubicación actual. ¡Gracias por cuidar el planeta junto a
+                  nosotros!
+                </Text>
               </Box>
             </Box>
 
@@ -139,9 +137,9 @@ const Home = () => {
               w={'28vw'}
               mb="0.8rem"
               p="0.7rem"
-              pt={'6.8rem'}
+              pt={'16rem'}
               bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
-              h="40rem"
+              h="50rem"
               borderRadius="1rem"
               boxShadow="dark-lg"
               _hover={{
@@ -203,16 +201,16 @@ const Home = () => {
                 </Grid>
               </Stack>
             </Box>
-  
-            <Box  
+
+            <Box
               align="center"
-              alignContent={'center'} 
+              alignContent={'center'}
               w={'28vw'}
               mb="0.8rem"
-              pt={'7rem'}
+              pt={'9rem'}
               //p="0.7rem"
               bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
-              h="40rem"
+              h="50rem"
               borderRadius="1rem"
               boxShadow="dark-lg"
               _hover={{
@@ -220,15 +218,13 @@ const Home = () => {
                 transition: 'transform 0.3s ease-in-out',
               }}
             >
-            <PostsCarousel />
+              <PostsCarousel />
             </Box>
-
-            </HStack>
-          </Stack>
-
-        </Box> 
+          </HStack>
+        </Stack>
       </Box>
-    );
-  };
-  
-  export default Home;
+    </Box>
+  );
+};
+
+export default Home;
