@@ -184,6 +184,16 @@ const getByVdVId = async (id) => {
   return result;
 };
 
+const deleteDonation = async (id) => {
+  console.log('chau');
+  const result = await Donation.destroy({ where: { id } });
+  console.log('result', result);
+  if (result <= 0) {
+    throw new Error('No se pudo eliminar la donación');
+  }
+  return true;
+};
+
 module.exports = {
   chargeDbDonation,
   updateDonations,
@@ -193,4 +203,5 @@ module.exports = {
   getAll,
   getDonationsById,
   setMp,
+  deleteDonation,
 };
