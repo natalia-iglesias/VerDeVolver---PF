@@ -149,7 +149,7 @@ const ChatBox = () => {
                 <VStack>
                   <Text>{message}</Text>
                   {from === 'I A' &&
-                    generateOptions().map(({ q }) => (
+                    generateOptions().map(({ q }, index) => (
                       <Button
                         onClick={() => handleSendMessage(q)}
                         w="full"
