@@ -133,7 +133,7 @@ const ChatBox = () => {
         />
       </PopoverTrigger>
 
-      <PopoverContent m="1rem" w="50vw" h="60vh">
+      <PopoverContent m="1rem" w="50vw" h={'60vh'}>
         <PopoverHeader>Chat VDV</PopoverHeader>
         <PopoverCloseButton />
         <PopoverBody h={'50vh'} overflowY="scroll">
@@ -163,24 +163,6 @@ const ChatBox = () => {
             ))}
           </VStack>
         </PopoverBody>
-        <PopoverFooter display="inline-flex">
-          <InputGroup>
-            <Input
-              placeholder="Ingresa tu consulta"
-              type="text"
-              name="newMessage"
-              value={newMessage}
-              onChange={handleChange}
-            />
-            <InputRightElement>
-              <IconButton
-                icon={<AiOutlineSend />}
-                onClick={handleSendMessage}
-              />
-            </InputRightElement>
-          </InputGroup>
-          <IconButton icon={<BiTrash />} ml={2} onClick={handleClear} />
-        </PopoverFooter>
       </PopoverContent>
     </Popover>
   );

@@ -62,20 +62,20 @@ const setMp = async (body) => {
       'https://verdevolver-pf-production.up.railway.app/donation/confirmationDonation',
 
     back_urls: {
-      success: 'https://ver-de-volver-pf-psi.vercel.app/',
-      
-      failure: 'https://ver-de-volver-pf-psi.vercel.app/',
+      success: 'https://ver-de-volver-pf-98gc.vercel.app/',
+
+      failure: 'https://ver-de-volver-pf-98gc.vercel.app//',
       pending: '',
     },
     auto_return: 'approved',
     binary_mode: true,
   };
 
-   sendEmail(
-     userDetail.mail,
-     `Confirmacion de donación a la entidad ${name}`,
-     htmlDonationOkEmailTemplate(userDetail.name, name)
-   );
+  sendEmail(
+    userDetail.mail,
+    `Confirmacion de donación a la entidad ${name}`,
+    htmlDonationOkEmailTemplate(userDetail.name, name)
+  );
 
   return preference;
 };
