@@ -87,21 +87,34 @@ const Contact = () => {
     });
   };
 
+  const lightModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
+
+  const darkModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
+
   return (
-    <Box bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}>
+    <Box bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}>
       <Box mr="10%" ml="10%" pt={'5%'}>
         <Box
           boxShadow="dark-lg"
           p="6"
           rounded="md"
+          borderRadius={'2rem'}
           h="65vh"
-          bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+          bg={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
         >
           <VStack as="form" spacing={4}>
             <Box fontWeight={'700'} fontSize="1.8em">
               <h1>Contáctate con nosotros!</h1>
             </Box>
-            <Flex w="100%" justifyContent="space-between" pr="5%" pl="5%">
+            <Flex
+              w="100%"
+              justifyContent="space-between"
+              pr="5%"
+              pl="5%"
+              pt="3%"
+            >
               <FormControl
                 isRequired
                 isInvalid={errors.name.isError}
