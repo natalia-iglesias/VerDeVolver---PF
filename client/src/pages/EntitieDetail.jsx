@@ -311,32 +311,40 @@ const EntityDetail = () => {
                   alignItems="flex-start"
                 >
                   <Textarea
+                    shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
                     name="Review"
                     placeholder="Deja tu reseña"
                     type={'text'}
                     onChange={handleInputs}
                     borderRadius="1rem"
-                    borderColor="black"
+                    // borderColor="black"
                   />
                   <Button
                     onClick={handleComment}
                     w="30%"
                     colorScheme="green"
                     transition="1s"
+                    _hover={{
+                      transform: 'scale(1.03)',
+                      transition: 'transform 0.3s ease-in-out',
+                    }}
                   >
                     Comentar
                   </Button>
                 </VStack>
-                <VStack display="flex" alignItems="flex-start">
+                <VStack display="flex" alignItems="flex-start" mt={'10%'}>
                   <InputGroup>
                     <InputLeftElement children={<MdOutlineAttachMoney />} />
                     <Input
+                      // boxShadow="dark-lg"
+
+                      shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
                       name="Monto"
                       placeholder="Monto"
                       type={'number'}
                       onChange={handleInputs}
                       borderRadius="1rem"
-                      borderColor="black"
+                      // borderColor="black"
                       width="15vw"
                     />
                     <Button
@@ -344,6 +352,12 @@ const EntityDetail = () => {
                       colorScheme="green"
                       marginLeft="1vw"
                       transition="1s"
+                      // boxShadow="dark-lg"
+                      _hover={{
+                        transform: 'scale(1.03)',
+                        transition: 'transform 0.3s ease-in-out',
+                      }}
+                      ml="5%"
                     >
                       Donar
                     </Button>
