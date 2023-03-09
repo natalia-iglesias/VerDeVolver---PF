@@ -57,7 +57,7 @@ function UserProfile() {
   useEffect(() => {
     dispatch(getUserDonations(userId));
     dispatch(getUserFeedbacks(userId));
-  }, [userId]);
+  }, [userId, acount]);
 
   const [input, setInput] = useState({
     name: acount?.name,
@@ -90,7 +90,8 @@ function UserProfile() {
           duration: 3000,
           isClosable: true,
         });
-        return dispatch(authAcountLocal(acount));
+        dispatch(authAcountLocal(acount));
+        window.location.reload();
       } else {
         return toast({
           title: 'Error',
@@ -148,6 +149,7 @@ function UserProfile() {
   };
 
   const handleUploadImage = (url) => {
+    console.log('url: ', url);
     setInput({ ...input, image: url });
   };
 
@@ -191,7 +193,7 @@ function UserProfile() {
               //pt="5vh"
             >
               <Avatar
-                src={input.image}
+                src={acount.image}
                 name={`${input.name}${input.last_name}`}
                 borderRadius="full"
                 height="20vh"
