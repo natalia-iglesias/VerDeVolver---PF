@@ -61,7 +61,8 @@ router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    res.redirect(`https://verdevolver-pf-production.up.railway.app/login`);
+    res.redirect(`https://ver-de-volver-pf-98gc.vercel.app/login`);
+    
   }
 );
 

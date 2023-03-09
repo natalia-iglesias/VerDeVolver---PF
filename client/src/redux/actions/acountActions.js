@@ -82,6 +82,7 @@ export const LogedUser = () => {
 
 export const authAcountGoogle = () => {
   window.location.href =
+    //https://ver-de-volver-pf-98gc.vercel.app/
     'https://verdevolver-pf-production.up.railway.app/login/google';
 };
 
