@@ -38,8 +38,8 @@ const validate = ({ name, last_name, mail, password }, users, entities) => {
 
   if (!name) {
     errors.name = 'El nombre es obligatorio';
-  } else if (name.length < 4 || name.length > 16) {
-    errors.name = 'El nombre debe tener entre 4 y 16 caracteres';
+  } else if (name.length < 3 || name.length > 16) {
+    errors.name = 'El nombre debe tener entre 3 y 16 caracteres';
   }
 
   if (!last_name) {
@@ -135,6 +135,12 @@ const SingUp = () => {
   const handleUploadImage = (url) => {
     setSingUpData({ ...singUpData, image: url });
   };
+
+  const lightModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
+
+  const darkModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
 
   return (
     <Box

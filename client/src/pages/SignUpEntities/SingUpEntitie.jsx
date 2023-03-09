@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Form1 from '../../Components/SignUpEntity/Form1';
 import Form2 from '../../Components/SignUpEntity/Form2';
 import Form3 from '../../Components/SignUpEntity/Form3';
-import { Progress, Box, useColorMode } from '@chakra-ui/react';
+import { Progress, Box, useColorMode, Flex } from '@chakra-ui/react';
 
 const SingUpEntitiePrueba = () => {
   const [step, setStep] = useState(1);
@@ -14,9 +14,16 @@ const SingUpEntitiePrueba = () => {
     setStep(obj.step);
     setProgress(progress + obj.progress);
   };
+
+  const lightModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
+
+  const darkModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
+
   return (
     <>
-      <Box bg={colorMode === 'light' ? '#b4c4ac' : '#212933'} pt="7rem">
+      <Box bgImg={colorMode === 'light' ? lightModeBG : darkModeBG} pt="8%">
         <Box
           borderWidth="1px"
           rounded="lg"

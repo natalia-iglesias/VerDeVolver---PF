@@ -61,8 +61,7 @@ router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    const { user } = req;
-    res.redirect(`/login/${user.id}`);
+    res.redirect(`https://verdevolver-pf-production.up.railway.app/login`);
   }
 );
 

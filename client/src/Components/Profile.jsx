@@ -31,6 +31,9 @@ const Profile = () => {
       <Button
         bg={colorMode === 'light' ? '#F5F2EB' : '#68D391'}
         onClick={() => navigate('/login')}
+        fontFamily={'Tilt Prism'}
+        fontSize="xl"
+        color={colorMode === 'light' ? '#63d18d' : '#F5F2EB'}
       >
         Iniciar Sesión
       </Button>
@@ -38,7 +41,7 @@ const Profile = () => {
 
   return (
     <Menu>
-      {acount.RoleId == 1 ? (
+      {acount.RoleId !== 4 ? (
         <MenuButton>
           <Avatar
             name={`${acount.name} ${acount.last_name}`}
@@ -56,7 +59,8 @@ const Profile = () => {
             as={ReachLink}
             to={`/userprofile`}
             fontWeight={'700'}
-            color={colorMode === 'light' ? 'green' : '#68D391'}
+            color={colorMode === 'light' ? '#235B53' : '#68D391'}
+            fontFamily={'Tilt Prism'}
           >
             Mi perfil
           </MenuItem>
@@ -65,7 +69,8 @@ const Profile = () => {
             as={ReachLink}
             to={`/entityprofile`}
             fontWeight={'700'}
-            color={colorMode === 'light' ? 'green' : '#68D391'}
+            color={colorMode === 'light' ? '#235B53' : '#68D391'}
+            fontFamily={'Tilt Prism'}
           >
             Mi perfil
           </MenuItem>
@@ -75,7 +80,8 @@ const Profile = () => {
             as={ReachLink}
             to={`/dashboard`}
             fontWeight={'700'}
-            color={colorMode === 'light' ? 'green' : '#68D391'}
+            color={colorMode === 'light' ? '#235B53' : '#68D391'}
+            fontFamily={'Tilt Prism'}
           >
             Dashboard
           </MenuItem>
@@ -85,8 +91,9 @@ const Profile = () => {
           as={ReachLink}
           to="/home"
           fontWeight={'700'}
-          color={colorMode === 'light' ? 'green' : '#68D391'}
+          color={colorMode === 'light' ? '#235B53' : '#68D391'}
           onClick={() => dispatch(logoutAcount())}
+          fontFamily={'Tilt Prism'}
         >
           Cerrar Sesión
         </MenuItem>

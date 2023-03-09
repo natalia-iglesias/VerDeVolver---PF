@@ -36,8 +36,6 @@ const App = () => {
     dispatch(fetchEntities());
   }, []);
 
-  console.log(acount?.RoleId !== 4);
-
   return (
     <div style={{ minHeight: '100vh' }}>
       <BrowserRouter>
@@ -51,7 +49,6 @@ const App = () => {
           <Route path="/entitie/:id" element={<EntitieDetail />} />
           <Route path="/beVdV" element={<SingUpEntitie />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/login/:googleId" element={<Login />} />
           <Route path="/singup" element={<SingUp />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

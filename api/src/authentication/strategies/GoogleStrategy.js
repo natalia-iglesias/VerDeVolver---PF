@@ -1,5 +1,6 @@
 const Strategy = require('passport-google-oauth20');
 const { User } = require('../../db');
+const bcrypt = require('bcrypt');
 
 const GoogleStrategy = new Strategy(
   {
@@ -15,13 +16,16 @@ const GoogleStrategy = new Strategy(
       if (user) {
         done(null, user);
       } else {
+        const salt = 10;
+        const hash = bcrypt.hashSync('GOCSPX', salt);
+
         const newUser = await User.create({
           googleId: profile.id,
           name: profile.name.givenName,
           last_name: profile.name.familyName,
           mail: profile.emails[0].value,
           image: profile.photos[0].value,
-          password: 'GOCSPX',
+          password: hash,
         });
         done(null, newUser);
       }

@@ -83,19 +83,9 @@ const Login = () => {
   const { users } = useSelector((state) => state.usersReducer);
   const { colorMode } = useColorMode();
 
-  const { googleId } = useParams();
-
   useEffect(() => {
     Object.entries(acount).length && navigate('/home');
   }, [acount]);
-
-  useEffect(() => {
-    if (googleId)
-      (async () => {
-        const res = await fetchUser(googleId);
-        dispatch(authAcountLocal(res));
-      })();
-  }, [googleId]);
 
   useEffect(() => {
     dispatch(fetchUsers());
