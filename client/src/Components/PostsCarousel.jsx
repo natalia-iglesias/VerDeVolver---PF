@@ -17,12 +17,23 @@ const PostsCarousel = () => {
   }, []);
   return (
     <ItemsCarousel
+      w="50%"
       requestToChangeActive={setActiveItemIndex}
       activeItemIndex={activeItemIndex}
       numberOfCards={1}
       gutter={20}
-      leftChevron={<IconButton icon={<AiOutlineArrowLeft />} />}
-      rightChevron={<IconButton icon={<AiOutlineArrowRight />} />}
+      leftChevron={
+        <IconButton
+          shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+          icon={<AiOutlineArrowLeft />}
+        />
+      }
+      rightChevron={
+        <IconButton
+          shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+          icon={<AiOutlineArrowRight />}
+        />
+      }
       outsideChevron
       chevronWidth={chevronWidth}
     >
@@ -30,7 +41,14 @@ const PostsCarousel = () => {
         <InstagramEmbed
           url={pos.url}
           key={pos.id}
-          style={{ maxHeight: '50vh', maxWidth: '47vh', overflowY: 'scroll' }}
+          style={{
+            maxHeight: '49vh',
+            maxWidth: '40vh',
+            overflowY: 'scroll',
+            overflowY: 'hidden',
+            borderRadius: '1.5rem',
+            boxShadow: '0 5px 7px rgba(0, 0, 0, 0.5)',
+          }}
         />
       ))}
     </ItemsCarousel>

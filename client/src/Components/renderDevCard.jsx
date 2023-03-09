@@ -20,6 +20,7 @@ function RenderDevCard({ dev }) {
   const { name, img, linkedin, github, mail } = dev;
   return (
     <Card
+      borderRadius={'1rem'}
       bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
       boxShadow="dark-lg"
       fontFamily="lato"
@@ -36,7 +37,7 @@ function RenderDevCard({ dev }) {
         src={img}
         alt="Dev Photo"
         borderRadius="full"
-        boxSize="100px"
+        boxSize="120px"
         m="auto"
       />
       <CardHeader m="1px" p="1px" align="center">
@@ -45,14 +46,26 @@ function RenderDevCard({ dev }) {
 
       <CardBody mt="1px">
         <Stack divider={<StackDivider />} spacing="1">
-          <Link href={github} isExternal m="auto">
+          <Link
+            href={github}
+            isExternal
+            m="auto"
+            fontSize="130%"
+            fontFamily={'Tilt Prism'}
+          >
             Github <ExternalLinkIcon mx="2px" />
           </Link>
-          <Link href={linkedin} isExternal m="auto">
+          <Link
+            href={linkedin}
+            isExternal
+            m="auto"
+            fontSize="130%"
+            fontFamily={'Tilt Prism'}
+          >
             LinkedIn <ExternalLinkIcon mx="2px" />
           </Link>
-          <Text pt="2" fontSize="md" m="auto">
-            {mail} 
+          <Text pt="2" m="auto" fontSize="130%" fontFamily={'Tilt Prism'}>
+            {mail}
           </Text>
         </Stack>
       </CardBody>

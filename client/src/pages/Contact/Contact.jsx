@@ -16,6 +16,7 @@ import {
   FormErrorMessage,
   useToast,
   useColorMode,
+  Heading,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { LogedUser } from '../../redux/actions/acountActions';
@@ -95,18 +96,18 @@ const Contact = () => {
 
   return (
     <Box bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}>
-      <Box mr="10%" ml="10%" pt={'5%'}>
+      <Box mr="10%" ml="10%" pt={'5%'} w="80%">
         <Box
           boxShadow="dark-lg"
           p="6"
           rounded="md"
           borderRadius={'2rem'}
-          h="65vh"
+          h="63vh"
           bg={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
         >
           <VStack as="form" spacing={4}>
             <Box fontWeight={'700'} fontSize="1.8em">
-              <h1>Contáctate con nosotros!</h1>
+              <Heading mt={'1rem'}>Contáctate con nosotros!</Heading>
             </Box>
             <Flex
               w="100%"
@@ -127,6 +128,7 @@ const Contact = () => {
                 pl={'5%'}
                 boxShadow="2xl"
                 p="6"
+                shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
               >
                 <FormLabel textAlign={'center'}>Nombre</FormLabel>
                 <Input
@@ -164,8 +166,11 @@ const Contact = () => {
                 pl={'5%'}
                 p="6"
                 boxShadow="2xl"
+                shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
               >
-                <FormLabel textAlign={'center'}>Correo electrónico:</FormLabel>
+                <FormLabel textAlign={'center'} fontSize="1rem">
+                  Correo electrónico:
+                </FormLabel>
                 <Input
                   _focus={{
                     boxShadow: 'none',
@@ -204,6 +209,7 @@ const Contact = () => {
                 id="descripcion"
                 p="6"
                 boxShadow="2xl"
+                shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
               >
                 <FormLabel textAlign={'center'}>Descripción:</FormLabel>
                 <Textarea
@@ -221,7 +227,7 @@ const Contact = () => {
                 />
                 {form.description.length !== 0 &&
                 !errors.description.isError ? (
-                  <FormHelperText textAlign={'center'}>
+                  <FormHelperText textAlign={'center'} fontSize="1rem">
                     Por favor ingresa como mínimo 20 caracteres, vas {descMsg}
                   </FormHelperText>
                 ) : (
@@ -229,7 +235,7 @@ const Contact = () => {
                 )}
                 {!errors.description.isError &&
                 form.description.length === 0 ? (
-                  <FormHelperText textAlign={'center'}>
+                  <FormHelperText textAlign={'center'} fontSize="1rem">
                     Dejanos tu consulta!
                   </FormHelperText>
                 ) : (
@@ -244,6 +250,11 @@ const Contact = () => {
               size="lg"
               type="submit"
               onClick={handlerSubmit}
+              _hover={{
+                transform: 'scale(1.10)',
+                transition: 'transform 0.3s ease-in-out',
+              }}
+              shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
             >
               Enviar
             </Button>

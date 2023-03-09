@@ -59,7 +59,7 @@ const About = () => {
       img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730168/rodri_qg9lw6.jpg',
       linkedin: 'https://www.linkedin.com/in/rodrigo-figari-809736244/',
       github: 'https://github.com/Rodrigofigari',
-      mail: 'rodrifiga@gmail.com',
+      mail: 'rodrigojfigari@gmail.com',
     },
     {
       name: 'Natalia  Iglesias Gonzalez',
@@ -92,7 +92,8 @@ const About = () => {
       pt={'2rem'}
     >
       <Box
-        bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+        bg={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
+        // bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
         boxShadow={'dark-lg'}
         borderRadius="lg"
         w={'90vw'}
@@ -100,22 +101,16 @@ const About = () => {
         alignItems={'center'}
         justifyContent={'center'}
       >
-        <Box
-          borderRadius="lg"
-          mb="2rem"
-          p="0.7rem"
-          bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
-          boxShadow={'lg'}
-        >
-          <Heading align="center" fontFamily="Exo 2" mb="0.8rem">
+        <Box borderRadius="lg" mb="2rem" p="0.7rem" boxShadow={'lg'}>
+          <Heading align="center" fontFamily={'Tilt Prism'} mb="0.8rem">
             Proyecto final Henry
           </Heading>
           <Text
             align="center"
             width="80vw"
             m="0.7rem"
-            fontSize="xl"
-            fontFamily="lato"
+            fontSize="150%"
+            fontFamily={'Tilt Prism'}
           >
             VerDeVolver es un sitio web sin fines de lucro, que busca promover e
             informar sobre el reciclaje y gestión de residuos a nivel nacional

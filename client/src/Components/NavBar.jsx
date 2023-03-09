@@ -41,19 +41,19 @@ const Navbar = () => {
         <ListItem
           as={ReachLink}
           to="/map"
-          color={colorMode === 'light' ? '#235B53' : '#68D391'}
-          fontWeight="semibold"
-          fontSize="xl"
+          color={colorMode === 'light' ? '#2c786c' : '#68D391'}
+          // fontWeight="semibold"
+          fontSize="150%"
           fontFamily={'Tilt Prism'}
         >
           Mapa
         </ListItem>
 
-        <ListItem color={colorMode === 'light' ? '#235B53' : '#68D391'}>
+        <ListItem color={colorMode === 'light' ? '#2c786c' : '#68D391'}>
           <Menu>
             <MenuButton
-              fontWeight="semibold"
-              fontSize="xl"
+              // fontWeight="semibold"
+              fontSize="150%"
               fontFamily={'Tilt Prism'}
             >
               Puntos de reciclaje
@@ -62,9 +62,9 @@ const Navbar = () => {
               <MenuItem
                 as={ReachLink}
                 to="/entities"
-                color={colorMode === 'light' ? '#235B53' : '#68D391'}
-                fontWeight="semibold"
-                fontSize="xl"
+                color={colorMode === 'light' ? '#2c786c' : '#68D391'}
+                // fontWeight="semibold"
+                fontSize="150%"
                 fontFamily={'Tilt Prism'}
               >
                 Ver todos
@@ -72,9 +72,9 @@ const Navbar = () => {
               <MenuItem
                 as={ReachLink}
                 to="/beVdV"
-                color={colorMode === 'light' ? '#235B53' : '#68D391'}
-                fontWeight="semibold"
-                fontSize="xl"
+                color={colorMode === 'light' ? '#2c786c' : '#68D391'}
+                // fontWeight="semibold"
+                fontSize="150%"
                 fontFamily={'Tilt Prism'}
               >
                 Publica tu punto de reciclaje
@@ -86,9 +86,9 @@ const Navbar = () => {
         <ListItem>
           <Menu>
             <MenuButton
-              color={colorMode === 'light' ? '#235B53' : '#68D391'}
-              fontWeight="semibold"
-              fontSize="xl"
+              color={colorMode === 'light' ? '#2c786c' : '#68D391'}
+              // fontWeight="semibold"
+              fontSize="150%"
               fontFamily={'Tilt Prism'}
             >
               Contactanos
@@ -97,9 +97,9 @@ const Navbar = () => {
               <MenuItem
                 as={ReachLink}
                 to="/about"
-                color={colorMode === 'light' ? '#235B53' : '#68D391'}
-                fontWeight="semibold"
-                fontSize="xl"
+                color={colorMode === 'light' ? '#2c786c' : '#68D391'}
+                // fontWeight="semibold"
+                fontSize="150%"
                 fontFamily={'Tilt Prism'}
               >
                 Quienes somos
@@ -107,9 +107,9 @@ const Navbar = () => {
               <MenuItem
                 as={ReachLink}
                 to="/contact"
-                color={colorMode === 'light' ? '#235B53' : '#68D391'}
-                fontWeight="semibold"
-                fontSize="xl"
+                color={colorMode === 'light' ? '#2c786c' : '#68D391'}
+                // fontWeight="semibold"
+                fontSize="150%"
                 fontFamily={'Tilt Prism'}
               >
                 Contacto
