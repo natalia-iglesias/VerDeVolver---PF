@@ -19,24 +19,23 @@ const addMaterial = (e, materials, setInput) => {
   });
 };
 
-const updateVdV = (id, input) => {
+const updateVdV = async (id, input) => {
   try {
-    axios.get(`http://localhost:3001/material`).then((res) => {
-      let numArray = [];
+    const res = await axios.get(`http://localhost:3001/material`);
+    let numArray = [];
 
-      res.data.forEach((mat) => {
-        input.Materials.forEach((mat2) => {
-          if (mat.name == mat2.name) numArray.push(mat.id);
-        });
-      });
-      input.materials = numArray;
-
-      axios.put(`http://localhost:3001/vdv/${id}`, input).then(() => {
-        window.alert('Los cambios se han guardado exitosamente');
+    res.data.forEach((mat) => {
+      input.Materials.forEach((mat2) => {
+        if (mat.name == mat2.name) numArray.push(mat.id);
       });
     });
+    input.materials = numArray;
+
+    const resput = await axios.put(`http://localhost:3001/vdv/${id}`, input);
+
+    return resput.status;
   } catch (error) {
-    window.alert(error);
+    return '400';
   }
 };
 
@@ -52,11 +51,10 @@ const updatePassword = async (id, password) => {
   }
 };
 
-const deleteVdV = (id, navigate) => {
-  axios.delete(`http://localhost:3001/vdv/${id}`).then(() => {
-    window.alert('La entidad a sido borrada');
-    navigate('/home');
-  });
+const deleteVdV = async (id, navigate) => {
+  const res = await axios.delete(`http://localhost:3001/vdv/${id}`);
+  navigate('/home');
+  return res.status;
 };
 
 export { deleteMaterial, addMaterial, updateVdV, deleteVdV, updatePassword };
