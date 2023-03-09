@@ -327,7 +327,7 @@ const EntityDetail = () => {
                     Comentar
                   </Button>
                 </VStack>
-                <VStack ml="1rem" display="flex" alignItems="flex-start">
+                <VStack display="flex" alignItems="flex-start">
                   <InputGroup>
                     <InputLeftElement children={<MdOutlineAttachMoney />} />
                     <Input
