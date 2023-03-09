@@ -57,17 +57,16 @@ const AsideMap = ({ filters }) => {
 
   return (
     <>
-      <IconButton
-        ref={btnRef}
-        colorScheme="green"
-        onClick={onOpen}
-        pos="absolute"
-        top="20"
-        right="0"
-        m="1rem"
-        zIndex="1"
-        icon={<IoMdOptions />}
-      />
+      <Button
+          ref={btnRef}
+          colorScheme="green"
+          onClick={onOpen}
+          m="1rem"
+          icon={<IoMdOptions />}
+      >
+        Filtros
+      </Button>
+     
 
       <Drawer
         isOpen={isOpen}

@@ -11,47 +11,46 @@ const { setLocalAcount, getLocalAcount, removeLocalAcount } = useLocalAcount();
 const { setSessionAcount, getSessionAcount, removeSessionAcount } =
   useSessionAcount();
 
-export const authAcountLocal = ({ mail, password, keepLogged }) => {
-  return async (dispatch) => {
-    try {
-      const auth = await axios.post('/login', {
-        mail: mail,
-        password: password,
-      })
-      .catch(function (error) {
-        if (error.response) {
-          return((error.response.data, error.response.status));
-        } 
-      });
-      if(auth !== 401){
-        const { token } = await auth.data;
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
-        keepLogged
-          ? setLocalAcount({ mail, token })
-          : setSessionAcount({ mail, token });
-
-        const acount = await axios.get(
-          `/login?mail=${mail}`,
-          config
-        )
-        .catch(function (error) {
-          if (error.response) {
-            return((error.response.data,error.response.status));
-          } 
-        });
-
-        dispatch({ type: AUTH_ACOUNT_LOCAL, payload: acount.data });
+  export const authAcountLocal = ({ mail, password, keepLogged }) => {
+    return async (dispatch) => {
+      try {
+        const auth = await axios
+          .post('/login', {
+            mail: mail,
+            password: password,
+          })
+          .catch(function (error) {
+            if (error.response) {
+              return error.response.data, error.response.status;
+            }
+          });
+        if (auth !== 401) {
+          const { token } = await auth.data;
+          const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          };
+  
+          keepLogged
+            ? setLocalAcount({ mail, token })
+            : setSessionAcount({ mail, token });
+  
+          const acount = await axios
+            .get(`/login?mail=${mail}`, config)
+            .catch(function (error) {
+              if (error.response) {
+                return error.response.data, error.response.status;
+              }
+            });
+  
+          dispatch({ type: AUTH_ACOUNT_LOCAL, payload: acount.data });
+        }
+      } catch (error) {
+        throw Error(error);
       }
-    } catch (error) {
-      throw Error(error);
-    }
-  };
-};
+    };
+  };;
 
 export const LogedUser = () => {
   ///////este tendria que funcionar para ambos despues de un pequeno cambio que le hice
@@ -82,7 +81,8 @@ export const LogedUser = () => {
 };
 
 export const authAcountGoogle = () => {
-  window.location.href = '/login/google';
+  window.location.href =
+    'https://verdevolver-pf-production.up.railway.app/login/google';
 };
 
 export const logoutAcount = () => {

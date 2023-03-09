@@ -8,34 +8,51 @@ import axios from 'axios';
 
 const PostsCarousel = () => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
-  const chevronWidth = 50;
+  const chevronWidth = 20;
   const [posts, setPosts] = useState();
+
   useEffect(() => {
     axios.get(`/instagram`).then((res) => {
       setPosts(res.data);
     });
   }, []);
   return (
-    <div style={{ marginBottom: '5rem', padding: `0 ${chevronWidth}px` }}>
-      <ItemsCarousel
-        requestToChangeActive={setActiveItemIndex}
-        activeItemIndex={activeItemIndex}
-        numberOfCards={3}
-        gutter={20}
-        leftChevron={<IconButton icon={<AiOutlineArrowLeft />} />}
-        rightChevron={<IconButton icon={<AiOutlineArrowRight />} />}
-        outsideChevron
-        chevronWidth={chevronWidth}
-      >
-        {posts?.map((pos) => (
-          <InstagramEmbed
-            url={pos.url}
-            key={pos.id}
-            style={{ maxHeight: '80vh', overflowY: 'scroll' }}
-          />
-        ))}
-      </ItemsCarousel>
-    </div>
+    <ItemsCarousel
+      w="50%"
+      requestToChangeActive={setActiveItemIndex}
+      activeItemIndex={activeItemIndex}
+      numberOfCards={1}
+      gutter={20}
+      leftChevron={
+        <IconButton
+          shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+          icon={<AiOutlineArrowLeft />}
+        />
+      }
+      rightChevron={
+        <IconButton
+          shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+          icon={<AiOutlineArrowRight />}
+        />
+      }
+      outsideChevron
+      chevronWidth={chevronWidth}
+    >
+      {posts?.map((pos) => (
+        <InstagramEmbed
+          url={pos.url}
+          key={pos.id}
+          style={{
+            maxHeight: '49vh',
+            maxWidth: '40vh',
+            overflowY: 'scroll',
+            overflowY: 'hidden',
+            borderRadius: '1.5rem',
+            boxShadow: '0 5px 7px rgba(0, 0, 0, 0.5)',
+          }}
+        />
+      ))}
+    </ItemsCarousel>
   );
 };
 

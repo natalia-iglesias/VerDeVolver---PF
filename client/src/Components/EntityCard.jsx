@@ -35,7 +35,7 @@ const EntityCard = ({ entity, acount }) => {
     setInputMonto(event.target.value);
   };
 
-  const handleButton = async (event) => {
+  const handleButton = () => {
     const { id } = acount;
     if (!id) {
       navigate('/login');
@@ -46,7 +46,6 @@ const EntityCard = ({ entity, acount }) => {
         duration: 1500,
         isClosable: true,
       });
-      throw error('Debes iniciar sesión para poder donar');
     }
     if (inputMonto) {
       try {
@@ -60,7 +59,7 @@ const EntityCard = ({ entity, acount }) => {
         );
         axios
           .post(`/donation`, {
-            VdVId: entity.id,
+            VdVId: entity.id.toString(),
             amount: inputMonto,
             UserId: id,
           })
@@ -119,8 +118,8 @@ const EntityCard = ({ entity, acount }) => {
         </VStack>
       </CardBody>
 
-      <CardFooter>
-        <InputGroup size="md">
+      {/* <CardFooter justifyContent="right">
+        <InputGroup size="md" w={'40%'}>
           <InputLeftAddon
             children="$"
             borderWidth="0.2rem"
@@ -131,7 +130,7 @@ const EntityCard = ({ entity, acount }) => {
             borderColor="gray.300"
             pr="4.5rem"
             type="number"
-            placeholder="Amout"
+            placeholder="Monto"
             name="amount"
             onChange={handleInputs}
           />
@@ -147,7 +146,7 @@ const EntityCard = ({ entity, acount }) => {
             </Button>
           </InputRightElement>
         </InputGroup>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 };

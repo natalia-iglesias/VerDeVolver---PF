@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Stack,
+  VStack,
+  useColorMode,
+  HStack,
+} from '@chakra-ui/react';
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import MarkerInfo from '../Components/MarkerInfo';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,8 +16,8 @@ import AsideMap from '../Components/AsideMap';
 import axios from 'axios';
 
 const containerStyle = {
-  width: '99vw',
-  height: '100vh',
+  width: '85vw',
+  height: '75vh',
 };
 
 const Map = () => {
@@ -23,7 +30,7 @@ const Map = () => {
     (state) => state.entitiesReducer
   );
 
-  //const { colorMode } = useColorMode();
+  const { colorMode } = useColorMode();
   useEffect(() => {
     dispatch(fetchEntities());
     dispatch(getMaterials());
@@ -53,62 +60,86 @@ const Map = () => {
     }
   };
 
+  const lightModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225348/LightMode_o28kqz.png';
+
+  const darkModeBG =
+    'https://res.cloudinary.com/verdevolver/image/upload/v1678225682/DarkMode_ilx6zv.png';
+
   return (
-    <Box pos="relative">
-      <AsideMap filters={filters} />
-      <Button
-        onClick={() => userUbication()}
-        pos="absolute"
-        left="1vw"
-        top="20vh"
-        zIndex="1"
+    <Box
+      pos="relative"
+      p={'2rem'}
+      display={'flex'}
+      alignItems={'center'}
+      justifyContent={'center'}
+      bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}
+    >
+      <Box
+        w={'90vw'}
+        h={'88vh'}
+        bg={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
+        boxShadow={'dark-lg'}
+        borderRadius="1rem"
       >
-        Ir a mi ubicación
-      </Button>
-      <Box align="center">
-        <Autocomplete
-          onPlaceSelected={(e) => {
-            setMapCenter({
-              lat: e.geometry.location.lat(),
-              lng: e.geometry.location.lng(),
-            });
-            setZoom(13);
-          }}
-          style={autocompleteStyle}
-          options={{
-            types: ['address'],
-            componentRestrictions: { country: 'ar' },
-          }}
-        />
-      </Box>
-
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={mapCenter}
-        zoom={zoom}
-      >
-        {filters?.map((marker) => {
-          if (marker.status === 'Active') {
-            return (
-              <Marker
-                key={marker.id}
-                position={{ lat: marker.lat, lng: marker.lng }}
-                onMouseOver={() => handleMarkerMouseOver(marker)}
+        <Stack>
+          <VStack spacing={'0.9rem'} pt={'1rem'}>
+            <HStack spacing={'1rem'}>
+              <Autocomplete
+                onPlaceSelected={(e) => {
+                  setMapCenter({
+                    lat: e.geometry.location.lat(),
+                    lng: e.geometry.location.lng(),
+                  });
+                  setZoom(13);
+                }}
+                style={autocompleteStyle}
+                options={{
+                  types: ['address'],
+                  componentRestrictions: { country: 'ar' },
+                }}
               />
-            );
-          }
-        })}
+              <AsideMap filters={filters} />
+              <Button
+                onClick={() => userUbication()}
+                colorScheme={'green'}
+                pb="0.2rem"
+                h="2.4rem"
+                w="10rem"
+              >
+                Mi ubicación
+              </Button>
+            </HStack>
 
-        {activeMarker && (
-          <InfoWindow
-            position={{ lat: activeMarker.lat, lng: activeMarker.lng }}
-            onCloseClick={handleInfoWindowClose}
-          >
-            <MarkerInfo data={activeMarker} />
-          </InfoWindow>
-        )}
-      </GoogleMap>
-      <Box height={'2rem'}></Box>
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={mapCenter}
+              zoom={zoom}
+            >
+              {filters?.map((marker) => {
+                if (marker.status === 'Active') {
+                  return (
+                    <Marker
+                      key={marker.id}
+                      position={{ lat: marker.lat, lng: marker.lng }}
+                      onMouseOver={() => handleMarkerMouseOver(marker)}
+                    />
+                  );
+                }
+              })}
+
+              {activeMarker && (
+                <InfoWindow
+                  position={{ lat: activeMarker.lat, lng: activeMarker.lng }}
+                  onCloseClick={handleInfoWindowClose}
+                >
+                  <MarkerInfo data={activeMarker} />
+                </InfoWindow>
+              )}
+            </GoogleMap>
+          </VStack>
+        </Stack>
+      </Box>
     </Box>
   );
 };
@@ -116,7 +147,7 @@ const Map = () => {
 export default Map;
 
 const autocompleteStyle = {
-  width: '100%',
+  width: '80%',
   height: '40px',
   padding: '10px',
   border: '1px solid gray',

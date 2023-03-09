@@ -23,9 +23,11 @@ const Navbar = () => {
   return (
     <HStack
       bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+      boxShadow="0 5px 7px rgba(0, 0, 0, 0.5)"
       justifyContent="space-between"
       alignItems="center"
       pr="1rem"
+      zIndex="999"
     >
       <Link as={ReachLink} to="/home">
         <Image
@@ -39,34 +41,41 @@ const Navbar = () => {
         <ListItem
           as={ReachLink}
           to="/map"
-          color={colorMode === 'light' ? 'green' : '#68D391'}
-          fontWeight="semibold"
-          fontSize="xl"
+          color={colorMode === 'light' ? '#2c786c' : '#68D391'}
+          // fontWeight="semibold"
+          fontSize="150%"
+          fontFamily={'Tilt Prism'}
         >
           Mapa
         </ListItem>
 
-        <ListItem color={colorMode === 'light' ? 'green' : '#68D391'}>
+        <ListItem color={colorMode === 'light' ? '#2c786c' : '#68D391'}>
           <Menu>
-            <MenuButton fontWeight="semibold" fontSize="xl">
+            <MenuButton
+              // fontWeight="semibold"
+              fontSize="150%"
+              fontFamily={'Tilt Prism'}
+            >
               Puntos de reciclaje
             </MenuButton>
             <MenuList>
               <MenuItem
                 as={ReachLink}
                 to="/entities"
-                color={colorMode === 'light' ? 'green' : '#68D391'}
-                fontWeight="semibold"
-                fontSize="xl"
+                color={colorMode === 'light' ? '#2c786c' : '#68D391'}
+                // fontWeight="semibold"
+                fontSize="150%"
+                fontFamily={'Tilt Prism'}
               >
                 Ver todos
               </MenuItem>
               <MenuItem
                 as={ReachLink}
                 to="/beVdV"
-                color={colorMode === 'light' ? 'green' : '#68D391'}
-                fontWeight="semibold"
-                fontSize="xl"
+                color={colorMode === 'light' ? '#2c786c' : '#68D391'}
+                // fontWeight="semibold"
+                fontSize="150%"
+                fontFamily={'Tilt Prism'}
               >
                 Publica tu punto de reciclaje
               </MenuItem>
@@ -77,9 +86,10 @@ const Navbar = () => {
         <ListItem>
           <Menu>
             <MenuButton
-              color={colorMode === 'light' ? 'green' : '#68D391'}
-              fontWeight="semibold"
-              fontSize="xl"
+              color={colorMode === 'light' ? '#2c786c' : '#68D391'}
+              // fontWeight="semibold"
+              fontSize="150%"
+              fontFamily={'Tilt Prism'}
             >
               Contactanos
             </MenuButton>
@@ -87,18 +97,20 @@ const Navbar = () => {
               <MenuItem
                 as={ReachLink}
                 to="/about"
-                color={colorMode === 'light' ? 'green' : '#68D391'}
-                fontWeight="semibold"
-                fontSize="xl"
+                color={colorMode === 'light' ? '#2c786c' : '#68D391'}
+                // fontWeight="semibold"
+                fontSize="150%"
+                fontFamily={'Tilt Prism'}
               >
                 Quienes somos
               </MenuItem>
               <MenuItem
                 as={ReachLink}
                 to="/contact"
-                color={colorMode === 'light' ? 'green' : '#68D391'}
-                fontWeight="semibold"
-                fontSize="xl"
+                color={colorMode === 'light' ? '#2c786c' : '#68D391'}
+                // fontWeight="semibold"
+                fontSize="150%"
+                fontFamily={'Tilt Prism'}
               >
                 Contacto
               </MenuItem>

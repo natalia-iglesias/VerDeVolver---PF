@@ -63,7 +63,7 @@ const setMp = async (body) => {
 
     back_urls: {
       success: 'https://ver-de-volver-pf-psi.vercel.app/',
-      // https://ver-de-volver-pf-psi.vercel.app/
+      
       failure: 'https://ver-de-volver-pf-psi.vercel.app/',
       pending: '',
     },
@@ -71,11 +71,11 @@ const setMp = async (body) => {
     binary_mode: true,
   };
 
-  // sendEmail(
-  //   userDetail.mail,
-  //   `Confirmacion de donación a la entidad ${name}`,
-  //   htmlDonationOkEmailTemplate(userDetail.name, name)
-  // );
+   sendEmail(
+     userDetail.mail,
+     `Confirmacion de donación a la entidad ${name}`,
+     htmlDonationOkEmailTemplate(userDetail.name, name)
+   );
 
   return preference;
 };

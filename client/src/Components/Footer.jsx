@@ -8,7 +8,7 @@ const Footer = () => {
         alignItems="center"
         justifyContent="center"
         width="full"
-        p="1rem"
+        p="2rem"
         bg="#80808080"
         color={'white'}
         // bottom={'0'}

@@ -53,8 +53,8 @@ const validate = ({ mail, password }, users, entities) => {
 
   if (!password) {
     errors.password = 'La contraseña es obligatoria';
-  } else if (password.length < 4) {
-    errors.password = 'La contraseña debe tener mínimo 4 caracteres';
+  } else if (password.length < 4 || password.length > 16) {
+    errors.password = 'La contraseña debe tener entre 4 y 16 caracteres';
   } /* else if (userMails!==undefined && vdvsMails!==undefined){
     if(userMails.length>0){
       const userData = users?.filter((user) => user.mail === mail);
@@ -83,19 +83,9 @@ const Login = () => {
   const { users } = useSelector((state) => state.usersReducer);
   const { colorMode } = useColorMode();
 
-  const { googleId } = useParams();
-
   useEffect(() => {
     Object.entries(acount).length && navigate('/home');
   }, [acount]);
-
-  useEffect(() => {
-    if (googleId)
-      (async () => {
-        const res = await fetchUser(googleId);
-        dispatch(authAcountLocal(res));
-      })();
-  }, [googleId]);
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -262,7 +252,7 @@ const Login = () => {
             Continúa con Google
           </Button>
 
-          <Text alignSelf={'flex-end'} as="u" pr={'1rem'}>
+          <Text textAlign={'center'} as="u">
             <ForgotPassword />
           </Text>
 

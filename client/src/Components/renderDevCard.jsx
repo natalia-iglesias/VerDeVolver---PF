@@ -17,12 +17,12 @@ import { ExternalLinkIcon, CopyIcon } from '@chakra-ui/icons';
 
 function RenderDevCard({ dev }) {
   const { colorMode } = useColorMode();
-  const { name, img, linkedin, ig, mail } = dev;
+  const { name, img, linkedin, github, mail } = dev;
   return (
     <Card
-      bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
-      //border="solid 3px"
-      boxShadow="2xl"
+      borderRadius={'1rem'}
+      bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+      boxShadow="dark-lg"
       fontFamily="lato"
       w="20%"
       m="1vh"
@@ -37,7 +37,7 @@ function RenderDevCard({ dev }) {
         src={img}
         alt="Dev Photo"
         borderRadius="full"
-        boxSize="100px"
+        boxSize="120px"
         m="auto"
       />
       <CardHeader m="1px" p="1px" align="center">
@@ -46,14 +46,26 @@ function RenderDevCard({ dev }) {
 
       <CardBody mt="1px">
         <Stack divider={<StackDivider />} spacing="1">
-          <Link href={ig} isExternal m="auto">
-            Instagram <ExternalLinkIcon mx="2px" />
+          <Link
+            href={github}
+            isExternal
+            m="auto"
+            fontSize="130%"
+            fontFamily={'Tilt Prism'}
+          >
+            Github <ExternalLinkIcon mx="2px" />
           </Link>
-          <Link href={linkedin} isExternal m="auto">
+          <Link
+            href={linkedin}
+            isExternal
+            m="auto"
+            fontSize="130%"
+            fontFamily={'Tilt Prism'}
+          >
             LinkedIn <ExternalLinkIcon mx="2px" />
           </Link>
-          <Text pt="2" fontSize="md" m="auto">
-            {mail} <CopyIcon mx="2px" />
+          <Text pt="2" m="auto" fontSize="130%" fontFamily={'Tilt Prism'}>
+            {mail}
           </Text>
         </Stack>
       </CardBody>
