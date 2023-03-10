@@ -59,15 +59,15 @@ const setMp = async (body) => {
       },
     ],
     notification_url:
-      // 'https://verdevolver-pf-production.up.railway.app/donation/confirmationDonation',
-      'https://752c-181-166-141-30.sa.ngrok.io/donation/confirmationDonation',
+      'https://verdevolver-pf-production.up.railway.app/donation/confirmationDonation',
+    // 'https://752c-181-166-141-30.sa.ngrok.io/donation/confirmationDonation',
 
     back_urls: {
-      // success: 'https://ver-de-volver-pf-98gc.vercel.app/',
-      success: 'http://localhost:5173/',
+      success: 'https://ver-de-volver-pf-98gc.vercel.app/',
+      // success: 'http://localhost:5173/',
 
-      // failure: 'https://ver-de-volver-pf-98gc.vercel.app/',
-      failure: 'http://localhost:5173/',
+      failure: 'https://ver-de-volver-pf-98gc.vercel.app/',
+      // failure: 'http://localhost:5173/',
 
       pending: '',
     },
