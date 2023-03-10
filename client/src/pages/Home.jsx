@@ -165,7 +165,7 @@ const Home = () => {
                     // fontFamily={'Tilt Prism'}
                     textColor={colorMode === 'light' ? '#2c786c' : '#b4c4ac'}
                   >
-                    Colaborá con tu punto favorito!
+                    Colaborá con tu punto de reciclaje favorito!
                   </Text>
                   <Flex
                     // gap={'40%'}

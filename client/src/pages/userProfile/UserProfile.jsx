@@ -358,17 +358,16 @@ function UserProfile() {
                   >
                     {donations.length !== 0 ? (
                       donations.map(({ amount, date, VdV }) => (
-                        <Box>
-                          <HStack spacing="1rem">
+                        <Box w="100%">
+                          <HStack spacing="1rem" mb="1%">
                             <Avatar src={VdV.img} name={VdV.name} size="sm" />
-                            <Flex justifyContent="start" width="24vw">
-                              <Text>{VdV.name}</Text>
+                            <Text w={'80%'}>{VdV.name}</Text>
+
+                            <Flex justifyContent="center" width="10vw">
+                              <Text>$ {amount}</Text>
                             </Flex>
-                            <Flex justifyContent="start" width="10vw" ml="2rem">
-                              <Text>{amount}</Text>
-                            </Flex>
-                            <Flex justifyContent="flex-start" width="9vw">
-                              <Text>{date}</Text>
+                            <Flex justifyContent="center" w="100%" mr="10%">
+                              <Text ml="15%">{date}</Text>
                             </Flex>
                           </HStack>
                         </Box>
@@ -394,18 +393,19 @@ function UserProfile() {
                   >
                     {feedbacks.length !== 0 ? (
                       feedbacks.map(({ comment, rating, date, VdV }) => (
-                        <Box>
-                          <HStack spacing="1rem">
+                        <Box w="100%">
+                          <HStack spacing="1rem" w="100%" mb="1%">
                             <Avatar src={VdV.img} name={VdV.name} size="sm" />
+                            <Text w={'80%'}>{VdV.name}</Text>
                             <RankingStars stars={rating}></RankingStars>
-                            <Flex justifyContent="start" width="22vw">
-                              <Text>{comment}</Text>
-                            </Flex>
-                            <Flex justifyContent="flex-end" width="9vw">
+                            <Flex justifyContent="center" w="100%" mr="10%">
                               <Text>{date}</Text>
                             </Flex>
                           </HStack>
-                          <Text>{VdV.name}</Text>
+
+                          <Flex justifyContent="center" width="100%">
+                            <Text>{comment}</Text>
+                          </Flex>
                         </Box>
                       ))
                     ) : (
