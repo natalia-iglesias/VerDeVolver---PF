@@ -31,9 +31,10 @@ const Profile = () => {
       <Button
         bg={colorMode === 'light' ? '#F5F2EB' : '#68D391'}
         onClick={() => navigate('/login')}
+        fontSize="120%"
         fontFamily={'Tilt Prism'}
-        fontSize="xl"
-        color={colorMode === 'light' ? '#63d18d' : '#F5F2EB'}
+        color={colorMode === 'light' ? '#2c786c' : '#68D391'}
+        fontWeight={'normal'}
       >
         Iniciar Sesión
       </Button>
@@ -58,8 +59,8 @@ const Profile = () => {
           <MenuItem
             as={ReachLink}
             to={`/userprofile`}
-            fontWeight={'700'}
             color={colorMode === 'light' ? '#235B53' : '#68D391'}
+            fontSize="100%"
             fontFamily={'Tilt Prism'}
           >
             Mi perfil
@@ -68,8 +69,8 @@ const Profile = () => {
           <MenuItem
             as={ReachLink}
             to={`/entityprofile`}
-            fontWeight={'700'}
             color={colorMode === 'light' ? '#235B53' : '#68D391'}
+            fontSize="100%"
             fontFamily={'Tilt Prism'}
           >
             Mi perfil
@@ -79,8 +80,8 @@ const Profile = () => {
           <MenuItem
             as={ReachLink}
             to={`/dashboard`}
-            fontWeight={'700'}
             color={colorMode === 'light' ? '#235B53' : '#68D391'}
+            fontSize="100%"
             fontFamily={'Tilt Prism'}
           >
             Dashboard
@@ -90,7 +91,7 @@ const Profile = () => {
         <MenuItem
           as={ReachLink}
           to="/home"
-          fontWeight={'700'}
+          fontSize="100%"
           color={colorMode === 'light' ? '#235B53' : '#68D391'}
           onClick={() => dispatch(logoutAcount())}
           fontFamily={'Tilt Prism'}

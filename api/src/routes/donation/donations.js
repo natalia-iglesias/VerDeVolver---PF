@@ -10,9 +10,22 @@ const {
   getAll,
   getDonationsById,
   setMp,
+  deleteDonation,
 } = require('./controllers.js');
 
 const router = Router();
+
+router.delete('/:id', async (req, res) => {
+  console.log('HOLAAA');
+  const { id } = req.params;
+  console.log(id);
+  try {
+    await deleteDonation(id);
+    res.status(200).send('Eliminada donacion' + ' ' + +id);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
 
 router.post('/chargeDb', async (req, res) => {
   try {

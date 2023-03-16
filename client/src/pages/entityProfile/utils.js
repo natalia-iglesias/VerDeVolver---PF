@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {logoutAcount} from '../../redux/actions/acountActions';
+import { logoutAcount } from '../../redux/actions/acountActions';
 
 const deleteMaterial = (mat, materials, setInput) => {
   const newMaterials = materials.filter((eachMat) => eachMat.name !== mat);
@@ -20,45 +20,39 @@ const addMaterial = (e, materials, setInput) => {
   });
 };
 
-const updateVdV = (id, input) => {
+const updateVdV = async (id, input) => {
   try {
-    axios.get(`/material`).then((res) => {
-      let numArray = [];
+    const res = await axios.get(`http://localhost:3001/material`);
+    let numArray = [];
 
-      res.data.forEach((mat) => {
-        input.Materials.forEach((mat2) => {
-          if (mat.name == mat2.name) numArray.push(mat.id);
-        });
-      });
-      input.materials = numArray;
-
-      axios.put(`/vdv/${id}`, input).then(() => {
-        window.alert('Los cambios se han guardado exitosamente');
+    res.data.forEach((mat) => {
+      input.Materials.forEach((mat2) => {
+        if (mat.name == mat2.name) numArray.push(mat.id);
       });
     });
+    input.materials = numArray;
+
+    const resput = await axios.put(`http://localhost:3001/vdv/${id}`, input);
+
+    return resput.status;
   } catch (error) {
-    window.alert(error);
+    return '400';
   }
 };
 
 const updatePassword = async (id, password) => {
   try {
-    const res = await axios.put(
-      `/vdv/password/${id}`,
-      password
-    );
+    const res = await axios.put(`/vdv/password/${id}`, password);
     return res.data.id, res.status;
   } catch (error) {
     return 'No se ha actualizado la contraseña';
   }
 };
 
-const deleteVdV = (id, navigate, dispatch) => {
-  axios.delete(`/vdv/${id}`).then(() => {
-    window.alert('La entidad ha sido borrada');
-    dispatch(logoutAcount());
-    navigate('/home');
-  });
+const deleteVdV = async (id, navigate) => {
+  const res = await axios.delete(`http://localhost:3001/vdv/${id}`);
+  navigate('/home');
+  return res.status;
 };
 
 export { deleteMaterial, addMaterial, updateVdV, deleteVdV, updatePassword };

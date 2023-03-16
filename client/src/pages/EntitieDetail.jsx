@@ -60,7 +60,7 @@ const EntityDetail = () => {
 
   function containsBadWord(text) {
     for (let i = 0; i < badWords.length; i++) {
-      if (text.includes(badWords[i])) {
+      if (text.toUpperCase().includes(badWords[i].toUpperCase())) {
         return true;
       }
     }
@@ -313,32 +313,43 @@ const EntityDetail = () => {
                   alignItems="flex-start"
                 >
                   <Textarea
+                    shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
                     name="Review"
                     placeholder="Deja tu reseña"
                     type={'text'}
                     onChange={handleInputs}
                     borderRadius="1rem"
-                    borderColor="black"
                   />
                   <Button
                     onClick={handleComment}
                     w="30%"
                     colorScheme="green"
                     transition="1s"
+                    _hover={{
+                      transform: 'scale(1.03)',
+                      transition: 'transform 0.3s ease-in-out',
+                    }}
                   >
                     Comentar
                   </Button>
                 </VStack>
-                <VStack ml="1rem" display="flex" alignItems="flex-start">
+                <VStack
+                  display="flex"
+                  alignItems="flex-start"
+                  mt={'10%'}
+                  shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
+                  p="4%"
+                  borderRadius={'1rem'}
+                >
                   <InputGroup>
                     <InputLeftElement children={<MdOutlineAttachMoney />} />
                     <Input
+                      shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
                       name="Monto"
                       placeholder="Monto"
                       type={'number'}
                       onChange={handleInputs}
                       borderRadius="1rem"
-                      borderColor="black"
                       width="15vw"
                     />
                     <Button
@@ -346,6 +357,11 @@ const EntityDetail = () => {
                       colorScheme="green"
                       marginLeft="1vw"
                       transition="1s"
+                      _hover={{
+                        transform: 'scale(1.03)',
+                        transition: 'transform 0.3s ease-in-out',
+                      }}
+                      ml="5%"
                     >
                       Donar
                     </Button>

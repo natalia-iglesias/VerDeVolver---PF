@@ -86,18 +86,12 @@ const Dashboard = () => {
 
   const getUser = async () => {
     if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(emailUser)) {
-      const result = await axios.get(
-       
-        `/user/getByEmail/${emailUser}`
-      );
+      const result = await axios.get(`/user/getByEmail/${emailUser}`);
       const userEnv = result.data[0];
       console.log(roleSelect);
       userEnv
         ? await axios
-            .put(
-              
-              `/user/toowner/${userEnv.id}?roleId=${roleSelect}`
-            )
+            .put(`/user/toowner/${userEnv.id}?roleId=${roleSelect}`)
             .then(
               toast({
                 title: 'Success',
@@ -145,7 +139,6 @@ const Dashboard = () => {
         px="2rem"
         pos={'relative'}
         py="1.5rem"
-    
         boxShadow="dark-lg"
         direction="column"
         borderRadius={'1rem'}
@@ -190,7 +183,6 @@ const Dashboard = () => {
         py="1.5rem"
         px="2rem"
         backgroundColor={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
-       
         boxShadow="0 2px 5px rgba(0, 0, 0, 0.5)"
         direction="column"
         borderRadius={'1rem'}

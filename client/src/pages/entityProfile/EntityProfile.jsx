@@ -175,7 +175,28 @@ function EntityProfile() {
   const handleShowCBU = () => setShowCBU(!showCBU);
 
   const handleSaveChanges = () => {
-    updateVdV(acount?.id, input);
+    const responseHandle = async () => {
+      const res = await updateVdV(acount?.id, input);
+      if (res !== 200) {
+        return toast({
+          title: 'Error',
+          description:
+            'Ha ocurrido un error en el proceso de actualización de datos',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
+      } else {
+        return toast({
+          title: 'Datos actualizados',
+          description: 'Datos actualizados correctamente',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    };
+    responseHandle();
   };
 
   const handleCancelChanges = () => {
@@ -183,7 +204,28 @@ function EntityProfile() {
     setCBU(acount.cbu);
   };
   const handleDeleteEntity = () => {
-    deleteVdV(acount?.id, navigate, dispatch);
+    const deleteHandle = async () => {
+      const res = await deleteVdV(acount?.id, navigate);
+      if (res !== 200) {
+        return toast({
+          title: 'Error',
+          description:
+            'Ha ocurrido un error en el proceso de eliminacion de entidad',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
+      } else {
+        return toast({
+          title: 'Entidad eliminada',
+          description: 'La entidad se ha eliminado exitosamente',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    };
+    deleteHandle();
   };
 
   const handlePlaceSelected = (e) => {
