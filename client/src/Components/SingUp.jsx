@@ -116,7 +116,7 @@ const SingUp = () => {
         isClosable: true,
       });
     } else if (!Object.keys(errors).length) {
-      console.log(singUpData);
+      
       const res = await axios.post(`/user`, {
         ...singUpData,
       });

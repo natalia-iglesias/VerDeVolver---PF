@@ -59,7 +59,7 @@ const Entities = () => {
   return (
     <VStack
       bgImg={colorMode === 'light' ? lightModeBG : darkModeBG}
-      // bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+      
       pr={'3rem'}
     >
       <SearchBar

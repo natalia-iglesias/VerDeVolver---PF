@@ -93,7 +93,7 @@ const About = () => {
     >
       <Box
         bg={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
-        // bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+       
         boxShadow={'dark-lg'}
         borderRadius="lg"
         w={'90vw'}

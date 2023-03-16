@@ -7,7 +7,7 @@ export const GET_ENTITY_FEEDBACKS = 'GET_ENTITY_FEEDBACKS';
 export const GET_ENTITY_DONATION = 'GET_ENTITY_DONATION';
 export const CREATE_NEW_ENTITY = 'CREATE_NEW_ENTITY';
 export const GET_MATERIALS = 'GET_MATERIALS';
-// export const FILTER_BY_MATERIALS = 'FILTER_BY_MATERIALS';
+
 export const FILTER_ENTITIES_BY_MATERIAL = 'FILTER_ENTITIES_BY_MATERIAL';
 export const LIST_OF_MATERIALS_TO_FILTER = 'LIST_OF_MATERIALS_TO_FILTER';
 export const SORT_ENTITIES_BY_RANKING = 'SORT_ENTITIES_BY_RANKING';
@@ -85,7 +85,6 @@ export const getMaterials = () => {
   return async function (dispatch) {
     try {
       const response = await axios.get(`/material`);
-      //const materials = response.data.map((m) => m.name);---esto lo subio juan, lo dejamos comentado por si le servia para algo
 
       const materials = response.data;
       dispatch({ type: GET_MATERIALS, payload: materials });

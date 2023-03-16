@@ -16,7 +16,7 @@ require('./db.js');
 const server = express();
 server.name = 'API';
 
-//server.use(cors());
+
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
@@ -34,7 +34,7 @@ require('./authentication/index');
 server.use(passport.initialize());
 server.use(passport.session());
 
-//corse
+
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', 'true');
@@ -46,7 +46,7 @@ server.use((req, res, next) => {
   next();
 });
 
-// Configuracion de Passport.js
+
 passport.use(GoogleStrategy);
 passport.use(LocalStrategy);
 

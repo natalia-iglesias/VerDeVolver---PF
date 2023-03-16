@@ -9,16 +9,6 @@ const deleteUser = (id, navigate, dispatch) => {
   });
 };
 
-/*const deleteUser = (id, navigate, dispatch) => {
-  axios({
-      method: 'delete',   
-      url: `https://verdevolver-pf-production.up.railway.app/user/${id}`, 
-      withCredentials: false,
-    }).then(() => {
-      dispatch(logoutAcount());
-      navigate('/home');
-    });
-};*/
 
 const updateUser = async (id, input) => {
   try {

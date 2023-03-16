@@ -11,7 +11,7 @@ const Footer = () => {
         p="2rem"
         bg="#80808080"
         color={'white'}
-        // bottom={'0'}
+       
         position={'absolute'}
       >
         <Text fontSize="l">

@@ -35,7 +35,7 @@ import {
 } from '../redux/actions/entitiesActions';
 import CreateRating from '../Components/CreateRating';
 
-//axios.defaults.baseURL = 'http://localhost:3001/'
+
 
 const EntityDetail = () => {
   const { id } = useParams();
@@ -213,7 +213,7 @@ const EntityDetail = () => {
           p="6"
           rounded="md"
           minH="92vh"
-          // marginBottom="11vh"
+          
           backgroundColor={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
         >
           <Box

@@ -8,7 +8,6 @@ const {
 
 router.post('/', async (req, res) => {
   const { cbu, idVdV } = req.body;
-  // console.log(cbu, idVdV);
   try {
     await postCbuRequest(cbu, idVdV);
     res.status(200).send('Solicitud guardada');

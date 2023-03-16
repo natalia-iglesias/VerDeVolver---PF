@@ -21,7 +21,7 @@ import {
   vdvSearchDonation,
   optionsSelectArray,
 } from './DashboardFunctions';
-// import { useSelector } from 'react-redux';
+
 import axios from 'axios';
 
 const Dashboard = () => {
@@ -87,7 +87,7 @@ const Dashboard = () => {
   const getUser = async () => {
     if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(emailUser)) {
       const result = await axios.get(
-        // /user/getByEmail/${emailUser}`
+       
         `/user/getByEmail/${emailUser}`
       );
       const userEnv = result.data[0];
@@ -95,7 +95,7 @@ const Dashboard = () => {
       userEnv
         ? await axios
             .put(
-              //  /user/toowner/${userEnv.id}?roleId=${roleSelect}`
+              
               `/user/toowner/${userEnv.id}?roleId=${roleSelect}`
             )
             .then(
@@ -145,7 +145,7 @@ const Dashboard = () => {
         px="2rem"
         pos={'relative'}
         py="1.5rem"
-        // bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+    
         boxShadow="dark-lg"
         direction="column"
         borderRadius={'1rem'}
@@ -190,7 +190,7 @@ const Dashboard = () => {
         py="1.5rem"
         px="2rem"
         backgroundColor={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
-        // bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
+       
         boxShadow="0 2px 5px rgba(0, 0, 0, 0.5)"
         direction="column"
         borderRadius={'1rem'}
@@ -258,7 +258,7 @@ const Dashboard = () => {
           borderRadius={'2rem'}
           direction={'column'}
           mt={'10rem'}
-          // mb={'5rem'}
+          
           align="center"
         >
           <Heading fontWeight="bold" align="center" mb="1rem">
@@ -309,7 +309,7 @@ const Dashboard = () => {
           </Button>
         </Flex>
         <Flex
-          // m="2rem"
+          
           mt={'6rem'}
           shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
           borderRadius="1rem"

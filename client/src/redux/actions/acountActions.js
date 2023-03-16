@@ -53,7 +53,7 @@ const { setSessionAcount, getSessionAcount, removeSessionAcount } =
   };;
 
 export const LogedUser = () => {
-  ///////este tendria que funcionar para ambos despues de un pequeno cambio que le hice
+  
   return async function (dispatch) {
     try {
       const user = getLocalAcount() ?? getSessionAcount();
@@ -82,12 +82,12 @@ export const LogedUser = () => {
 
 export const authAcountGoogle = () => {
   window.location.href =
-    //https://ver-de-volver-pf-98gc.vercel.app/
+   
     'https://verdevolver-pf-production.up.railway.app/login/google';
 };
 
 export const logoutAcount = () => {
-  ///////este tendria que funcionar para ambos, entidades y users
+ 
   removeLocalAcount();
   removeSessionAcount();
   return { type: LOGOUT_ACOUNT, payload: {} };

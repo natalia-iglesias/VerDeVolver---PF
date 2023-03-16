@@ -87,7 +87,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
         borderColor="gray.300"
         placeholder="Selecciona un material"
         bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
-        //width="-moz-fit-content"
+
         width="14vw"
         onChange={(e) => handleClikMaterials(e)}
       >
@@ -99,9 +99,6 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
       </Select>
       {listOfMaterialsToFilterState?.map((mat, i) => {
         return (
-          // <Badge key={i} variant="solid" colorScheme="green">
-          //   {mat}
-          // </Badge>
           <Button
             key={i + 54618641635}
             value={mat}
@@ -120,7 +117,7 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
         onClick={(e) => {
           handleRanking(e);
         }}
-        //width="-moz-fit-content"
+       
         width="14vw"
       >
         <option value="none">Puntuación</option>

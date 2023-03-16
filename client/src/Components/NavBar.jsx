@@ -42,7 +42,7 @@ const Navbar = () => {
           as={ReachLink}
           to="/map"
           color={colorMode === 'light' ? '#2c786c' : '#68D391'}
-          // fontWeight="semibold"
+          
           fontSize="150%"
           fontFamily={'Tilt Prism'}
         >
@@ -52,7 +52,7 @@ const Navbar = () => {
         <ListItem color={colorMode === 'light' ? '#2c786c' : '#68D391'}>
           <Menu>
             <MenuButton
-              // fontWeight="semibold"
+              
               fontSize="150%"
               fontFamily={'Tilt Prism'}
             >
@@ -63,7 +63,7 @@ const Navbar = () => {
                 as={ReachLink}
                 to="/entities"
                 color={colorMode === 'light' ? '#2c786c' : '#68D391'}
-                // fontWeight="semibold"
+              
                 fontSize="150%"
                 fontFamily={'Tilt Prism'}
               >
@@ -73,7 +73,7 @@ const Navbar = () => {
                 as={ReachLink}
                 to="/beVdV"
                 color={colorMode === 'light' ? '#2c786c' : '#68D391'}
-                // fontWeight="semibold"
+                
                 fontSize="150%"
                 fontFamily={'Tilt Prism'}
               >
@@ -87,7 +87,7 @@ const Navbar = () => {
           <Menu>
             <MenuButton
               color={colorMode === 'light' ? '#2c786c' : '#68D391'}
-              // fontWeight="semibold"
+             
               fontSize="150%"
               fontFamily={'Tilt Prism'}
             >
@@ -98,7 +98,7 @@ const Navbar = () => {
                 as={ReachLink}
                 to="/about"
                 color={colorMode === 'light' ? '#2c786c' : '#68D391'}
-                // fontWeight="semibold"
+                
                 fontSize="150%"
                 fontFamily={'Tilt Prism'}
               >
@@ -108,7 +108,7 @@ const Navbar = () => {
                 as={ReachLink}
                 to="/contact"
                 color={colorMode === 'light' ? '#2c786c' : '#68D391'}
-                // fontWeight="semibold"
+                
                 fontSize="150%"
                 fontFamily={'Tilt Prism'}
               >

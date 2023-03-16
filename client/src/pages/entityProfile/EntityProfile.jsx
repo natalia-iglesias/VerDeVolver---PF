@@ -109,8 +109,7 @@ function EntityProfile() {
     value.length < 22 ? setErrorCBU('Faltan caracteres') : setErrorCBU('');
   };
 
-  // CBU repetido no me genera una nueva solicitud -> bien / Pero me manda los dos alert Mal
-  // CBU  no repetido -> hace post de soliciutd y cambio en el check del dashboard
+ 
 
   const handleButtonCBU = (e) => {
     const res = axios
@@ -349,7 +348,7 @@ function EntityProfile() {
                     </Text>
                   ) : (
                     <Button
-                      // variant={'outline'}
+                      
                       colorScheme={'green'}
                       mt="0.3rem"
                       display={'flex'}
@@ -422,7 +421,7 @@ function EntityProfile() {
                 <GridItem>
                   <ButtonGroup
                     mb={'7rem'}
-                    // variant={'outline'}
+                    
                     w="full"
                     justifyContent={'center'}
                     mt="1rem"
@@ -592,7 +591,7 @@ function EntityProfile() {
                             <Box
                               key={index}
                               w={'95%'}
-                              // h={'5rem'}
+                              
                               border={'solid 2px #233142'}
                               borderRadius={'10px'}
                             >
@@ -601,7 +600,7 @@ function EntityProfile() {
                                 <Flex direction={'column'} w="90%">
                                   <Flex
                                     justifyContent="space-around"
-                                    // border="solid 2px green"
+                                    
                                   >
                                     <Text>{User.name}</Text>
                                     <RankingStars stars={rating}></RankingStars>

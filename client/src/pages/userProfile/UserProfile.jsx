@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-//import OverflowScroll from '../../Components/OverFlowScroll/OverflowScroll.jsx';
+
 import { deleteUser, updateUser, updateUserPassword } from './utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -190,7 +190,7 @@ function UserProfile() {
               justifyContent="center"
               boxShadow="dark-lg"
               mb="2vh"
-              //pt="5vh"
+             
             >
               <Avatar
                 src={acount.image}
@@ -212,12 +212,7 @@ function UserProfile() {
             </Box>
           </Flex>
           <Grid templateColumns="repeat(2, 1fr)" gap={'2rem'}>
-            {/* <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-            > */}
+           
             <GridItem>
               <Flex
                 flexDirection="column"
@@ -289,7 +284,7 @@ function UserProfile() {
                 <UploadImage onUpload={handleUploadImage} value={input.image} />
 
                 <ButtonGroup
-                  // variant={'outline'}
+                 
                   w="full"
                   justifyContent={'center'}
                   mt="1rem"

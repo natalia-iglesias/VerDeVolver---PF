@@ -92,7 +92,7 @@ const Home = () => {
               align="center"
               mb="0.8rem"
               pt={'16rem'}
-              //p="0.7rem"
+              
               w={'28vw'}
               bg={colorMode === 'light' ? '#f5f2ebe9' : '#2d3748ed'}
               h="50rem"
@@ -110,7 +110,7 @@ const Home = () => {
                   style={{ transform: 'scale(2.1)' }}
                 />
                 <Text
-                  //top="0"
+                 
                   as="em"
                   fontSize={'5xl'}
                   fontWeight={'bold'}
@@ -121,7 +121,7 @@ const Home = () => {
                 </Text>
                 <Text
                   fontSize={'lg'}
-                  // fontWeight={'bold'}
+                 
                   pt={'0.6rem'}
                   pr="10%"
                   pl="10%"
@@ -160,37 +160,27 @@ const Home = () => {
                     fontSize={'4xl'}
                     fontWeight={'bold'}
                     fontFamily={'Tilt Prism'}
-                    // fontSize={'4xl'}
-                    // // fontWeight={'bold harine'}
-                    // fontFamily={'Tilt Prism'}
+                   
                     textColor={colorMode === 'light' ? '#2c786c' : '#b4c4ac'}
                   >
                     Colaborá con tu punto favorito!
                   </Text>
                   <Flex
-                    // gap={'40%'}
-                    // mt={'50rem'}
+                    
                     direction={'column'}
                     align="center"
-                    // border={'2px solid red'}
+                   
                     w="35rem"
-                    // justifyContent={'center'}
                   >
-                    {/* <InputGroup
-                    justifyContent={'center'}
-                    // pl="30%"
-                    // pr="30%"
-                  > */}
+                   
                     <Select
                       shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
                       placeholder="Puntos de reciclaje"
                       onChange={handleInputs}
                       name="entity"
-                      // borderWidth="0.2rem"
+                      
                       w={'50%'}
-                      // mr="10rem"
-
-                      // borderColor="gray.300"
+                    
                     >
                       {entities?.map(({ id, name }) => (
                         <option value={id} key={id}>
@@ -206,8 +196,7 @@ const Home = () => {
                       <Input
                         shadow={'0 5px 7px rgba(0, 0, 0, 0.5)'}
                         textAlign={'center'}
-                        // borderWidth="0.2rem"
-                        // borderColor="gray.300"
+                        
                         name="amount"
                         placeholder="Monto"
                         type="number"
@@ -215,12 +204,12 @@ const Home = () => {
                         w={'50%'}
                       />
                     </InputGroup>
-                    {/* </InputGroup> */}
+                   
                   </Flex>
                 </HStack>
                 <Grid placeItems="center">
                   <Button
-                    //bg={colorMode === 'light' ? '#2c835b' : '#212933'}
+                   
                     color="vdv.main"
                     colorScheme="green"
                     width="30%"
@@ -237,76 +226,7 @@ const Home = () => {
                 </Grid>
               </Stack>
             </Box>
-            {/* <Box
-              align="center"
-              w={'28vw'}
-              mb="0.8rem"
-              p="0.7rem"
-              pt={'16rem'}
-              bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
-              h="50rem"
-              borderRadius="1rem"
-              boxShadow="dark-lg"
-              _hover={{
-                transform: 'scale(1.02)',
-                transition: 'transform 0.3s ease-in-out',
-              }}
-            >
-              <Stack p={'8'}>
-                <HStack flexDir={'column'} gap="4">
-                  <Text
-                    fontSize={'3xl'}
-                    fontWeight={'bold'}
-                    fontFamily={'Tilt Prism'}
-                    textColor={colorMode === 'light' ? '#b4c4ac' : '#b4c4ac'}
-                  >
-                    Colaborá con tu punto favorito!
-                  </Text>
-                  <Select
-                    placeholder="Puntos de reciclaje"
-                    onChange={handleInputs}
-                    name="entity"
-                    w={'17vw'}
-                    borderWidth="0.2rem"
-                    borderColor="gray.300"
-                  >
-                    {entities?.map(({ id, name }) => (
-                      <option value={id} key={id}>
-                        {name}
-                      </option>
-                    ))}
-                  </Select>
-                  <InputGroup justifyContent={'center'} pl="12%" pr="12%">
-                    <InputLeftElement
-                      ml={'30%'}
-                      children={<MdOutlineAttachMoney />}
-                    />
-                    <Input
-                      textAlign={'center'}
-                      borderWidth="0.2rem"
-                      borderColor="gray.300"
-                      name="amount"
-                      placeholder="Monto"
-                      type="number"
-                      onChange={handleInputs}
-                    />
-                  </InputGroup>
-                </HStack>
-                <Grid placeItems="center">
-                  <Button
-                    //bg={colorMode === 'light' ? '#2c835b' : '#212933'}
-                    color="vdv.main"
-                    colorScheme="green"
-                    width="25%"
-                    onClick={handleDonate}
-                    mt="0.3rem"
-                  >
-                    Donar
-                  </Button>
-                </Grid>
-              </Stack>
-            </Box> */}
-
+           
             <Box
               align="center"
               alignContent={'center'}

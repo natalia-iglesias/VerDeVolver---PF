@@ -110,35 +110,6 @@ const EntityCard = ({ entity, acount }) => {
         </VStack>
       </CardBody>
 
-      {/* <CardFooter justifyContent="right">
-        <InputGroup size="md" w={'40%'}>
-          <InputLeftAddon
-            children="$"
-            borderWidth="0.2rem"
-            borderColor="gray.300"
-          />
-          <Input
-            borderWidth="0.2rem"
-            borderColor="gray.300"
-            pr="4.5rem"
-            type="number"
-            placeholder="Monto"
-            name="amount"
-            onChange={handleInputs}
-          />
-          <InputRightElement width="4.5rem">
-            <Button
-              onClick={handleButton}
-              h="1.75rem"
-              m="0.5rem"
-              size="sm"
-              colorScheme={'green'}
-            >
-              Donar
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-      </CardFooter> */}
     </Card>
   );
 };
